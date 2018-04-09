@@ -1074,6 +1074,7 @@
 <body>  
 <%
 response.sendRedirect("main.do");
+
 %>    
 <!--// WRAP -->
 </body>
