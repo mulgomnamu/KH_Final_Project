@@ -20,6 +20,20 @@ public class MediMemberController {
 	@Autowired
 	private MediMemberService mediMemberService;
 	
+	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String main(Model model) throws Exception{
+		logger.info("MediMemberController main " + new Date());
+		
+		return "main.tiles";
+	}
+
+	@RequestMapping(value="changeplz.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String changeplz(Model model) throws Exception{
+		logger.info("MediMemberController changeplz " + new Date());
+		
+		return "changeplz.tiles";
+	}
+	
 	@RequestMapping(value="test.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String test(Model model) throws Exception{
 		logger.info("MediMemberController test " + new Date());
