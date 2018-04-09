@@ -64,7 +64,7 @@
 		</ul>
 		<ul class="util_right">
 			<li>
-				<a href="#;">
+				<a href="test.do">
 					<em>로그인</em>
 				</a>
 			</li>
