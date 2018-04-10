@@ -17,8 +17,8 @@
 								</div>
 								<div class="btn_area">
 									<span class="login_btn">
-										<a href="javascript:cmc.util.loginPage();" class="btn-type02">
-											<em>로그인</em>
+										<a href="MyPage.do" class="btn-type02">
+											<em>로 그인</em>
 										</a>
 									</span>
 									<span class="join_btn">
