@@ -14,7 +14,7 @@
 				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
 			</div>
 			<!-- content 시작 -->
-			<div class="content">
+			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
 					<p>a</p><p>a</p><p>a</p><p>a</p><p>a</p><p>a</p><p>a</p>
