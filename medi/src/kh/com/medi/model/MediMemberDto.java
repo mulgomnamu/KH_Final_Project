@@ -10,6 +10,10 @@ public class MediMemberDto implements Serializable {
 	
 	public MediMemberDto() {
 	}
+	
+	public MediMemberDto(String id) {
+		this.id = id;
+	}
 
 	public String getId() {
 		return id;

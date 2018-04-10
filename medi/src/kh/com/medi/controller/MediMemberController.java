@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.service.MediMemberService;
 
 @Controller
@@ -47,12 +48,17 @@ public class MediMemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="idcheck.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String idcheck(Model model) throws Exception{
+	public String idcheck(Model model, String id) throws Exception{
 		logger.info("MediMemberController idcheck " + new Date());
+		System.out.println("controller까지 옴");
+		MediMemberDto dto = mediMemberService.idCheck(id);
+		if(dto != null) {
+			return "성공";
+		}else {
+			return "실패";
+		}
 		
 		
-		
-		return "joinMember.tiles";
 	}
 	
 	@RequestMapping(value="joinMember.do", method={RequestMethod.GET, RequestMethod.POST})

@@ -22,4 +22,10 @@ public class MediMemberDaoImpl implements MediMemberDao {
 		return sqlSession.selectList(ns+"test");
 	}
 
+	@Override
+	public MediMemberDto idCheck(String id) throws Exception {
+		MediMemberDto dto = sqlSession.selectOne(ns+"idcheck", id);
+		return dto;
+	}
+
 }
