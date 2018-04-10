@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="idcheck" resultType="kh.com.medi.model.MediMemberDto">
-		SELECT ID FROM MEMBER
+		SELECT ID FROM medi_member
 	</select>
 
 </mapper>
