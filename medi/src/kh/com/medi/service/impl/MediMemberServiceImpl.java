@@ -20,4 +20,10 @@ public class MediMemberServiceImpl implements MediMemberService {
 		return mediMemberDao.test();
 	}
 
+	@Override
+	public MediMemberDto idCheck(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return  mediMemberDao.idCheck(id);
+	}
+
 }
