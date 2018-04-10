@@ -20,7 +20,9 @@
 	<definition name="maplist.tiles" template="/WEB-INF/views/h_map/map.jsp">
 	</definition>
 	
-	
+	<!-- 마이페이지  -->
+	<definition name="MyPage.tiles" template="/WEB-INF/views/mypage/MyPage.jsp">
+	</definition>
 	
 	
 </tiles-definitions>
