@@ -35,7 +35,7 @@
 											</a>
 										</li>
 										<li class="chart">
-											<a href="/page/chart">
+											<a href="healthbook.do">
 												<p>스마트한 <span class="text_color-main">진료차트</span>로 건강을 관리하세요</p>
 											</a>
 										</li>
