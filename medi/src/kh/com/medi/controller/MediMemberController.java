@@ -25,6 +25,7 @@ public class MediMemberController {
 	public String main(Model model) throws Exception{
 		logger.info("MediMemberController main " + new Date());
 		
+		
 		return "main.tiles";
 	}
 
