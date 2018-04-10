@@ -32,7 +32,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#;">
+				<a href="joinMember.do">
 					<em>회원가입</em>
 				</a>
 			</li>

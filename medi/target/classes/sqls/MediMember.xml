@@ -7,5 +7,9 @@
 	<select id="test" resultType="kh.com.medi.model.MediMemberDto">
 		SELECT ID, PW ,NAME FROM TEST
 	</select>
+	
+	<select id="idcheck" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT ID FROM MEMBER
+	</select>
 
 </mapper>
