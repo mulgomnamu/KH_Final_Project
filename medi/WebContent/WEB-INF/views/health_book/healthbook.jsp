@@ -36,27 +36,17 @@
 						<option value="1920">1920</option>			  
 						<option value="1921">1921</option>
 						<option value="1922">1922</option>
-					  
 						<option value="1923">1923</option>
-					  
-						<option value="1924">1924</option>
-					  
-						<option value="1925">1925</option>
-					  
-						<option value="1926">1926</option>
-					  
-						<option value="1927">1927</option>
-					  
-						<option value="1928">1928</option>
-					  
-						<option value="1929">1929</option>
-					  
-						<option value="1930">1930</option>
-					  
-						<option value="1931">1931</option>
-					  
+						<option value="1924">1924</option>				  
+						<option value="1925">1925</option>				  
+						<option value="1926">1926</option>				  
+						<option value="1927">1927</option>				  
+						<option value="1928">1928</option>				  
+						<option value="1929">1929</option>				  
+						<option value="1930">1930</option>				  
+						<option value="1931">1931</option>			  
 						<option value="1932">1932</option>
-					  
+					 <!--  아 못해먹겠네 -->
 						<option value="1933">1933</option>
 					  
 						<option value="1934">1934</option>
@@ -343,7 +333,7 @@
 			<br>
 			
 			<tr>
-				<th scope="row"><label for="inp2">출생시&nbsp; 체중&nbsp;:</label></th>
+				<th scope="row"><label for="inp2">체중&nbsp;:</label></th>
 				<td>
 					<input type="text" name="weight" id="weight" size="8" value="" maxlength="4" onkeydown="return numberOnly2(event);"> kg
 				</td>
@@ -368,17 +358,12 @@
 					<input type="radio" name="sex" value="w">여자
 				</td>
 			</tr>
-			<br>
+	
 			
-			<tr>
-				<th scope="row"><label for="inp9">출 &nbsp;&nbsp;&nbsp;생&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지 : </label></th>
-				<td>
-					<input type="text" name="birthplace" id="inp9" value>
-				</td>
-			</tr>
-		</tbody>
 		
-		<div class="align_rt mar_tp20"><input type="button" class="button" value="저장" onclick="healthInfoSave();"></div>
+		</tbody>
+		<br><br><br>
+		<div class="align_rt mar_tp20"><input type="button" class="button" value="저 장" onclick="healthInfoSave();"></div>
 
               
 			                </div>
