@@ -10,8 +10,8 @@
 		<put-attribute name="footer" value="/WEB-INF/include/footer.jsp"/>
 	</definition>
 	
-	<definition name="changeplz.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/changeplz/changeplz.jsp"/>
+	<definition name="appointment.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/appointment/appointment.jsp"/>
 		<!-- 서브 페이지는 subfooter 써야해요 -->
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>

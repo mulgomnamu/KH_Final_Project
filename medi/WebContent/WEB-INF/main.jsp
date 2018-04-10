@@ -107,7 +107,7 @@
 									</a>
 								</span>
 								<span class="nomember_btn">
-									<a href="changeplz.do" class="btn-type02">
+									<a href="appointment.do" class="btn-type02">
 										<em>방문진료예약</em>
 									</a>
 								</span>
