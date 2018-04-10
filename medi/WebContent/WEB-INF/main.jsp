@@ -22,7 +22,7 @@
 										</a>
 									</span>
 									<span class="join_btn">
-										<a href="/page/member/join/select" class="btn-type02">
+										<a href="join_h.do" class="btn-type02">
 											<em>회원가입</em>
 										</a>
 									</span>
