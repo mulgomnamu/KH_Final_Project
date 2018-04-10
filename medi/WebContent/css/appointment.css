@@ -1,0 +1,42 @@
+@charset "UTF-8";
+.wrap_sample {
+    width:150px;
+    height:150px;
+    background:#ddd;
+    position:relative;
+    overflow:hidden;
+}
+#slide_sample {
+    width:150px;
+    height:150px;
+    position:absolute;
+    right:-150px;
+    background:#aaa;
+    transition:.5s
+}
+.wrap_sample:hover #slide_sample {
+    right:0;
+    transition:.5s;
+}
+	#slidebox {
+		position:relative;
+		width:300px;
+		height:200px;
+		overflow:hidden;
+		white-space:nowrap;
+		border:1px solid #000;
+	}
+	#slidebox ul#slider {
+		list-style:none;
+		margin:0;
+		padding:0;
+	}
+	#slidebox ul li {
+		position:absolute;
+		width:300px;
+		height:300px;
+	}
+	#slidebox ul li img {
+		width:300px;
+		height:200px;
+	}
