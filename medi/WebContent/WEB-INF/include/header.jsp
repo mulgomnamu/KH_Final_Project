@@ -73,12 +73,12 @@
 							<!-- 메뉴 추가시 여기부터 -->
 							<li>
 								<div class="d_btn_1">
-									<a href="#;" target="_self"><em>내 근처 병원</em></a>
+									<a href="maplist.do" target="_self"><em>내 근처 병원</em></a>
 								</div>
 								<div class="d_2">
 									<ul>
 										<li>
-											<a href="#;" target="_self"><em>내 근처 병원</em></a>
+											<a href="maplist.do" target="_self"><em>내 근처 병원</em></a>
 										</li>
 									</ul>
 								</div>
