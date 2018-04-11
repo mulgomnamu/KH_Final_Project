@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div id="container" class="hospitalguide">
 	<!-- 1뎁스명 클래스 -->
 	<div class="login">
@@ -29,7 +29,7 @@
 					class="form-control" id="name" placeholder="name" required="">
 <br>
 				EMAIL:<input name="email" type="email" class="form-control" id="email"
-					placeholder="email" required=""> <br>
+					placeholder="email" required=""><input type="button" name="emailpass" value="email인증" onclick="emailcheck()"> <br>
 				BIRTH:<input name="birth" type="date" class="form-control" id="birth" value="birth"
 					title="birth" placeholder="birth" required=""><br> 
 				TEL:<input type="tel" name="phone" id="phone" title="phone number"
@@ -37,7 +37,7 @@
 					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
 					required=""> <br>
 				POST:<input type="text" id="sample4_postcode"
-					placeholder="우편번호" required=""> <br>
+					placeholder="우편번호" required="">
 				<input type="button"
 					onclick="sample4_execDaumPostcode()" value="주소검색" required=""><br>
 				<input type="text" id="sample4_roadAddress" name="addr1"
@@ -58,6 +58,11 @@
 	<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
 </div>
+<script type="text/javascript">
+function emailcheck(){
+	alert("인증");
+}
+</script>
 
 <script type="text/javascript">
 //전화번호 형식검사 스크립트
@@ -133,36 +138,36 @@ $(document).ready(function(){
         if ( $('#id').val().length > 0) {
         	console.log("3");
             var id = $(this).val();
-            var url = "idCheck.do";
+            var url = "idcheck.do";
             // ajax 실행
             $.ajax({
                 type : "GET",
                 url : url,
                 data:"id=" + $('#id').val(),
-                /* {id: id}, */
                 success : function(data) {
                     console.log("4");
-                    console.log(data.trim());
-                    var str = data.trim();
-                   	var sNumber = str.indexOf("ok");
-                    var result = str.substring(sNumber, sNumber+2);
+                    console.log("data = "+data);
+                 
                   	//$("#result_id_msg").html(result);
-                    if(result == "ok"){
-                    	console.log("5");
-    					$("#result_id_msg").css("color", "#0000ff");
-    					$("#result_id_msg").text("사용할 수 있는 id입니다");
-    					$("#result_id_msg").prop("disabled", false);
+                    /* if(data != "??"){
+                    	
     					
-    				}else {
+    				} */
+					if(data == "??") {
     					console.log("6");
     					$("#result_id_msg").css("color", "#ff0000");
     					$("#result_id_msg").text("사용 중인 id입니다");	
     					$("#result_id_msg").prop("disabled", true);
     					
     					
-    				}
+    				} 
                     
-                }
+                },error : function() {
+                	console.log("5");
+					$("#result_id_msg").css("color", "#0000ff");
+					$("#result_id_msg").text("사용할 수 있는 id입니다");
+					$("#result_id_msg").prop("disabled", false);
+				}
             }); // end ajax
         }
     }); // end keyup

@@ -39,4 +39,10 @@ public class MediMemberDto implements Serializable {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "MediMemberDto [id=" + id + ", pw=" + pw + ", name=" + name + "]";
+	}
+	
+
 }

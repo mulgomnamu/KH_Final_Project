@@ -52,10 +52,13 @@ public class MediMemberController {
 		logger.info("MediMemberController idcheck " + new Date());
 		System.out.println("controller까지 옴");
 		MediMemberDto dto = mediMemberService.idCheck(id);
-		if(dto != null) {
-			return "성공";
+/*		System.out.println("dto.toString() =  " + dto.toString());*/
+		if(dto.getId() != null) {
+			String str = "성공";
+			return str;
 		}else {
-			return "실패";
+			String str = "실패";
+			return str;
 		}
 		
 		
