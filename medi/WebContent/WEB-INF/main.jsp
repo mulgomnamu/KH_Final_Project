@@ -18,11 +18,11 @@
 								<div class="btn_area">
 									<span class="login_btn">
 										<a href="MyPage.do" class="btn-type02">
-											<em>로 그인</em>
+											<em>로그인</em>
 										</a>
 									</span>
 									<span class="join_btn">
-										<a href="join_h.do" class="btn-type02">
+										<a href="selectJoin.do" class="btn-type02">
 											<em>회원가입</em>
 										</a>
 									</span>

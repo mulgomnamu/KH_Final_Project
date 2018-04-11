@@ -4,4 +4,9 @@
 
 <mapper namespace="MediMember_h">
 
+	<insert id="addMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
+		INSERT INTO `medi`.`medi_hospital` (`id`, `pwd`, `name`, `tel`, `post`, `address`, `map`, `email`, `question`, `answer`, `confirm_img`, `info`, `del`, `regdate`) 
+		VALUES (#{id}, #{pwd}, #{name}, #{tel}, #{post}, #{address}, #{map}, #{email}, #{question}, #{answer}, #{confirm_img}, #{info}, #{del}, now())
+	</insert>
+
 </mapper>

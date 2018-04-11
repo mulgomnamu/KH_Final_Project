@@ -25,5 +25,12 @@ public class MediMember_hController {
 		
 		return "join_h.tiles";
 	}
+	
+	@RequestMapping(value="join_hAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String join_hAf() {
+		logger.info("MediMember_hController join_hAf " + new Date());
+		
+		return "main.tiles";
+	}
 
 }
