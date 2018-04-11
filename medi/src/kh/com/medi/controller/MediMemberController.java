@@ -29,6 +29,13 @@ public class MediMemberController {
 		
 		return "main.tiles";
 	}
+	
+	@RequestMapping(value="selectJoin.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String selectJoin() throws Exception{
+		logger.info("MediMemberController selectJoin " + new Date());
+		
+		return "selectJoin.tiles";
+	}
 
 	@RequestMapping(value="changeplz.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String changeplz(Model model) throws Exception{

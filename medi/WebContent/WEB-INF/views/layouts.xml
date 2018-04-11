@@ -15,6 +15,10 @@
 		<!-- 서브 페이지는 subfooter 써야해요 -->
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<definition name="selectJoin.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/selectJoin.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
 <!-- 회원가입(병원) -->
 	<definition name="join_h.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member_h/join.jsp"/>
