@@ -69,13 +69,13 @@
 	</header>
 	<!-- header 끝  -->
 	
+	<!-- map -->
 	<div class="mapWrap">
 		<div class="mapContainer">
 			<div class="maparea">
-				<div id="fullmap" style="width:100%;height:100%;">
+				<div id="fullmap" style="width:100%;height:100%;"></div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<script>
 		function initMap() {
@@ -91,6 +91,26 @@
 		}
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS-kA70GhIwstJM_0pRT4kO6AM7wx8lEc&callback=initMap"></script>
+    
+	<!-- 게시판 list -->
+    <div class="mapbbslist">
+    	<div>
+    		<form>
+    			<input type="text" name="keyword">
+    			<input type="submit" value="검색" class="mapbbsbtn">
+    		</form>
+    	</div>
+    	<ul>
+    		<li>
+    			<a href="#;">
+    				<div><img src="" alt=""></div>
+    				<p>병원 명</p>
+    			</a>
+    		</li>
+    	</ul>
+    </div>
+    
+    
 </div>
 
 
