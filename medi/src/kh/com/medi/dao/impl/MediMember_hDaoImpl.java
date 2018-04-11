@@ -21,4 +21,10 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 		return n > 0;
 	}
 
+	@Override
+	public boolean checkId(MediMember_hDto dto_h) {
+		int n = sqlSession.selectOne(ns+"checkId_h", dto_h);
+		return n > 0;
+	}
+
 }

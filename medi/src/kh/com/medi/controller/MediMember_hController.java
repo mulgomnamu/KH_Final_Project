@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.service.MediMember_hService;
 
 @Controller
@@ -31,6 +33,14 @@ public class MediMember_hController {
 		logger.info("MediMember_hController join_hAf " + new Date());
 		
 		return "main.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="checkId_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String checkId_h(MediMember_hDto dto_h) {
+		logger.info("MediMember_hController checkId_h " + new Date());
+		
+		return (mediMember_hService.checkId(dto_h))+"";
 	}
 
 }

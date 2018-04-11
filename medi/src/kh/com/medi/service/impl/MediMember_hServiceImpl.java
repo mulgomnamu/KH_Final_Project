@@ -18,4 +18,9 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 		return mediMember_hDao.addMember_h(dto_h);
 	}
 
+	@Override
+	public boolean checkId(MediMember_hDto dto_h) {
+		return mediMember_hDao.checkId(dto_h);
+	}
+
 }
