@@ -36,8 +36,8 @@
 					placeholder="000-0000-0000"
 					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
 					required=""> <br>
-				POST:<input type="text" id="sample4_postcode"
-					placeholder="우편번호" required="">
+				POST:<input type="text" id="sample4_postcode" placeholder="우편번호" required="">
+				
 				<input type="button"
 					onclick="sample4_execDaumPostcode()" value="주소검색" required=""><br>
 				<input type="text" id="sample4_roadAddress" name="addr1"
