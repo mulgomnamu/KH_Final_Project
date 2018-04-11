@@ -4,6 +4,6 @@ import kh.com.medi.model.MediHealthBookDto;
 
 public interface MediHealthBookDao {
 	
-	boolean Healthmain(MediHealthBookDto healthbook) throws Exception;
+	public boolean Healthmain(MediHealthBookDto healthbook) throws Exception;
 
 }

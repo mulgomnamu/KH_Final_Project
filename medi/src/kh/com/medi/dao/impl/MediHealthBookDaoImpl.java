@@ -18,6 +18,6 @@ public class MediHealthBookDaoImpl implements MediHealthBookDao {
 	@Override
 	public boolean Healthmain(MediHealthBookDto healthbook) throws Exception {
 		int n = sqlSession.insert(ns+"Healthmain", healthbook);
-		return true;
+		return n>0? true:false;
 	}
 }

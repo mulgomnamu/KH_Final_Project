@@ -415,6 +415,7 @@
 	<h1 class="mar_tp20">정확히 입력해주십시오. 신체발육과 예방접종의 참고가 됩니다.</h1>
 	<div class="align_rt mar_tp20"><input type="button" class="button" value="저장" onclick="healthInfoSave();"></div>
 </div>
+d
 
 <div class="sub26_con_bm_bg_foot"></div>
 
@@ -491,8 +492,8 @@ function healthInfoSave(){
 		}
 	}
 
-	fm.target = "mainfrm";
-	fm.action = "healthbook.do";
+	fm.target = "main";
+	fm.action = "healthbookAf.do";
 	fm.submit();
 }
 /* function list_view(idx) {

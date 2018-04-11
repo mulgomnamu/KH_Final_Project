@@ -13,6 +13,10 @@ public class MediHealthBookDto implements Serializable {
 	private String bloodtype;
 	private String allergy;
 	
+	public MediHealthBookDto() {
+		
+	}
+	
 	
 	public MediHealthBookDto(int seq, int mem_seq, String birth, String gender, int height, int weight,
 			String bloodtype, String allergy) {

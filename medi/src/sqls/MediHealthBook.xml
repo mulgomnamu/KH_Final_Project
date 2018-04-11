@@ -6,10 +6,8 @@
 
 <insert id="Healthmain" parameterType="kh.com.medi.model.MediHealthBookDto">
 	INSERT INTO medi_health_book
-	(SEQ, birth, gender, height, weight, bloodtype, allergy) 
-	VALUES(medi_health_book_SEQ.NEXTVAL,#{birth},#{gender},#{height},
-			#{weight},#{bloodtype},#{allergy})
+	(mem_seq, birth, gender, height, weight, bloodtype, allergy) 
+	VALUES(#{mem_seq},#{birth},#{gender},#{height},#{weight},#{bloodtype},#{allergy})
 </insert>
 
-	
 </mapper>
