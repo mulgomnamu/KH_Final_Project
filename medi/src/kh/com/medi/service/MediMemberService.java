@@ -7,5 +7,6 @@ import kh.com.medi.model.MediMemberDto;
 public interface MediMemberService {
 	
 	public List<MediMemberDto> test() throws Exception;
+	public MediMemberDto idCheck(String id) throws Exception;
 
 }

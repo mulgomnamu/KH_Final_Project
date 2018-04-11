@@ -15,12 +15,29 @@
 		<!-- 서브 페이지는 subfooter 써야해요 -->
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<definition name="join_h.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/join.jsp"/>
+	</definition>
+	
+	<definition name="joinMember.tiles" extends="appointment.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member/joinMember.jsp"/>
+		
+	</definition>
 	
 	<!-- 병원 지도 리스트 시작 -->
 	<definition name="maplist.tiles" template="/WEB-INF/views/h_map/map.jsp">
 	</definition>
 	
+	<!-- 마이페이지  -->
+	<definition name="MyPage.tiles" template="/WEB-INF/views/mypage/MyPage.jsp">
+	</definition>
 	
+	<!-- 건강 수첩 -->
+	<definition name="healthbook.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/health_book/healthbook.jsp"/>
+		<!-- 서브 페이지는 subfooter 써야해요 -->
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
 	
 	
 </tiles-definitions>
