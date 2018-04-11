@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediHealthBookDao;
+import kh.com.medi.model.MediHealthBookDto;
 @Repository
 public class MediHealthBookDaoImpl implements MediHealthBookDao {
 
@@ -13,4 +14,10 @@ public class MediHealthBookDaoImpl implements MediHealthBookDao {
 	SqlSessionTemplate sqlSession;
 	
 	private String ns = "HealthBook.";
+
+	@Override
+	public boolean Healthmain(MediHealthBookDto healthbook) throws Exception {
+		int n = sqlSession.insert(ns+"Healthmain", healthbook);
+		return true;
+	}
 }

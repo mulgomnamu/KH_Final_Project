@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MediHealthBookController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MediAppointmentController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MediHealthBookController.class);
 	
 	@Autowired
 	private MediHealthBookController mediHealthBookController;
 	
 
 	@RequestMapping(value="healthbook.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String changeplz(Model model) throws Exception{
+	public String Healthmain(Model model) throws Exception{
 		logger.info("MediHealthBookController healthbook " + new Date());
 		
 		return "healthbook.tiles";
