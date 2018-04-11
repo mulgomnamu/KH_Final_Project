@@ -26,17 +26,23 @@
 <!-- 복붙끝 -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>병원 지도로 보기</title>
+<style type="text/css">
+.mapWrap{width:100%; min-height:600px; overflow:hidden;}
+.mapContainer{position:absolute;left:0;right:0;bottom:0;top:60px;width:100%;}
+.maparea{position:absolute;left:0;top:0;right:0;bottom:0;}
+#fullmap {position:absolute; width:100%; height:100%; padding:0; }
+</style>
 </head>
-<body class="layout-member">
+<body class="layout-member" style="position:absolute;width:100%;height:100%;">
 <div id="skipnavigation">
     <ul>
         <li><a href="#container">본문 바로가기</a></li>
         <li><a href="#gnb">주 메뉴 바로가기</a></li>
     </ul>
 </div>
-<div id="wrap">
+<div id="wrap" style="min-height:100%;">
 	<!-- header 시작 -->
-	<header id="header_wrap_sub">
+	<header id="header_wrap_sub" style="position:unset;">
 		<div class="inner">
 			<h1 class="logo">
 				<a href="#;"><em class="blind">가톨릭대학교 서울성모병원</em></a>
@@ -61,8 +67,32 @@
 			</div>
 		</div>
 	</header>
-	<!-- header 끝 -->
+	<!-- header 끝  -->
+	
+	<div class="mapWrap">
+		<div class="mapContainer">
+			<div class="maparea">
+				<div id="fullmap" style="width:100%;height:100%;">
+			</div>
+		</div>
+	</div>
+	</div>
+	<script>
+		function initMap() {
+			var uluru = {lat: -25.363, lng: 131.044};
+			var map = new google.maps.Map(document.getElementById('fullmap'), {
+				zoom: 4,
+				center: uluru
+			});
+			var marker = new google.maps.Marker({
+				position: uluru,
+				map: map
+			});
+		}
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS-kA70GhIwstJM_0pRT4kO6AM7wx8lEc&callback=initMap"></script>
 </div>
+
 
 </body>
 </html>
