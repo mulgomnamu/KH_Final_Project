@@ -40,3 +40,21 @@
 		width:300px;
 		height:200px;
 	}
+.select_list_wrap{
+	overflow:auto; 
+	width: 820px; 
+	height: 500px;
+}
+.select_list_wrap ul{
+	list-style-type: none;
+}
+.select_list_wrap table tr{
+	list-style-type: none;
+}
+.select_list_wrap table tr td ul li{
+	float: left;
+	margin-left: 25px;
+}
+.select_list_wrap table tr td ul li a{
+	cursor: pointer;
+}

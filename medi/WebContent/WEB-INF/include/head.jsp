@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="css/main.css"/>
 <link rel="stylesheet" type="text/css" href="css/ui_common.css"/>
 <link rel="stylesheet" type="text/css" href="css/sub.css"/>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.02"/>
 <!-- <script type="text/javascript" src="js/mainSlide.js"></script>
 <script src="plugin/jquery-1.11.1.min.js"></script>
 <script src="plugin/jquery.bxslider.js"></script>
