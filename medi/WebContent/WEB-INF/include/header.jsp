@@ -1,5 +1,18 @@
+<%@page import="kh.com.medi.model.MediMemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
+<%
+		MediMemberDto user = null;
+
+		if((MediMemberDto)request.getAttribute("dto") != null){
+			user = (MediMemberDto)request.getAttribute("dto");
+		}else if((MediMemberDto)session.getAttribute("login") != null){
+			user = (MediMemberDto)session.getAttribute("login");
+		}
+
+%>
 
 <div class="header_util">
 	<div class="inner">
@@ -26,8 +39,11 @@
 			</li>
 		</ul>
 		<ul class="util_right">
+			<%
+			if(user == null){
+			%>
 			<li>
-				<a href="test.do">
+				<a href="login.do">
 					<em>로그인</em>
 				</a>
 			</li>
@@ -36,6 +52,23 @@
 					<em>회원가입</em>
 				</a>
 			</li>
+			<%
+			}else{
+			%>
+			<li>
+				<a href="login.do">
+					<em>정보수정</em>
+				</a>
+			</li>
+			<li>
+				<a href="logout.do">
+					<em>로그아웃</em>
+				</a>
+			</li>
+			<%
+			}
+			%>
+			
 		</ul>
 	</div>
 </div>
@@ -59,12 +92,12 @@
 							<!-- 메뉴 추가시 여기부터 -->
 							<li>
 								<div class="d_btn_1">
-									<a href="#;" target="_self"><em>병원 찾기</em></a>
+									<a href="hbbslist.do" target="_self"><em>병원 찾기</em></a>
 								</div>
 								<div class="d_2">
 									<ul>
 										<li>
-											<a href="#;" target="_self"><em>병원 찾기</em></a>
+											<a href="hbbslist.do" target="_self"><em>병원 찾기</em></a>
 										</li>
 									</ul>
 								</div>

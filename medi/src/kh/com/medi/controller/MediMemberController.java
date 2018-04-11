@@ -1,6 +1,10 @@
 package kh.com.medi.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,35 +40,48 @@ public class MediMemberController {
 		
 		return "selectJoin.tiles";
 	}
-
-	@RequestMapping(value="changeplz.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String changeplz(Model model) throws Exception{
-		logger.info("MediMemberController changeplz " + new Date());
+	
+	@RequestMapping(value="login.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String login(Model model, MediMemberDto dto) throws Exception{
+		logger.info("MediMemberController login " + new Date());
 		
-		return "changeplz.tiles";
+		
+		return "login.tiles";
 	}
 	
-	@RequestMapping(value="test.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String test(Model model) throws Exception{
-		logger.info("MediMemberController test " + new Date());
+	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String loginAf(Model model, MediMemberDto dto, HttpServletRequest req) throws Exception{
+		logger.info("MediMemberController loginAf " + new Date());
 		
-		model.addAttribute("test", mediMemberService.test());
+		MediMemberDto b = mediMemberService.loginAf(dto);
+		if(b != null && !b.getId().equals("")) {
+			req.getSession().setAttribute("login", dto);
+			System.out.println("2");
+			return "redirect:/main.do";
+		}else {
+			System.out.println("3");
+			return "login.tiles";	//그냥 몸만 감
+			//return "forward:/login.do";	//데이터도 가지고 감 
+		}
 		
-		return "home";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="idcheck.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String idcheck(Model model, String id) throws Exception{
 		logger.info("MediMemberController idcheck " + new Date());
+		String str = "";
 		System.out.println("controller까지 옴");
 		MediMemberDto dto = mediMemberService.idCheck(id);
+		//System.out.println(dto.getId() + "!!!");
+/*		System.out.println("dto.toString() =  " + dto.toString());*/
 		if(dto != null) {
-			return "성공";
-		}else {
-			return "실패";
+			str = "ok";
+			
+		}else if(dto == null)  {
+			str = "no";
 		}
-		
+		return str;
 		
 	}
 	
@@ -74,5 +91,30 @@ public class MediMemberController {
 		
 		return "joinMember.tiles";
 	}
+	
+	@RequestMapping(value="joinMemberAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String joinMemberAf(Model model, MediMemberDto dto, HttpServletRequest resq) throws Exception{
+		logger.info("MediMemberController joinMemberAf " + new Date());
+		
+		dto.setPwd(resq.getParameter("password1"));
+		dto.setAddress(resq.getParameter("addr1") + " " + resq.getParameter("addr2"));
+		
+		boolean flag = mediMemberService.insertMember(dto);
+		
+		if(flag) {
+			return "redirect:/main.do";
+		}else {
+			return "redirect:/joinMember.do";
+		}
+		
+	}
+	
+	@RequestMapping(value="logout.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String logout(Model model) throws Exception{
+		logger.info("MediMemberController logout " + new Date());
+		
+		return "logout.tiles";
+	}
+	
 
 }

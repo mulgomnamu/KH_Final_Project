@@ -170,7 +170,7 @@
 .join_terms .cont_box-terms {padding-top:40px;}
 .join_terms .cont_box-total_check {margin-top:60px;}
 
-.login .inner_flogin {overflow:hidden;width:1180px;margin:0 auto;padding:40px 80px 58px 180px;background:#fff;box-sizing:border-box;}
+.login .inner_flogin {overflow:hidden;width:1180px;margin:0 auto;background:#fff;box-sizing:border-box;}
 .login .inner_flogin .text_area,
 .inner_flogin .text_btn_area {float:left}
 .login .inner_flogin .text_area {overflow:hidden;width:420px;margin-right:179px;padding-top:30px;}
@@ -205,3 +205,21 @@
 .login .member_find .find_box strong {display:block;margin-bottom:10px;font-size:18px;/*color:#333;*/color:#000;font-weight:800}
 .login .member_find .find_box p {line-height:1.2}.login .find_box .btn-text_link {margin:13px 0 0 0}
 .login .inner_flogin .fl_box .btn-text_link{margin-left:0px; margin-top:5px;}
+
+/* 전체병원 list css */
+.hbbsbox{background-color:#fff; border:1px solid #d7d7d7; border-bottom:1px solid #e1e1e1; overflow:hidden; border-radius:7px; width:280px; float:left; margin-right:15px; margin-bottom:20px;}
+.hbbsbox:nth-child(4n){margin-right:0;}
+.hbbssum{width:100%; overflow:hidden;}
+.hbbssum img{width:100%; height:auto; border:0; display:block; vertical-align:top;}
+.hbbscontent{padding:20px;}
+.hbbscontent h4{font-size:16px; font-weight:bold;}
+.hbbscontent .subinfo{font-size:14px; margin-top:3px;}
+.hbbsbottom{background-color:#f8f8f8; height:42px; line-height:42px; border-top:1px solid #ebebeb; padding:0 20px; font-size:12px;}
+.hbbsbottom img{width:10px; opacity:0.5; margin-top:13px; }
+.hbbsbottom p{display:inline-block; margin-left:7px;}
+
+
+
+
+
+
