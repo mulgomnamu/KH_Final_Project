@@ -26,4 +26,16 @@ public class MediMemberServiceImpl implements MediMemberService {
 		return  mediMemberDao.idCheck(id);
 	}
 
+	@Override
+	public boolean insertMember(MediMemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.insertMember(dto);
+	}
+
+	@Override
+	public MediMemberDto loginAf(MediMemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.loginAf(dto);
+	}
+
 }

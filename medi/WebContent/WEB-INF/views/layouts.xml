@@ -10,24 +10,38 @@
 		<put-attribute name="footer" value="/WEB-INF/include/footer.jsp"/>
 	</definition>
 	
+	<!-- 진료예약 -->
 	<definition name="appointment.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/appointment/appointment.jsp"/>
 		<!-- 서브 페이지는 subfooter 써야해요 -->
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	
+	<!-- 회원가입 눌렀을때 병원, 사용자 구분 -->
 	<definition name="selectJoin.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/selectJoin.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-<!-- 회원가입(병원) -->
+	
+	<!-- 회원가입(병원) -->
 	<definition name="join_h.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member_h/join.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
+	<!-- 회원가입(사용자) -->
 	<definition name="joinMember.tiles" extends="appointment.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member/joinMember.jsp"/>
-		
+	</definition>
+	
+	<!-- 로그인(사용자) -->
+	<definition name="login.tiles" extends="appointment.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member/login.jsp"/>
+	</definition>
+	
+	<!-- 로그아웃(사용자) -->
+	<definition name="logout.tiles" extends="appointment.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member/logout.jsp"/>
 	</definition>
 	
 	<!-- 병원 지도 리스트 시작 -->

@@ -29,9 +29,17 @@ public class MediMemberDaoImpl implements MediMemberDao {
 	}
 
 	@Override
-	public void sendEmail(String email, String authNum) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public boolean insertMember(MediMemberDto dto) throws Exception {
+		int n = sqlSession.insert(ns+"insertMember", dto);
+		return n>0?true:false;
 	}
+
+	@Override
+	public MediMemberDto loginAf(MediMemberDto dto) throws Exception {
+		dto = sqlSession.selectOne(ns+"loginAfMember", dto);
+		return dto;
+	}
+
+
 
 }

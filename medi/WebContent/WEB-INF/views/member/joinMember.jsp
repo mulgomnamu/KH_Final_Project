@@ -2,8 +2,39 @@
 	pageEncoding="UTF-8"%>
 <%-- <%@ page contentType="text/html; charset=utf-8" %> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<style>
+div {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+input[type="number"] {
+  width: 100px;
+}
+
+input + span {
+  padding-right: 30px;
+}
+
+input:invalid+span:after {
+  position: absolute; content: '✖';
+  padding-left: 5px;
+  color: #8b0000;
+}
+
+input:valid+span:after {
+  position: absolute;
+  content: '✓';
+  padding-left: 5px;
+  color: #009000;
+}
+</style>
+
+
+<script type="text/javascript" src="<c:url value='/js/jquery.1.9.1.min.js'/>"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 <div id="container" class="hospitalguide">
 	<!-- 1뎁스명 클래스 -->
 	<div class="login">
@@ -15,15 +46,14 @@
 			<em>정보를 입력해주세요.</em>
 		</div>
 		<!-- content 시작 -->
-		<form id="form-submit" name="wform" action="userControl" method="get">
-						<input type="hidden" name="command" value="joinAf">
+		<form id="form-submit" name="wform" action="joinMemberAf.do" method="get">
+						
 		<div class="content">
 			<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
 				ID : <input name="id" type="text" class="form-control" id="id"
-					placeholder="id" required=""><br>
-				<p id="result_id_msg"></p>
-
+					placeholder="id" required=""><font id="result_id_msg" size="2"></font><br>
+				
 				PWD : <input name="password1" type="password" class="form-control"
 					id="password1" placeholder="password" required=""><font
 					name="check1" size="2"></font><br>
@@ -33,23 +63,27 @@
 				NAME:<input name="name" type="name"
 					class="form-control" id="name" placeholder="name" required="">
 <br>
-				EMAIL:<input name="email" type="email" class="form-control" id="email"
-					placeholder="email" required=""> <br>
+				EMAIL:<input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="이메일을 입력하세요">
+				<!-- <input name="email" type="email" class="form-control" id="email"
+					placeholder="email" required=""> --> <br>
 				PHONE:<input type="tel" name="phone" id="phone" title="phone number"
 					placeholder="000-0000-0000"
+					pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"
+					required><span class="validity"></span>
+					<!-- <input type="tel" name="phone" id="phone" title="phone number"
+					placeholder="000-0000-0000"
 					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
-					required=""> <br>
+					required=""> --> <br>
 				
 				
-				POST:<input type="text" id="sample4_postcode" placeholder="우편번호" required="">
-				
+				POST:<input type="text" id="sample4_postcode" name="post" placeholder="우편번호" required="">
 				<input type="button"
 					onclick="sample4_execDaumPostcode()" value="주소검색" required=""><br>
 				<input type="text" id="sample4_roadAddress" name="addr1"
 					placeholder="도로명주소" size="40" required=""><br>
 			    <input type="text" id="addr" name="addr2" placeholder="추가주소" required=""><br>
 				<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"><br>
-				
+				<span id="guide" style="color:#999"></span>
 				QUESTION:<select id="question" name="question" onchange="photoChange()">
 							<option>질문선택</option>
 							<option value="감명 깊게 읽은 책은?">감명 깊게 읽은 책은?</option>
@@ -60,9 +94,9 @@
 						 </select><br>
 				ANSWER:<input name="answer" type="text" class="form-control" id="answer" 
 					 placeholder="answer" required=""><br> 
-				IMG:<input type="file" name="profileImg" value="파일첩부">
+				IMG:<input type="file" name="myimg" value="파일첩부">
 				<fieldset>
-					<button id="form-submit" disabled="disabled" type="submit"
+					<button id="form-submit" type="submit" 
 						class="btn">join us</button>
 				</fieldset>
 				<!-- 이부분에 컨텐츠 끝 -->
@@ -75,38 +109,6 @@
 	<!-- phone_num 끝 -->
 </div>
 
-
-<script type="text/javascript">
-$(document).ready(function(){
-	console.log("emailpass1");
-    $('#emailpass').click(function(){
-    	console.log("emailpass2");
-        
-        	console.log("3");
-            var email = $('#email').val();
-            var url = "memberMail.do";
-            // ajax 실행
-            $.ajax({
-                type : "GET",
-                url : url,
-                data:"email=" + email,
-                success : function(data) {
-                    alert("data : " + data);
-                    
-                },error : function() {
-                	
-				}
-            }); // end ajax
-        
-    }); // end keyup
-});
-/* function emailcheck(){
-	alert("인증" + $("#email").val());
-	location.href="memberMail.do?email="+$("#email").val();
-} */
-</script>
-
-
 <script type="text/javascript">
 //전화번호 형식검사 스크립트
 var patt = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}");
@@ -116,7 +118,6 @@ if( !patt.test( $("#phone").val()) ){
     alert("전화번호를 정확히 입력하여 주십시오.");
     return false;
 }
-
 </script>
 
 <script>
@@ -190,7 +191,7 @@ $(document).ready(function(){
                 success : function(data) {
                     console.log("4");
                     console.log("data = "+data);
-					if(data == "no") {
+					if(data == "ok") {
     					console.log("6");
     					$("#result_id_msg").css("color", "#ff0000");
     					$("#result_id_msg").text("사용 중인 id입니다");	
@@ -232,16 +233,17 @@ $(function(){
 <script type="text/javascript">
 //동일 pwd 검사
 $(function(){
-	console.log("button 비활성화");
 	$('#form-submit').mouseenter(function(){ 
 	   if($('#password1').val()!=$('#password2').val() || $("#result_id_msg").prop("disabled") ){
-		   console.log("button 비활성화");
-		   $("#form-submit").prop("disabled", true);
+		   console.log("button 비활성화2");
+		   $("#form-submit").attr("disabled", true);
 		   $('#password1').text('');
 		   $('#password2').text('');
+		   return false;
 	   }else{
-		   console.log("button 활성화");
-		   $("#form-submit").prop("disabled", false);
+		   console.log(" button 보임");
+		   $("#form-submit").attr("disabled", false);
+		   return true;
 	   }
   	}); //#chpass.keyup
  });

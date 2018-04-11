@@ -40,39 +40,48 @@ public class MediMemberController {
 		
 		return "selectJoin.tiles";
 	}
-
-	@RequestMapping(value="changeplz.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String changeplz(Model model) throws Exception{
-		logger.info("MediMemberController changeplz " + new Date());
+	
+	@RequestMapping(value="login.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String login(Model model, MediMemberDto dto) throws Exception{
+		logger.info("MediMemberController login " + new Date());
 		
-		return "changeplz.tiles";
+		
+		return "login.tiles";
 	}
 	
-	@RequestMapping(value="test.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String test(Model model) throws Exception{
-		logger.info("MediMemberController test " + new Date());
+	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String loginAf(Model model, MediMemberDto dto, HttpServletRequest req) throws Exception{
+		logger.info("MediMemberController loginAf " + new Date());
 		
-		model.addAttribute("test", mediMemberService.test());
+		MediMemberDto b = mediMemberService.loginAf(dto);
+		if(b != null && !b.getId().equals("")) {
+			req.getSession().setAttribute("login", dto);
+			System.out.println("2");
+			return "redirect:/main.do";
+		}else {
+			System.out.println("3");
+			return "login.tiles";	//그냥 몸만 감
+			//return "forward:/login.do";	//데이터도 가지고 감 
+		}
 		
-		return "home";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="idcheck.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String idcheck(Model model, String id) throws Exception{
 		logger.info("MediMemberController idcheck " + new Date());
+		String str = "";
 		System.out.println("controller까지 옴");
 		MediMemberDto dto = mediMemberService.idCheck(id);
 		//System.out.println(dto.getId() + "!!!");
 /*		System.out.println("dto.toString() =  " + dto.toString());*/
-		if(dto.getId() != null) {
-			String str = "ok";
-			return str;
-		}else {
-			String str = "no";
-			return str;
+		if(dto != null) {
+			str = "ok";
+			
+		}else if(dto == null)  {
+			str = "no";
 		}
-		
+		return str;
 		
 	}
 	
@@ -83,14 +92,29 @@ public class MediMemberController {
 		return "joinMember.tiles";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="memberMail.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String memberMail(Model model, HttpServletRequest req) throws Exception{
-		logger.info("MediMemberController memberMail " + new Date());
+	@RequestMapping(value="joinMemberAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String joinMemberAf(Model model, MediMemberDto dto, HttpServletRequest resq) throws Exception{
+		logger.info("MediMemberController joinMemberAf " + new Date());
 		
-		String email = req.getParameter("email");
-		System.out.println("mail!!:" + email);
-		return email;
+		dto.setPwd(resq.getParameter("password1"));
+		dto.setAddress(resq.getParameter("addr1") + " " + resq.getParameter("addr2"));
+		
+		boolean flag = mediMemberService.insertMember(dto);
+		
+		if(flag) {
+			return "redirect:/main.do";
+		}else {
+			return "redirect:/joinMember.do";
+		}
+		
 	}
+	
+	@RequestMapping(value="logout.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String logout(Model model) throws Exception{
+		logger.info("MediMemberController logout " + new Date());
+		
+		return "logout.tiles";
+	}
+	
 
 }
