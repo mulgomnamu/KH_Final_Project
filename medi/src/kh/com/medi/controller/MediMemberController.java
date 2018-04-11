@@ -1,6 +1,10 @@
 package kh.com.medi.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,12 +56,13 @@ public class MediMemberController {
 		logger.info("MediMemberController idcheck " + new Date());
 		System.out.println("controller까지 옴");
 		MediMemberDto dto = mediMemberService.idCheck(id);
+		//System.out.println(dto.getId() + "!!!");
 /*		System.out.println("dto.toString() =  " + dto.toString());*/
 		if(dto.getId() != null) {
-			String str = "성공";
+			String str = "ok";
 			return str;
 		}else {
-			String str = "실패";
+			String str = "no";
 			return str;
 		}
 		
@@ -69,6 +74,16 @@ public class MediMemberController {
 		logger.info("MediMemberController joinMember " + new Date());
 		
 		return "joinMember.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="memberMail.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String memberMail(Model model, HttpServletRequest req) throws Exception{
+		logger.info("MediMemberController memberMail " + new Date());
+		
+		String email = req.getParameter("email");
+		System.out.println("mail!!:" + email);
+		return email;
 	}
 
 }

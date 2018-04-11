@@ -9,5 +9,6 @@ public interface MediMemberDao {
 	
 	public List<MediMemberDto> test() throws Exception;
 	public MediMemberDto idCheck(String id) throws Exception;
+	public void sendEmail(String email, String authNum) throws Exception;
 
 }

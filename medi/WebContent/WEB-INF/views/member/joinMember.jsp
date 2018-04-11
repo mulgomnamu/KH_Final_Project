@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%-- <%@ page contentType="text/html; charset=utf-8" %> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <div id="container" class="hospitalguide">
 	<!-- 1뎁스명 클래스 -->
 	<div class="login">
@@ -13,6 +15,8 @@
 			<em>정보를 입력해주세요.</em>
 		</div>
 		<!-- content 시작 -->
+		<form id="form-submit" name="wform" action="userControl" method="get">
+						<input type="hidden" name="command" value="joinAf">
 		<div class="content">
 			<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
@@ -21,7 +25,8 @@
 				<p id="result_id_msg"></p>
 
 				PWD : <input name="password1" type="password" class="form-control"
-					id="password1" placeholder="password" required=""><br>
+					id="password1" placeholder="password" required=""><font
+					name="check1" size="2"></font><br>
 			    PWD :<input name="password2" type="password" class="form-control"
 					id="password2" placeholder="password" required=""> <font
 					name="check" size="2"></font> <br>
@@ -29,13 +34,13 @@
 					class="form-control" id="name" placeholder="name" required="">
 <br>
 				EMAIL:<input name="email" type="email" class="form-control" id="email"
-					placeholder="email" required=""><input type="button" name="emailpass" value="email인증" onclick="emailcheck()"> <br>
-				BIRTH:<input name="birth" type="date" class="form-control" id="birth" value="birth"
-					title="birth" placeholder="birth" required=""><br> 
-				TEL:<input type="tel" name="phone" id="phone" title="phone number"
+					placeholder="email" required=""> <br>
+				PHONE:<input type="tel" name="phone" id="phone" title="phone number"
 					placeholder="000-0000-0000"
 					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
 					required=""> <br>
+				
+				
 				POST:<input type="text" id="sample4_postcode" placeholder="우편번호" required="">
 				
 				<input type="button"
@@ -44,8 +49,18 @@
 					placeholder="도로명주소" size="40" required=""><br>
 			    <input type="text" id="addr" name="addr2" placeholder="추가주소" required=""><br>
 				<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"><br>
-				<span id="guide" style="color: #999"></span>
-
+				
+				QUESTION:<select id="question" name="question" onchange="photoChange()">
+							<option>질문선택</option>
+							<option value="감명 깊게 읽은 책은?">감명 깊게 읽은 책은?</option>
+							<option value="가장 가고 싶은 여행지는?">가장 가고 싶은 여행지는?</option>
+							<option value="가장 기억나는 선생님은?">가장 기억나는 선생님은?</option>
+							<option value="내가 가장 아끼는 보물 한가지">내가 가장 아끼는 보물 한가지</option>	
+							<option value="제일 감명깊게 본 영화제목">제일 감명깊게 본 영화제목</option>		
+						 </select><br>
+				ANSWER:<input name="answer" type="text" class="form-control" id="answer" 
+					 placeholder="answer" required=""><br> 
+				IMG:<input type="file" name="profileImg" value="파일첩부">
 				<fieldset>
 					<button id="form-submit" disabled="disabled" type="submit"
 						class="btn">join us</button>
@@ -53,16 +68,44 @@
 				<!-- 이부분에 컨텐츠 끝 -->
 			</div>
 		</div>
+		</form>
 		</section>
 	</div>
 	<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
 </div>
+
+
 <script type="text/javascript">
-function emailcheck(){
-	alert("인증");
-}
+$(document).ready(function(){
+	console.log("emailpass1");
+    $('#emailpass').click(function(){
+    	console.log("emailpass2");
+        
+        	console.log("3");
+            var email = $('#email').val();
+            var url = "memberMail.do";
+            // ajax 실행
+            $.ajax({
+                type : "GET",
+                url : url,
+                data:"email=" + email,
+                success : function(data) {
+                    alert("data : " + data);
+                    
+                },error : function() {
+                	
+				}
+            }); // end ajax
+        
+    }); // end keyup
+});
+/* function emailcheck(){
+	alert("인증" + $("#email").val());
+	location.href="memberMail.do?email="+$("#email").val();
+} */
 </script>
+
 
 <script type="text/javascript">
 //전화번호 형식검사 스크립트
@@ -147,27 +190,19 @@ $(document).ready(function(){
                 success : function(data) {
                     console.log("4");
                     console.log("data = "+data);
-                 
-                  	//$("#result_id_msg").html(result);
-                    /* if(data != "??"){
-                    	
-    					
-    				} */
-					if(data == "??") {
+					if(data == "no") {
     					console.log("6");
     					$("#result_id_msg").css("color", "#ff0000");
     					$("#result_id_msg").text("사용 중인 id입니다");	
     					$("#result_id_msg").prop("disabled", true);
-    					
-    					
-    				} 
+    				}else{
+    					console.log("5");
+    					$("#result_id_msg").css("color", "#0000ff");
+    					$("#result_id_msg").text("사용할 수 있는 id입니다");
+    					$("#result_id_msg").prop("disabled", false);
+    				}
                     
-                },error : function() {
-                	console.log("5");
-					$("#result_id_msg").css("color", "#0000ff");
-					$("#result_id_msg").text("사용할 수 있는 id입니다");
-					$("#result_id_msg").prop("disabled", false);
-				}
+                }
             }); // end ajax
         }
     }); // end keyup
@@ -197,12 +232,15 @@ $(function(){
 <script type="text/javascript">
 //동일 pwd 검사
 $(function(){
+	console.log("button 비활성화");
 	$('#form-submit').mouseenter(function(){ 
 	   if($('#password1').val()!=$('#password2').val() || $("#result_id_msg").prop("disabled") ){
+		   console.log("button 비활성화");
 		   $("#form-submit").prop("disabled", true);
 		   $('#password1').text('');
 		   $('#password2').text('');
 	   }else{
+		   console.log("button 활성화");
 		   $("#form-submit").prop("disabled", false);
 	   }
   	}); //#chpass.keyup
@@ -210,41 +248,92 @@ $(function(){
 </script>
 
 <script type="text/javascript">
-//동일 pwd 검사
 $(function(){
-	/* $('#dogChoice1').click(function(){
-		 console.log("!!!");
-	   if($('#dogChoice1').val() == "yes" ){
-		   console.log("dogyes");
-		   $("#dname").attr("disabled", false);
-		   $("#dbirth").attr("disabled", false);
-		   $("#dcatagory").attr("disabled", false);
-		   
-	   }else{
-		   console.log("dogno");
-		   $("#dname").attr("disabled", true);
-		   $("#dbirth").attr("disabled", true);
-		   $("#dcatagory").attr("disabled", true);
-	   }
-  	}); //#chpass.keyup */
-	$("input:radio[name=hadDog]").click(function(){
-	    
-	    if($("input:radio[name=hadDog]:checked").val()=='yes'){
-	    	$("#dname").attr("disabled", false);
-			$("#dbirth").attr("disabled", false);
-			$("#dcatagory").attr("disabled", false);
-	    }else{
-	    	$("#dname").attr("disabled", true);
-		    $("#dbirth").attr("disabled", true);
-			$("#dcatagory").attr("disabled", true);
-	        
-	    }
-	});
-  	
- });
+	$('#password1').keyup(function(){
+
+  // 비밀번호(패스워드) 유효성 체크 (문자, 숫자, 특수문자의 조합으로 6~16자리)
+  var ObjUserPassword = document.wform.password1;
  
+  //if(ObjUserPassword.value != objUserPasswordRe.value)
+  //{
+  //  alert("입력하신 비밀번호와 비밀번호확인이 일치하지 않습니다");
+  //  return false;
+  //}
+ 
+  if(ObjUserPassword.value.length<6) {
+	  $('font[name=check1]').html("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 6~16자까지, 영문은 대소문자를 구분합니다.");
+	    $('font[name=check1]').css("color", "#ff0000");
+   /*  alert("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 6~16자까지, 영문은 대소문자를 구분합니다."); */
+    return false;
+  }
+ 
+  if(!ObjUserPassword.value.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)) {
+	  $('font[name=check1]').html("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 6~16자까지, 영문은 대소문자를 구분합니다.");
+	    $('font[name=check1]').css("color", "#ff0000");
+ /*  alert("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 6~16자까지, 영문은 대소문자를 구분합니다."); */
+    return false;
+  }
+ 
+  //if(ObjUserID.value.indexOf(ObjUserPassword) > -1) {
+  //  alert("비밀번호에 아이디를 사용할 수 없습니다.");
+  //  return false;
+  //}
+ 
+  var SamePass_0 = 0; //동일문자 카운트
+  var SamePass_1 = 0; //연속성(+) 카운드
+  var SamePass_2 = 0; //연속성(-) 카운드
+  var flag = 1;
+  var flag1 = 1;
+  for(var i=0; i < ObjUserPassword.value.length; i++) {
+    var chr_pass_0 = ObjUserPassword.value.charAt(i);
+    var chr_pass_1 = ObjUserPassword.value.charAt(i+1);
+    
+    //동일문자 카운트
+    if(chr_pass_0 == chr_pass_1) {
+      SamePass_0 = SamePass_0 + 1
+    }
+    
+    var chr_pass_2 = ObjUserPassword.value.charAt(i+2);
 
-
+    //연속성(+) 카운드
+    if(chr_pass_0.charCodeAt(0) - chr_pass_1.charCodeAt(0) == 1 && chr_pass_1.charCodeAt(0) - chr_pass_2.charCodeAt(0) == 1) {
+      SamePass_1 = SamePass_1 + 1
+    }
+    
+    //연속성(-) 카운드
+    if(chr_pass_0.charCodeAt(0) - chr_pass_1.charCodeAt(0) == -1 && chr_pass_1.charCodeAt(0) - chr_pass_2.charCodeAt(0) == -1) {
+      SamePass_2 = SamePass_2 + 1
+    }
+  }
+  if(SamePass_0 > 1) {
+	  $('font[name=check1]').html("동일문자를 3번 이상 사용할 수 없습니다.");
+	    $('font[name=check1]').css("color", "#ff0000");
+    /* alert("동일문자를 3번 이상 사용할 수 없습니다."); */
+    flag = 0;
+    return false;
+  }
+ 
+  if(SamePass_1 > 1 || SamePass_2 > 1 ) {
+	  $('font[name=check1]').html("연속된 문자열(123 또는 321, abc, cba 등)을\n 3자 이상 사용 할 수 없습니다.");
+	    $('font[name=check1]').css("color", "#ff0000");
+	    flag1 =0;
+    /* alert("연속된 문자열(123 또는 321, abc, cba 등)을\n 3자 이상 사용 할 수 없습니다."); */
+    return false;
+  }
+  
+  if((flag==1)&&(flag1==1)){
+	  $('font[name=check1]').html("사용할 수 있습니다.");
+	    $('font[name=check1]').css("color", "#0000ff");
+	    return true;
+  }
+  
+  return true;
+}); 
+});
 </script>
+
+
+
+
 
 

@@ -28,4 +28,10 @@ public class MediMemberDaoImpl implements MediMemberDao {
 		return dto;
 	}
 
+	@Override
+	public void sendEmail(String email, String authNum) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
