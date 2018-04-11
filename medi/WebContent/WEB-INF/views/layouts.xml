@@ -15,6 +15,9 @@
 		<!-- 서브 페이지는 subfooter 써야해요 -->
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<definition name="join_h.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/join.jsp"/>
+	</definition>
 	
 	<definition name="joinMember.tiles" extends="appointment.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member/joinMember.jsp"/>
@@ -27,6 +30,13 @@
 	
 	<!-- 마이페이지  -->
 	<definition name="MyPage.tiles" template="/WEB-INF/views/mypage/MyPage.jsp">
+	</definition>
+	
+	<!-- 건강 수첩 -->
+	<definition name="healthbook.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/health_book/healthbook.jsp"/>
+		<!-- 서브 페이지는 subfooter 써야해요 -->
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
 	
