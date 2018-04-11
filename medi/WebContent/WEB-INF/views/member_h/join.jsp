@@ -16,14 +16,14 @@
 <!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
-					<form action="#none" id="_from">
+					<form action="#none" id="_from" method="post">
 						<table border="1 solid">
 							<tr>
 								<td>
 									아이디
 								</td>
 								<td>
-									<input type="em" id="id" name="id" placeholder="아이디를 입력하세요">
+									<input type="text" id="id" name="id" placeholder="아이디를 입력하세요">
 								</td>
 							</tr>
 							<tr>
@@ -116,7 +116,7 @@
 									의료 자격증
 								</td>
 								<td>
-									<input type="file" id="confirm_img" name="confirm_img">
+									<input type="text" id="confirm_img" name="confirm_img">
 								</td>
 							</tr>
 							<tr>
@@ -132,7 +132,12 @@
 									병원 이미지 업로드
 								</td>
 								<td>
-									<input type="file" id="image" name="imgae">
+									<input type="text" id="image" name="imgae">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="submit" value="회원가입">
 								</td>
 							</tr>
 						</table>
@@ -145,8 +150,8 @@
 </div>
 
 <script>
-<!-- 우편번호 -->
-    function btnPost() {
+우편번호
+	function btnPost() {
     	new daum.Postcode({
             oncomplete: function(data) {
                 var fullAddr = '';
@@ -175,5 +180,6 @@
             }
         }).open();
     }
-<!-- /우편번호 -->
+/* 우편번호 */
+
 </script>
