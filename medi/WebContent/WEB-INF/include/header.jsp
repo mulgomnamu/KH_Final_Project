@@ -92,12 +92,12 @@
 							<!-- 메뉴 추가시 여기부터 -->
 							<li>
 								<div class="d_btn_1">
-									<a href="#;" target="_self"><em>병원 찾기</em></a>
+									<a href="hbbslist.do" target="_self"><em>병원 찾기</em></a>
 								</div>
 								<div class="d_2">
 									<ul>
 										<li>
-											<a href="#;" target="_self"><em>병원 찾기</em></a>
+											<a href="hbbslist.do" target="_self"><em>병원 찾기</em></a>
 										</li>
 									</ul>
 								</div>
