@@ -32,7 +32,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="joinMember.do">
+				<a href="selectJoin.do">
 					<em>회원가입</em>
 				</a>
 			</li>
@@ -157,13 +157,13 @@
                         		</div>
                         		<div>
 			                        <span  class="tit">
-			                            <a href="#;" target="_self">
+			                            <a href="maplist.do" target="_self">
 			                                <strong>내 근처 병원</strong>
 			                            </a>
 			                        </span>
                      				<ul>
 		                                <li>
-	                                        <a href="#;" target="_self">
+	                                        <a href="maplist.do" target="_self">
 	                                            <em>내 근처 병원</em>
 	                                        </a>
 		                                </li>
