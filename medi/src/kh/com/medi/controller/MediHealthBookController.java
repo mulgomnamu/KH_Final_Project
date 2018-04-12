@@ -15,6 +15,7 @@ import kh.com.medi.service.MediHeathBookService;
 import kh.com.medi.service.impl.MediHealthBookServiceImpl;
 
 
+
 @Controller
 public class MediHealthBookController {
 	
@@ -23,6 +24,7 @@ public class MediHealthBookController {
 	
 	@Autowired
 	private MediHeathBookService mediHealthBookService;
+
 
 	@RequestMapping(value="healthbook.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String Healthmain(Model model) throws Exception{
