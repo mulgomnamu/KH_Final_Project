@@ -6,7 +6,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
 myCal jcal = (myCal)request.getAttribute("jcal");
-
+//받는값dayOfweek, lastDay,rdate,lastDayOfMonth,year,month,가능요일,가능시간
+//보내는값 monthyn -> plus,minus,doc_seq
 int dayOfWeek = jcal.getDayOfWeek();
 int lastDayOfMonth = jcal.getLastDay();
 
@@ -24,6 +25,126 @@ cal.set(year, month-1, 1);
 int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 %>
 
+<script type="text/javascript">
+/* step이동 */
+function step1_2() {//스탭1단계가는거
+	$("#step1_2").fadeOut();
+}
+$("#revbtn").click(function () {
+	$("#step1").fadeIn();
+});
+//선택메뉴
+$(document).ready(function(){
+	$('#list>li:not(:first)').hide();
+	$('#tab li a').click(function(){
+	  $('#tab li a').removeClass('selected');
+	  $(this).addClass('selected')
+
+	  $('#list>li').hide();
+	  $($(this).attr('href')).show();
+	  return false
+	});
+	});
+</script>
+<script type="text/javascript">
+function hospitallist() {
+	$.ajax({
+		url : "serchhospital.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+		data:"name="+$("#hosserch").val(),
+		dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
+		cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
+		success : function(data) {
+			$("#hospitallistdiv").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
+			$("<table class='ser'/>").css({
+			}).appendTo("#hospitallistdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
+			var key = Object.keys(data["hospitallist"][0]); // seq,name,info,address,tel의 키값을 가져옴
+			$.each(data.hospitallist, function(index, hospitallist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+				var items = [];
+				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getdoctor("+hospitallist.seq+")'>" 
+				+ hospitallist.name + "</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
+				items.push("<td class='ser'>" + hospitallist.info + "</td>");
+				items.push("<td class='ser'>" + hospitallist.address + "</td>");
+				items.push("<td class='ser'>" + hospitallist.tel + "</td>");
+				$("<tr/>", {
+					html : items // 티알에 붙임,
+				}).appendTo("table"); // 그리고 그 tr을 테이블에 붙임
+			});//each끝
+		}
+	});
+}
+function getdoctor(hos_seq) {
+	$("#step1_1").fadeOut();
+	$.ajax({
+		url : "getdoctor.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+		data:"hos_seq="+hos_seq,
+		dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
+		cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
+		success : function(data) {
+			$("#getdoclistdiv").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
+			$("<table class='ser'/>").css({
+			}).appendTo("#getdoclistdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
+			var key = Object.keys(data["getdoclist"][0]); // seq,name,info,address,tel의 키값을 가져옴
+			$.each(data.getdoclist, function(index, getdoclist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+				var items = [];
+				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule("+getdoclist.seq+")'>" 
+				+ getdoclist.doc_profile + "</td>");	//img태그로 사진넣어야하고css해야한다
+				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule("+getdoclist.seq+")'>"
+				+ getdoclist.name + "</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
+				items.push("<td class='ser'>" + getdoclist.specialty + "</td>");
+				items.push("<td class='ser'>" + getdoclist.doc_content + "</td>");
+				$("<tr/>", {
+					html : items // 티알에 붙임,
+				}).appendTo("table"); // 그리고 그 tr을 테이블에 붙임
+			});//each끝
+		}
+	});
+}
+
+function getscadule(doc_seq) {
+	$("#step2_1").fadeOut();
+	cleanser();
+	
+$.ajax({
+	url : "getscadule.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+	data:"doc_seq="+doc_seq,
+	dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
+	cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
+	success : function(data) {
+		$("#getcalendardiv").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
+		$("<table class='ser' align='center'><col width='40px'/><col width='40px'/><col width='40px'/><col width='40px'/><col width='40px'/><col width='40px'/><col width='40px'/>").css({
+		//css적용영역
+		}).appendTo("#getcalendardiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
+		$("<tr height='40px'><td class='days2' colspan='7'><a onclick='monprev()'><img src='images/appointment/prec.gif'/></a>" 
+		+"<span style='color: red' id='nowyear'>"+data.year+"</span>"
+		+"<span style='color: red' id='nowmonth'>"+data.month+"</span>"
+		+"<td class='days2' colspan='7'><a onclick='monnext()'><img src='images/appointment/next.gif'/></a></td>").appendTo("table"); // 그리고 그 tr을 테이블에 붙임
+		$("<tr height='40px'><th class='days2'>일</th><th class='days2'>월</th><th class='days2'>화</th><th class='days2'>수</th>"
+		+"<th class='days2'>목</th><th class='days2'>금</th><th class='days2'>토</th></tr>" ).appendTo("table"); // 그리고 그 tr을 테이블에 붙임
+		
+				/* var key = Object.keys(data["getdoclist"][0]); // seq,name,info,address,tel의 키값을 가져옴
+		
+		$.each(data.canlist, function(index, canlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+			var items = [];
+			items.push("<td class='ser'><a href='javascript:void(0);' onclick='getcalendar("+getdoclist.seq+")'>" 
+			+ getdoclist.doc_profile + "</td>");	//img태그로 사진넣어야하고css해야한다
+			items.push("<td class='ser'><a href='javascript:void(0);' onclick='getcalendar("+getdoclist.seq+")'>" 
+			+ getdoclist.name + "</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
+			items.push("<td class='ser'>" + getdoclist.specialty + "</td>");
+			items.push("<td class='ser'>" + getdoclist.doc_content + "</td>");
+			$("<tr height='40px'/>", {
+				html : items // 티알에 붙임,
+			}).appendTo("table"); // 그리고 그 tr을 테이블에 붙임
+		});//each끝 */
+	}
+
+});
+}
+
+
+function cleanser() {
+	$(".ser").html("");
+}
+</script>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -45,17 +166,17 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 				<div class="sub_tap">
 	             <ul id="tab">
 	             	 <li>
-	                     <a href="#tab1" class="selected">
+	                     <a href="#tab1" onclick="cleanser()" class="selected">
 	                         <em>병원으로 예약</em>		<!-- 1 메인페이지에서 또는 어느페이지서든 병원선택이안됐을때는 일로보내야된다 -->
 	                     </a>
 	                 </li>
 	                 <li>
-	                     <a href="#tab2" class="selected">
+	                     <a href="#tab2" onclick="cleanser()">
 	                         <em>진료과로 예약</em>		<!-- 2 병원을선택한곳에서 페이지오거나  -->
 	                     </a>
 	                 </li>
 	                 <li>
-	                     <a href="#tab3">
+	                     <a href="#tab3" onclick="cleanser()">
 	                         <em>의료진으로 예약</em>	<!-- 의료진검색페이지주고 그사람클릭하면 모든정보 기본셋팅 -->
 	                     </a>
 	                 </li>
@@ -65,8 +186,62 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	         <div class="sub_content">
 			    <ol id="list">
 			    <li id="tab1">
+				<div class="cont_box-office_select" id="step1_1">
+			        <div class="title-type02">
+			            <h3>병원으로 선택</h3>
+			        </div>
+			        <div>
+			            <div class="doctor_detail">
+			            	<div class="select_wrap_team">
+			            		<span class="form-text">
+			            			<label for="team_searhc" class="placeholder" style="display: none;">
+			            				병원명을 2글자 이상으로 입력해 주세요
+			            			</label>
+			            			<input type="text" id="hosserch" name="name">
+			            		</span>
+			            		<button onclick="hospitallist()" class="btn-type02 btn-search"><em>검색</em></button>
+			            		<button class="btn-type02 btn-search refresh_btn"><em>검색 초기화</em></button>
+			            	</div>
+			            </div>
+			        </div>
+			        <div id="hospitallistdiv" style="overflow:auto; width: 820px; height: 500px;">
+			        	<!-- ajax로 리스트받아오는부분 -->
+			        </div>
+			    </div>
+			    <div class="cont_box-office_select" id="step2_1">
+			        <div class="title-type02">
+			            <h3>의료진 선택</h3>
+			        </div>
+			        <div>
+			            <div class="select_list">
+			                <div class="select_list_wrap">
+			                    <div id="getdoclistdiv" style="overflow:auto; width: 820px; height: 500px;">
+						        	<!-- ajax로 의사리스트받아오는부분 -->
+						        </div>
+			                </div>
+			            </div>
+			           
+			        </div>
+			    </div>
+			    <div class="cont_box-office_select" id="step3_1">
+			        <div class="title-type02">
+			            <h3>진료일자 선택</h3>
+			        </div>
+			        <div>
+			            <div class="select_list">
+			                <div class="select_list_wrap">
+			                    <div id="getcalendardiv" style="overflow:auto; width: 820px; height: 500px;">
+						        	<!-- ajax로불러오는곳 -->
+						        </div>
+			                </div>
+			            </div>
+			           
+			        </div>
+			    </div>
+			</li>
+			    <li id="tab2">
 			     <!-- 진료과 선택 -->
-			    <div class="cont_box-office_select" id="step1">
+			    <div class="cont_box-office_select" id="step1_2">
 			        <div class="title-type02">
 			            <h3>진료과 선택</h3>
 			        </div>
@@ -88,12 +263,12 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>가정의학과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>결핵과</em>
 			                                        </a>
 			                                    </li>
@@ -105,12 +280,12 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>내과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>노인전문</em>
 			                                        </a>
 			                                    </li>
@@ -122,7 +297,7 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>마취과</em>
 			                                        </a>
 			                                    </li>
@@ -134,12 +309,12 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>비뇨기과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>방사선과</em>
 			                                        </a>
 			                                    </li>
@@ -151,32 +326,32 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>소아청소년과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>산부인과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>산후조리원</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>신경정신과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>성형외과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>신경외과</em>
 			                                        </a>
 			                                    </li>
@@ -188,32 +363,32 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>안과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>이빈인후과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>외과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>임상병리과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>알콜병원</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>일반</em>
 			                                        </a>
 			                                    </li>
@@ -225,22 +400,22 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>조산원</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>정형외과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>재활의학과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>종합</em>
 			                                        </a>
 			                                    </li>
@@ -252,12 +427,12 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>치매</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>치과</em>
 			                                        </a>
 			                                    </li>
@@ -269,7 +444,7 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>통증클리닉</em>
 			                                        </a>
 			                                    </li>
@@ -281,7 +456,7 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>피부과</em>
 			                                        </a>
 			                                    </li>
@@ -293,22 +468,22 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			                            <td>
 			                                <ul>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>항문외과</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>흉부외과</em>
 			                                        </a>
 			                                    </li>
 			                                     <li>
-			                                        <a onclick="next()">
+			                                        <a onclick="step1_2()">
 			                                            <em>한방</em>
 			                                        </a>
 			                                    </li>
 			                                    <li>
-			                                        <a id="next">
+			                                        <a onclick="step1_2()">
 			                                            <em>한의원</em>
 			                                        </a>
 			                                    </li>
@@ -322,7 +497,7 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			           
 			        </div>
 			    </div>
-			    <div class="cont_box-office_select" id="step2">
+			    <div class="cont_box-office_select" id="step2_2">
 			        <div class="title-type02">
 			            <h3>의료진 선택</h3>
 			        </div>
@@ -335,7 +510,7 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			           
 			        </div>
 			    </div>
-			    <div class="cont_box-office_select" id="step3">
+			    <div class="cont_box-office_select" id="step3_2">
 			        <div class="title-type02">
 			            <h3>진료일시 선택</h3>
 			            <p>${doctorid }님의 진료일입니다.</p>
@@ -412,7 +587,8 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			        </div>
 			    </div>
 			</li>
-			<li id="tab2">
+			
+			<li id="tab3">
 				<div class="cont_box-office_select">
 			        <div class="title-type02">
 			            <h3>의료진 선택</h3>
@@ -462,46 +638,9 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			</li>
 		</ul>
 	</div> -->
-     </div>
+     </div></div>
 		</section>
 	</div>
 			<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
 </div>
-<script type="text/javascript">
-$("#next").click(function () {
-	$("#step1").fadeOut();
-});
-$("#revbtn").click(function () {
-	$("#step1").fadeIn();
-});
-	$(document).ready(function(){
-		$('#list>li:not(:first)').hide();
-		$('#tab li a').click(function(){
-		  $('#tab li a').removeClass('selected');
-		  $(this).addClass('selected')
-
-		  $('#list>li').hide();
-		  $($(this).attr('href')).show();
-		  return false
-		});
-		});
-</script>
-<script type="text/javascript">
-
-function ajaxcalendar(i, id, rdate) {
-	$("#mytd"+i).css("background-color", "#ff0000");
-	
-}
-function mout(i) {
-	$("#mytd"+i).css("background-color", "#ffffff");
-	$("#my"+i).hide();
-}
-$(document).ready(function name() {
-	$("#my").html("나는 미래다");
-});
-
-
-
-
-</script>
