@@ -4,6 +4,26 @@
 
 <mapper namespace="MediMyPage">
 
+<select id="mydetail"
+parameterType="kh.com.medi.model.MediMyPageDto"
+resultType="kh.com.medi.model.MediMyPageDto">
+	SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, 
+	POST, ADDRESS, AUTH, DEL, MYIMG, BLACKLIST,REGDATE
+	FROM medi_member
+	WHERE ID=#{id}
+</select>
+
+<update id="myupdate" parameterType="hashmap">
+UPDATE medi_member SET 
+PWD=#{pwd}, EMAIL=#{email},POST=#{post},ADDRESS=#{address}
+WHERE SEQ=#{seq} 
+</update>
+
+<update id="mydelete" parameterType="kh.com.medi.model.MediMyPageDto">
+	UPDATE medi_member
+	SET DEL=1
+	WHERE ID=#{id}
+</update>
 
 
 </mapper>
