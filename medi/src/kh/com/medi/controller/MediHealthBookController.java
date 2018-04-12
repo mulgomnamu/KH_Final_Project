@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kh.com.medi.model.MediHealthBookDto;
-import kh.com.medi.service.MediHealthBookService;
+import kh.com.medi.service.MediHeathBookService;
+import kh.com.medi.service.impl.MediHealthBookServiceImpl;
+
 
 
 @Controller
@@ -21,8 +23,8 @@ public class MediHealthBookController {
 	
 	
 	@Autowired
-	MediHealthBookService mediHealthBookService;
-	
+	private MediHeathBookService mediHealthBookService;
+
 
 	@RequestMapping(value="healthbook.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String Healthmain(Model model) throws Exception{

@@ -49,7 +49,14 @@
 	</definition>
 	
 	<!-- 마이페이지  -->
-	<definition name="MyPage.tiles" template="/WEB-INF/views/mypage/MyPage.jsp">
+	<definition name="MyPage.tiles" extends="main.tiles">
+	<put-attribute name="content" value="/WEB-INF/views/mypage/MyPage.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<definition name="Mydetail.tiles" extends="main.tiles">
+	<put-attribute name="content" value="/WEB-INF/views/mypage/Mydetail.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
 	<!-- 건강 수첩 -->
