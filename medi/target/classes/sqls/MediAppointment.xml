@@ -3,7 +3,19 @@
 
 
 <mapper namespace="Appointment">
-
-	
-
+	<select id="gethospitalList" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,MAP,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE 
+		FROM medi_hospital
+		WHERE NAME LIKE CONCAT('%',#{name},'%')
+	</select>
+	<select id="getdocList" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT SEQ,HOS_SEQ,NAME,SPECIALTY,REGDATE,DOC_PROFILE,DOC_CONTENT 
+		FROM medi_doctor
+		WHERE HOS_SEQ=#{hos_seq}
+	</select>
+	<select id="getdocscedulelist" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorSchedulDto">
+		SELECT SEQ,DOC_SEQ,DAY,START_TIME,END_TIME,LUNCH_TIME
+		FROM medi_schedul
+		WHERE DOC_SEQ=#{doc_seq}
+	</select>
 </mapper>

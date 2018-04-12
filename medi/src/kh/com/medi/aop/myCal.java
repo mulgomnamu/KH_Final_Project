@@ -34,7 +34,6 @@ public class myCal implements Serializable {
 		cal.set(year, month-1, 1);
 		dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);		
-		System.out.println(year+month);
 	}
 
 	public int getYear() {
