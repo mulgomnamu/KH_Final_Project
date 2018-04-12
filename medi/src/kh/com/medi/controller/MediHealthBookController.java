@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kh.com.medi.model.MediHealthBookDto;
 import kh.com.medi.service.MediHeathBookService;
+import kh.com.medi.service.impl.MediHealthBookServiceImpl;
+
 
 @Controller
 public class MediHealthBookController {
