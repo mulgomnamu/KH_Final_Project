@@ -16,6 +16,8 @@ import java.io.Serializable;
 `myimg` VARCHAR(100) NOT NULL,
 `blacklist` INT(1) NOT NULL,
 `regdate` DATETIME NOT NULL,
+`question` VARCHAR(50) NOT NULL,
+`answer` VARCHAR(50) NOT NULL,
 PRIMARY KEY (`seq`),
 UNIQUE INDEX `email_UNIQUE` (`email` ASC),
 UNIQUE INDEX `phone_UNIQUE` (`phone` ASC),
@@ -38,6 +40,8 @@ public class MediMyPageDto implements Serializable {
 	private String myimg;
 	private int blackilst; //경고 횟수
 	private String regdate;
+	private String question;
+	private String answer;
 	
 	public MediMyPageDto() {}
 
@@ -57,6 +61,24 @@ public class MediMyPageDto implements Serializable {
 		this.myimg = myimg;
 		this.blackilst = blackilst;
 		this.regdate = regdate;
+		this.question=question;
+		this.answer=answer;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public int getSeq() {
@@ -167,8 +189,11 @@ public class MediMyPageDto implements Serializable {
 	public String toString() {
 		return "MediMyPageDto [seq=" + seq + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email
 				+ ", phone=" + phone + ", post=" + post + ", address=" + address + ", auth=" + auth + ", del=" + del
-				+ ", myimg=" + myimg + ", blackilst=" + blackilst + ", regdate=" + regdate + "]";
+				+ ", myimg=" + myimg + ", blackilst=" + blackilst + ", regdate=" + regdate + ", question=" + question
+				+ ", answer=" + answer + "]";
 	}
+
+	
 	
 
 }

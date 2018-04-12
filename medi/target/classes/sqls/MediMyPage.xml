@@ -8,7 +8,7 @@
 parameterType="kh.com.medi.model.MediMyPageDto"
 resultType="kh.com.medi.model.MediMyPageDto">
 	SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, 
-	POST, ADDRESS, AUTH, DEL, MYIMG, BLACKLIST,REGDATE
+	POST, ADDRESS, AUTH, DEL, MYIMG, BLACKLIST,REGDATE,QUESTION,ANSWER
 	FROM medi_member
 	WHERE ID=#{id}
 </select>
@@ -16,7 +16,7 @@ resultType="kh.com.medi.model.MediMyPageDto">
 <update id="myupdate" parameterType="hashmap">
 UPDATE medi_member SET 
 PWD=#{pwd}, EMAIL=#{email},POST=#{post},ADDRESS=#{address}
-WHERE SEQ=#{seq} 
+WHERE SEQ=#{seq}
 </update>
 
 <update id="mydelete" parameterType="kh.com.medi.model.MediMyPageDto">
