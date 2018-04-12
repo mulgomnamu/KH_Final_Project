@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kh.com.medi.model.MediHealthBookDto;
-import kh.com.medi.service.MediHealthBookService;
+import kh.com.medi.service.MediHeathBookService;
 
 
 @Controller
@@ -21,7 +21,7 @@ public class MediHealthBookController {
 	
 	
 	@Autowired
-	MediHealthBookService mediHealthBookService;
+	MediHeathBookService mediHealthBookService;
 	
 
 	@RequestMapping(value="healthbook.do", method={RequestMethod.GET, RequestMethod.POST})
