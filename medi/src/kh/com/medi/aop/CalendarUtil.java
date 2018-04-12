@@ -2,6 +2,7 @@ package kh.com.medi.aop;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 public class CalendarUtil {
 	//3 ->03
@@ -19,13 +20,16 @@ public class CalendarUtil {
 			int hour, int min){
 		return yyyymmdd(year,month,day)+two(hour)+two(min);
 	}
-	public static String tosysdate(String rdate){
-		String year=rdate.substring(1, 4);
-		String mon=rdate.substring(5, 6);
-		String day=rdate.substring(7, 8);
-		String hou=rdate.substring(9, 10);
-		String min=rdate.substring(11, 12);
-		return year+"-"+mon+"-"+day+"  "+hou+":"+min;
+	public static String[] getcanhour(String canhour) {
+		StringTokenizer st= new StringTokenizer(canhour, "-");
+		
+		int len=st.countTokens();	//split.length
+		String[] canhours=new String[len];
+		for (int i = 0; i < len; i++) {
+			canhours[i]=st.nextToken();
+		}
+		
+		return canhours;
 	}
 	public static int one(String tt){
 		if(tt.charAt(0)=='0'){
