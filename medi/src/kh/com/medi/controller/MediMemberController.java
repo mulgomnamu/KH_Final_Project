@@ -100,7 +100,8 @@ public class MediMemberController {
 		dto.setAddress(resq.getParameter("addr1") + " " + resq.getParameter("addr2"));
 		
 		boolean flag = mediMemberService.insertMember(dto);
-		
+		mediMemberService.loginAf(dto);
+		resq.getSession().setAttribute("login", dto);
 		if(flag) {
 			return "redirect:/main.do";
 		}else {
@@ -118,3 +119,8 @@ public class MediMemberController {
 	
 
 }
+
+
+
+
+

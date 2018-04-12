@@ -68,7 +68,7 @@ input:valid+span:after {
 					placeholder="email" required=""> --> <br>
 				PHONE:<input type="tel" name="phone" id="phone" title="phone number"
 					placeholder="000-0000-0000"
-					pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" maxlength="13"
+					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
 					required><span class="validity"></span>
 					<!-- <input type="tel" name="phone" id="phone" title="phone number"
 					placeholder="000-0000-0000"

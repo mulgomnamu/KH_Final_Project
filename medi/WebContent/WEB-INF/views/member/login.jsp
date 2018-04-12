@@ -45,18 +45,57 @@
 											<a href="#none" id="_btnLogin" title="로그인">
 												<img alt="로그인" src="image/login_btn.jpg">
 											</a>
-											<a href="#none" id="_btnRegi" title="회원가입">
+											<!-- <a href="#none" id="_btnRegi" title="회원가입">
 												<img alt="회원가입" src="image/regi.jpg">
-											</a>
+											</a> -->
 										</span>
 									</td>
 								</tr>
 							</tbody>
 						
 						</table>
-						
-						
 					</form>
+					
+					<table  style="width:75%">
+							
+							<tbody>
+								<tr>
+									<th style="background: #eeeeee; color: #3e5fba;">아직 회원이 아니신가요?</th>
+									<th style="background: #eeeeee; color: #3e5fba;">아이디가 기억나지 않으세요?</th>
+									<th style="background: #eeeeee; color: #3e5fba;">비밀번호가 기억나지 않으세요?</th>
+									
+									
+								</tr>
+								
+								<tr>
+									<td>&nbsp;
+										회원이 되시면 홈페이지에서 제공하는 <br>온라인 서비스를 이용하실 수 있습니다.
+									</td>
+									<td>&nbsp;
+										휴대폰, 아이핀, 이메일 인증을 통해<br>아이디를 확인하실 수 있습니다.
+									</td>
+									<td>&nbsp;
+										휴대폰, 아이핀, 이메일 인증을 통해<br>신규비밀번호로 사이트를 이용하실 수 있습니다.
+									</td>
+									
+								</tr>
+								
+								<tr>
+									<td>
+									<a href="#none" id="_btnRegi1" title="회원가입">
+												>>회원가입
+											</a>
+									</td>
+									<td>
+									>>ID찾기
+									</td>
+									<td>
+									>>PW찾기
+									</td>
+								</tr>
+							</tbody>
+						
+						</table>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>
 			</div>
@@ -79,8 +118,13 @@ $("#_btnLogin").click(function() {
 	}	
 });
 
+
 $("#_btnRegi").click(function() {
-	location.href = "regi.do";
+	location.href = "joinMember.do";
+});
+
+$("#_btnRegi1").click(function() {
+	location.href = "joinMember.do";
 });
 
 $("#_userid").keypress(function(event) {
