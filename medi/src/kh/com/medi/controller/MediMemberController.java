@@ -55,7 +55,7 @@ public class MediMemberController {
 		
 		MediMemberDto b = mediMemberService.loginAf(dto);
 		if(b != null && !b.getId().equals("")) {
-			req.getSession().setAttribute("login", dto);
+			req.getSession().setAttribute("login", b);
 			System.out.println("2");
 			return "redirect:/main.do";
 		}else {
@@ -115,6 +115,43 @@ public class MediMemberController {
 		logger.info("MediMemberController logout " + new Date());
 		
 		return "logout.tiles";
+	}
+	
+	@RequestMapping(value="memberIdPwFind.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String memberIdPwFind(Model model) throws Exception{
+		logger.info("MediMemberController memberIdPwFind " + new Date());
+		
+		return "memberIdPwFind.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="idFind.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String idFind(Model model, MediMemberDto dto) throws Exception{
+		logger.info("MediMemberController idFind " + new Date());
+		dto = mediMemberService.idFind(dto);
+		
+		if(dto == null) {
+			String str = "no";
+			return str;
+		}else{
+			String str = dto.getId();
+			System.out.println(str);
+			return str;
+		}
+	}
+	
+	
+	@RequestMapping(value="pwdReset.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String pwdReset(Model model, MediMemberDto dto) throws Exception{
+		logger.info("MediMemberController pwdReset " + new Date());
+		dto = mediMemberService.getQuesAns(dto);
+		
+		if(dto == null) {
+			return "redirect:/memberIdPwFind.do";
+		}else{
+			model.addAttribute("dto", dto);
+			return "pwdReset.tiles";
+		}
 	}
 	
 

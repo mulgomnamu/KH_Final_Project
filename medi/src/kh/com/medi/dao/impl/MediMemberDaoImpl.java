@@ -39,6 +39,18 @@ public class MediMemberDaoImpl implements MediMemberDao {
 		dto = sqlSession.selectOne(ns+"loginAfMember", dto);
 		return dto;
 	}
+	
+	@Override
+	public MediMemberDto idFind(MediMemberDto dto) throws Exception {
+		dto = sqlSession.selectOne(ns+"idFind", dto);
+		return dto;
+	}
+
+	@Override
+	public MediMemberDto getQuesAns(MediMemberDto dto) throws Exception {
+		dto = sqlSession.selectOne(ns+"getQuesAns" , dto);
+		return dto;
+	}
 
 
 

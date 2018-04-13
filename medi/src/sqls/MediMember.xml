@@ -23,5 +23,14 @@
 		WHERE ID=#{id} AND PWD=#{pwd} 
 	</select>
 	
+	<select id="idFind" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT ID FROM medi_member WHERE NAME=#{name} and EMAIL=#{email}
+	</select>
+	
+	<select id="getQuesAns" parameterType="java.lang.String" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT EMAIL, QUESTION, ANSWER FROM medi_member WHERE ID=#{id}
+	</select>
+	
 
 </mapper>
+

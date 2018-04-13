@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class MediMemberDto implements Serializable {
 	
+	private int seq;
 	private String id;
 	private String pwd;
 	private String name;
@@ -32,9 +33,10 @@ public class MediMemberDto implements Serializable {
 		
 	}
 
-	public MediMemberDto(String id, String pwd, String name, String email, String phone, int post, String address,
+	public MediMemberDto(int seq, String id, String pwd, String name, String email, String phone, int post, String address,
 			String question, String answer, int auth, int del, String myimg, int blacklist, String regdate) {
 		super();
+		this.seq = seq;
 		this.id = id;
 		this.pwd = pwd;
 		this.name = name;
@@ -49,6 +51,16 @@ public class MediMemberDto implements Serializable {
 		this.myimg = myimg;
 		this.blacklist = blacklist;
 		this.regdate = regdate;
+	}
+
+	
+	
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 
 	public String getId() {
@@ -165,14 +177,12 @@ public class MediMemberDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MediMemberDto [id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", phone=" + phone
-				+ ", post=" + post + ", address=" + address + ", question=" + question + ", answer=" + answer
-				+ ", auth=" + auth + ", del=" + del + ", myimg=" + myimg + ", blacklist=" + blacklist + ", regdate="
-				+ regdate + "]";
+		return "MediMemberDto [seq=" + seq + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email
+				+ ", phone=" + phone + ", post=" + post + ", address=" + address + ", question=" + question
+				+ ", answer=" + answer + ", auth=" + auth + ", del=" + del + ", myimg=" + myimg + ", blacklist="
+				+ blacklist + ", regdate=" + regdate + "]";
 	}
-	
-	
-	
+
 	
 
 }
