@@ -324,7 +324,7 @@ input:valid + span:after {
 				answer: $("#answer").val(),
 				info: $("#info").val(),
 		}
-		if(idCheck == 0 || data.id == ""){
+/* 		if(idCheck == 0 || data.id == ""){
 			$("#idCheckMessage").html("아이디를 확인해주세요.");
 			$("#id").focus();
 		}else if(pwdCheck == 0 || data.pwd == "" || data.pwd2 == ""){
@@ -351,6 +351,8 @@ input:valid + span:after {
 		}else{
 			$("#_form").attr({"target":"_self", "action":"join_hAf.do"}).submit();
 		}	
+		 */
+		$("#_form").attr({"target":"_self", "action":"join_hAf.do"}).submit();
 	});
 /*/submit 전 확인 */
 
