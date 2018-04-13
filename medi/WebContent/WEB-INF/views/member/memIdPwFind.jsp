@@ -40,7 +40,7 @@
 					<label>ID: </label>
 					<input id="id" name="id" type="text" >
 					<br>	
-					<input type="submit" value="Id입력">
+					<input type="submit" value="PW찾기">
 				</form>
 				<br><br><br><br>
 				

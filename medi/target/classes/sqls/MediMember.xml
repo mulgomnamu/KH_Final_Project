@@ -18,7 +18,7 @@
 	</insert>
 	
 	<select parameterType="java.lang.String" id="loginAfMember" resultType="kh.com.medi.model.MediMemberDto">
-		SELECT ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
+		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
 		FROM medi_member 
 		WHERE ID=#{id} AND PWD=#{pwd} 
 	</select>
@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="getQuesAns" parameterType="java.lang.String" resultType="kh.com.medi.model.MediMemberDto">
-		SELECT EMAIL, QUESTION, ANSWER FROM medi_member WHERE ID=#{id}
+		SELECT ID, EMAIL, QUESTION, ANSWER FROM medi_member WHERE ID=#{id}
 	</select>
 	
 

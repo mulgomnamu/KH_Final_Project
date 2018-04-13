@@ -154,6 +154,19 @@ public class MediMemberController {
 		}
 	}
 	
+	@RequestMapping(value="pwdResetAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String pwdResetAf(Model model, MediMemberDto dto) throws Exception{
+		logger.info("MediMemberController pwdResetAf " + new Date());
+		dto = mediMemberService.getQuesAns(dto);
+		
+		if(dto == null) {
+			return "redirect:/memberIdPwFind.do";
+		}else{
+			model.addAttribute("dto", dto);
+			return "pwdReset.tiles";
+		}
+	}
+	
 
 }
 

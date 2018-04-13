@@ -20,16 +20,15 @@
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-				
-				<label>QUESTION: </label>
-				<input id="question" name="question" type="text" value='${dto.question}'>
-				<br>					
-				<label>ANSWER: </label>
-				<input id="answer" name="answer" type="text">
-				<br>
-				<!-- <input type="submit" value="ID찾기"> -->
-				<button id="button">ID찾기</button>
-					
+				<form action="pwdResetAf.do">
+					<label>QUESTION: </label>
+					<input id="question" name="question" type="text" value='${dto.question}'>
+					<br>					
+					<label>ANSWER: </label>
+					<input id="answer" name="answer" type="text">
+					<br>
+					<input type="submit" value="확인">
+				</form>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>
 			</div>
