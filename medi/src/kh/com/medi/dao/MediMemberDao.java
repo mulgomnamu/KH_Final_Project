@@ -11,5 +11,8 @@ public interface MediMemberDao {
 	public MediMemberDto idCheck(String id) throws Exception;
 	public boolean insertMember(MediMemberDto dto) throws Exception;
 	public MediMemberDto loginAf(MediMemberDto dto) throws Exception;
+	public MediMemberDto idFind(MediMemberDto dto) throws Exception;
+	public MediMemberDto getQuesAns(MediMemberDto dto) throws Exception;
+	
 
 }

@@ -84,10 +84,12 @@
 									<td>
 									<a href="#none" id="_btnRegi1" title="회원가입">
 												>>회원가입
-											</a>
+									</a>
 									</td>
 									<td>
-									>>ID찾기
+									<a href="memberIdPwFind.do" id="_btnRegi1" title="ID찾기">
+												>>ID찾기
+									</a>
 									</td>
 									<td>
 									>>PW찾기
