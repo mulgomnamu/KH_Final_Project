@@ -53,14 +53,25 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 			String canhour="";
 			for (int j = start; j <= end; j=j+30) {
 				String ii=j+"";
-				if (Integer.parseInt(ii.substring(2, 4))==60) {
+				if (ii.length()==3) {
+					if(Integer.parseInt(ii.substring(1, 3))==60) {
+						i=i+40;
+					}
+				}else if(Integer.parseInt(ii.substring(2, 4))==60) {
 					j=j+40;
 				}
 				if(j==lun||j==lun+30||j==lun+100) {
 					
 				}
 				else {
-					canhour=canhour+j+"-";
+					if (ii.length()==3) {
+						String iiii=(j+"").length()>3?(j+""):"0"+j;
+						canhour=canhour+iiii+"-";
+					}
+					else {
+						canhour=canhour+j+"-";
+					}
+					
 				}
 			}
 			scedto.setStart_time(canhour);

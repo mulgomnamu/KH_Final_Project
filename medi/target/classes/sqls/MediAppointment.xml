@@ -18,4 +18,9 @@
 		FROM medi_schedul
 		WHERE DOC_SEQ=#{doc_seq}
 	</select>
+	<!-- <select id="cantime" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
+		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
+		FROM medi_reservation BBNBBN B B  BB B BB
+		WHERE DOC_SEQ=#{doc_seq}
+	</select> -->
 </mapper>

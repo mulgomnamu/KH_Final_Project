@@ -38,7 +38,8 @@ public class MediAppointmentNeedDto implements Serializable {
 	
 	private String subject;		//병원의진료과목
 	
-	private int monthyn;		//병원의진료과목
+	private int monthyn;		
+	private String message;
 	public MediAppointmentNeedDto() {
 	}
 	
@@ -362,6 +363,15 @@ public class MediAppointmentNeedDto implements Serializable {
 
 	public void setMonthyn(int monthyn) {
 		this.monthyn = monthyn;
+	}
+
+	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	@Override
