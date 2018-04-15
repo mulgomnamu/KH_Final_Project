@@ -46,7 +46,7 @@ input:valid+span:after {
 			<em>정보를 입력해주세요.</em>
 		</div>
 		<!-- content 시작 -->
-		<form id="form-submit" name="wform" action="joinMemberAf.do" method="get">
+		<form id="form-submit" name="wform" action="joinMemberAf.do" method="post" enctype="multipart/form-data">
 						
 		<div class="content">
 			<div class="inner_flogin">
@@ -94,7 +94,7 @@ input:valid+span:after {
 						 </select><br>
 				ANSWER:<input name="answer" type="text" class="form-control" id="answer" 
 					 placeholder="answer" required=""><br> 
-				IMG:<input type="file" name="myimg" value="파일첩부">
+				IMG:<input type="file" name="fileload" value="파일첩부">
 				<fieldset>
 					<button id="form-submit" type="submit" 
 						class="btn">join us</button>

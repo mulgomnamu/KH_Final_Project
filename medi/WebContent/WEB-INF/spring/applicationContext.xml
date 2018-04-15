@@ -12,6 +12,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+		
 <!-- DB셋팅하는부분 -->
 <!-- Properties File -->
 	<bean id="dataSource"
@@ -23,6 +24,7 @@
 		<property name="password" value="admin"></property>
 	</bean>
 <!-- class에접근해야될때 여기에써야된단 id가 객체이다 -->
+
 <!-- mybatis setting -->
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="dataSource" ref="dataSource"/>
@@ -33,6 +35,25 @@
 	<constructor-arg index="0" ref="sqlSessionFactory"/>
 	<constructor-arg index="1" value="SIMPLE"/>	<!-- SIMPLE BATCH두가지방식이있다 -->
 </bean>
+
+<!-- 이메일 관련 -->
+<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="asdqawsed92@gmail.com" />
+    <property name="password" value="qwe415263" />
+    <property name="javaMailProperties">
+        <props>
+            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.smtp.auth">true</prop>
+        </props>
+    </property>
+</bean>
+<bean id="mailService" class="kh.com.medi.service.impl.MailServiceImpl">
+    <property name="javaMailSender" ref="javaMailSender" />
+</bean>
+
 
 
 </beans>

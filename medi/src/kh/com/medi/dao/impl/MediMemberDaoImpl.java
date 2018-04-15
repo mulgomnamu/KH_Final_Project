@@ -52,6 +52,13 @@ public class MediMemberDaoImpl implements MediMemberDao {
 		return dto;
 	}
 
+	@Override
+	public boolean pwdReset(MediMemberDto dto) throws Exception {
+		int n = sqlSession.update(ns+"pwdReset" , dto);
+		return n>0?true:false;
+	}
+	
+
 
 
 }
