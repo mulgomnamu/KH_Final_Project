@@ -21,6 +21,7 @@
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
 				<form action="pwdResetAf.do">
+				<input id="id" name="id" type="hidden" value='${dto.id}'>
 					<label>QUESTION: </label>
 					<input id="question" name="question" type="text" value='${dto.question}'>
 					<br>					

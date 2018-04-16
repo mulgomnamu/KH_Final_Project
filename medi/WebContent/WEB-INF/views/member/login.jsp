@@ -61,8 +61,8 @@
 							<tbody>
 								<tr>
 									<th style="background: #eeeeee; color: #3e5fba;">아직 회원이 아니신가요?</th>
-									<th style="background: #eeeeee; color: #3e5fba;">아이디가 기억나지 않으세요?</th>
-									<th style="background: #eeeeee; color: #3e5fba;">비밀번호가 기억나지 않으세요?</th>
+									<th style="background: #eeeeee; color: #3e5fba;">사용자의 아이디와 비밀번호가 기억나지 않으세요?</th>
+									<th style="background: #eeeeee; color: #3e5fba;">관계자의 아이디와 비밀번호가 기억나지 않으세요?</th>
 									
 									
 								</tr>
@@ -72,7 +72,7 @@
 										회원이 되시면 홈페이지에서 제공하는 <br>온라인 서비스를 이용하실 수 있습니다.
 									</td>
 									<td>&nbsp;
-										휴대폰, 아이핀, 이메일 인증을 통해<br>아이디를 확인하실 수 있습니다.
+										간단한 인증 및 질문답변으로<br>아이디를 확인하실 수 있습니다.
 									</td>
 									<td>&nbsp;
 										휴대폰, 아이핀, 이메일 인증을 통해<br>신규비밀번호로 사이트를 이용하실 수 있습니다.
@@ -88,11 +88,13 @@
 									</td>
 									<td>
 									<a href="memberIdPwFind.do" id="_btnRegi1" title="ID찾기">
-												>>ID찾기
+												>>ID/PW찾기
 									</a>
 									</td>
 									<td>
-									>>PW찾기
+									<a href="#" id="_btnRegi1" title="ID찾기">
+												>>ID/PW찾기
+									</a>
 									</td>
 								</tr>
 							</tbody>
@@ -106,6 +108,14 @@
 			<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
 </div>
+
+<script type="text/javascript"> 
+var message = '${msg}'; 
+var returnUrl = '${url}'; 
+if(message != ""){
+	alert(message);	
+}
+</script>
 
 <script type="text/javascript">
 $("#_btnLogin").click(function() {

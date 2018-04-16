@@ -14,13 +14,13 @@
 	
 	<insert id="insertMember" parameterType="kh.com.medi.model.MediMemberDto">
 		INSERT INTO medi_member(ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE) 
-		VALUES(#{id}, #{pwd}, #{name}, #{email}, #{phone}, #{post}, #{address}, #{question}, #{answer}, 0, 1, #{myimg}, 0, NOW())
+		VALUES(#{id}, sha1(md5(#{pwd})), #{name}, #{email}, #{phone}, #{post}, #{address}, #{question}, #{answer}, 0, 1, #{myimg}, 0, NOW())
 	</insert>
 	
 	<select parameterType="java.lang.String" id="loginAfMember" resultType="kh.com.medi.model.MediMemberDto">
 		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
 		FROM medi_member 
-		WHERE ID=#{id} AND PWD=#{pwd} 
+		WHERE ID=#{id} AND PWD=sha1(md5(#{pwd})) 
 	</select>
 	
 	<select id="idFind" resultType="kh.com.medi.model.MediMemberDto">
@@ -29,6 +29,20 @@
 	
 	<select id="getQuesAns" parameterType="java.lang.String" resultType="kh.com.medi.model.MediMemberDto">
 		SELECT ID, EMAIL, QUESTION, ANSWER FROM medi_member WHERE ID=#{id}
+	</select>
+	
+	<update parameterType="kh.com.medi.model.MediMemberDto" id="pwdReset"> 
+		UPDATE medi_member SET PWD=#{pwd} WHERE email=#{email}
+	</update>
+	
+	<update parameterType="kh.com.medi.model.MediMemberDto" id="emailAuth"> 
+		UPDATE medi_member SET AUTH=1 WHERE ID=#{id}
+	</update>
+	
+	<select parameterType="java.lang.String" id="emailAuthAf" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
+		FROM medi_member 
+		WHERE ID=#{id} AND EMAIL=#{email} 
 	</select>
 	
 

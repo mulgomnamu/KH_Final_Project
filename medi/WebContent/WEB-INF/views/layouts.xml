@@ -54,6 +54,16 @@
 		<put-attribute name="content" value="/WEB-INF/views/member/pwdReset.jsp"/>
 	</definition>
 	
+	<!-- email인증 링크 보내기 -->
+	<definition name="emailAuthentication.tiles" extends="appointment.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member/emailAuthentication.jsp"/>
+	</definition>
+	
+	<!-- email인증 후 인증완료 페이지 -->
+	<definition name="emailAuthenticationAf.tiles" extends="appointment.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member/emailAuthenticationAf.jsp"/>
+	</definition>
+	
 	<!-- 병원 지도 리스트 시작 -->
 	<definition name="maplist.tiles" template="/WEB-INF/views/h_map/map.jsp">
 	</definition>
@@ -93,8 +103,12 @@
 		<put-attribute name="content" value="/WEB-INF/views/h_bbs/hbbslist.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	
-	
+	<!-- 병원 디테일  -->
+	<definition name="hbbsdetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/h_bbs/hbbsdetail.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+		
 </tiles-definitions>
 
 
