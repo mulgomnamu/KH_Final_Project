@@ -28,10 +28,20 @@
 		FROM medi_schedul
 		WHERE DOC_SEQ=#{doc_seq}
 	</select>
+	<select id="getdocsceduledetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorSchedulDto">
+		SELECT SEQ,DOC_SEQ,DAY,START_TIME,END_TIME,LUNCH_TIME
+		FROM medi_schedul
+		WHERE DOC_SEQ=#{doc_seq} AND DAY=#{message}
+	</select>
 	<select id="confirmreserve" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
 		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
 		FROM medi_reservation
 		WHERE DOC_SEQ=#{doc_seq} AND DAY=#{day} AND TIME=#{time}
+	</select>
+	<select id="canttime" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
+		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
+		FROM medi_reservation
+		WHERE DOC_SEQ=#{doc_seq} AND DAY=#{day}
 	</select>
 	<insert id="reserve" parameterType="kh.com.medi.model.MediAppointmentNeedDto">
 		INSERT INTO medi_reservation (MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE) 

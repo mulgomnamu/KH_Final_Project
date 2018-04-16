@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kh.com.medi.aop.CalendarUtil;
 import kh.com.medi.dao.MediAppointmentDao;
+import kh.com.medi.model.MediAppointmentDto;
 import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
@@ -76,33 +77,6 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 					
 				}
 			}
-			/*달력에서날짜를클릭하면 settime으로넘어가는데 그때 ajax로호출한다 에약한시간빼고 뿌려주는 times[i]
-			 * 그럼거기에서 시간이랑 예약하기뿌려준다 넘겨주는값은 예약테이블에저근할거랑 doc스케줄테이블에접근할것들
-			 * 예약테이블에저근할거: doc_seq로 day time빼온다 -> 몇월몇일몇시에예약했는지 검색가능하니까 이걸제거하면된다
-			 * doc스케줄테이블: doc_seq로 시작 끝 점심시간알아와서 여기에서 예약테이블의 time을빼고 뿌려준다 
-			 * 다해주면 data로보내야할거 몇월몇일몇시 리스트로, doc_seq
-			 * String can[]=canhour.split("-");
-			List<String> canhours=new ArrayList<>();
-			for (int c = 0; c < can.length; c++) {
-				canhours.add(can[c]);
-			}
-			String _canttime="1000-0900-";
-			String split[]=_canttime.split("-");
-			List<String> canttime=new ArrayList<>();
-			for (int c = 0; c < split.length; c++) {
-				canttime.add(split[c]);
-			}
-			
-			for (int k = 0; k < canhours.size(); k++) {
-				for (int j = 0; j < canttime.size(); j++) {
-					if (canhours.get(k).equals(canttime.get(j))) {
-						canhours.remove(k);
-					}
-				}
-			}
-			for (int j = 0; j < canhours.size(); j++) {
-				canhour=canhours.get(j)+"-";
-			}*/
 			scedto.setStart_time(canhour);
 			reallist.add(scedto);
 		}
@@ -132,10 +106,83 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 			//예약이이미되서안되는시간빼줘야된다 
 			//medi_schedul테이블을 업데이트해줘야된다 
 			//doc_seq와day로 where절만들고 canttime - 로구분해서넣어준다
+			//
 			alldto.setTime(alldto.getTime().substring(0, 4));
 			returnb=false;
 		}
 		return returnb;
+	}
+
+	@Override
+	public String canttime(MediAppointmentNeedDto alldto) throws Exception {
+		List<MediAppointmentDto> canttimeslist=mediAppointmentDao.canttime(alldto);
+		MediDoctorSchedulDto scedto=mediAppointmentDao.getdocsceduledetail(alldto); 
+			
+			String shour=scedto.getStart_time().substring(0, 2);
+			String smin=scedto.getStart_time().substring(3, 5);
+			String ehour=scedto.getEnd_time().substring(0, 2);
+			String emin=scedto.getEnd_time().substring(3, 5);
+			String lhour=scedto.getLunch_time().substring(0, 2);
+			String lmin=scedto.getLunch_time().substring(3, 5);
+			
+			int start=Integer.parseInt(shour+smin);
+			int end=Integer.parseInt(ehour+emin);
+			int lun=Integer.parseInt(lhour+lmin);
+			String canhour="";
+			for (int j = start; j <= end; j=j+30) {
+				String ii=j+"";
+				if (ii.length()==3) {
+					if(Integer.parseInt(ii.substring(1, 3))==60) {
+						j=j+40;
+					}
+				}else if(ii.length()==4) {
+					if(Integer.parseInt(ii.substring(2, 4))==60) {
+					j=j+40;
+					}
+				}
+				if(j==lun||j==lun+30||j==lun+100) {
+					
+				}
+				else {
+					if (ii.length()==3) {
+						String iiii=(j+"").length()>3?(j+""):"0"+j;
+						canhour=canhour+iiii+"-";
+					}
+					else {
+						canhour=canhour+j+"-";
+					}
+					
+				}
+			}
+			String can[]=canhour.split("-");
+			List<String> canhours=new ArrayList<>();
+			for (int c = 0; c < can.length; c++) {
+				canhours.add(can[c]);
+			}
+			String _canttime="";
+			for (int j = 0; j < canttimeslist.size(); j++) {
+				String canttime=canttimeslist.get(j).getTime().substring(0, 2)+canttimeslist.get(j).getTime().substring(3, 5);
+				_canttime=_canttime+canttime+"-";
+			}
+			String split[]=_canttime.split("-");
+			List<String> canttime=new ArrayList<>();
+			for (int c = 0; c < split.length; c++) {
+				canttime.add(split[c]);
+			}
+			
+			for (int k = 0; k < canhours.size(); k++) {
+				for (int z = 0; z < canttime.size(); z++) {
+					if (canhours.get(k).equals(canttime.get(z))) {
+						canhours.remove(k);
+					}
+				}
+			}
+			String _canhour="";
+			for (int i = 0; i < canhours.size(); i++) {
+				_canhour=_canhour+canhours.get(i)+"-";
+			}
+			scedto.setStart_time(_canhour);
+		return scedto.getStart_time();
 	}
 	
 	
