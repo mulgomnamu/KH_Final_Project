@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediAppointmentDao;
 import kh.com.medi.dao.MediMemberDao;
+import kh.com.medi.model.MediAppointmentDto;
 import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
@@ -23,11 +24,12 @@ public class MediAppointmentDaoImpl implements MediAppointmentDao {
 	private String ns = "Appointment.";
 
 	@Override
-	public List<MediMember_hDto> gethospitalList(MediAppointmentNeedDto alldto) throws Exception {
+	public List<MediMember_hDto> getserchhospitalList(MediAppointmentNeedDto alldto) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(ns+"gethospitalList", alldto);
+		return sqlSession.selectList(ns+"getserchhospitalList", alldto);
 	}
 
+	
 	@Override
 	public List<MediDoctorDto> getdoclist(MediAppointmentNeedDto alldto) throws Exception {
 		// TODO Auto-generated method stub
@@ -38,6 +40,42 @@ public class MediAppointmentDaoImpl implements MediAppointmentDao {
 	public List<MediDoctorSchedulDto> getdocscedulelist(MediAppointmentNeedDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(ns+"getdocscedulelist", alldto);
+	}
+
+
+	@Override
+	public MediMember_hDto gethospitaldetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"gethospitaldetail", alldto);
+	}
+
+
+	@Override
+	public MediDoctorDto getdocdetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"getdocdetail", alldto);
+	}
+
+
+	@Override
+	public boolean reserve(MediAppointmentNeedDto alldto) throws Exception {
+		int isS=sqlSession.insert(ns+"reserve", alldto);
+		return isS>0?true:false;
+	}
+
+
+	@Override
+	public boolean confirmreserve(MediAppointmentNeedDto alldto) throws Exception {
+		MediAppointmentDto dto=sqlSession.selectOne(ns+"confirmreserve", alldto);
+		
+		return dto==null?true:false;
+	}
+
+
+	@Override
+	public boolean canttime(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 

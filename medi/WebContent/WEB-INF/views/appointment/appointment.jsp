@@ -8,7 +8,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.17"/>
 <script type="text/javascript">
 /* step이동 */
 function step1_2() {//스탭1단계가는거
@@ -21,6 +21,14 @@ $("#revbtn").click(function () {
 $(document).ready(function(){
 	$('#list>li:not(:first)').hide();
 	$('#tab li a').click(function(){
+		$('#step1_1').show();
+		$('#hosserch').val("");
+		$('#hospital_info').html("<p style='text-align: center; padding-top: 20px;'><img src='images/main/icon_list_office.png'></p>");
+		$('#doctor_info').html("<p style='text-align: center; padding-top: 20px;'><img src='images/main/icon_list_doctor.png'></p>");
+		$('#time_info').html("<p style='text-align: center; padding-top: 20px;'><img src='images/main/icon_list_doctor.png'></p>");
+		$('#step1_2').hide();
+		$('#step1_3').hide();
+		
 	  $('#tab li a').removeClass('selected');
 	  $(this).addClass('selected')
 
@@ -29,16 +37,30 @@ $(document).ready(function(){
 	  return false
 	});
 	});
+$(document).ready(function(){
+	$('#step1_2').hide();
+	$('#step1_3').hide();
+	});
 </script>
 <script type="text/javascript">
 //병원검색해서리스트불러오기
 function hospitallist() {
+	var serlen=$("#hosserch").val();
+	if(serlen.length<2){
+		alert("두글자이상으로검색해주세요");
+		$("#hosserch").val("");
+		return
+	}
 	$.ajax({
 		url : "serchhospital.do", // a.jsp 의 제이슨오브젝트값을 가져옴
 		data:"name="+$("#hosserch").val(),
 		dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
 		cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
 		success : function(data) {
+			if (data.yn=="no") {
+				alert("찾으시는 병원이 없습니다.");
+				$("#hosserch").val("");
+			}
 			$("#hospitallistdiv").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
 			$("<table class='ser'/>").css({
 			}).appendTo("#hospitallistdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
@@ -60,6 +82,7 @@ function hospitallist() {
 //의사리스트불러오기
 function getdoctor(hos_seq) {
 	$("#step1_1").fadeOut();
+	$("#step1_2").fadeIn();
 	$.ajax({
 		url : "getdoctor.do", // a.jsp 의 제이슨오브젝트값을 가져옴
 		data:"hos_seq="+hos_seq,
@@ -70,6 +93,10 @@ function getdoctor(hos_seq) {
 			$("#_hos_seq").val(hos_seq);
 			$("<table class='ser'/>").css({
 			}).appendTo("#getdoclistdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
+			$(".reserve2").html("");
+			$("<span id='h_img'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
+				+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.tel+"</li></ul>").appendTo(".reserve2");
+			
 			var key = Object.keys(data["getdoclist"][0]); // seq,name,info,address,tel의 키값을 가져옴
 			$.each(data.getdoclist, function(index, getdoclist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 				var items = [];
@@ -88,7 +115,8 @@ function getdoctor(hos_seq) {
 }
 //의사 스케줄 반영한 달력불러오기
 function getscadule(doc_seq) {
-	$("#step2_1").fadeOut();
+	$("#step1_2").fadeOut();
+	$("#step1_3").fadeIn();
 	cleanser();
 	
 $.ajax({
@@ -98,24 +126,32 @@ $.ajax({
 	cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
 	success : function(data) {
 		$("#cal_area").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
-		$("<table id='datecal' class='ser' style='width:300px' align='center'><col width='40px'/><col width='40px'/><col width='40px'/><col width='40px'/><col width='40px'/><col width='40px'/><col width='40px'/>").css({
+		$("#caltitle").remove("");
+		$("#docinfo").html("");
+		$("<table id='datecal' class='ser' style='width:500px; display:inline;' align='center'><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/>").css({
 		//css적용영역
 		}).appendTo("#cal_area"); // 테이블을 생성하고 그 테이블을 div에 추가함
-		$("<tr height='40px'><td class='days2' colspan='7'><a onclick='monprev()'><img src='images/appointment/prec.gif'/></a>" 
-		+"<span style='color: red' id='nowyear'>"+data.year+"</span>"
-		+"<span style='color: red' id='nowmonth'>"+data.month+"</span>"
-		+"<td class='days2' colspan='7'><a onclick='monnext()'><img src='images/appointment/next.gif'/></a></td></tr>").appendTo("#datecal"); // 그리고 그 tr을 테이블에 붙임
-		$("<tr height='40px'><th class='days2'>일</th><th class='days2'>월</th><th class='days2'>화</th><th class='days2'>수</th>"
-		+"<th class='days2'>목</th><th class='days2'>금</th><th class='days2'>토</th></tr><tr id='dat1' height='40px'>").appendTo("#datecal"); // 그리고 그 tr을 테이블에 붙임
+		$(".reserve3").html("");
+		$("<span id='d_img'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
+			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.specialty+"</li></ul>").appendTo(".reserve3");
+		//선생님추가하는곳
+		$("<p id='docinfo'><strong>"+data.name+"</strong>선생님의 진료일입니다</p><div id='caltitle'><a onclick='monprev("+doc_seq+","+data.month+","+data.year+")' id='monprev'>&lt;</a>"+data.year+"."+data.month
+		+"<a onclick='monnext("+doc_seq+","+data.month+","+data.year+")' id='monnext'>&gt;</a></div>").appendTo("#calendartitle"); // 그리고 그 tr을 테이블에 붙임
 		
-		for (var i = 1; i < data.dayOfWeek; i++) {	//앞쪽달력빈칸입력
-			$("<td>&nbsp;</td>").appendTo("#"+i); // 그리고 그 tr을 테이블에 붙임
-		}
-		$("</tr><tr id='dat2' height='40px'></tr><tr id='dat3' height='40px'></tr><tr id='dat4' height='40px'></tr><tr id='dat5' height='40px'></tr><tr id='dat6' height='40px'>").appendTo("#datecal");
+		$("<tr><th class='days2'>일</th><th class='days2'>월</th><th class='days2'>화</th><th class='days2'>수</th>"
+		+"<th class='days2'>목</th><th class='days2'>금</th><th class='days2'>토</th></tr><tr id='dat1'>").appendTo("#datecal"); // 그리고 그 tr을 테이블에 붙임
 		
+		$("</tr><tr id='dat2'></tr><tr id='dat3'></tr><tr id='dat4'></tr><tr id='dat5'></tr>").appendTo("#datecal");
+		var days=1;
 		for (var i = 1; i <= data.lastDay; i++){
+			
 			if (i<=7) {
-				$("<td id='"+i+"'>").appendTo("#dat1");
+				if (data.dayOfWeek>i) {
+					$("<td id='"+i+"'>&nbsp;</td>").appendTo("#dat1"); 
+				}else{
+					$("<td id='"+i+"'>").appendTo("#dat1");
+				}
+				
 			}
 			else if (7<i&&i<=14) {
 				$("<td id='"+i+"'>").appendTo("#dat2");
@@ -129,26 +165,385 @@ $.ajax({
 			else if(28<i){
 				$("<td id='"+i+"'>").appendTo("#dat5");
 			}
+			//일자찍어주기
 			if((i+data.dayOfWeek-1)%7==1){	//일
-				$("#"+i).text(i);
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
 			}
 			if((i+data.dayOfWeek-1)%7==2){	//월
-				$("#"+i).text(i);
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
 			}
 			if((i+data.dayOfWeek-1)%7==3){	//화
-				$("#"+i).text(i);
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
 			}
 			if((i+data.dayOfWeek-1)%7==4){	//수
-				$("#"+i).text(i);
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
 			}
 			if((i+data.dayOfWeek-1)%7==5){	//목
-				$("#"+i).text(i);
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
 			}
 			if((i+data.dayOfWeek-1)%7==6){	//금
-				$("#"+i).text(i);
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
 			}
 			if((i+data.dayOfWeek-1)%7==0){	//토
-				$("#"+i).text(i);
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			} 
+			
+		}
+		for (var i = 0; i < (7-(data.dayOfWeek+data.lastDayOfMonth-1)%7)%7; i++) {
+			$("<td>&nbsp;</td>").appendTo("#dat5");
+		}
+		$("</tr>").appendTo("#datecal");
+		var key = Object.keys(data["canlist"][0]);
+		$.each(data.canlist, function(index, canlist) { 
+			var items=[];
+			
+			if(canlist.day=='일'){	//일
+				$("#1>.divwrap").wrap('<div class="circle"></div>');
+				$("#8>.divwrap").wrap('<div class="circle"></div>');
+				$("#15>.divwrap").wrap('<div class="circle"></div>');
+				$("#22>.divwrap").wrap('<div class="circle"></div>');
+				$("#29>.divwrap").wrap('<div class="circle"></div>');
+				$("#1,#8,#15,#22,#29").attr("class","caldaycss1");
+				$(".caldaycss1").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='월'){	//월
+				$("#2>.divwrap").wrap('<div class="circle"></div>');
+				$("#9>.divwrap").wrap('<div class="circle"></div>');
+				$("#16>.divwrap").wrap('<div class="circle"></div>');
+				$("#23>.divwrap").wrap('<div class="circle"></div>');
+				$("#30>.divwrap").wrap('<div class="circle"></div>');
+				$("#2,#9,#16,#23,#30").attr("class","caldaycss2");
+				$(".caldaycss2").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='화'){	//화
+				$("#3>.divwrap").wrap('<div class="circle"></div>');
+				$("#10>.divwrap").wrap('<div class="circle"></div>');
+				$("#17>.divwrap").wrap('<div class="circle"></div>');
+				$("#24>.divwrap").wrap('<div class="circle"></div>');
+				$("#31>.divwrap").wrap('<div class="circle"></div>');
+				$("#3,#10,#17,#24,#31").attr("class","caldaycss3");
+				$(".caldaycss3").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='수'){	//수
+				$("#4>.divwrap").wrap('<div class="circle"></div>');
+				$("#11>.divwrap").wrap('<div class="circle"></div>');
+				$("#18>.divwrap").wrap('<div class="circle"></div>');
+				$("#25>.divwrap").wrap('<div class="circle"></div>');
+				$("#4,#11,#18,#25").attr("class","caldaycss4");
+				$(".caldaycss4").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='목'){	//목
+				$("#5>.divwrap").wrap('<div class="circle"></div>');
+				$("#12>.divwrap").wrap('<div class="circle"></div>');
+				$("#19>.divwrap").wrap('<div class="circle"></div>');
+				$("#26>.divwrap").wrap('<div class="circle"></div>');
+				$("#5,#12,#19,#26").attr("class","caldaycss5");
+				$(".caldaycss5").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='금'){	//금
+				$("#6>.divwrap").wrap('<div class="circle"></div>');
+				$("#13>.divwrap").wrap('<div class="circle"></div>');
+				$("#20>.divwrap").wrap('<div class="circle"></div>');
+				$("#27>.divwrap").wrap('<div class="circle"></div>');
+				$("#6,#13,#20,#27").attr("class","caldaycss6");
+				$(".caldaycss6").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='토'){	//토
+				$("#7>.divwrap").wrap('<div class="circle"></div>');
+				$("#14>.divwrap").wrap('<div class="circle"></div>');
+				$("#21>.divwrap").wrap('<div class="circle"></div>');
+				$("#28>.divwrap").wrap('<div class="circle"></div>');
+				$("#7,#14,#21,#28").attr("class","caldaycss7");
+				$(".caldaycss7").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			//오늘찍어주기
+			if($("#"+data.today).text()==data.today&&data.nowmon==data.month){
+				$("#"+data.today).attr("class","today");
+			}
+			//오늘이전날짜초기화
+			for (var i = 1; i < 31; i++) {
+				if($("#"+i).text()==data.today&&data.nowmon==data.month){
+					$("#"+i).children(".circle").attr("class","non3");
+					$("#"+i).children(".divwrap").attr("class","non2");
+				}
+				else if($("#"+i).text()<data.today&&data.nowmon==data.month){
+					$("#"+i).attr("class","non");
+					$("#"+i).children(".circle").attr("class","non");
+					$("#"+i).children(".divwrap").attr("class","non");
+				}
+			}
+			
+		});//each끝 
+		
+	}
+
+});
+}
+//의사 스케줄 반영한 다음달달력불러오기
+function monnext(doc_seq,month,year) {
+	cleanser();
+	var data={
+			doc_seq:doc_seq,
+			month:month+1,
+			year:year
+	};	
+$.ajax({
+	url : "monnext.do", 
+	data:data,
+	dataType : "json", 
+	cache : false, 
+	success : function(data) {
+		$("#cal_area").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
+		$("#caltitle").remove("");
+		$("#docinfo").html("");
+		$("<table id='datecal' class='ser' style='width:500px; display:inline;' align='center'><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/>").css({
+		//css적용영역
+		}).appendTo("#cal_area"); // 테이블을 생성하고 그 테이블을 div에 추가함
+		$(".reserve3").html("");
+		$("<span id='h_img'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
+			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.specialty+"</li></ul>").appendTo(".reserve3");
+		//선생님추가하는곳
+		$("<p id='docinfo'><strong>"+data.name+"</strong>선생님의 진료일입니다</p><div id='caltitle'><a onclick='monprev("+doc_seq+","+data.month+","+data.year+")' id='monprev'>&lt;</a>"+data.year+"."+data.month
+		+"<a onclick='monnext("+doc_seq+","+data.month+","+data.year+")' id='monnext'>&gt;</a></div>").appendTo("#calendartitle"); // 그리고 그 tr을 테이블에 붙임
+		
+		$("<tr><th class='days2'>일</th><th class='days2'>월</th><th class='days2'>화</th><th class='days2'>수</th>"
+		+"<th class='days2'>목</th><th class='days2'>금</th><th class='days2'>토</th></tr><tr id='dat1'>").appendTo("#datecal"); // 그리고 그 tr을 테이블에 붙임
+		
+		$("</tr><tr id='dat2'></tr><tr id='dat3'></tr><tr id='dat4'></tr><tr id='dat5'></tr>").appendTo("#datecal");
+		var days=1;
+		for (var i = 1; i <= data.lastDay; i++){
+			
+			if (i<=7) {
+				if (data.dayOfWeek>i) {
+					$("<td id='"+i+"'>&nbsp;</td>").appendTo("#dat1"); 
+				}else{
+					$("<td id='"+i+"'>").appendTo("#dat1");
+				}
+				
+			}
+			else if (7<i&&i<=14) {
+				$("<td id='"+i+"'>").appendTo("#dat2");
+			}
+			else if (14<i&&i<=21) {
+				$("<td id='"+i+"'>").appendTo("#dat3");
+			}
+			else if (21<i&&i<=28) {
+				$("<td id='"+i+"'>").appendTo("#dat4");
+			}
+			else if(28<i){
+				$("<td id='"+i+"'>").appendTo("#dat5");
+			}
+			//일자찍어주기
+			//시작번호 3 에 1을넣어줘야한다 i=1
+			if((i+data.dayOfWeek-1)%7==1){	//일
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==2){	//월
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==3){	//화
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==4){	//수
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==5){	//목
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==6){	//금
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==0){	//토
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
 			} 
 			
 		}
@@ -160,74 +555,514 @@ $.ajax({
 		$.each(data.canlist, function(index, canlist) { 
 			var items=[];
 			if(canlist.day=='일'){	//일
-				$("#1").css("color","red");
-				$("#8").css("color","red");
-				$("#15").css("color","red");
-				$("#22").css("color","red");
-				$("#29").css("color","red");
-			}
-			if(canlist.day=='월'){	//월
-				$("#2").css("color","red");
-				$("#9").css("color","red");
-				$("#16").css("color","red");
-				$("#23").css("color","red");
-				$("#30").css("color","red");
-			}
-			if(canlist.day=='화'){	//화
-				$("#3").css("color","red");
-				$("#10").css("color","red");
-				$("#17").css("color","red");
-				$("#24").css("color","red");
-				$("#31").css("color","red");
-			}
-			if(canlist.day=='수'){	//수
-				$("#4").css("color","red");
-				$("#11").css("color","red");
-				$("#18").css("color","red");
-				$("#25").css("color","red");
-			}
-			if(canlist.day=='목'){	//목
-				$("#5").css("color","red");
-				$("#12").css("color","red");
-				$("#19").css("color","red");
-				$("#26").css("color","red");
-			}
-			if(canlist.day=='금'){	//금
-				$("#6").css("color","red");
-				$("#13").css("color","red");
-				$("#20").css("color","red");
-				$("#27").css("color","red");
-			}
-			if(canlist.day=='토'){	//토
-				$("#7").css("cursor","pointer");
-				$('#7').click(function(){
-					
+				$("#1>.divwrap").wrap('<div class="circle"></div>');
+				$("#8>.divwrap").wrap('<div class="circle"></div>');
+				$("#15>.divwrap").wrap('<div class="circle"></div>');
+				$("#22>.divwrap").wrap('<div class="circle"></div>');
+				$("#29>.divwrap").wrap('<div class="circle"></div>');
+				$("#1,#8,#15,#22,#29").attr("class","caldaycss1");
+				$(".caldaycss1").click(function(){
+					$("#time_area").html("");
 					var times=(canlist.start_time).split('-');
 					var whatday="";
-					if (($("#7").text()).length==1) {
-						whatday="0"+$("#7").text();
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
 					}
 					var appointmentday=data.year+data.month+whatday;
 					var doc_seq=canlist.doc_seq;
-					
-					for (var i = 0; i < times.length; i++) {
-						$("<button onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'>"+times[i]+"</button>").appendTo('#time_area');
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
 					}
 					
 					});
-				$("#14").css("color","red");
-				$("#21").css("color","red");
-				$("#28").css("color","red");
 			}
+			if(canlist.day=='월'){	//월
+				$("#2>.divwrap").wrap('<div class="circle"></div>');
+				$("#9>.divwrap").wrap('<div class="circle"></div>');
+				$("#16>.divwrap").wrap('<div class="circle"></div>');
+				$("#23>.divwrap").wrap('<div class="circle"></div>');
+				$("#30>.divwrap").wrap('<div class="circle"></div>');
+				$("#2,#9,#16,#23,#30").attr("class","caldaycss2");
+				$(".caldaycss2").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='화'){	//화
+				$("#3>.divwrap").wrap('<div class="circle"></div>');
+				$("#10>.divwrap").wrap('<div class="circle"></div>');
+				$("#17>.divwrap").wrap('<div class="circle"></div>');
+				$("#24>.divwrap").wrap('<div class="circle"></div>');
+				$("#31>.divwrap").wrap('<div class="circle"></div>');
+				$("#3,#10,#17,#24,#31").attr("class","caldaycss3");
+				$(".caldaycss3").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='수'){	//수
+				$("#4>.divwrap").wrap('<div class="circle"></div>');
+				$("#11>.divwrap").wrap('<div class="circle"></div>');
+				$("#18>.divwrap").wrap('<div class="circle"></div>');
+				$("#25>.divwrap").wrap('<div class="circle"></div>');
+				$("#4,#11,#18,#25").attr("class","caldaycss4");
+				$(".caldaycss4").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='목'){	//목
+				$("#5>.divwrap").wrap('<div class="circle"></div>');
+				$("#12>.divwrap").wrap('<div class="circle"></div>');
+				$("#19>.divwrap").wrap('<div class="circle"></div>');
+				$("#26>.divwrap").wrap('<div class="circle"></div>');
+				$("#5,#12,#19,#26").attr("class","caldaycss5");
+				$(".caldaycss5").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='금'){	//금
+				$("#6>.divwrap").wrap('<div class="circle"></div>');
+				$("#13>.divwrap").wrap('<div class="circle"></div>');
+				$("#20>.divwrap").wrap('<div class="circle"></div>');
+				$("#27>.divwrap").wrap('<div class="circle"></div>');
+				$("#6,#13,#20,#27").attr("class","caldaycss6");
+				$(".caldaycss6").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='토'){	//토
+				$("#7>.divwrap").wrap('<div class="circle"></div>');
+				$("#14>.divwrap").wrap('<div class="circle"></div>');
+				$("#21>.divwrap").wrap('<div class="circle"></div>');
+				$("#28>.divwrap").wrap('<div class="circle"></div>');
+				$("#7,#14,#21,#28").attr("class","caldaycss7");
+				$(".caldaycss7").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			//오늘날짜찍어주기
+			if($("#"+data.today).text()==data.today&&data.nowmon==data.month){
+				$("#"+data.today).attr("class","today");
+			}
+			//오늘달력전날없애기
+			for (var i = 1; i < 31; i++) {
+				if($("#"+i).text()==data.today&&data.nowmon==data.month){
+					$("#"+i).children(".divwrap").attr("class","non2");
+				}
+				else if($("#"+i).text()<data.today&&data.nowmon==data.month){
+					$("#"+i).attr("class","non");
+					$("#"+i).children(".circle").attr("class","non");
+					$("#"+i).children(".divwrap").attr("class","non");
+				}
+			}
+			//의사가능한날짜찍어주기
 			
 		});//each끝 
+	}
+
+});
+}
+//저번달달력불러오기
+function monprev(doc_seq,month,year) {
+	cleanser();
+	var data={
+			doc_seq:doc_seq,
+			month:month-1,
+			year:year
+	};	
+$.ajax({
+	url : "monnext.do", 
+	data:data,
+	dataType : "json", 
+	cache : false, 
+	success : function(data) {
+		$("#cal_area").html(""); 
+		$("#caltitle").remove("");
+		$("#docinfo").html("");
+		$("<table id='datecal' class='ser' style='width:500px; display:inline;' align='center'><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/>").css({
+		//css적용영역
+		}).appendTo("#cal_area"); // 테이블을 생성하고 그 테이블을 div에 추가함
+		$(".reserve3").html("");
+		$("<span id='h_img'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
+			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.specialty+"</li></ul>").appendTo(".reserve3");
+		//선생님추가하는곳
+		$("<p id='docinfo'><strong>"+data.name+"</strong>선생님의 진료일입니다</p><div id='caltitle'><a onclick='monprev("+doc_seq+","+data.month+","+data.year+")' id='monprev'>&lt;</a>"+data.year+"."+data.month
+		+"<a onclick='monnext("+doc_seq+","+data.month+","+data.year+")' id='monnext'>&gt;</a></div>").appendTo("#calendartitle"); // 그리고 그 tr을 테이블에 붙임
 		
+		$("<tr><th class='days2'>일</th><th class='days2'>월</th><th class='days2'>화</th><th class='days2'>수</th>"
+		+"<th class='days2'>목</th><th class='days2'>금</th><th class='days2'>토</th></tr><tr id='dat1'>").appendTo("#datecal"); // 그리고 그 tr을 테이블에 붙임
+		
+		$("</tr><tr id='dat2'></tr><tr id='dat3'></tr><tr id='dat4'></tr><tr id='dat5'></tr>").appendTo("#datecal");
+		var days=1;
+		for (var i = 1; i <= data.lastDay; i++){
+			
+			if (i<=7) {
+				if (data.dayOfWeek>i) {
+					$("<td id='"+i+"'>&nbsp;</td>").appendTo("#dat1"); 
+				}else{
+					$("<td id='"+i+"'>").appendTo("#dat1");
+				}
+				
+			}
+			else if (7<i&&i<=14) {
+				$("<td id='"+i+"'>").appendTo("#dat2");
+			}
+			else if (14<i&&i<=21) {
+				$("<td id='"+i+"'>").appendTo("#dat3");
+			}
+			else if (21<i&&i<=28) {
+				$("<td id='"+i+"'>").appendTo("#dat4");
+			}
+			else if(28<i){
+				$("<td id='"+i+"'>").appendTo("#dat5");
+			}
+			//일자찍어주기
+			//시작번호 3 에 1을넣어줘야한다 i=1
+			if((i+data.dayOfWeek-1)%7==1){	//일
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==2){	//월
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==3){	//화
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==4){	//수
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==5){	//목
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==6){	//금
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			}
+			if((i+data.dayOfWeek-1)%7==0){	//토
+				if (data.dayOfWeek>i) {
+					$("#"+i).html("&nbsp;");
+				}
+				else{
+					$("#"+i).html("<div class=divwrap>"+days+"</div>");
+					days++;
+				}
+			} 
+			
+		}
+		for (var i = 0; i < (7-(data.dayOfWeek+data.lastDayOfMonth-1)%7)%7; i++) {
+			$("<td>&nbsp;</td>").appendTo("#dat5");
+		}
+		$("</tr>").appendTo("#datecal");
+		var key = Object.keys(data["canlist"][0]);
+		$.each(data.canlist, function(index, canlist) { 
+			var items=[];
+			if(canlist.day=='일'){	//일
+				$("#1>.divwrap").wrap('<div class="circle"></div>');
+				$("#8>.divwrap").wrap('<div class="circle"></div>');
+				$("#15>.divwrap").wrap('<div class="circle"></div>');
+				$("#22>.divwrap").wrap('<div class="circle"></div>');
+				$("#29>.divwrap").wrap('<div class="circle"></div>');
+				$("#1,#8,#15,#22,#29").attr("class","caldaycss1");
+				$(".caldaycss1").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='월'){	//월
+				$("#2>.divwrap").wrap('<div class="circle"></div>');
+				$("#9>.divwrap").wrap('<div class="circle"></div>');
+				$("#16>.divwrap").wrap('<div class="circle"></div>');
+				$("#23>.divwrap").wrap('<div class="circle"></div>');
+				$("#30>.divwrap").wrap('<div class="circle"></div>');
+				$("#2,#9,#16,#23,#30").attr("class","caldaycss2");
+				$(".caldaycss2").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='화'){	//화
+				$("#3>.divwrap").wrap('<div class="circle"></div>');
+				$("#10>.divwrap").wrap('<div class="circle"></div>');
+				$("#17>.divwrap").wrap('<div class="circle"></div>');
+				$("#24>.divwrap").wrap('<div class="circle"></div>');
+				$("#31>.divwrap").wrap('<div class="circle"></div>');
+				$("#3,#10,#17,#24,#31").attr("class","caldaycss3");
+				$(".caldaycss3").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='수'){	//수
+				$("#4>.divwrap").wrap('<div class="circle"></div>');
+				$("#11>.divwrap").wrap('<div class="circle"></div>');
+				$("#18>.divwrap").wrap('<div class="circle"></div>');
+				$("#25>.divwrap").wrap('<div class="circle"></div>');
+				$("#4,#11,#18,#25").attr("class","caldaycss4");
+				$(".caldaycss4").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='목'){	//목
+				$("#5>.divwrap").wrap('<div class="circle"></div>');
+				$("#12>.divwrap").wrap('<div class="circle"></div>');
+				$("#19>.divwrap").wrap('<div class="circle"></div>');
+				$("#26>.divwrap").wrap('<div class="circle"></div>');
+				$("#5,#12,#19,#26").attr("class","caldaycss5");
+				$(".caldaycss5").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='금'){	//금
+				$("#6>.divwrap").wrap('<div class="circle"></div>');
+				$("#13>.divwrap").wrap('<div class="circle"></div>');
+				$("#20>.divwrap").wrap('<div class="circle"></div>');
+				$("#27>.divwrap").wrap('<div class="circle"></div>');
+				$("#6,#13,#20,#27").attr("class","caldaycss6");
+				$(".caldaycss6").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			if(canlist.day=='토'){	//토
+				$("#7>.divwrap").wrap('<div class="circle"></div>');
+				$("#14>.divwrap").wrap('<div class="circle"></div>');
+				$("#21>.divwrap").wrap('<div class="circle"></div>');
+				$("#28>.divwrap").wrap('<div class="circle"></div>');
+				$("#7,#14,#21,#28").attr("class","caldaycss7");
+				$(".caldaycss7").click(function(){
+					$("#time_area").html("");
+					var times=(canlist.start_time).split('-');
+					var whatday="";
+					if (($(this).text()).length==1) {
+						whatday="0"+$(this).text();
+					}else{
+						whatday=$(this).text();
+					}
+					var appointmentday=data.year+data.month+whatday;
+					var doc_seq=canlist.doc_seq;
+					for (var i = 0; i < times.length-1; i++) {
+						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+					}
+					
+					});
+			}
+			//오늘날짜찍어주기
+			if($("#"+data.today).text()==data.today&&data.nowmon==data.month){
+				$("#"+data.today).attr("class","today");
+			}
+			//오늘달력전날없애기
+			for (var i = 1; i < 31; i++) {
+				if($("#"+i).text()==data.today&&data.nowmon==data.month){
+					$("#"+i).children(".divwrap").attr("class","non2");
+				}
+				else if($("#"+i).text()<data.today&&data.nowmon==data.month){
+					$("#"+i).attr("class","non");
+					$("#"+i).children(".circle").attr("class","non");
+					$("#"+i).children(".divwrap").attr("class","non");
+				}
+			}
+			 
+		});//each끝 
 	}
 
 });
 }
 function settime(time,doc_seq) {
-	$("<button id='reservbtn' onclick='appointment("+time+","+doc_seq+")'>예약하기</button>").appendTo("#reservebtn_section");
+	$(".reserve4").html("");
+	$("#reservebtn_section").html("");
+	$("<a id='reservbtn' onclick='appointment("+time+","+doc_seq+")'>예약하기&nbsp;&nbsp;&nbsp;&nbsp;&gt;</a>").appendTo("#reservebtn_section");
+	
+	time1=time+"";
+	var day=time1.substring(0,4)+"."+time1.substring(4,6)+"."+time1.substring(6,8);
+	var time2=time1.substring(8,10)+":"+time1.substring(10,12);
+	$("<p>"+day+"</p><p>"+time2+"</p>").appendTo(".reserve4");
+	
 }
 function appointment(day,doc_seq) {
 	/* 성공하면 예약디테일로 실패하는경우 어디서실패하느냐에따라서맨트설정해야한다 예약시간검색쿼리에있으면 예약시간을다시선택해주세요 */
@@ -263,6 +1098,10 @@ function cleanser() {
 	$(".ser").html("");
 }
 </script>
+<style>
+
+</style>
+
 <c:if test="${empty login }">
 	<script type="text/javascript">
 	alert("로그인후이용가능합니다");
@@ -311,17 +1150,17 @@ function cleanser() {
 	         <div class="sub_content">
 			    <ol id="list">
 			    <li id="tab1">
-				<div class="cont_box-office_select">
-			        
+				<div>
 			        <div>
-			            <div class="doctor_detail">
+			        	
+			            <div class="hospital_detail">
 			            	<div class="select_wrap_team">
-			            		<div class="step_cont_wrap" style="float: left; width: 820px;" id="step1_1">
+			            		<div class="step_cont_wrap" style="float: left; width: 820px; margin-top: 30px;" id="step1_1">
 			            			<div class="title-type02">
 							            <h3>병원으로 선택</h3>
 							        </div>
 				            		<span class="form-text" style="width: 560px;">
-				            			<label for="team_searhc" class="placeholder" style="display: none;">
+				            			<label for="team_searhc" class="placeholder">
 				            				병원명을 2글자 이상으로 입력해 주세요
 				            			</label>
 				            			<input type="text" id="hosserch" name="name">
@@ -331,14 +1170,12 @@ function cleanser() {
 				            		<div id="hospitallistdiv" style="overflow:auto; width: 820px; height: 500px;">
 							        	<!-- ajax로 리스트받아오는부분 -->
 							        </div>
-							        
-							        
 			            		</div>
 			            		<div class="list_wrap" style="width: 280px; height: 600px;float: right;">
 			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
 			            				<br>
-			            				<ul style="list-style-type:disc; padding-left: 40px;">
+			            				<ul style="padding-left: 40px;">
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.name }</li>
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.phone }</li>
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.email }</li>
@@ -347,7 +1184,7 @@ function cleanser() {
 			            			<div style="height: 150px; background: #555;color: #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">2</strong>&nbsp;&nbsp;&nbsp;병원정보
 			            				<br>
-			            				<div id="hospital_info">
+			            				<div id="hospital_info" class="reserve2">
 			            					<p style="text-align: center; padding-top: 20px;">
 			            					<img src="images/main/icon_list_office.png">
 			            					</p>
@@ -356,71 +1193,90 @@ function cleanser() {
 			            			<div style="height: 150px; background: #555;color: #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">3</strong>&nbsp;&nbsp;&nbsp;의료진
 			            				<br>
-			            				<div id="doctor_info">
+			            				<div id="doctor_info" class="reserve3">
 			            					<p style="text-align: center; padding-top: 20px;">
 			            					<img src="images/main/icon_list_doctor.png">
-			            					</p>
+			            					</p> 
 			            				</div>
 			            			</div>
 			            			<div style="height: 170px; background: #555;color: #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
 			            				<br>
-			            				<div id="time_info">
+			            				<div id="time_info" class="reserve4">
 			            					<p style="text-align: center; padding-top: 20px;">
 			            					<img src="images/main/icon_list_data.png">
 			            					</p>
 			            				</div>
 			            			</div>
 			            		</div>
+			            		
 			            	</div>
 			            </div>
 			        </div>
-			        
 			    </div>
-			    <div class="cont_box-office_select" id="step2_1" style="clear: both;">
-			        <div class="title-type02">
-			            <h3>의료진 선택</h3>
-			        </div>
+			    <div>
 			        <div>
-			            <div class="select_list">
-			                <div class="select_list_wrap">
+			            <div class="doc_detail">
+			                <div class="select_wrap_team">
+			               	 <div class="step_cont_wrap" style="float: left; width: 820px; margin-top: 30px;" id="step1_2">
+			                	<div class="title-type02">
+						            <h3>의료진 선택</h3>
+						        </div>
 			                    <div id="getdoclistdiv" style="overflow:auto; width: 820px; height: 500px;">
 						        	<!-- ajax로 의사리스트받아오는부분 -->
 						        </div>
+						        <div class="prev_btn">
+									<a onclick="revto1()">&lt;&nbsp;&nbsp;이전단계로</a>
+								</div>
+						      </div>
 			                </div>
 			            </div>
 			           
 			        </div>
 			    </div>
-			    <div class="cont_box-office_select" id="step3_1">
-			        <div class="title-type02">
-			            <h3>진료일자 선택</h3>
-			        </div>
+			    <div>
 			        <div>
-			            <div class="select_list">
-			                <div class="select_list_wrap">
-			                    <div id="getcalendardiv" style="overflow:auto; width: 820px; height: 500px;">
-						        	<!-- ajax로스케쥴달력불러오는곳 -->
-						        	<div id="cal_area" style="width: 300px">
-						        	</div>
-						        	<!-- ajax로스케쥴시간불러오는곳 -->
-						        	<div id="time_area" style="width: 300px">
-						        	</div>
-						        	<!-- 증상입력 -->
-						        	<div id="content_area" style="width: 300px">
-						        	 <h3>증상을써주세요</h3>
-						        	<input type="text" name="content" id="_content">
-						        	</div>
-						        </div>
-			                </div>
-			            </div>
-			           
+			        	<div class="scadule_detail">
+				            <div class="select_list">
+				                <div class="select_wrap_team">
+				                	<div class="step_cont_wrap" style="float: left; width: 820px; height:650px; margin-top: 30px;" id="step1_3">
+					                    <div class="title-type02" id="calendartitle">
+								            <h3 style="text-align: center">진료일시 선택</h3>
+								        </div>
+					                    <div id="getcalendardiv" style="overflow:auto; width: 820px; height: 350px;">
+								        	<!-- ajax로스케쥴달력불러오는곳 -->
+								        	<span id="cal_area" style="width: 500px; ">
+								        	</span>
+								        	<!-- ajax로스케쥴시간불러오는곳 -->
+								        	<div id="time_area" style="width: 280px; height: 350px;float: right;">
+								        	
+								        	</div>
+								        </div>
+								        <!-- 증상입력 -->
+							        	<div id="content_area" style="width: 300px; margin-bottom: 40px;">
+							        	<span class="form-text" style="width: 560px;">
+				            			<label for="team_searhc" class="placeholder">
+				            				증상을 입력해 주세요
+				            			</label>
+			            				<input type="text" id="_content" name="content">
+							        	</span>
+							        	</div>
+								        <span style="margin-top: 40px;">
+											<a onclick="revto2()" id="revto2">&lt;&nbsp;&nbsp;이전단계로</a>
+										</span>
+										<span id="reservebtn_section" style="margin-top: 40px;">
+											
+										</span>
+							        </div>
+				                </div>
+				            </div>
+			           </div>
 			        </div>
 			    </div>
 			</li>
 			    <li id="tab2">
 			     <!-- 진료과 선택 -->
-			    <div class="cont_box-office_select" id="step1_2">
+			    <div class="cont_box-office_select" id="step2_1">
 			        <div class="title-type02">
 			            <h3>진료과 선택</h3>
 			        </div>
@@ -689,7 +1545,7 @@ function cleanser() {
 			           
 			        </div>
 			    </div>
-			    <div class="cont_box-office_select" id="step3_2">
+			    <div class="cont_box-office_select" id="step2_3">
 			        <div class="title-type02">
 			            <h3>진료일시 선택</h3>
 			            <p>${doctorid }님의 진료일입니다.</p>
@@ -733,37 +1589,12 @@ function cleanser() {
 			</li>
 			</ol>
 			</div>
-			<div id="reservebtn_section">
-				<button id="revbtn">이전단계로</button>
-			</div>
 			<div id="data_area">
 				<input type="hidden" name="hos_seq" id="_hos_seq">
 				<input type="hidden" name="type" id="_type">
 			</div>
 		</div>
-
-<!-- <div id="slidebox">
-		<ul id="slider">
-			<li>
-				<img src="http://dummyimage.com/300x200/ff00ff/ffffff.png&text=img 1" />
-			</li>
-			<li>
-				<img src="http://dummyimage.com/300x200/82e600/ff0000.png&text=img 2" />
-			</li>
-			<li>
-				<img src="http://dummyimage.com/300x200/009eb3/000000.png&text=img 3" />
-			</li>
-			<li>
-				<img src="http://dummyimage.com/300x200/d4bb00/0011ff.png&text=img 4" />
-			</li>
-			<li>
-				<img src="http://dummyimage.com/300x200/7a3f00/ffffff.png&text=img 5" />
-			</li>
-		</ul>
-	</div> -->
      </div></div>
 		</section>
 	</div>
-			<!-- // #LOCATION -->
-	<!-- phone_num 끝 -->
 </div>
