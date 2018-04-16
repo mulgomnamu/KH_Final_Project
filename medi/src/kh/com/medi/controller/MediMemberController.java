@@ -88,10 +88,12 @@ public class MediMemberController {
 				return "redirect:/main.do";//그냥 몸만 감
 				//return "forward:/login.do";	//데이터도 가지고 감 
 			}else {
+				System.out.println("1");
 				model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
 				return "login.tiles";
 			}
 		}else {
+			System.out.println("4");
 			model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
 			return "login.tiles";
 		}
