@@ -70,14 +70,18 @@ public class MediMemberController {
 		logger.info("MediMemberController loginAf " + new Date());
 		
 		MediMemberDto b = mediMemberService.loginAf(dto);
-		if(b != null && !b.getId().equals("")) {
+		if(b.getAuth() == 0) {
+			System.out.println("3");
+			model.addAttribute("msg", "이메일 인증을 해주세요"); 
+			return "login.tiles";
+		}else if(b != null && !b.getId().equals("")){
 			req.getSession().setAttribute("login", b);
 			System.out.println("2");
-			return "redirect:/main.do";
-		}else {
-			System.out.println("3");
-			return "login.tiles";	//그냥 몸만 감
+			return "redirect:/main.do";//그냥 몸만 감
 			//return "forward:/login.do";	//데이터도 가지고 감 
+		}else {
+			model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
+			return "login.tiles";
 		}
 		
 	}
@@ -138,17 +142,50 @@ public class MediMemberController {
 			e.printStackTrace();
 		}
 		
-		
 		boolean flag = mediMemberService.insertMember(dto);
+		MediMemberDto IDandEmailDto = mediMemberService.getQuesAns(dto);
+		/*//회원가입 후 자동로그인
 		mediMemberService.loginAf(dto);
-		req.getSession().setAttribute("login", dto);
+		req.getSession().setAttribute("login", dto);*/
+		
+		
 		if(flag) {
-			return "redirect:/main.do";
+			
+            String subject = "[이메일 인증]";
+            
+            StringBuilder sb = new StringBuilder();
+            sb.append("<a href='http://localhost:8090/medi/emailAuthenticationAf.do?id=" + IDandEmailDto.getId() + "&email=" + IDandEmailDto.getEmail())
+            .append("' target='_blenk'>이메일 인증 확인</a>");
+            mailService.send(subject, sb.toString(), "asdqawsed92@gmail.com", IDandEmailDto.getEmail());
+			return "emailAuthentication.tiles";
 		}else {
 			return "redirect:/joinMember.do";
 		}
 		
+		/*if(flag) {
+			return "redirect:/main.do";
+		}else {
+			return "redirect:/joinMember.do";
+		}*/
+		
 	}
+	
+	@RequestMapping(value="emailAuthenticationAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String emailAuthenticationAf(Model model, MediMemberDto dto, HttpServletRequest req, @RequestParam String id, @RequestParam String email) throws Exception{
+		logger.info("MediMemberController emailAuthenticationAf " + new Date());
+		
+		//auth 1로 수정
+		dto.setId(id);
+		mediMemberService.emailAuth(dto);
+		
+		//email 인증 후 id, email을 가져와서 업데이트
+		dto.setEmail(email);
+		MediMemberDto login = mediMemberService.emailAuthAf(dto);
+		req.getSession().setAttribute("login", login);
+		return "emailAuthenticationAf.tiles";
+		
+	}
+	
 	
 	@RequestMapping(value="logout.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String logout(Model model) throws Exception{
