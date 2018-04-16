@@ -56,10 +56,15 @@
 			}else{
 			%>
 			<li>
-				<a href="login.do">
+				<a href="MyPageLogin.do">
 					<em>정보수정</em>
 				</a>
 			</li>
+			<li>
+				<a href="MyPage.do">
+					<em>마이페이지</em>
+				</a>
+			</li>	
 			<li>
 				<a href="logout.do">
 					<em>로그아웃</em>

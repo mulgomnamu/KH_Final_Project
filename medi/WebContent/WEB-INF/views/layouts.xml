@@ -63,11 +63,23 @@
 	<put-attribute name="content" value="/WEB-INF/views/mypage/MyPage.jsp"/>
 	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	
+	<!--내정보보기  -->
 	<definition name="Mydetail.tiles" extends="main.tiles">
 	<put-attribute name="content" value="/WEB-INF/views/mypage/Mydetail.jsp"/>
 	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<!--정보수정가기전 로그인부분  -->
+	<definition name="MyPageLogin.tiles" extends="main.tiles">
+	<put-attribute name="content" value="/WEB-INF/views/mypage/MyPageLogin.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!--비밀번호 수정 페이지로...  -->
+	<definition name="Mypwdupdate.tiles" extends="main.tiles">
+	<put-attribute name="content" value="/WEB-INF/views/mypage/Mypwdupdate.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	
 	<!-- 건강 수첩 -->
 	<definition name="healthbook.tiles" extends="main.tiles">

@@ -17,7 +17,7 @@
 								</div>
 								<div class="btn_area">
 									<span class="login_btn">
-										<a href="MyPage.do" class="btn-type02">
+										<a href="emem" class="btn-type02">
 											<em>로그인</em>
 										</a>
 									</span>

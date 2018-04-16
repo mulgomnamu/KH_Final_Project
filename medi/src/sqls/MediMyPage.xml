@@ -5,9 +5,9 @@
 <mapper namespace="MediMyPage">
 
 <select id="mydetail"
-parameterType="kh.com.medi.model.MediMyPageDto"
-resultType="kh.com.medi.model.MediMyPageDto">
-	SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, 
+parameterType="kh.com.medi.model.MediMemberDto"
+resultType="kh.com.medi.model.MediMemberDto">
+	SELECT SEQ,ID, PWD, NAME, EMAIL, PHONE, 
 	POST, ADDRESS, AUTH, DEL, MYIMG, BLACKLIST,REGDATE,QUESTION,ANSWER
 	FROM medi_member
 	WHERE ID=#{id}
@@ -16,14 +16,25 @@ resultType="kh.com.medi.model.MediMyPageDto">
 <update id="myupdate" parameterType="hashmap">
 UPDATE medi_member SET 
 PWD=#{pwd}, EMAIL=#{email},POST=#{post},ADDRESS=#{address}
-WHERE SEQ=#{seq}
+WHERE ID=#{id}
 </update>
 
-<update id="mydelete" parameterType="kh.com.medi.model.MediMyPageDto">
+<update id="mydelete" parameterType="kh.com.medi.model.MediMemberDto">
 	UPDATE medi_member
 	SET DEL=1
 	WHERE ID=#{id}
 </update>
 
+<select parameterType="kh.com.medi.model.MediMemberDto" id="myup" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
+		FROM medi_member 
+		WHERE ID=#{id} AND PWD=#{pwd} 
+</select>
+
+<!--비밀번호 수정  -->
+<update id="mypwdupdateAf" parameterType="hashmap">
+UPDATE medi_member SET PWD=#{pwd}
+WHERE PWD=#{pwd}
+</update>
 
 </mapper>
