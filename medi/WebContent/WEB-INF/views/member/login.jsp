@@ -109,6 +109,14 @@
 	<!-- phone_num 끝 -->
 </div>
 
+<script type="text/javascript"> 
+var message = '${msg}'; 
+var returnUrl = '${url}'; 
+if(message != ""){
+	alert(message);	
+}
+</script>
+
 <script type="text/javascript">
 $("#_btnLogin").click(function() {
 	if($("#_userid").val() == ""){
