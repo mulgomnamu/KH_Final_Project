@@ -100,11 +100,11 @@ input:valid + span:after {
 									주소
 								</td>
 								<td>
-									<input type="text" id="post" placeholder="우편번호">
+									<input type="text" id="post" name="post" placeholder="우편번호">
 									<input type="button" onclick="btnPost()" value="우편번호 찾기"><br>
 									<input type="text" id="address1" placeholder="주소">
 									<input type="text" id="address2" onkeyup="addressCheckFunction()" placeholder="상세주소">
-									<input type="hidden" id="address" value="">
+									<input type="hidden" name="address" id="address" value="">
 									<h5 style="color: red;" id="addressCheckMessage" align="left"></h5>
 								</td>
 							</tr>
@@ -145,7 +145,13 @@ input:valid + span:after {
 									의료 자격증
 								</td>
 								<td>
-									<input type="file" id="confirm_img" name="confirm_img">
+									<input type="file" id="upload" name="upload" multiple/>
+									<h5 style="color: red;" id="uploadCheckMessage" align="left"></h5>
+								</td>
+								<td>
+									<div>
+										<img id="preview" style="width: 130px; height: 200px;">
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -157,15 +163,26 @@ input:valid + span:after {
 									<h5 style="color: red;" id="infoCheckMessage" align="left"></h5>
 								</td>
 							</tr>
+						</table>
+					</form>
+					<form action="imgUploads.do" id="img_form" method="post" enctype="multipart/form-data">
+						<table>
 							<tr>
 								<td>
 									병원 이미지 업로드
 								</td>
+								<td class="input_fields_wrap">
+									<button class="add_image_field">파일 더 올리기</button><br>
+									<input type="file" name="_upload" multiple="multiple">
+									<input type="hidden" name="src">
+								</td>
 								<td>
-									<input type="text" id="image" name="imgae">
+									<div id="_preview">
+									</div>
 								</td>
 							</tr>
 						</table>
+						<input type="submit" value="다중업로드">
 					</form>
 					<input type="button" id="join_hBtn" value="회원가입">
 				</div>
@@ -299,6 +316,16 @@ input:valid + span:after {
     }
 /* /우편번호  */
 
+/* address1 address2 합치기 */
+	$(function() {
+		$("#address2").blur(function() {
+			var address1 = $("#address1").val();
+			var address2 = $("#address2").val();
+			$("#address").val(address1+"+"+address2);
+		});
+	});
+/*/address1 address2 합치기 */
+
 /* 이메일 유효성 확인 */
 	function emailCheckFunction() {
 		var email = $("#email").val();
@@ -311,6 +338,129 @@ input:valid + span:after {
 	}
 /* /이메일 유효성 확인 */
 
+/* 의료 자격증 (단일)파일 업로드 제어 */
+	$(function() {
+		$("#upload").change(function() {
+			fileCheck($(this));
+			addPreview($(this));
+			fileSizeCheck($(this));
+		});
+	});
+	
+	function addPreview(input) {
+		if(input[0].files){
+			for(var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++){
+				var file = input[0].files[fileIndex];
+				var reader = new FileReader();
+				
+				reader.onload = function (img) {
+					$("#preview").attr("src", img.target.result);
+				};
+			};
+			reader.readAsDataURL(file);
+		}else{
+			alert("invalid faile input");
+		}
+	}
+	function fileCheck() {
+		if($("#upload").val() != ""){
+			var ext = $("#upload").val().split(".").pop().toLowerCase();
+			if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+				$("#uploadCheckMessage").html("gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.");
+				$("#upload").val("");
+				return;
+			}else{
+				$("#uploadCheckMessage").html("");
+			}
+		}
+	}
+	function fileSizeCheck() {
+		var fileSize = this.files[0].Size;
+		var maxSize = 10485760;
+		if(fileSize > maxSize){
+			$("#uploadCheckMessage").html("파일 용량 10MB를 초과하였습니다.");
+			$("#upload").val("");
+			return;
+		}
+	}
+/*/의료 자격증 (단일)파일 업로드 제어 */
+
+/* 병원 이미지 추가 버튼(다중 파일 제어) */
+	$(document).ready(function() {
+		var max_fields = 10;
+		var wrapper = $(".input_fields_wrap");
+		var add_button = $(".add_image_field");
+		
+		var x = 1;
+		$(add_button).click(function(e) {
+			e.preventDefault();
+			if(x < max_fields){
+				x++;
+				$(wrapper).append("<div><input type='file' name='_upload'><a href='#' class='remove_field'>remove</a></div>");
+			}
+		});
+		
+		$(wrapper).on("click", ".remove_field", function(e) {
+			e.preventDefault();
+			$(this).parent('div').remove();
+			x--;
+		});
+	});
+	
+	$(document).ready(function() {
+		$("input[name=_upload]").change(function() {
+			add_img_preview($(this));
+		});
+	});
+	
+	var files = {};
+	var previewIndex = 0;
+	
+	function add_img_preview(input) {
+		if(input[0].files){
+			for(var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++){
+				var file = input[0].files[fileIndex];
+				
+				if(validation(file.name))
+					continue;
+				
+				var reader = new FileReader();
+				reader.onload = function(img) {
+					var imgNum = previewIndex++;
+					$("#_preview").append(
+									"<div class=\"preview-box\" value=\"" + imgNum +"\">"
+									+ "<img class=\"thumbnail\" src=\"" + img.target.result + "\" style=\"width: 130px; height: 200px;\"\/>"
+									+ "<p>"
+									+ file.name
+									+ "</p>"
+									+ "<a href=\"#none\" value=\""
+									+ imgNum
+									+ "\" onclick=\"deletePreview(this)\">"
+									+ "삭제" + "</a>" + "</div>");
+					files[imgNum] = file;
+				};
+				reader.readAsDataURL(file);
+			}
+		}else
+			alert('invalid file input');
+	}
+	function deletePreview(obj) {
+		var imgNum = obj.attributes['value'].value;
+		delete files[imgNum];
+		$("#_preview .preview-box[value=' + imgNum + ']").remove();
+//		resizeHeight();
+	}
+	function validation(fileName) {
+		fileName = fileName + "";
+		var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+		var fileNameExtension = fileName.toLowerCase().substring(fileNameExtensionIndex, fileName.length);
+		if(!((fileNameExtension === 'jpg') || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))){
+			alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+			return true;
+		}else
+			return false;
+	}
+/*/병원 이미지 추가 버튼(다중 파일 제어) */
 /* submit 전 확인 */
 	$("#join_hBtn").click(function() {
 		var data = {
@@ -324,7 +474,7 @@ input:valid + span:after {
 				answer: $("#answer").val(),
 				info: $("#info").val(),
 		}
-/* 		if(idCheck == 0 || data.id == ""){
+/*  		if(idCheck == 0 || data.id == ""){
 			$("#idCheckMessage").html("아이디를 확인해주세요.");
 			$("#id").focus();
 		}else if(pwdCheck == 0 || data.pwd == "" || data.pwd2 == ""){
@@ -350,8 +500,8 @@ input:valid + span:after {
 			$("#info").focus();
 		}else{
 			$("#_form").attr({"target":"_self", "action":"join_hAf.do"}).submit();
-		}	
-		 */
+		}
+ */
 		$("#_form").attr({"target":"_self", "action":"join_hAf.do"}).submit();
 	});
 /*/submit 전 확인 */
