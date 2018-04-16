@@ -68,21 +68,34 @@ public class MediMemberController {
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginAf(Model model, MediMemberDto dto, HttpServletRequest req) throws Exception{
 		logger.info("MediMemberController loginAf " + new Date());
-		
+		boolean flag = true;
 		MediMemberDto b = mediMemberService.loginAf(dto);
-		if(b.getAuth() == 0) {
-			System.out.println("3");
-			model.addAttribute("msg", "이메일 인증을 해주세요"); 
-			return "login.tiles";
-		}else if(b != null && !b.getId().equals("")){
-			req.getSession().setAttribute("login", b);
-			System.out.println("2");
-			return "redirect:/main.do";//그냥 몸만 감
-			//return "forward:/login.do";	//데이터도 가지고 감 
+		if(b == null) {
+			flag = false;
+		}else {
+			flag = true;
+		}
+
+		
+		if(flag) {
+			if(b.getAuth() == 0) {
+				System.out.println("3");
+				model.addAttribute("msg", "이메일 인증을 해주세요"); 
+				return "login.tiles";
+			}else if(b != null && !b.getId().equals("")){
+				req.getSession().setAttribute("login", b);
+				System.out.println("2");
+				return "redirect:/main.do";//그냥 몸만 감
+				//return "forward:/login.do";	//데이터도 가지고 감 
+			}else {
+				model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
+				return "login.tiles";
+			}
 		}else {
 			model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
 			return "login.tiles";
 		}
+		
 		
 	}
 	
