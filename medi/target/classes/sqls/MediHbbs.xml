@@ -5,7 +5,6 @@
 	
 	<!-- 데이터 전체갯수 취득 -->
 	<select id="getBbsCount" parameterType="kh.com.medi.model.MediHbbsParamDto" resultType="java.lang.Integer">
-
 		SELECT IFNULL(COUNT(*), 0)
 		FROM `MEDI`.`MEDI_HOSPITAL` WHERE 1=1 AND DEL=0
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
@@ -16,7 +15,6 @@
 				AND ADDRESS LIKE CONCAT('%',#{s_keyword},'%')
 			</if>
 		</if> 
-	
 	</select>
 	
 	<!-- 페이징 리스트 -->
@@ -45,7 +43,13 @@
 			 ) A
 		WHERE
 		    A.ROWNUM BETWEEN ${start} AND ${end}	
-    
+	</select>
+	
+	<!-- 게시판 디테일 -->
+	<select id="getBbsDetail" parameterType="java.lang.Integer" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT SEQ, ID, NAME, TEL, POST, ADDRESS, MAP, EMAIL, QUESTION, ANSWER, CONFIRM_IMG, INFO, DEL, REGDATE 
+		FROM `MEDI`.`MEDI_HOSPITAL`
+		WHERE SEQ=#{seq}
 	</select>
 	
 	

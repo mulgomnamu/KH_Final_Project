@@ -24,15 +24,8 @@ public class MediHbbsController {
 	private MediHbbsService mediHbbsService;
 	
 	@RequestMapping(value="hbbslist.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String hbbslist(Model model) throws Exception{
+	public String hbbslist(Model model, MediHbbsParamDto hbbs) throws Exception{
 		logger.info("MediHbbsController hbbslist " + new Date());
-		
-		MediHbbsParamDto hbbs = new MediHbbsParamDto();
-		
-		System.out.println(hbbs.toString());
-		hbbs.setS_category("name");
-		hbbs.setS_keyword("홍길동");
-		
 		
 		// paging처리
 		int sn = hbbs.getPageNumber();
@@ -47,7 +40,7 @@ public class MediHbbsController {
 		
 		model.addAttribute("hbbslist", hbbslist);
 		model.addAttribute("pageNumber", sn);
-		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("pageCountPerScreen", 4);
 		model.addAttribute("recordCountPerPage", hbbs.getRecordCounterPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		
@@ -56,6 +49,21 @@ public class MediHbbsController {
 		
 		return "hbbslist.tiles";
 	}
+	
+	@RequestMapping(value="hbbsdetail.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String hbbsdetail(int seq, Model model)throws Exception{
+		
+		logger.info("KhBbsController hbbsdetail " + new Date());
+
+		System.out.println("controller seq : " + seq);
+
+		MediMember_hDto hdto = mediHbbsService.getBbsDetail(seq);
+		
+		model.addAttribute("hbbs", hdto);
+		
+		return "hbbsdetail.tiles";
+	}
+	
 	
 }
 

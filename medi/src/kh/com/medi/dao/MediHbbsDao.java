@@ -9,4 +9,5 @@ public interface MediHbbsDao {
 
 	int getBbsCount(MediHbbsParamDto hbbs) throws Exception;
 	List<MediMember_hDto> getBbsPagingList(MediHbbsParamDto hbbs) throws Exception;
+	MediMember_hDto getBbsDetail(int seq) throws Exception;
 }

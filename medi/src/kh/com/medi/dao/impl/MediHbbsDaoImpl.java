@@ -30,5 +30,11 @@ public class MediHbbsDaoImpl implements MediHbbsDao {
 		List<MediMember_hDto> list = sqlSession.selectList(ns + "getBbsPagingList", hbbs);
 		return list;
 	}
+
+	@Override
+	public MediMember_hDto getBbsDetail(int seq) throws Exception {
+		MediMember_hDto hdto = sqlSession.selectOne(ns + "getBbsDetail", seq);
+		return hdto;
+	}
 	
 }

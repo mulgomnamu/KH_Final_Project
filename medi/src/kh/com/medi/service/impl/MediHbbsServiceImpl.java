@@ -25,5 +25,10 @@ public class MediHbbsServiceImpl implements MediHbbsService {
 	public List<MediMember_hDto> getBbsPagingList(MediHbbsParamDto hbbs) throws Exception {
 		return mediHbbsDao.getBbsPagingList(hbbs);
 	}
+
+	@Override
+	public MediMember_hDto getBbsDetail(int seq) throws Exception {
+		return mediHbbsDao.getBbsDetail(seq);
+	}
 	
 }

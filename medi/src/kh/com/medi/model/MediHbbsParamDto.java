@@ -25,11 +25,11 @@ public class MediHbbsParamDto implements Serializable {
 	private String s_keyword;		// 검색어
 	
 	// ---------------- paging
-	private int recordCounterPage = 8;
+	private int recordCounterPage = 4;
 	private int pageNumber = 0;
 	
 	private int start = 1;
-	private int end = 10;
+	private int end = 4;
 	
 	public int getSeq() {
 		return seq;
