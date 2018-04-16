@@ -3,19 +3,48 @@
 
 
 <mapper namespace="Appointment">
-	<select id="gethospitalList" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
+	<select id="getserchhospitalList" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
 		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,MAP,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE 
 		FROM medi_hospital
 		WHERE NAME LIKE CONCAT('%',#{name},'%')
+	</select>
+	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,MAP,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE  
+		FROM medi_hospital
+		WHERE SEQ=#{hos_seq}
 	</select>
 	<select id="getdocList" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorDto">
 		SELECT SEQ,HOS_SEQ,NAME,SPECIALTY,REGDATE,DOC_PROFILE,DOC_CONTENT 
 		FROM medi_doctor
 		WHERE HOS_SEQ=#{hos_seq}
 	</select>
+	<select id="getdocdetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT SEQ,HOS_SEQ,NAME,SPECIALTY,REGDATE,DOC_PROFILE,DOC_CONTENT  
+		FROM medi_doctor
+		WHERE SEQ=#{doc_seq}
+	</select>
 	<select id="getdocscedulelist" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorSchedulDto">
 		SELECT SEQ,DOC_SEQ,DAY,START_TIME,END_TIME,LUNCH_TIME
 		FROM medi_schedul
 		WHERE DOC_SEQ=#{doc_seq}
 	</select>
+	<select id="getdocsceduledetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorSchedulDto">
+		SELECT SEQ,DOC_SEQ,DAY,START_TIME,END_TIME,LUNCH_TIME
+		FROM medi_schedul
+		WHERE DOC_SEQ=#{doc_seq} AND DAY=#{message}
+	</select>
+	<select id="confirmreserve" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
+		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
+		FROM medi_reservation
+		WHERE DOC_SEQ=#{doc_seq} AND DAY=#{day} AND TIME=#{time}
+	</select>
+	<select id="canttime" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
+		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
+		FROM medi_reservation
+		WHERE DOC_SEQ=#{doc_seq} AND DAY=#{day}
+	</select>
+	<insert id="reserve" parameterType="kh.com.medi.model.MediAppointmentNeedDto">
+		INSERT INTO medi_reservation (MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE) 
+		VALUES (#{mem_seq}, #{hos_seq}, #{doc_seq},#{content}, #{day}, #{time}, now(),#{type})
+	</insert>
 </mapper>

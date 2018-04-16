@@ -41,13 +41,14 @@ public class MediAppointmentDto implements Serializable {
 	private String content;		//증상
 	private String day;			//20180411
 	private String time;		//09:00
+	private String wdate;	
 	private int type;			//기본진료(0) 화상진료(1)
 	
 	public MediAppointmentDto() {
 	}
 
 	public MediAppointmentDto(int seq, int mem_seq, int hos_seq, int doc_seq, String content, String day, String time,
-			int type) {
+			String wdate, int type) {
 		super();
 		this.seq = seq;
 		this.mem_seq = mem_seq;
@@ -56,6 +57,7 @@ public class MediAppointmentDto implements Serializable {
 		this.content = content;
 		this.day = day;
 		this.time = time;
+		this.wdate = wdate;
 		this.type = type;
 	}
 
@@ -115,6 +117,14 @@ public class MediAppointmentDto implements Serializable {
 		this.time = time;
 	}
 
+	public String getWdate() {
+		return wdate;
+	}
+
+	public void setWdate(String wdate) {
+		this.wdate = wdate;
+	}
+
 	public int getType() {
 		return type;
 	}
@@ -126,8 +136,10 @@ public class MediAppointmentDto implements Serializable {
 	@Override
 	public String toString() {
 		return "MediAppointmentDto [seq=" + seq + ", mem_seq=" + mem_seq + ", hos_seq=" + hos_seq + ", doc_seq="
-				+ doc_seq + ", content=" + content + ", day=" + day + ", time=" + time + ", type=" + type + "]";
+				+ doc_seq + ", content=" + content + ", day=" + day + ", time=" + time + ", wdate=" + wdate + ", type="
+				+ type + "]";
 	}
 
+	
 	
 }

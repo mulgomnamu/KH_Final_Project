@@ -39,6 +39,37 @@ public class MediMemberDaoImpl implements MediMemberDao {
 		dto = sqlSession.selectOne(ns+"loginAfMember", dto);
 		return dto;
 	}
+	
+	@Override
+	public MediMemberDto idFind(MediMemberDto dto) throws Exception {
+		dto = sqlSession.selectOne(ns+"idFind", dto);
+		return dto;
+	}
+
+	@Override
+	public MediMemberDto getQuesAns(MediMemberDto dto) throws Exception {
+		dto = sqlSession.selectOne(ns+"getQuesAns" , dto);
+		return dto;
+	}
+
+	@Override
+	public boolean pwdReset(MediMemberDto dto) throws Exception {
+		int n = sqlSession.update(ns+"pwdReset" , dto);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean emailAuth(MediMemberDto dto) throws Exception {
+		int n = sqlSession.update(ns+"emailAuth" , dto);
+		return n>0?true:false;
+	}
+
+	@Override
+	public MediMemberDto emailAuthAf(MediMemberDto dto) throws Exception {
+		dto = sqlSession.selectOne(ns+"emailAuthAf", dto);
+		return dto;
+	}
+	
 
 
 

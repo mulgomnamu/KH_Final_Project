@@ -37,5 +37,35 @@ public class MediMemberServiceImpl implements MediMemberService {
 		// TODO Auto-generated method stub
 		return mediMemberDao.loginAf(dto);
 	}
+	
+	@Override
+	public MediMemberDto idFind(MediMemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.idFind(dto);
+	}
+
+	@Override
+	public MediMemberDto getQuesAns(MediMemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.getQuesAns(dto);
+	}
+
+	@Override
+	public boolean pwdReset(MediMemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.pwdReset(dto);
+	}
+
+	@Override
+	public boolean emailAuth(MediMemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.emailAuth(dto);
+	}
+
+	@Override
+	public MediMemberDto emailAuthAf(MediMemberDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.emailAuthAf(dto);
+	}
 
 }
