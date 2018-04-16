@@ -2,6 +2,7 @@ package kh.com.medi.dao;
 
 import java.util.List;
 
+import kh.com.medi.model.MediAppointmentDto;
 import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
@@ -18,10 +19,12 @@ public interface MediAppointmentDao {
 	public MediDoctorDto getdocdetail(MediAppointmentNeedDto alldto)throws Exception;
 	//예약창 의사 seq로 스케줄 리스트뽑기
 	public List<MediDoctorSchedulDto> getdocscedulelist(MediAppointmentNeedDto alldto)throws Exception;
+	//예약창 의사 seq와 요일로 스케줄 디테일
+	public MediDoctorSchedulDto getdocsceduledetail(MediAppointmentNeedDto alldto)throws Exception;
 	//예약하기
 	public boolean reserve(MediAppointmentNeedDto alldto)throws Exception;
 	//예약확인
 	public boolean confirmreserve(MediAppointmentNeedDto alldto)throws Exception;
-	//예약중복업데이트
-	public boolean canttime(MediAppointmentNeedDto alldto)throws Exception;
+	//예약된시간뽑아오기
+	public List<MediAppointmentDto> canttime(MediAppointmentNeedDto alldto)throws Exception;
 }

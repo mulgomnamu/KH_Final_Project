@@ -73,9 +73,16 @@ public class MediAppointmentDaoImpl implements MediAppointmentDao {
 
 
 	@Override
-	public boolean canttime(MediAppointmentNeedDto alldto) throws Exception {
+	public List<MediAppointmentDto> canttime(MediAppointmentNeedDto alldto) throws Exception {
+		List<MediAppointmentDto> cattimelist=sqlSession.selectList(ns+"canttime", alldto);
+		return cattimelist;
+	}
+
+
+	@Override
+	public MediDoctorSchedulDto getdocsceduledetail(MediAppointmentNeedDto alldto) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return sqlSession.selectOne(ns+"getdocsceduledetail", alldto);
 	}
 	
 

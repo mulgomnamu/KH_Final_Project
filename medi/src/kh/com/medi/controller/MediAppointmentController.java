@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.com.medi.aop.CalendarUtil;
 import kh.com.medi.aop.myCal;
 import kh.com.medi.model.CalendarDto;
+import kh.com.medi.model.MediAppointmentDto;
 import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
@@ -144,9 +145,8 @@ public class MediAppointmentController {
 	}	
 	@ResponseBody		
 	@RequestMapping(value="reserve.do", method= {RequestMethod.POST,RequestMethod.GET})
-	public MediAppointmentNeedDto checkreserve(MediAppointmentNeedDto alldto,HttpServletRequest req,Model model)throws Exception {
+	public Map<String, Object> checkreserve(MediAppointmentNeedDto alldto,HttpServletRequest req,Model model)throws Exception {
 		logger.info("MediAppointmentController checkreserve" + new Date());
-		int count=0; 
 		MediAppointmentNeedDto yes=new MediAppointmentNeedDto();
 		
 		String _day=alldto.getDay().substring(0, 8);
@@ -154,9 +154,6 @@ public class MediAppointmentController {
 		alldto.setDay(_day);
 		alldto.setTime(_time);
 	
-		//여기서해야될일
-		//예약테이블에추가해주면된다 - mem_seq, doc_seq, type, content, day,time 으로넘어올것이다
-		//테이블에추가하기전에 검색쿼리먼저돌리고 그게있으면 RESERVENO라고찍어줘야한다
 		//mem_seq취득 
 		int seq=((MediMemberDto)req.getSession().getAttribute("login")).getSeq();
 		alldto.setMem_seq(seq);
@@ -167,10 +164,35 @@ public class MediAppointmentController {
 		
 		boolean canreserve=mediAppointmentService.reserve(alldto);
 		if (canreserve) {	//저장가능
-			yes.setMessage("예약했습니다");
+			yes.setMessage("RESERVEYES");
 		}else {
-			yes.setMessage("예약못했습니다");
+			yes.setMessage("RESERVENO");
 		}
-		return yes;
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("yes",yes.getMessage());
+		map.put("mem_seq",alldto.getMem_seq());
+		map.put("hos_seq",alldto.getHos_seq());
+		map.put("doc_seq",alldto.getDoc_seq());
+		return map;
 	}
+	@ResponseBody
+	@RequestMapping(value="cantime.do", method={RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> cantime(MediAppointmentNeedDto alldto,Model model) throws Exception{
+		logger.info("MediAppointmentControll cantime " + new Date());
+		Map<String, Object> map=new HashMap<String, Object>();
+		String canttimes=mediAppointmentService.canttime(alldto);
+		map.put("canttimes",canttimes);
+		map.put("day",alldto.getDay());
+		map.put("doc_seq",alldto.getDoc_seq());
+		return map;
+	}	
+	@RequestMapping(value="reservedetail.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String reservedetail(MediAppointmentNeedDto alldto,Model model) throws Exception{
+		logger.info("MediAppointmentController reservedetail " + new Date());
+		model.addAttribute("mem_seq", alldto.getMem_seq());
+		model.addAttribute("hos_seq", alldto.getHos_seq());
+		model.addAttribute("doc_seq", alldto.getDoc_seq());
+		return "reservedetail.tiles";
+	}
+
 }

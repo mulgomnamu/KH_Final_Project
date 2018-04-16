@@ -248,18 +248,7 @@ $.ajax({
 				$("#1,#8,#15,#22,#29").attr("class","caldaycss1");
 				$(".caldaycss1").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -272,18 +261,7 @@ $.ajax({
 				$("#2,#9,#16,#23,#30").attr("class","caldaycss2");
 				$(".caldaycss2").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -296,18 +274,7 @@ $.ajax({
 				$("#3,#10,#17,#24,#31").attr("class","caldaycss3");
 				$(".caldaycss3").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -319,18 +286,7 @@ $.ajax({
 				$("#4,#11,#18,#25").attr("class","caldaycss4");
 				$(".caldaycss4").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -342,18 +298,7 @@ $.ajax({
 				$("#5,#12,#19,#26").attr("class","caldaycss5");
 				$(".caldaycss5").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -365,19 +310,7 @@ $.ajax({
 				$("#6,#13,#20,#27").attr("class","caldaycss6");
 				$(".caldaycss6").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
-					
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					});
 			}
 			if(canlist.day=='토'){	//토
@@ -388,19 +321,7 @@ $.ajax({
 				$("#7,#14,#21,#28").attr("class","caldaycss7");
 				$(".caldaycss7").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
-					
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					});
 			}
 			//오늘찍어주기
@@ -563,19 +484,7 @@ $.ajax({
 				$("#1,#8,#15,#22,#29").attr("class","caldaycss1");
 				$(".caldaycss1").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
-					
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);					
 					});
 			}
 			if(canlist.day=='월'){	//월
@@ -587,18 +496,7 @@ $.ajax({
 				$("#2,#9,#16,#23,#30").attr("class","caldaycss2");
 				$(".caldaycss2").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -611,18 +509,7 @@ $.ajax({
 				$("#3,#10,#17,#24,#31").attr("class","caldaycss3");
 				$(".caldaycss3").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -634,18 +521,7 @@ $.ajax({
 				$("#4,#11,#18,#25").attr("class","caldaycss4");
 				$(".caldaycss4").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -657,18 +533,7 @@ $.ajax({
 				$("#5,#12,#19,#26").attr("class","caldaycss5");
 				$(".caldaycss5").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -680,18 +545,7 @@ $.ajax({
 				$("#6,#13,#20,#27").attr("class","caldaycss6");
 				$(".caldaycss6").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -703,18 +557,7 @@ $.ajax({
 				$("#7,#14,#21,#28").attr("class","caldaycss7");
 				$(".caldaycss7").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -877,19 +720,7 @@ $.ajax({
 				$("#1,#8,#15,#22,#29").attr("class","caldaycss1");
 				$(".caldaycss1").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
-					
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					});
 			}
 			if(canlist.day=='월'){	//월
@@ -901,19 +732,7 @@ $.ajax({
 				$("#2,#9,#16,#23,#30").attr("class","caldaycss2");
 				$(".caldaycss2").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
-					
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					});
 			}
 			if(canlist.day=='화'){	//화
@@ -925,19 +744,7 @@ $.ajax({
 				$("#3,#10,#17,#24,#31").attr("class","caldaycss3");
 				$(".caldaycss3").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
-					
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					});
 			}
 			if(canlist.day=='수'){	//수
@@ -948,19 +755,8 @@ $.ajax({
 				$("#4,#11,#18,#25").attr("class","caldaycss4");
 				$(".caldaycss4").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
-					
+					//가능한시간불러와서 시간세팅하는걸로던져준다
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					});
 			}
 			if(canlist.day=='목'){	//목
@@ -971,18 +767,9 @@ $.ajax({
 				$("#5,#12,#19,#26").attr("class","caldaycss5");
 				$(".caldaycss5").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					//가능한시간불러와서 시간세팅하는걸로던져준다
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
+					
 					
 					});
 			}
@@ -994,18 +781,9 @@ $.ajax({
 				$("#6,#13,#20,#27").attr("class","caldaycss6");
 				$(".caldaycss6").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					//가능한시간불러와서 시간세팅하는걸로던져준다
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
+					
 					
 					});
 			}
@@ -1017,18 +795,8 @@ $.ajax({
 				$("#7,#14,#21,#28").attr("class","caldaycss7");
 				$(".caldaycss7").click(function(){
 					$("#time_area").html("");
-					var times=(canlist.start_time).split('-');
-					var whatday="";
-					if (($(this).text()).length==1) {
-						whatday="0"+$(this).text();
-					}else{
-						whatday=$(this).text();
-					}
-					var appointmentday=data.year+data.month+whatday;
-					var doc_seq=canlist.doc_seq;
-					for (var i = 0; i < times.length-1; i++) {
-						$("<a class='times' onclick='settime("+(appointmentday+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
-					}
+					//가능한시간불러와서 시간세팅하는걸로던져준다
+					settime(this,canlist.doc_seq,data.year,data.month,canlist.day);
 					
 					});
 			}
@@ -1053,18 +821,46 @@ $.ajax({
 
 });
 }
-function settime(time,doc_seq) {
+function settime(elem,_doc_seq,year,month,dayoftheweek) {
 	$(".reserve4").html("");
 	$("#reservebtn_section").html("");
-	$("<a id='reservbtn' onclick='appointment("+time+","+doc_seq+")'>예약하기&nbsp;&nbsp;&nbsp;&nbsp;&gt;</a>").appendTo("#reservebtn_section");
-	
-	time1=time+"";
-	var day=time1.substring(0,4)+"."+time1.substring(4,6)+"."+time1.substring(6,8);
-	var time2=time1.substring(8,10)+":"+time1.substring(10,12);
-	$("<p>"+day+"</p><p>"+time2+"</p>").appendTo(".reserve4");
-	
+	var whatday="";
+	if (($(elem).text()).length==1) {
+		whatday="0"+$(elem).text();
+	}else{
+		whatday=$(elem).text();
+	}
+	var appointmentday=year+month+whatday;
+	var doc_seq=_doc_seq;
+	var data={
+			day:appointmentday,
+			doc_seq:doc_seq,
+			message:dayoftheweek
+	};
+	 $.ajax({
+	      type:"post",
+	      url:"cantime.do",
+	      async:true,
+	      data:data,
+	      success:function(data){
+	    	 var times=(data.canttimes).split('-');
+    	  for (var i = 0; i < times.length-1; i++) {
+    			$("<a class='times' onclick='appointment("+(data.day+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+    		}
+	      }
+	   });
 }
 function appointment(day,doc_seq) {
+	$(".reserve4").html("");
+	$("#reservebtn_section").html("");
+	$("<a id='reservbtn' onclick='reservation("+day+","+doc_seq+")'>예약하기&nbsp;&nbsp;&nbsp;&nbsp;&gt;</a>").appendTo("#reservebtn_section");
+	
+	day1=day+"";
+	var day2=day1.substring(0,4)+"."+day1.substring(4,6)+"."+day1.substring(6,8);
+	var time2=day1.substring(8,10)+":"+day1.substring(10,12);
+	$("<p>"+day2+"</p><p>"+time2+"</p>").appendTo(".reserve4");
+}
+function reservation(day,doc_seq) {
 	/* 성공하면 예약디테일로 실패하는경우 어디서실패하느냐에따라서맨트설정해야한다 예약시간검색쿼리에있으면 예약시간을다시선택해주세요 */
 	if ($("#_content").val()=="") {
 		alert("증상을입력해주세요");
@@ -1081,13 +877,15 @@ function appointment(day,doc_seq) {
 	      url:"reserve.do",
 	      async:true,
 	      data:data,
-	      success:function(msg){
-	    	  if(msg.message == 'RESERVEYES'){
+	      success:function(data){
+	    	  if(data.yes == 'RESERVEYES'){
 	    	     /* 디테일창으로~ */
-	    	     alert(msg.message);
+	    	     alert("예약했다니");
+	    	     location.href="reservedetail.do?mem_seq="+data.mem_seq+"&hos_seq="+data.hos_seq+"&doc_seq="+data.doc_seq;
+	    	      
 	    	   } else{
-	    		   /* 정보다끌고...다시appointment로.. */
-	    		   alert(msg.message);
+    		   /* 정보다끌고...다시appointment로.. */
+	    		   alert("방금예약이 됐습니다 다른시간을 선택해주세요");
 	    	   }
 	      }
 	      

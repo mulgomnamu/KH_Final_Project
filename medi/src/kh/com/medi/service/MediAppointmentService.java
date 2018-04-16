@@ -2,6 +2,7 @@ package kh.com.medi.service;
 
 import java.util.List;
 
+import kh.com.medi.model.MediAppointmentDto;
 import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
@@ -20,4 +21,7 @@ public interface MediAppointmentService {
 	public List<MediDoctorSchedulDto> getdocscedulelist(MediAppointmentNeedDto alldto)throws Exception;
 	//예약하기
 	public boolean reserve(MediAppointmentNeedDto alldto)throws Exception;
+	//예약한시간빼오기
+	public String canttime(MediAppointmentNeedDto alldto)throws Exception;
+
 }
