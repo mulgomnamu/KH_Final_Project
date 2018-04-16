@@ -57,6 +57,18 @@ public class MediMemberDaoImpl implements MediMemberDao {
 		int n = sqlSession.update(ns+"pwdReset" , dto);
 		return n>0?true:false;
 	}
+
+	@Override
+	public boolean emailAuth(MediMemberDto dto) throws Exception {
+		int n = sqlSession.update(ns+"emailAuth" , dto);
+		return n>0?true:false;
+	}
+
+	@Override
+	public MediMemberDto emailAuthAf(MediMemberDto dto) throws Exception {
+		dto = sqlSession.selectOne(ns+"emailAuthAf", dto);
+		return dto;
+	}
 	
 
 

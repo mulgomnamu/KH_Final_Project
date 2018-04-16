@@ -35,6 +35,16 @@
 		UPDATE medi_member SET PWD=#{pwd} WHERE email=#{email}
 	</update>
 	
+	<update parameterType="kh.com.medi.model.MediMemberDto" id="emailAuth"> 
+		UPDATE medi_member SET AUTH=1 WHERE ID=#{id}
+	</update>
+	
+	<select parameterType="java.lang.String" id="emailAuthAf" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
+		FROM medi_member 
+		WHERE ID=#{id} AND EMAIL=#{email} 
+	</select>
+	
 
 </mapper>
 
