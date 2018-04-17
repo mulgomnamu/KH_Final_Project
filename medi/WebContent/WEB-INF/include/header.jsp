@@ -76,7 +76,7 @@
 <header id="header_wrap">
 	<div class="inner">
 		<h1 class="logo">
-			<a href="#;">
+			<a href="main.do">
 				<img src="images/common/top_logo.png" alt="가톨릭대학교 서울성모병원">
 			</a>
 		</h1>

@@ -68,4 +68,16 @@ public class MediMemberServiceImpl implements MediMemberService {
 		return mediMemberDao.emailAuthAf(dto);
 	}
 
+	@Override
+	public MediMemberDto emailCheck(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.emailCheck(email);
+	}
+
+	@Override
+	public MediMemberDto phoneCheck(String phone) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMemberDao.phoneCheck(phone);
+	}
+
 }
