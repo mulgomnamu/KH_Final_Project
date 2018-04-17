@@ -56,7 +56,7 @@
 			}else{
 			%>
 			<li>
-				<a href="mysupdateAf.do">
+				<a href="MyPageLogin.do">
 					<em>정보수정</em>
 				</a>
 			</li>
