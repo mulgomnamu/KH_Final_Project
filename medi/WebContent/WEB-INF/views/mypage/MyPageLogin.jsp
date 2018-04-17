@@ -42,7 +42,7 @@
 								<tr>
 									<td colspan="2" style="height:50px; text-align:center;">
 										<span>
-											<a href="#none" id="_btnLogin" title="로그인">
+											 <a href="#none" id="_btnLogin" title="로그인">
 												<img alt="로그인" src="image/login_btn.jpg">
 											</a>
 										</span>

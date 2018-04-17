@@ -25,10 +25,11 @@ WHERE ID=#{id}
 	WHERE ID=#{id}
 </update>
 
+<!--중요하네-->
 <select parameterType="kh.com.medi.model.MediMemberDto" id="myup" resultType="kh.com.medi.model.MediMemberDto">
 		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
 		FROM medi_member 
-		WHERE ID=#{id} AND PWD=#{pwd} 
+		WHERE ID=#{id} AND PWD=sha1(md5(#{pwd})) 
 </select>
 
 <!--비밀번호 수정  -->

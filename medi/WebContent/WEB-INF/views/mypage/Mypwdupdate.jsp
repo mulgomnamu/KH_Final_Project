@@ -47,7 +47,7 @@ input:valid+span:after {
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-	<form action="MypwdupdateAf.do" method="post" name="frmForm" id="_frmForm">
+	<form action="MypwdupdateAf.do" method="post" name="wform" id="_frmForm">
 		<input type="hidden" name="pwd" value=""/>
 <table class="list_table" style="width:85%;">
 					
@@ -63,7 +63,7 @@ input:valid+span:after {
 			<th>수정 할 비밀번호</th>
 			<td style="text-align: left">
 				<input name="password1" type="password" class="form-control"
-					id="password1" placeholder="password" required=""><font
+					id="password1" placeholder="password" required="" value="${my.pwd }"><font
 					name="check1" size="2"></font><br>
 			</td>
 		</tr>
