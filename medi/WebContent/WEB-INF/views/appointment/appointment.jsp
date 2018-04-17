@@ -7,8 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.17"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.19"/>
 <script type="text/javascript">
 /* step이동 */
 function step1_2() {//스탭1단계가는거
@@ -25,7 +24,7 @@ $(document).ready(function(){
 		$('#hosserch').val("");
 		$('#hospital_info').html("<p style='text-align: center; padding-top: 20px;'><img src='images/main/icon_list_office.png'></p>");
 		$('#doctor_info').html("<p style='text-align: center; padding-top: 20px;'><img src='images/main/icon_list_doctor.png'></p>");
-		$('#time_info').html("<p style='text-align: center; padding-top: 20px;'><img src='images/main/icon_list_doctor.png'></p>");
+		$('#time_info').html("<p style='text-align: center; padding-top: 20px;'><img src='images/main/icon_list_data.png'></p>");
 		$('#step1_2').hide();
 		$('#step1_3').hide();
 		
@@ -62,7 +61,7 @@ function hospitallist() {
 				$("#hosserch").val("");
 			}
 			$("#hospitallistdiv").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
-			$("<table class='ser'/>").css({
+			$("<table class='ser' id='table1'/>").css({
 			}).appendTo("#hospitallistdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 			var key = Object.keys(data["hospitallist"][0]); // seq,name,info,address,tel의 키값을 가져옴
 			$.each(data.hospitallist, function(index, hospitallist) { // 이치를 써서 모든 데이터들을 배열에 넣음
@@ -74,7 +73,7 @@ function hospitallist() {
 				items.push("<td class='ser'>" + hospitallist.tel + "</td>");
 				$("<tr/>", {
 					html : items // 티알에 붙임,
-				}).appendTo("table"); // 그리고 그 tr을 테이블에 붙임
+				}).appendTo("#table1"); // 그리고 그 tr을 테이블에 붙임
 			});//each끝
 		}
 	});
@@ -91,7 +90,7 @@ function getdoctor(hos_seq) {
 		success : function(data) {
 			$("#getdoclistdiv").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
 			$("#_hos_seq").val(hos_seq);
-			$("<table class='ser'/>").css({
+			$("<table class='ser' id='table2'/>").css({
 			}).appendTo("#getdoclistdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 			$(".reserve2").html("");
 			$("<span id='h_img'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
@@ -108,7 +107,7 @@ function getdoctor(hos_seq) {
 				items.push("<td class='ser'>" + getdoclist.doc_content + "</td>");
 				$("<tr/>", {
 					html : items // 티알에 붙임,
-				}).appendTo("table"); // 그리고 그 tr을 테이블에 붙임
+				}).appendTo("#table2"); // 그리고 그 tr을 테이블에 붙임
 			});//each끝
 		}
 	});
@@ -117,7 +116,6 @@ function getdoctor(hos_seq) {
 function getscadule(doc_seq) {
 	$("#step1_2").fadeOut();
 	$("#step1_3").fadeIn();
-	cleanser();
 	
 $.ajax({
 	url : "getscadule.do", // a.jsp 의 제이슨오브젝트값을 가져옴
@@ -350,6 +348,14 @@ $.ajax({
 //의사 스케줄 반영한 다음달달력불러오기
 function monnext(doc_seq,month,year) {
 	cleanser();
+	var dt = new Date();
+	var nowmon = dt.getMonth()+1;
+	var _month=month*1;
+	if(_month+1==nowmon+2){
+		alert("두달뒤는 예약이 불가합니다");
+		getscadule(doc_seq);
+		return
+	}
 	var data={
 			doc_seq:doc_seq,
 			month:month+1,
@@ -363,7 +369,6 @@ $.ajax({
 	success : function(data) {
 		$("#cal_area").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
 		$("#caltitle").remove("");
-		$("#docinfo").html("");
 		$("<table id='datecal' class='ser' style='width:500px; display:inline;' align='center'><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/>").css({
 		//css적용영역
 		}).appendTo("#cal_area"); // 테이블을 생성하고 그 테이블을 div에 추가함
@@ -371,7 +376,7 @@ $.ajax({
 		$("<span id='h_img'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
 			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.specialty+"</li></ul>").appendTo(".reserve3");
 		//선생님추가하는곳
-		$("<p id='docinfo'><strong>"+data.name+"</strong>선생님의 진료일입니다</p><div id='caltitle'><a onclick='monprev("+doc_seq+","+data.month+","+data.year+")' id='monprev'>&lt;</a>"+data.year+"."+data.month
+		$("<div id='caltitle'><a onclick='monprev("+doc_seq+","+data.month+","+data.year+")' id='monprev'>&lt;</a>"+data.year+"."+data.month
 		+"<a onclick='monnext("+doc_seq+","+data.month+","+data.year+")' id='monnext'>&gt;</a></div>").appendTo("#calendartitle"); // 그리고 그 tr을 테이블에 붙임
 		
 		$("<tr><th class='days2'>일</th><th class='days2'>월</th><th class='days2'>화</th><th class='days2'>수</th>"
@@ -586,6 +591,14 @@ $.ajax({
 //저번달달력불러오기
 function monprev(doc_seq,month,year) {
 	cleanser();
+	var dt = new Date();
+	var nowmon = dt.getMonth()+1;
+	var _month=month*1;
+	if(_month-1<nowmon){
+		alert("지난달은 예약이 불가합니다");
+		getscadule(doc_seq);
+		return
+	}
 	var data={
 			doc_seq:doc_seq,
 			month:month-1,
@@ -599,7 +612,6 @@ $.ajax({
 	success : function(data) {
 		$("#cal_area").html(""); 
 		$("#caltitle").remove("");
-		$("#docinfo").html("");
 		$("<table id='datecal' class='ser' style='width:500px; display:inline;' align='center'><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/><col width='60px'/>").css({
 		//css적용영역
 		}).appendTo("#cal_area"); // 테이블을 생성하고 그 테이블을 div에 추가함
@@ -607,7 +619,7 @@ $.ajax({
 		$("<span id='h_img'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
 			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.specialty+"</li></ul>").appendTo(".reserve3");
 		//선생님추가하는곳
-		$("<p id='docinfo'><strong>"+data.name+"</strong>선생님의 진료일입니다</p><div id='caltitle'><a onclick='monprev("+doc_seq+","+data.month+","+data.year+")' id='monprev'>&lt;</a>"+data.year+"."+data.month
+		$("<div id='caltitle'><a onclick='monprev("+doc_seq+","+data.month+","+data.year+")' id='monprev'>&lt;</a>"+data.year+"."+data.month
 		+"<a onclick='monnext("+doc_seq+","+data.month+","+data.year+")' id='monnext'>&gt;</a></div>").appendTo("#calendartitle"); // 그리고 그 tr을 테이블에 붙임
 		
 		$("<tr><th class='days2'>일</th><th class='days2'>월</th><th class='days2'>화</th><th class='days2'>수</th>"
@@ -844,6 +856,9 @@ function settime(elem,_doc_seq,year,month,dayoftheweek) {
 	      data:data,
 	      success:function(data){
 	    	 var times=(data.canttimes).split('-');
+	   		 if(data.canttimes==null||data.canttimes==""){
+	    		 $("<div style='padding-top:50px;'>진료가능한 시간이 없습니다</div>").appendTo('#time_area');
+	    	 } 
     	  for (var i = 0; i < times.length-1; i++) {
     			$("<a class='times' onclick='appointment("+(data.day+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
     		}
@@ -895,10 +910,18 @@ function reservation(day,doc_seq) {
 function cleanser() {
 	$(".ser").html("");
 }
+//이전단계로
+function revto1() {
+	$('#step1_1').show();
+	$('#step1_2').hide();
+}
+function revto2() {
+	$('#doctor_info').html("<p style='text-align: center; padding-top: 20px;'><img src='images/main/icon_list_doctor.png'></p>");
+	$('#step1_2').show();
+	$('#step1_3').hide();
+}
 </script>
-<style>
 
-</style>
 
 <c:if test="${empty login }">
 	<script type="text/javascript">
@@ -913,19 +936,10 @@ function cleanser() {
 		<section id="sub_section">
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
-			<div class="title-type01">
+			<div class="subpagetitle">
 				  <p class="m_txt"><strong>${login.id }</strong>님, 오늘도 건강한 하루 되세요</p>
        			  <p class="s_txt">온라인 예약으로 빠르고 편리하게 진료받으실 수 있습니다</p> 
-   			</div>
-			<!-- content 시작 -->
-			<div class="content"> 
-				<div class="inner_flogin">
-				<!-- 이부분에 컨텐츠 시작 -->
-				<!-- 어디서예약을누르냐에따라서 뿌려주는페이지가다르게해야한다 진료(0)/화상(1)구분 디폴트값 진료 메인에서화상진료선택시만처리해준다
-					1 -> 병원선택안하고 바로올때 
-					2 -> 병원선택하고올때 
-				 -->
-				<div class="sub_tap">
+       			  <div class="sub_tap">
 	             <ul id="tab">
 	             	 <li>
 	                     <a href="#tab1" onclick="cleanser()" class="selected">
@@ -944,6 +958,16 @@ function cleanser() {
 	                 </li>
 	             </ul>
          		</div>
+   			</div>
+			<!-- content 시작 -->
+			<div class="content"> 
+				<div class="inner_flogin">
+				<!-- 이부분에 컨텐츠 시작 -->
+				<!-- 어디서예약을누르냐에따라서 뿌려주는페이지가다르게해야한다 진료(0)/화상(1)구분 디폴트값 진료 메인에서화상진료선택시만처리해준다
+					1 -> 병원선택안하고 바로올때 
+					2 -> 병원선택하고올때 
+				 -->
+				
          <div class="sub_wrap">
 	         <div class="sub_content">
 			    <ol id="list">
@@ -953,7 +977,7 @@ function cleanser() {
 			        	
 			            <div class="hospital_detail">
 			            	<div class="select_wrap_team">
-			            		<div class="step_cont_wrap" style="float: left; width: 820px; margin-top: 30px;" id="step1_1">
+			            		<div class="step_cont_wrap" style="float: left; width: 820px; margin-top: 50px;" id="step1_1">
 			            			<div class="title-type02">
 							            <h3>병원으로 선택</h3>
 							        </div>
@@ -969,7 +993,7 @@ function cleanser() {
 							        	<!-- ajax로 리스트받아오는부분 -->
 							        </div>
 			            		</div>
-			            		<div class="list_wrap" style="width: 280px; height: 600px;float: right;">
+			            		<div class="list_wrap" style="width: 280px; height: 600px;float: right; margin-top: 50px;margin-bottom: 50px;">
 			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
 			            				<br>

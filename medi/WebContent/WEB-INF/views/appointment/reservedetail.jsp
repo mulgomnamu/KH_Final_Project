@@ -3,16 +3,14 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.19"/>
+
     <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
-	<div class="login"><!-- 2뎁스명 클래스 -->
-		<!-- SUB SECTION -->
+	<div class="login">
 		<section id="sub_section">
-			<!-- #LOCATION -->
-			<!-- sub타이틀 시작 -->
-			<div class="title-type01">
-				<h2>Big hjh</h2>
-				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
+			<div class="appointment_title">
+				<h1>예약이 정상적으로 완료되었습니다</h1>
+				<p>진료 예약하신 정보는 진료차트에서 확인하실 수 있습니다</p>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 

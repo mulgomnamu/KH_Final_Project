@@ -180,6 +180,10 @@ public class MediAppointmentController {
 		logger.info("MediAppointmentControll cantime " + new Date());
 		Map<String, Object> map=new HashMap<String, Object>();
 		String canttimes=mediAppointmentService.canttime(alldto);
+		if (canttimes==null||canttimes=="") {
+			System.out.println("xxxxxxxxxxx"+canttimes);
+		}
+		
 		map.put("canttimes",canttimes);
 		map.put("day",alldto.getDay());
 		map.put("doc_seq",alldto.getDoc_seq());

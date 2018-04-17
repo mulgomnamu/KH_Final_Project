@@ -154,6 +154,7 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 					
 				}
 			}
+			System.out.println("의사가능한시간"+canhour);
 			String can[]=canhour.split("-");
 			List<String> canhours=new ArrayList<>();
 			for (int c = 0; c < can.length; c++) {
@@ -174,8 +175,16 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 				for (int z = 0; z < canttime.size(); z++) {
 					if (canhours.get(k).equals(canttime.get(z))) {
 						canhours.remove(k);
+						canhours.add("이");
 					}
 				}
+			}
+			int canttimelen=canttime.size();
+			int count=canhours.size()-canttime.size();
+			int how=0;
+			while (how<canttimelen) {
+				canhours.remove(count);
+				how++;
 			}
 			String _canhour="";
 			for (int i = 0; i < canhours.size(); i++) {

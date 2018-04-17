@@ -235,3 +235,19 @@ padding: 0;
  margin-left:15px;
 	text-align:center; vertical-align:middle;
 }
+.appointment_title{
+	height: 284px;
+	text-align: center;
+	background: url(../images/appointment/sub_bg.jpg) no-repeat 50% top;
+}
+.appointment_title>h1:first-child{
+	padding-top: 50px;
+}
+.subpagetitle{
+	height: 284px;
+	text-align: center;
+	background: url(../images/appointment/sub_bg.jpg) no-repeat 50% top;
+}
+.subpagetitle>p:first-child{
+	padding-top: 50px;
+}
