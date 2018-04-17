@@ -20,7 +20,7 @@
 	<select parameterType="java.lang.String" id="loginAfMember" resultType="kh.com.medi.model.MediMemberDto">
 		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
 		FROM medi_member 
-		WHERE ID=#{id} AND PWD=sha1(md5(#{pwd})) 
+		WHERE ID=#{id} AND PWD=sha1(md5(#{pwd}))
 	</select>
 	
 	<select id="idFind" resultType="kh.com.medi.model.MediMemberDto">

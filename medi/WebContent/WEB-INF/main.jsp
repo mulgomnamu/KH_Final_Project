@@ -56,7 +56,7 @@
 											스마트한 <span class="text_color-main">진료예약</span>을 이용해보세요
 										</p>
 								</a></li>
-								<li class="chart"><a href="healthbook.do">
+								<li class="chart"><a href="healthbooklist.do">
 										<p>
 											스마트한 <span class="text_color-main">건강수첩</span>으로 건강을 관리하세요
 										</p>

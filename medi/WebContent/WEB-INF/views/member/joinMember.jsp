@@ -114,7 +114,7 @@ input:valid+span:after {
 var patt = new RegExp("[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}");
 var res = patt.test( $("#phone").val());
 
-if( !patt.test( $("#phone").val()) ){
+if( !patt.test( $("#").val()) ){
     alert("전화번호를 정확히 입력하여 주십시오.");
     return false;
 }
