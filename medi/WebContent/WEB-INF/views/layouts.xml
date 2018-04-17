@@ -96,7 +96,13 @@
 		<put-attribute name="content" value="/WEB-INF/views/h_bbs/hbbsdetail.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-		
+	
+	<!-- 예약디테일 -->
+	<definition name="reservedetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/appointment/reservedetail.jsp"/>
+		<!-- 서브 페이지는 subfooter 써야해요 -->
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>	
 </tiles-definitions>
 
 

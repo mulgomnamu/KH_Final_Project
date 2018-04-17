@@ -160,7 +160,6 @@ public class MediAppointmentController {
 		//hos_seq취득
 		MediDoctorDto docdto=mediAppointmentService.getdocdetail(alldto);
 		alldto.setHos_seq(docdto.getHos_seq());
-		System.out.println(alldto.toString());
 		
 		boolean canreserve=mediAppointmentService.reserve(alldto);
 		if (canreserve) {	//저장가능
@@ -189,6 +188,7 @@ public class MediAppointmentController {
 	@RequestMapping(value="reservedetail.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String reservedetail(MediAppointmentNeedDto alldto,Model model) throws Exception{
 		logger.info("MediAppointmentController reservedetail " + new Date());
+		System.out.println(alldto.toString());
 		model.addAttribute("mem_seq", alldto.getMem_seq());
 		model.addAttribute("hos_seq", alldto.getHos_seq());
 		model.addAttribute("doc_seq", alldto.getDoc_seq());
