@@ -36,6 +36,7 @@ public class MediMemberController {
 	@Autowired
 	public void setMailService(MailService mailService) {
         this.mailService = mailService;
+        
     }
 
 	
@@ -117,7 +118,41 @@ public class MediMemberController {
 			str = "no";
 		}
 		return str;
-		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="emailcheck.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String emailcheck(Model model, String email) throws Exception{
+		logger.info("MediMemberController emailcheck " + new Date());
+		String str = "";
+		System.out.println("controller까지 옴");
+		MediMemberDto dto = mediMemberService.emailCheck(email);
+		//System.out.println(dto.getId() + "!!!");
+/*		System.out.println("dto.toString() =  " + dto.toString());*/
+		if(dto != null) {
+			str = "ok";
+		}else if(dto == null)  {
+			str = "no";
+		}
+		return str;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="phonecheck.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String phonecheck(Model model, String phone) throws Exception{
+		logger.info("MediMemberController phonecheck " + new Date());
+		String str = "";
+		System.out.println("controller까지 옴");
+		MediMemberDto dto = mediMemberService.phoneCheck(phone);
+		//System.out.println(dto.getId() + "!!!");
+/*		System.out.println("dto.toString() =  " + dto.toString());*/
+		if(dto != null) {
+			str = "ok";
+			
+		}else if(dto == null)  {
+			str = "no";
+		}
+		return str;
 	}
 	
 	@RequestMapping(value="joinMember.do", method={RequestMethod.GET, RequestMethod.POST})

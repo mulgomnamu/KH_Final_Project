@@ -12,6 +12,14 @@
 		SELECT ID FROM medi_member WHERE ID=#{id}
 	</select>
 	
+	<select id="emailcheck" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT EMAIL FROM medi_member WHERE EMAIL=#{email}
+	</select>
+	
+	<select id="phonecheck" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT PHONE FROM medi_member WHERE PHONE=#{phone}
+	</select>
+	
 	<insert id="insertMember" parameterType="kh.com.medi.model.MediMemberDto">
 		INSERT INTO medi_member(ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE) 
 		VALUES(#{id}, sha1(md5(#{pwd})), #{name}, #{email}, #{phone}, #{post}, #{address}, #{question}, #{answer}, 0, 1, #{myimg}, 0, NOW())
