@@ -120,15 +120,15 @@
 							<!-- 메뉴 추가시 여기부터 -->
 							<li>
 								<div class="d_btn_1">
-									<a href="maplist.do" target="_self"><em>QnA</em></a>
+									<a href="QnAbblist.do" target="_self"><em>QnA</em></a>
 								</div>
-								<div class="d_2">
+								<!-- <div class="d_2">
 									<ul>
 										<li>
 											<a href="maplist.do" target="_self"><em>QnA</em></a>
 										</li>
 									</ul>
-								</div>
+								</div> -->
 							</li>
 							<!-- 여기 까지 -->
 						</ul>
