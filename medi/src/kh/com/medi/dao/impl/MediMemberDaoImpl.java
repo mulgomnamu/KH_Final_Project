@@ -69,6 +69,18 @@ public class MediMemberDaoImpl implements MediMemberDao {
 		dto = sqlSession.selectOne(ns+"emailAuthAf", dto);
 		return dto;
 	}
+
+	@Override
+	public MediMemberDto emailCheck(String email) throws Exception {
+		MediMemberDto dto = sqlSession.selectOne(ns+"emailcheck", email);
+		return dto;
+	}
+
+	@Override
+	public MediMemberDto phoneCheck(String phone) throws Exception {
+		MediMemberDto dto = sqlSession.selectOne(ns+"phonecheck", phone);
+		return dto;
+	}
 	
 
 

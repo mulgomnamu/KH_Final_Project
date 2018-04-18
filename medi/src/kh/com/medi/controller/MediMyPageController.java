@@ -51,9 +51,8 @@ public class MediMyPageController {
 	@RequestMapping(value="MyPageLoginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String MyPageLoginAf(Model model, MediMemberDto my, HttpServletRequest req) throws Exception{
 		logger.info("MediMyPageController MyPageLoginAf " + new Date());
-		
+		System.out.println(my.toString());
 		MediMemberDto dto = medimyPageservice.myup(my);
-		
 		if(dto != null && !dto.getId().equals("")) {
 			
 			System.out.println("2");

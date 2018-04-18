@@ -2,12 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="HealthBook">
+<mapper namespace="MediHealthBook">
 
-<insert id="Healthmain" parameterType="kh.com.medi.model.MediHealthBookDto">
+<select id="getHealthBook" parameterType="java.lang.Integer" resultType="kh.com.medi.model.MediHealthBookDto">
+	SELECT SEQ, BIRTH, GENDER, HEIGHT, WEIGHT, BLOODTYPE, ALLERGY
+	FROM medi_health_book
+	
+</select>
+
+<insert id="healthBookWrite" parameterType="kh.com.medi.model.MediHealthBookDto">
 	INSERT INTO medi_health_book
-	(mem_seq, birth, gender, height, weight, bloodtype, allergy) 
-	VALUES(#{mem_seq},#{birth},#{gender},#{height},#{weight},#{bloodtype},#{allergy})
+	(seq, birth, gender, height, weight, bloodtype, allergy) 
+	VALUES(#{seq},#{birth},#{gender},#{height},#{weight},#{bloodtype},#{allergy})
 </insert>
 
 </mapper>

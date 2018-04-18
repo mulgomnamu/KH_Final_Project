@@ -36,6 +36,7 @@ public class MediMemberController {
 	@Autowired
 	public void setMailService(MailService mailService) {
         this.mailService = mailService;
+        
     }
 
 	
@@ -69,21 +70,36 @@ public class MediMemberController {
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginAf(Model model, MediMemberDto dto, HttpServletRequest req) throws Exception{
 		logger.info("MediMemberController loginAf " + new Date());
-		
+		boolean flag = true;
 		MediMemberDto b = mediMemberService.loginAf(dto);
-		if(b.getAuth() == 0) {
-			System.out.println("3");
-			model.addAttribute("msg", "이메일 인증을 해주세요"); 
-			return "login.tiles";
-		}else if(b != null && !b.getId().equals("") && b.getDel() == 0){
-			req.getSession().setAttribute("login", b);
-			System.out.println("2");
-			return "redirect:/main.do";//그냥 몸만 감s
-			//return "forward:/login.do";	//데이터도 가지고 감 
+
+		if(b == null) {
+			flag = false;
 		}else {
+			flag = true;
+		}
+
+		if(flag) {
+			if(b.getAuth() == 0) {
+				System.out.println("3");
+				model.addAttribute("msg", "이메일 인증을 해주세요"); 
+				return "login.tiles";
+			}else if(b != null && !b.getId().equals("") && b.getDel() == 0){
+				req.getSession().setAttribute("login", b);
+				System.out.println("2");
+				return "redirect:/main.do";//그냥 몸만 감
+				//return "forward:/login.do";	//데이터도 가지고 감 
+			}else {
+				System.out.println("1");
+				model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
+				return "login.tiles";
+			}
+		}else {
+			System.out.println("4");
 			model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
 			return "login.tiles";
 		}
+		
 		
 	}
 	
@@ -103,7 +119,41 @@ public class MediMemberController {
 			str = "no";
 		}
 		return str;
-		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="emailcheck.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String emailcheck(Model model, String email) throws Exception{
+		logger.info("MediMemberController emailcheck " + new Date());
+		String str = "";
+		System.out.println("controller까지 옴");
+		MediMemberDto dto = mediMemberService.emailCheck(email);
+		//System.out.println(dto.getId() + "!!!");
+/*		System.out.println("dto.toString() =  " + dto.toString());*/
+		if(dto != null) {
+			str = "ok";
+		}else if(dto == null)  {
+			str = "no";
+		}
+		return str;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="phonecheck.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String phonecheck(Model model, String phone) throws Exception{
+		logger.info("MediMemberController phonecheck " + new Date());
+		String str = "";
+		System.out.println("controller까지 옴");
+		MediMemberDto dto = mediMemberService.phoneCheck(phone);
+		//System.out.println(dto.getId() + "!!!");
+/*		System.out.println("dto.toString() =  " + dto.toString());*/
+		if(dto != null) {
+			str = "ok";
+			
+		}else if(dto == null)  {
+			str = "no";
+		}
+		return str;
 	}
 	
 	@RequestMapping(value="joinMember.do", method={RequestMethod.GET, RequestMethod.POST})

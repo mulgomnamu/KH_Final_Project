@@ -48,57 +48,54 @@ input:valid+span:after {
 		<div class="content">
 			<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
+
 				<form action="MypwdupdateAf.do" method="post" name="wform"
 					id="_frmForm">
-					
 					<table class="list_table" style="width: 85%;">
 
-
-						<tbody>
-							<tr>
-								<th>현재 비밀번호</th>
-								<td style="text-align: left"><input size="30"
-									type="password" style="border: 1px solid #ff0000;" name="pwd"
-									maxlength="16"></td>
-							</tr>
-							<tr>
-								<th>수정 할 비밀번호</th>
-								<td style="text-align: left"><input name="password1"
-									type="password" class="form-control" id="password1"
-									placeholder="password" value="" required=""><font
-									name="check1" size="2"></font><br></td>
-							</tr>
-							<tr>
-								<th>수정 할 비밀번호 확인</th>
-								<td style="text-align: left"><input name="password2"
-									type="password" class="form-control" id="password2"
-									placeholder="password" required=""> <font name="check"
-									size="2"></font> <br></td>
-							</tr>
-							<tr>
-								<td colspan="2" style="height: 50px; text-align: center;">
-									<span> <button type="submit" id="_btnUpdate" >비밀번호
-											수정</button>
-								</span>
-								</td>
-							</tr>
-
-
-						</tbody>
-					</table>
-				</form>
-				<script type="text/javascript">
-					$("#_btnUpdate").click(function() {
-						alert('비밀번호 수정');
-						$("#_frmForm").attr({
-							"target" : "_self",
-							"action" : "MypwdupdateAf.do"
-						}).submit();
-					});
-				</script>
-				</script>
-
-				<script type="text/javascript">
+					
+<tbody>
+		<tr>
+			<th>현재 비밀번호</th>
+			<td style="text-align: left">
+				<input size="30" type="password" style="border: 1px solid #ff0000;" name="pwd" maxlength="16">
+			</td>
+		</tr>	
+		<tr>
+			<th>수정 할 비밀번호</th>
+			<td style="text-align: left">
+				<input name="password1" type="password" class="form-control"
+					id="password1" placeholder="password" required="" value="${my.pwd }"><font
+					name="check1" size="2"></font><br>
+			</td>
+		</tr>
+		<tr>
+			<th>수정 할 비밀번호 확인</th>
+			<td style="text-align: left">
+			<input name="password2" type="password" class="form-control"
+					id="password2" placeholder="password" required=""> <font
+					name="check" size="2"></font> <br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="height:50px; text-align:center;">
+			<span>
+			<a href="#none" id="_btnUpdate" title="비밀번호 수정" >비밀번호 수정</a>
+			</span>
+			</td>
+		</tr>
+		
+		
+		</tbody>
+</table>
+</form>
+<script type="text/javascript">
+$("#_btnUpdate").click(function() {
+	alert('비밀번호 수정');
+	$("#_frmForm").attr({ "target":"_self", "action":"MypwdupdateAf.do" }).submit();
+});
+</script>
+	<script type="text/javascript">
 					//동일 pwd 검사
 					$(function() {
 						$('#password1').keyup(function() {
