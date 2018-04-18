@@ -56,10 +56,16 @@
 			}else{
 			%>
 			<li>
-				<a href="login.do">
+				<a href="MyPageLogin.do">
+
 					<em>정보수정</em>
 				</a>
 			</li>
+			<li>
+				<a href="MyPage.do">
+					<em>마이페이지</em>
+				</a>
+			</li>	
 			<li>
 				<a href="logout.do">
 					<em>로그아웃</em>
@@ -76,7 +82,7 @@
 <header id="header_wrap">
 	<div class="inner">
 		<h1 class="logo">
-			<a href="#;">
+			<a href="main.do">
 				<img src="images/common/top_logo.png" alt="가톨릭대학교 서울성모병원">
 			</a>
 		</h1>
@@ -115,6 +121,20 @@
 										</li>
 									</ul>
 								</div>
+							</li>
+							<!-- 여기 까지 -->
+							<!-- 메뉴 추가시 여기부터 -->
+							<li>
+								<div class="d_btn_1">
+									<a href="QnAbblist.do" target="_self"><em>QnA</em></a>
+								</div>
+								<!-- <div class="d_2">
+									<ul>
+										<li>
+											<a href="maplist.do" target="_self"><em>QnA</em></a>
+										</li>
+									</ul>
+								</div> -->
 							</li>
 							<!-- 여기 까지 -->
 						</ul>

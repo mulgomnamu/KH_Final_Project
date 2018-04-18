@@ -156,6 +156,30 @@ color: #f4f5f8;
 	margin-top: 20px;
 	text-align: center;
 }
+#caltitle2{
+	clear:both;
+	margin-top: 30px;
+	padding:10px;
+	background-color: #f4f5f8;
+	text-align: center;
+}
+#docinfo2{
+	font-size: 13px;
+	margin-top: 20px;
+	text-align: center;
+}
+#caltitle3{
+	clear:both;
+	margin-top: 30px;
+	padding:10px;
+	background-color: #f4f5f8;
+	text-align: center;
+}
+#docinfo3{
+	font-size: 13px;
+	margin-top: 20px;
+	text-align: center;
+}
 .non{
 	pointer-events: none;
 cursor: default;
@@ -167,6 +191,18 @@ cursor: default;
 padding: 0;
 }
 #datecal tr{
+color:black;
+font-weight:bold;
+	height: 60px;
+	text-align: center;
+}
+#datecal2 tr{
+color:black;
+font-weight:bold;
+	height: 60px;
+	text-align: center;
+}
+#datecal3 tr{
 color:black;
 font-weight:bold;
 	height: 60px;
@@ -234,4 +270,35 @@ padding: 0;
  height:35px;
  margin-left:15px;
 	text-align:center; vertical-align:middle;
+}
+.appointment_title{
+	height: 284px;
+	text-align: center;
+	background: url(../images/appointment/sub_bg.jpg) no-repeat 50% top;
+}
+.appointment_title>h1:first-child{
+	padding-top: 50px;
+}
+.subpagetitle{
+	height: 284px;
+	text-align: center;
+	background: url(../images/appointment/sub_bg.jpg) no-repeat 50% top;
+}
+.subpagetitle>p:first-child{
+	padding-top: 50px;
+}
+.tableclass th{
+    width: 130px;
+}
+.tableclass tr{
+	height:100px;
+    border-bottom: dashed 1px #ccc;
+}
+.tableclass li{
+width:25%;
+	padding:5px 0 5px 0;
+    float: left;
+}
+.tableclass li>a{
+    cursor: pointer;
 }

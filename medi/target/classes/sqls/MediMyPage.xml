@@ -5,25 +5,37 @@
 <mapper namespace="MediMyPage">
 
 <select id="mydetail"
-parameterType="kh.com.medi.model.MediMyPageDto"
-resultType="kh.com.medi.model.MediMyPageDto">
-	SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, 
-	POST, ADDRESS, AUTH, DEL, MYIMG, BLACKLIST,REGDATE
+parameterType="kh.com.medi.model.MediMemberDto"
+resultType="kh.com.medi.model.MediMemberDto">
+	SELECT SEQ,ID, PWD, NAME, EMAIL, PHONE, 
+	POST, ADDRESS, AUTH, DEL, MYIMG, BLACKLIST,REGDATE,QUESTION,ANSWER
 	FROM medi_member
 	WHERE ID=#{id}
 </select>
 
 <update id="myupdate" parameterType="hashmap">
 UPDATE medi_member SET 
-PWD=#{pwd}, EMAIL=#{email},POST=#{post},ADDRESS=#{address}
-WHERE SEQ=#{seq} 
+EMAIL=#{email},POST=#{post},ADDRESS=#{address}
+WHERE ID=#{id}
 </update>
 
-<update id="mydelete" parameterType="kh.com.medi.model.MediMyPageDto">
+<update id="Mydelete" parameterType="hashmap">
 	UPDATE medi_member
 	SET DEL=1
-	WHERE ID=#{id}
+	WHERE ID=#{id} AND PWD=sha1(md5(#{pwd}))
 </update>
 
+<!--중요하네-->
+<select parameterType="kh.com.medi.model.MediMemberDto" id="myup" resultType="kh.com.medi.model.MediMemberDto">
+		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
+		FROM medi_member 
+		WHERE ID=#{id} AND PWD=sha1(md5(#{pwd})) 
+</select>
+
+<!--비밀번호 수정  -->
+<update id="mypwdupdateAf" parameterType="hashmap">
+UPDATE medi_member SET PWD=sha1(md5(#{name}))
+WHERE PWD=sha1(md5(#{pwd}))
+</update>
 
 </mapper>

@@ -14,6 +14,7 @@ import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMember_hDto;
+import kh.com.medi.model.MediSpecialtyDto;
 
 @Repository
 public class MediAppointmentDaoImpl implements MediAppointmentDao {
@@ -83,6 +84,27 @@ public class MediAppointmentDaoImpl implements MediAppointmentDao {
 	public MediDoctorSchedulDto getdocsceduledetail(MediAppointmentNeedDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(ns+"getdocsceduledetail", alldto);
+	}
+
+
+	@Override
+	public List<MediSpecialtyDto> byspecialty(MediSpecialtyDto spedto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns+"byspecialty", spedto);
+	}
+
+
+	@Override
+	public List<MediDoctorDto> doclist(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns+"doclist", alldto);
+	}
+
+
+	@Override
+	public List<MediAppointmentDto> reservedetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns+"reservedetail", alldto);
 	}
 	
 

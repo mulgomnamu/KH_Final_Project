@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediMyPageDao;
+import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMyPageDto;
 import kh.com.medi.service.MediMyPageService;
 
@@ -16,7 +17,7 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	private MediMyPageDao mediMyPageDao;
 	
 	@Override
-	public MediMyPageDto Mydetail(MediMyPageDto my) throws Exception {
+	public MediMemberDto Mydetail(MediMemberDto my) throws Exception {
 		return mediMyPageDao.Mydetail(my);
 	}
 
@@ -25,10 +26,22 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 		return mediMyPageDao.myUpate(mep);
 	}
 
+
 	@Override
-	public void mydelete(MediMyPageDto my) throws Exception {
-		mediMyPageDao.mydelete(my);
-		
+	public MediMemberDto myup(MediMemberDto my) throws Exception {
+		return mediMyPageDao.myup(my);
 	}
+
+	@Override
+	public boolean mypwdupdate(HashMap<String, Object> mep) throws Exception {
+		return mediMyPageDao.mypwdupdate(mep);
+	}
+
+	@Override
+	public boolean mydelete(HashMap<String, Object> mep) throws Exception {
+		
+		return mediMyPageDao.mydelete(mep);
+	}
+
 	
 }

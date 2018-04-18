@@ -17,15 +17,18 @@
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-					<h1>어서와 처음이지??</h1>
 
-<!--내정보기  -->
+ 내정보기 
 <form name="frmForm" id="_frmForm" method="post" action="Mydetail.do">
-<input type="hidden" name="id"   value="a"/>
+<input type="hidden" name="id"   value="${login.id }"/>
 <span>
 <a href="#none" id="_btndetail" title="내정보보기">내 정보보기 </a>
 <br>
 <a href="#none" id="del" title="탈퇴하기">탈퇴하기</a>
+<br>
+<a href="#none"  id="butpwdupdate" title="비밀번호 수정">비밀번호 수정</a>
+
+
 </span>
 </form>
 
@@ -48,14 +51,16 @@ $("#_btndetail").click(function() {
 	$("#_frmForm").attr({ "target":"_self", "action":"Mydetail.do" }).submit();
 });
 
-
+$("#butpwdupdate").click(function() {	
+	alert('비밀번호수정');		
+	$("#_frmForm").attr({ "target":"_self", "action":"Mypwdupdate.do" }).submit();
+});
 
 
 
 
 
 </script>
-
 
 
 

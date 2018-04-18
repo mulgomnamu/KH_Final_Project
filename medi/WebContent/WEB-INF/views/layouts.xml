@@ -73,16 +73,41 @@
 	<put-attribute name="content" value="/WEB-INF/views/mypage/MyPage.jsp"/>
 	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	
+	<!--내정보보기  -->
 	<definition name="Mydetail.tiles" extends="main.tiles">
 	<put-attribute name="content" value="/WEB-INF/views/mypage/Mydetail.jsp"/>
 	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<!--정보수정가기전 로그인부분  -->
+	<definition name="MyPageLogin.tiles" extends="main.tiles">
+	<put-attribute name="content" value="/WEB-INF/views/mypage/MyPageLogin.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!--비밀번호 수정 페이지로...  -->
+	<definition name="Mypwdupdate.tiles" extends="main.tiles">
+	<put-attribute name="content" value="/WEB-INF/views/mypage/Mypwdupdate.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!--탈퇴 페이지로  -->
+	<definition name="mydelete.tiles" extends="main.tiles">
+	<put-attribute name="content" value="/WEB-INF/views/mypage/mydelete.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!-- 탈퇴자 -->
+	<definition name="Mybye.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member/Mybye.jsp"/>
+	</definition>
+	
 	
 	<!-- 건강 수첩 -->
+	<definition name="healthbooklist.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/health_book/healthbooklist.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	<definition name="healthbook.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/health_book/healthbook.jsp"/>
-		<!-- 서브 페이지는 subfooter 써야해요 -->
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
@@ -96,7 +121,21 @@
 		<put-attribute name="content" value="/WEB-INF/views/h_bbs/hbbsdetail.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	
+	<!-- 예약디테일 -->
+	<definition name="reservedetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/appointment/reservedetail.jsp"/>
+		<!-- 서브 페이지는 subfooter 써야해요 -->
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>	
+	
+	
+	<definition name="QnAbblist.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbslist.jsp"/>
 		
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 </tiles-definitions>
 
 

@@ -2,14 +2,19 @@ package kh.com.medi.dao;
 
 import java.util.HashMap;
 
-import kh.com.medi.model.MediMyPageDto;
+import kh.com.medi.model.MediMemberDto;
+
 
 public interface MediMyPageDao {
 	
-	MediMyPageDto Mydetail(MediMyPageDto my) throws Exception;
+	MediMemberDto Mydetail(MediMemberDto my) throws Exception;
 
 	boolean myUpate(HashMap<String, Object> mep) throws Exception;
 
-	void mydelete(MediMyPageDto my) throws Exception;
+	MediMemberDto myup(MediMemberDto my) throws Exception;
+
+	boolean mypwdupdate(HashMap<String, Object> mep) throws Exception;
+
+	boolean mydelete(HashMap<String, Object> mep) throws Exception;
 
 }
