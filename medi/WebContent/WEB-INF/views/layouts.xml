@@ -29,6 +29,12 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
+	<!-- 회원가입(의사) -->
+	<definition name="join_d.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/join_doctor.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	<!-- 회원가입(사용자) -->
 	<definition name="joinMember.tiles" extends="appointment.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member/joinMember.jsp"/>

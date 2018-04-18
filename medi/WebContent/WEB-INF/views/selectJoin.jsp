@@ -21,6 +21,8 @@
 					<a href="joinMember.do">일반 회원가입</a>
 					<br>
 					<a href="join_h.do">병원 회원가입</a>
+					<br>
+					<a href="join_d.do">의사 회원가입</a>
 				</div>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>

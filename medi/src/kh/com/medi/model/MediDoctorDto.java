@@ -10,6 +10,7 @@ CREATE TABLE `medi`.`medi_doctor` (
 `REGDATE` DATETIME NOT NULL,
 `doc_profile` VARCHAR(100) NOT NULL,
 `doc_content` VARCHAR(500) NOT NULL,
+`day_tostring` VARCHAR(50) NOT NULL,
 PRIMARY KEY (`seq`),
 INDEX `FK_medi_doctor_hos_seq_idx` (`hos_seq` ASC),
 CONSTRAINT `FK_medi_doctor_hos_seq`
@@ -27,13 +28,13 @@ public class MediDoctorDto implements Serializable {
 	private String regdate;		//의사가입날짜
 	private String doc_profile;	//의사프로필사진
 	private String doc_content;	//의사설명
+	private String day_tostring;//의사 진료날짜
 	
 	public MediDoctorDto() {
 	}
 
-	
 	public MediDoctorDto(int seq, int hos_seq, String name, String specialty, String regdate, String doc_profile,
-			String doc_content) {
+			String doc_content, String day_tostring) {
 		super();
 		this.seq = seq;
 		this.hos_seq = hos_seq;
@@ -42,28 +43,8 @@ public class MediDoctorDto implements Serializable {
 		this.regdate = regdate;
 		this.doc_profile = doc_profile;
 		this.doc_content = doc_content;
+		this.day_tostring = day_tostring;
 	}
-
-	
-	public String getDoc_profile() {
-		return doc_profile;
-	}
-
-
-	public void setDoc_profile(String doc_profile) {
-		this.doc_profile = doc_profile;
-	}
-
-
-	public String getDoc_content() {
-		return doc_content;
-	}
-
-
-	public void setDoc_content(String doc_content) {
-		this.doc_content = doc_content;
-	}
-
 
 	public int getSeq() {
 		return seq;
@@ -105,13 +86,36 @@ public class MediDoctorDto implements Serializable {
 		this.regdate = regdate;
 	}
 
+	public String getDoc_profile() {
+		return doc_profile;
+	}
+
+	public void setDoc_profile(String doc_profile) {
+		this.doc_profile = doc_profile;
+	}
+
+	public String getDoc_content() {
+		return doc_content;
+	}
+
+	public void setDoc_content(String doc_content) {
+		this.doc_content = doc_content;
+	}
+
+	public String getDay_tostring() {
+		return day_tostring;
+	}
+
+	public void setDay_tostring(String day_tostring) {
+		this.day_tostring = day_tostring;
+	}
 
 	@Override
 	public String toString() {
 		return "MediDoctorDto [seq=" + seq + ", hos_seq=" + hos_seq + ", name=" + name + ", specialty=" + specialty
-				+ ", regdate=" + regdate + ", doc_profile=" + doc_profile + ", doc_content=" + doc_content + "]";
+				+ ", regdate=" + regdate + ", doc_profile=" + doc_profile + ", doc_content=" + doc_content
+				+ ", day_tostring=" + day_tostring + "]";
 	}
 
-	
 	
 }
