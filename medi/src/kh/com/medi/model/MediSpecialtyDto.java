@@ -16,7 +16,7 @@ CONSTRAINT `FK_medi_specialty_hos_seq`
 public class MediSpecialtyDto implements Serializable {
 	private int hos_seq;		//병원번호
 	private String specialty;	//병원디테일에뿌릴진료분야 -> 의사가입하면서 선택되는것들이저장될것이다
-	
+	private MediMember_hDto medimember_hdto;
 	public MediSpecialtyDto() {
 	}
 	
@@ -24,6 +24,21 @@ public class MediSpecialtyDto implements Serializable {
 		super();
 		this.hos_seq = hos_seq;
 		this.specialty = specialty;
+	}
+	
+	public MediSpecialtyDto(int hos_seq, String specialty, MediMember_hDto medimember_hdto) {
+		super();
+		this.hos_seq = hos_seq;
+		this.specialty = specialty;
+		this.medimember_hdto = medimember_hdto;
+	}
+
+	public MediMember_hDto getMedimember_hdto() {
+		return medimember_hdto;
+	}
+
+	public void setMedimember_hdto(MediMember_hDto medimember_hdto) {
+		this.medimember_hdto = medimember_hdto;
 	}
 
 	public int getHos_seq() {

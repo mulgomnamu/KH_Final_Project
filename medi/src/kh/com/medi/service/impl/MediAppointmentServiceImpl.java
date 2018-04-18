@@ -13,6 +13,7 @@ import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediMember_hDto;
+import kh.com.medi.model.MediSpecialtyDto;
 import kh.com.medi.service.MediAppointmentService;
 
 
@@ -192,6 +193,18 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 			}
 			scedto.setStart_time(_canhour);
 		return scedto.getStart_time();
+	}
+
+	@Override
+	public List<MediSpecialtyDto> byspecialty(MediSpecialtyDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediAppointmentDao.byspecialty(alldto);
+	}
+
+	@Override
+	public List<MediDoctorDto> doclist(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediAppointmentDao.doclist(alldto);
 	}
 	
 	

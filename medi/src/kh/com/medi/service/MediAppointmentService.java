@@ -7,6 +7,7 @@ import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediMember_hDto;
+import kh.com.medi.model.MediSpecialtyDto;
 
 public interface MediAppointmentService {
 	//예약창에서 병원검색할때
@@ -23,5 +24,8 @@ public interface MediAppointmentService {
 	public boolean reserve(MediAppointmentNeedDto alldto)throws Exception;
 	//예약한시간빼오기
 	public String canttime(MediAppointmentNeedDto alldto)throws Exception;
-
+	//진료과목으로검색할때
+	public List<MediSpecialtyDto> byspecialty(MediSpecialtyDto alldto)throws Exception;
+	//예약창에서 의사로 검색할때
+	public List<MediDoctorDto> doclist(MediAppointmentNeedDto alldto)throws Exception;	
 }

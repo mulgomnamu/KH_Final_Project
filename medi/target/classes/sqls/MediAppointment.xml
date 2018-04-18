@@ -47,4 +47,47 @@
 		INSERT INTO medi_reservation (MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE) 
 		VALUES (#{mem_seq}, #{hos_seq}, #{doc_seq},#{content}, #{day}, #{time}, now(),#{type})
 	</insert>
+	<resultMap type="kh.com.medi.model.MediMember_hDto" id="hDto">
+    <result column="SEQ" property="seq"/>
+    <result column="ID" property="id"/>
+    <result column="PWD" property="pwd"/>
+    <result column="NAME" property="name"/>
+    <result column="TEL" property="tel"/>
+    <result column="POST" property="post"/>
+    <result column="ADDRESS" property="address"/>
+    <result column="MAP" property="map"/>
+    <result column="EMAIL" property="email"/>
+    <result column="QUESTION" property="question"/>
+    <result column="ANSWER" property="answer"/>
+    <result column="CONFIRM_IMG" property="confirm_img"/>
+	<result column="INFO" property="info"/>
+    <result column="DEL" property="del"/>
+    <result column="REGDATE" property="regdate"/>
+	</resultMap>
+ 
+	<resultMap type="kh.com.medi.model.MediSpecialtyDto" id="SpecialtyDto">
+	    <result column="HOS_SEQ" property="hos_seq"/>
+	    <result column="SPECIALTY" property="specialty"/>
+	    <collection property="medimember_hdto" resultMap="hDto"/>
+	</resultMap>
+	 
+	<select id="byspecialty" parameterType="kh.com.medi.model.MediSpecialtyDto" resultMap="SpecialtyDto">
+	    SELECT
+	        h.SEQ,h.ID,h.PWD,h.NAME,h.TEL,h.POST,h.ADDRESS,h.MAP,h.MAP,
+	        h.EMAIL,h.QUESTION,h.ANSWER,h.CONFIRM_IMG,h.INFO,h.DEL,h.REGDATE,
+	        S.HOS_SEQ,S.SPECIALTY
+	    FROM
+	     	medi_hospital h
+	    INNER JOIN
+	        medi_specialty s
+	    ON
+	        s.HOS_SEQ=h.SEQ
+	    WHERE
+	        s.SPECIALTY=#{specialty}
+	</select>
+	<select id="doclist" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT SEQ,HOS_SEQ,NAME,SPECIALTY,REGDATE,DOC_PROFILE,DOC_CONTENT
+		FROM medi_doctor
+		WHERE NAME LIKE CONCAT('%',#{name},'%')
+	</select>
 </mapper>
