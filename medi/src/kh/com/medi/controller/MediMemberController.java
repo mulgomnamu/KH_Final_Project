@@ -65,6 +65,7 @@ public class MediMemberController {
 		return "login.tiles";
 	}
 	
+	/*탈퇴회원 사용불가 추가*/
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginAf(Model model, MediMemberDto dto, HttpServletRequest req) throws Exception{
 		logger.info("MediMemberController loginAf " + new Date());
@@ -74,10 +75,10 @@ public class MediMemberController {
 			System.out.println("3");
 			model.addAttribute("msg", "이메일 인증을 해주세요"); 
 			return "login.tiles";
-		}else if(b != null && !b.getId().equals("")){
+		}else if(b != null && !b.getId().equals("") && b.getDel() == 0){
 			req.getSession().setAttribute("login", b);
 			System.out.println("2");
-			return "redirect:/main.do";//그냥 몸만 감
+			return "redirect:/main.do";//그냥 몸만 감s
 			//return "forward:/login.do";	//데이터도 가지고 감 
 		}else {
 			model.addAttribute("msg", "id나 pwd를 확인해주세요"); 

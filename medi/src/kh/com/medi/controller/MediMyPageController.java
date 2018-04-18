@@ -120,11 +120,47 @@ public class MediMyPageController {
 		public String mydelete(Model model, MediMemberDto my) throws Exception{
 			logger.info("MediMyPageController mydelete " + new Date());
 			
-			medimyPageservice.mydelete(my);
-			return "redirect:/main.do";
+			
+			return "mydelete.tiles";
 			
 		
 		}
+		
+		@RequestMapping(value="MydeleteAf.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String mydeleteAf(Model model, MediMemberDto my) throws Exception{
+			logger.info("MediMyPageController mydelete " + new Date());
+			
+			String id = my.getId();
+			String pwd = my.getPwd();
+			
+			HashMap<String, Object> mep = new HashMap<>();
+			mep.put("id", id);
+			mep.put("pwd", pwd);
+			
+			boolean bbs = medimyPageservice.mydelete(mep);
+			
+			if(bbs == true) {
+				System.out.println("성공");
+				model.addAttribute("msg", "탈퇴 성공하셨습니다"); 
+				return "redirect:/Mybye.do";
+			}else {
+				System.out.println("실패");
+				return "mydelete.tiles";
+			}
+		
+		}
+		
+		
+		@RequestMapping(value="Mybye.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String mybye(Model model, MediMemberDto my) throws Exception{
+			logger.info("MediMyPageController mydelete " + new Date());
+			
+			return "Mybye.tiles";
+			
+		}
+		
+		
+		
 		
 		/*비밀번호 수정  페이지로*/
 		@RequestMapping(value="Mypwdupdate.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -137,18 +173,28 @@ public class MediMyPageController {
 		
 		}
 		
-		/*@RequestMapping(value="MypwdupdateAf.do", method={RequestMethod.GET, RequestMethod.POST})
-		public String _mypwdupdateAf(Model model, MediMemberDto my) throws Exception{
+		@RequestMapping(value="MypwdupdateAf.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String mypwdupdateAf(Model model, MediMemberDto my, HttpServletRequest req) throws Exception{
 			logger.info("MediMyPageController Mypwdupdate " + new Date());
-			
+			my.setName(req.getParameter("password1"));
 			String pwd = my.getPwd();
+			System.out.println(pwd);
+			
 			
 			HashMap<String, Object> mep = new HashMap<>();
+			mep.put("name", my.getName());
 			mep.put("pwd", pwd);
-			boolean bbs = medimyPageservice.myUpate(mep);
+			boolean bbs = medimyPageservice.mypwdupdate(mep);
 			
 			
-			
+			if(bbs == true){
+				System.out.println("성공");
+				return "redirect:/Mybye.do";
+			}else {
+				System.out.println("실패");
+				return "Mypwdupdate.tiles";
+			}
+				
 		}
-		*/
+		
 }

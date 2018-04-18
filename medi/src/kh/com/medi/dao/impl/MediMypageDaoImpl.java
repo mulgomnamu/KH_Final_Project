@@ -31,8 +31,10 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 	}
 	
 	@Override
-	public void mydelete(MediMemberDto my)throws Exception{
-		sqlSession.delete(ns+"mydelete", my);
+	public boolean mydelete(HashMap<String, Object> mep)throws Exception{
+	    int h = sqlSession.update(ns+"Mydelete",mep);	
+		
+		return h>0?true:false;
 	}
 	@Override
 	public MediMemberDto myup(MediMemberDto my) throws Exception{

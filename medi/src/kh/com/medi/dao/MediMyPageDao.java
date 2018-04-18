@@ -11,10 +11,10 @@ public interface MediMyPageDao {
 
 	boolean myUpate(HashMap<String, Object> mep) throws Exception;
 
-	void mydelete(MediMemberDto my) throws Exception;
-
 	MediMemberDto myup(MediMemberDto my) throws Exception;
 
 	boolean mypwdupdate(HashMap<String, Object> mep) throws Exception;
+
+	boolean mydelete(HashMap<String, Object> mep) throws Exception;
 
 }

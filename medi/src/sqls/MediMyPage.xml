@@ -15,26 +15,26 @@ resultType="kh.com.medi.model.MediMemberDto">
 
 <update id="myupdate" parameterType="hashmap">
 UPDATE medi_member SET 
-PWD=#{pwd}, EMAIL=#{email},POST=#{post},ADDRESS=#{address}
+EMAIL=#{email},POST=#{post},ADDRESS=#{address}
 WHERE ID=#{id}
 </update>
 
-<update id="mydelete" parameterType="kh.com.medi.model.MediMemberDto">
+<update id="Mydelete" parameterType="hashmap">
 	UPDATE medi_member
 	SET DEL=1
-	WHERE ID=#{id}
+	WHERE ID=#{id} AND PWD=sha1(md5(#{pwd}))
 </update>
 
 <select parameterType="kh.com.medi.model.MediMemberDto" id="myup" resultType="kh.com.medi.model.MediMemberDto">
 		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
 		FROM medi_member 
-		WHERE ID=#{id} AND PWD=#{pwd} 
+		WHERE ID=#{id} AND PWD=sha1(md5(#{pwd})) 
 </select>
 
 <!--비밀번호 수정  -->
 <update id="mypwdupdateAf" parameterType="hashmap">
-UPDATE medi_member SET PWD=#{pwd}
-WHERE PWD=#{pwd}
+UPDATE medi_member SET PWD=sha1(md5(#{name}))
+WHERE PWD=sha1(md5(#{pwd}))
 </update>
 
 </mapper>

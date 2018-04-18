@@ -26,11 +26,6 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 		return mediMyPageDao.myUpate(mep);
 	}
 
-	@Override
-	public void mydelete(MediMemberDto my) throws Exception {
-		mediMyPageDao.mydelete(my);
-		
-	}
 
 	@Override
 	public MediMemberDto myup(MediMemberDto my) throws Exception {
@@ -40,6 +35,12 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	@Override
 	public boolean mypwdupdate(HashMap<String, Object> mep) throws Exception {
 		return mediMyPageDao.mypwdupdate(mep);
+	}
+
+	@Override
+	public boolean mydelete(HashMap<String, Object> mep) throws Exception {
+		
+		return mediMyPageDao.mydelete(mep);
 	}
 
 	

@@ -11,7 +11,7 @@ public MediMemberDto Mydetail(MediMemberDto my) throws Exception;
 	
 	public boolean myUpate(HashMap<String, Object> mep) throws Exception;
 	
-	public void mydelete(MediMemberDto my)throws Exception;
+	public boolean mydelete(HashMap<String, Object> mep)throws Exception;
 
 	public MediMemberDto myup(MediMemberDto my) throws Exception;
 	

@@ -10,14 +10,14 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>비밀번호 입력</h2>
-				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
+				<h2>탈퇴 하시겠습니까?</h2>
+				
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-					<form action="MyPageLoginAf.do" name="frmForm" id="_frmForm" method="post">
+					<form action="MydeleteAf.do" name="frmForm" id="_frmForm" method="post">
 						<table class="content_table" style="width:75%">
 							<colgroup>
 								<col style="width:30%">
@@ -27,7 +27,7 @@
 								<tr>
 									<th style="background: #eeeeee; color: #3e5fba;">아이디</th>
 									<td>&nbsp;
-										<input type="text" id="_userid" name="id" value="${login.id }" data-msg="ID를" size="15" title="아이디" style="border:1px solid #dddddd;">
+										<input type="text" id="_userid" name="id" value="" data-msg="ID를" size="15" title="아이디" style="border:1px solid #dddddd;">
 
 									</td>
 								</tr>
@@ -91,7 +91,7 @@
 							</tbody>
 						
 						</table>
-		
+	
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>
 			</div>
