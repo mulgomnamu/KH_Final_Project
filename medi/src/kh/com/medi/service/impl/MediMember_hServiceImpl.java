@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediMember_hDao;
+import kh.com.medi.model.MediHospital_imageDto;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.service.MediMember_hService;
 
@@ -21,6 +22,16 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 	@Override
 	public boolean checkId(MediMember_hDto dto_h) {
 		return mediMember_hDao.checkId(dto_h);
+	}
+
+	@Override
+	public MediMember_hDto getHospitalColumn(String id) {
+		return mediMember_hDao.getHospitalColumn(id);
+	}
+
+	@Override
+	public boolean addHospitalImage(MediHospital_imageDto dto_hi) {
+		return mediMember_hDao.addHospitalImage(dto_hi);
 	}
 
 }

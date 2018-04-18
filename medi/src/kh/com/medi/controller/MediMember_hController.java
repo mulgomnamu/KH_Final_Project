@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import kh.com.medi.model.MediHospital_imageDto;
 import kh.com.medi.model.MediMember_hDto;
-import kh.com.medi.model.MediMember_h_imgDto;
 import kh.com.medi.service.MediMember_hService;
 import kh.com.medi.util.FUpUtil;
 
@@ -30,6 +29,11 @@ public class MediMember_hController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MediMember_hController.class);
 	
+	private static final int RESULT_EXCEED_SIZE = -2;
+    private static final int RESULT_UNACCEPTED_EXTENSION = -1;
+    private static final int RESULT_SUCCESS = 1;
+    private static final long LIMIT_SIZE = 10 * 1024 * 1024;
+    
 	@Autowired
 	MediMember_hService mediMember_hService;
 	
@@ -40,13 +44,16 @@ public class MediMember_hController {
 		return "join_h.tiles";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="join_hAf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String join_hAf(MediMember_hDto dto_h, HttpServletRequest req, Model model, @RequestParam(value="upload", required=false)MultipartFile fileload) {
+	public int join_hAf(MediHospital_imageDto dto_hi, MediMember_hDto dto_h, HttpServletRequest req, Model model, 
+			@RequestParam(value="upload", required=false)MultipartFile fileload, 
+			@RequestParam(value="_upload", required=false)List<MultipartFile> images) {
 		logger.info("MediMember_hController join_hAf " + new Date());
 		
 		dto_h.setConfirm_img(fileload.getOriginalFilename());
 		
-		String fupload = "c:\\upload";
+		String fupload = req.getServletContext().getRealPath("/upload");
 		logger.info("업로드 경로 : " + fupload);
 		
 		String f = dto_h.getConfirm_img();
@@ -64,41 +71,98 @@ public class MediMember_hController {
 			
 		}catch (IOException e) {
 			e.printStackTrace();
+			return -1;
 		}
 		
-		return "main.tiles";
-	}
-
-	@RequestMapping(value="imgUploads.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String imgUploads(MultipartHttpServletRequest mtfReq) {
-		logger.info("MediMember_hController imgUploads " + new Date());
-		
-		List<MultipartFile> flist = mtfReq.getFiles("_upload");
-		String src = mtfReq.getParameter("src");
-		System.out.println("src in controller" + src);
-		
-		String path ="c:\\upload\\";
-		
-		for(MultipartFile mf : flist) {
-			String originFileName = mf.getOriginalFilename();	// 원본 파일 명
-			long fileSize = mf.getSize();						// 파일 사이즈
-			
-			System.out.println("originFileName in controller" + originFileName);
-			System.out.println("fileSize in controller" + fileSize);
-			
-			String safeFile = path + System.currentTimeMillis() + originFileName;
-			try {
-				mf.transferTo(new File(safeFile));
-			}catch (IllegalStateException e) {
-				e.printStackTrace();
-			}catch (IOException e) {
+		long sizeSum = 0;
+		for(MultipartFile image : images) {
+            String originalName = image.getOriginalFilename();
+            // 확장자 검사
+            if(!isValidExtension(originalName)){
+                return RESULT_UNACCEPTED_EXTENSION;
+            }
+            
+            // 용량 검사
+            sizeSum += image.getSize();
+            if(sizeSum >= LIMIT_SIZE) {
+                return RESULT_EXCEED_SIZE;
+            }
+            
+            // 저장
+            dto_hi.setImage(image.getOriginalFilename());
+            
+            String _fupload = req.getServletContext().getRealPath("/upload");
+    		logger.info("업로드 경로 : " + _fupload);
+            
+    		String _f = dto_hi.getImage();
+    		String _newFile = FUpUtil.getNewFile(_f);
+    		logger.info("파일 이름 : " + newFile);
+    		
+    		dto_hi.setImage(_newFile);
+    		
+    		try {
+    			File file = new File(_fupload + "/" + _newFile);
+    			
+    			FileUtils.writeByteArrayToFile(file, image.getBytes());
+    			
+    			dto_hi.setHos_seq(mediMember_hService.getHospitalColumn(dto_h.getId()).getSeq());
+    			
+    			mediMember_hService.addHospitalImage(dto_hi);
+    			
+    		}catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+        }
 		
-		return "main.tiles";
+		return 1;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="imgUploads.do", method={RequestMethod.GET, RequestMethod.POST})
+	public int imgUploads(MediHospital_imageDto dto_hi, HttpServletRequest req, @RequestParam(value="_upload", required=false)List<MultipartFile> images) {
+		logger.info("MediMember_hController imgUploads " + new Date());
+		
+		long sizeSum = 0;
+		for(MultipartFile image : images) {
+            String originalName = image.getOriginalFilename();
+            // 확장자 검사
+            if(!isValidExtension(originalName)){
+                return RESULT_UNACCEPTED_EXTENSION;
+            }
+            
+            // 용량 검사
+            sizeSum += image.getSize();
+            if(sizeSum >= LIMIT_SIZE) {
+                return RESULT_EXCEED_SIZE;
+            }
+            
+            // 저장
+            dto_hi.setImage(image.getOriginalFilename());
+            
+            String fupload = req.getServletContext().getRealPath("/upload");
+    		logger.info("업로드 경로 : " + fupload);
+            
+    		String f = dto_hi.getImage();
+    		String newFile = FUpUtil.getNewFile(f);
+    		logger.info("파일 이름 : " + newFile);
+    		
+    		dto_hi.setImage(newFile);
+    		
+    		try {
+    			File file = new File(fupload + "/" + newFile);
+    			
+    			FileUtils.writeByteArrayToFile(file, image.getBytes());
+    			    			
+    			mediMember_hService.addHospitalImage(dto_hi);
+    			
+    		}catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+        
+        return RESULT_SUCCESS;
+	}
+
 	@ResponseBody
 	@RequestMapping(value="checkId_h.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String checkId_h(MediMember_hDto dto_h) {
@@ -106,5 +170,16 @@ public class MediMember_hController {
 		
 		return (mediMember_hService.checkId(dto_h))+"";
 	}
+	
+	private boolean isValidExtension(String originalName) {
+        String originalNameExtension = originalName.substring(originalName.lastIndexOf(".") + 1);
+        switch(originalNameExtension) {
+        case "jpg":
+        case "png":
+        case "gif":
+            return true;
+        }
+        return false;
+    }
 
 }

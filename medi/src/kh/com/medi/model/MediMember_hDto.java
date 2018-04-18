@@ -11,7 +11,8 @@ public class MediMember_hDto implements Serializable {
 	private String tel;
 	private String post;
 	private String address;
-	private String map;
+	private String latitude;
+	private String longtitude;
 	private String email;
 	private String question;
 	private String answer;
@@ -24,8 +25,8 @@ public class MediMember_hDto implements Serializable {
 	}
 
 	public MediMember_hDto(int seq, String id, String pwd, String name, String tel, String post, String address,
-			String map, String email, String question, String answer, String confirm_img, String info, int del,
-			String regdate) {
+			String latitude, String longtitude, String email, String question, String answer, String confirm_img,
+			String info, int del, String regdate) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -34,7 +35,8 @@ public class MediMember_hDto implements Serializable {
 		this.tel = tel;
 		this.post = post;
 		this.address = address;
-		this.map = map;
+		this.latitude = latitude;
+		this.longtitude = longtitude;
 		this.email = email;
 		this.question = question;
 		this.answer = answer;
@@ -100,12 +102,20 @@ public class MediMember_hDto implements Serializable {
 		this.address = address;
 	}
 
-	public String getMap() {
-		return map;
+	public String getLatitude() {
+		return latitude;
 	}
 
-	public void setMap(String map) {
-		this.map = map;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongtitude() {
+		return longtitude;
+	}
+
+	public void setLongtitude(String longtitude) {
+		this.longtitude = longtitude;
 	}
 
 	public String getEmail() {
@@ -167,9 +177,9 @@ public class MediMember_hDto implements Serializable {
 	@Override
 	public String toString() {
 		return "MediMember_hDto [seq=" + seq + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", tel=" + tel
-				+ ", post=" + post + ", address=" + address + ", map=" + map + ", email=" + email + ", question="
-				+ question + ", answer=" + answer + ", confirm_img=" + confirm_img + ", info=" + info + ", del=" + del
-				+ ", regdate=" + regdate + "]";
+				+ ", post=" + post + ", address=" + address + ", latitude=" + latitude + ", longtitude=" + longtitude
+				+ ", email=" + email + ", question=" + question + ", answer=" + answer + ", confirm_img=" + confirm_img
+				+ ", info=" + info + ", del=" + del + ", regdate=" + regdate + "]";
 	}
 	
 }

@@ -3,6 +3,8 @@
 
 <!DOCTYPE html>
 
+<style type="text/css">.thumb-image{float:left;width:100px;position:relative;padding:5px;}/* .selectedItem{border:2px solid blue;} */</style>
+
 <style type="text/css">
 div {
   margin-bottom: 10px;
@@ -47,7 +49,7 @@ input:valid + span:after {
 <!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
-					<form action="#none" id="_form" name="_form" method="post" enctype="multipart/form-data">
+					<form action="join_hAf" id="_form" name="_form" method="post" enctype="multipart/form-data">
 						<table>
 							<tr>
 								<td>
@@ -164,26 +166,25 @@ input:valid + span:after {
 								</td>
 							</tr>
 						</table>
-					</form>
-					<form action="imgUploads.do" id="img_form" method="post" enctype="multipart/form-data">
-						<table>
+<!-- 					</form>
+ 					<form action="imgUploads.do" id="img_form" method="post" enctype="multipart/form-data"> 
+ -->						<table>
 							<tr>
 								<td>
 									병원 이미지 업로드
 								</td>
 								<td class="input_fields_wrap">
-									<button class="add_image_field">파일 더 올리기</button><br>
-									<input type="file" name="_upload" multiple="multiple">
-									<input type="hidden" name="src">
+<!-- 									<button class="add_image_field">파일 더 올리기</button><br> -->
+									<input type="file" id="_upload" name="_upload" multiple>
+<!-- 									<input type="button" id="btnDelete" value="delete"> -->
 								</td>
 								<td>
-									<div id="_preview">
+									<div id="image-holder">
 									</div>
 								</td>
 							</tr>
 						</table>
-						<input type="submit" value="다중업로드">
-					</form>
+						</form>
 					<input type="button" id="join_hBtn" value="회원가입">
 				</div>
 			</div>
@@ -387,79 +388,45 @@ input:valid + span:after {
 
 /* 병원 이미지 추가 버튼(다중 파일 제어) */
 	$(document).ready(function() {
-		var max_fields = 10;
-		var wrapper = $(".input_fields_wrap");
-		var add_button = $(".add_image_field");
-		
-		var x = 1;
-		$(add_button).click(function(e) {
-			e.preventDefault();
-			if(x < max_fields){
-				x++;
-				$(wrapper).append("<div><input type='file' name='_upload'><a href='#' class='remove_field'>remove</a></div>");
-			}
-		});
-		
-		$(wrapper).on("click", ".remove_field", function(e) {
-			e.preventDefault();
-			$(this).parent('div').remove();
-			x--;
-		});
-	});
-	
-	$(document).ready(function() {
-		$("input[name=_upload]").change(function() {
-			add_img_preview($(this));
-		});
-	});
-	
-	var files = {};
-	var previewIndex = 0;
-	
-	function add_img_preview(input) {
-		if(input[0].files){
-			for(var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++){
-				var file = input[0].files[fileIndex];
-				
-				if(validation(file.name))
-					continue;
-				
-				var reader = new FileReader();
-				reader.onload = function(img) {
-					var imgNum = previewIndex++;
-					$("#_preview").append(
-									"<div class=\"preview-box\" value=\"" + imgNum +"\">"
-									+ "<img class=\"thumbnail\" src=\"" + img.target.result + "\" style=\"width: 130px; height: 200px;\"\/>"
-									+ "<p>"
-									+ file.name
-									+ "</p>"
-									+ "<a href=\"#none\" value=\""
-									+ imgNum
-									+ "\" onclick=\"deletePreview(this)\">"
-									+ "삭제" + "</a>" + "</div>");
-					files[imgNum] = file;
-				};
-				reader.readAsDataURL(file);
-			}
-		}else
-			alert('invalid file input');
-	}
-	function deletePreview(obj) {
-		var imgNum = obj.attributes['value'].value;
-		delete files[imgNum];
-		$("#_preview .preview-box[value=' + imgNum + ']").remove();
-//		resizeHeight();
-	}
-	function validation(fileName) {
-		fileName = fileName + "";
-		var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
-		var fileNameExtension = fileName.toLowerCase().substring(fileNameExtensionIndex, fileName.length);
-		if(!((fileNameExtension === 'jpg') || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))){
-			alert('jpg, gif, png 확장자만 업로드 가능합니다.');
-			return true;
-		}else
-			return false;
-	}
+
+$("#image-holder").on('click','.thumb-image',function(){
+   $(this).toggleClass("selectedItem");
+});
+
+$("#btnDelete").on("click",function(){
+$(".selectedItem").remove();
+});
+
+        $("#_upload").on('change', function() {
+          //Get count of selected files
+          var countFiles = $(this)[0].files.length;
+          var imgPath = $(this)[0].value;
+          var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+          var image_holder = $("#image-holder");
+          image_holder.empty();
+          if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+            if (typeof(FileReader) != "undefined") {
+              //loop for each file selected for uploaded.
+              for (var i = 0; i < countFiles; i++) 
+              {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                  $("<img />", {
+                    "src": e.target.result,
+                    "class": "thumb-image"
+                  }).appendTo(image_holder);
+                }
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[i]);
+              }
+            } else {
+              alert("This browser does not support FileReader.");
+            }
+          } else {
+            alert("Pls select only images");
+          }
+        });
+      });
 /*/병원 이미지 추가 버튼(다중 파일 제어) */
 /* submit 전 확인 */
 	$("#join_hBtn").click(function() {
@@ -474,7 +441,8 @@ input:valid + span:after {
 				answer: $("#answer").val(),
 				info: $("#info").val(),
 		}
-/*  		if(idCheck == 0 || data.id == ""){
+ 		
+  		if(idCheck == 0 || data.id == ""){
 			$("#idCheckMessage").html("아이디를 확인해주세요.");
 			$("#id").focus();
 		}else if(pwdCheck == 0 || data.pwd == "" || data.pwd2 == ""){
@@ -499,10 +467,30 @@ input:valid + span:after {
 			$("#infoCheckMessage").html("병원 소개 글을 확인해주세요.");
 			$("#info").focus();
 		}else{
-			$("#_form").attr({"target":"_self", "action":"join_hAf.do"}).submit();
+			var form = new FormData(document.getElementById('_form'));
+			$.ajax({
+				url: 'join_hAf.do',
+				data: form,
+				dataType: 'text',
+				processData: false,
+				contentType: false,
+				type: 'post',
+				success: function(response) {
+					if(response == 1){
+						alert('회원가입 성공');
+						location.href ="main.do";
+					}else if(response == -1){
+						alert('회원가입 실패');
+					}else{
+						alert(response);
+					}
+				},
+				error: function(jqXHR) {
+					alert('error1');
+				}
+			});
+
 		}
- */
-		$("#_form").attr({"target":"_self", "action":"join_hAf.do"}).submit();
 	});
 /*/submit 전 확인 */
 
