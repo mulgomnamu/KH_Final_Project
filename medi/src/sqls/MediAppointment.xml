@@ -43,6 +43,11 @@
 		FROM medi_reservation
 		WHERE DOC_SEQ=#{doc_seq} AND DAY=#{day}
 	</select>
+	<select id="reservedetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
+		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
+		FROM medi_reservation
+		WHERE MEM_SEQ=#{mem_seq} AND HOS_SEQ=#{hos_seq} AND DOC_SEQ=#{doc_seq}
+	</select>
 	<insert id="reserve" parameterType="kh.com.medi.model.MediAppointmentNeedDto">
 		INSERT INTO medi_reservation (MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE) 
 		VALUES (#{mem_seq}, #{hos_seq}, #{doc_seq},#{content}, #{day}, #{time}, now(),#{type})

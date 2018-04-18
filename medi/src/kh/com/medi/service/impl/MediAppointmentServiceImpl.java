@@ -206,6 +206,12 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 		// TODO Auto-generated method stub
 		return mediAppointmentDao.doclist(alldto);
 	}
+
+	@Override
+	public List<MediAppointmentDto> reservedetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediAppointmentDao.reservedetail(alldto);
+	}
 	
 	
 	

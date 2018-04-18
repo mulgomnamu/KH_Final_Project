@@ -196,7 +196,6 @@ public class MediAppointmentController {
 	public String reservedetail(MediAppointmentNeedDto alldto,Model model) throws Exception{
 		logger.info("MediAppointmentController reservedetail " + new Date());
 		System.out.println(alldto.toString());
-		model.addAttribute("mem_seq", alldto.getMem_seq());
 		model.addAttribute("hos_seq", alldto.getHos_seq());
 		model.addAttribute("doc_seq", alldto.getDoc_seq());
 		return "reservedetail.tiles";

@@ -28,4 +28,7 @@ public interface MediAppointmentService {
 	public List<MediSpecialtyDto> byspecialty(MediSpecialtyDto alldto)throws Exception;
 	//예약창에서 의사로 검색할때
 	public List<MediDoctorDto> doclist(MediAppointmentNeedDto alldto)throws Exception;	
+	//예약디테일
+	public List<MediAppointmentDto> reservedetail(MediAppointmentNeedDto alldto)throws Exception;
+		
 }

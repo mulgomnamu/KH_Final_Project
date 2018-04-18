@@ -99,6 +99,13 @@ public class MediAppointmentDaoImpl implements MediAppointmentDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(ns+"doclist", alldto);
 	}
+
+
+	@Override
+	public List<MediAppointmentDto> reservedetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns+"reservedetail", alldto);
+	}
 	
 
 
