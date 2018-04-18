@@ -13,6 +13,7 @@ import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediMember_hDto;
+import kh.com.medi.model.MediSpecialtyDto;
 import kh.com.medi.service.MediAppointmentService;
 
 
@@ -154,6 +155,7 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 					
 				}
 			}
+			System.out.println("의사가능한시간"+canhour);
 			String can[]=canhour.split("-");
 			List<String> canhours=new ArrayList<>();
 			for (int c = 0; c < can.length; c++) {
@@ -174,8 +176,16 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 				for (int z = 0; z < canttime.size(); z++) {
 					if (canhours.get(k).equals(canttime.get(z))) {
 						canhours.remove(k);
+						canhours.add("이");
 					}
 				}
+			}
+			int canttimelen=canttime.size();
+			int count=canhours.size()-canttime.size();
+			int how=0;
+			while (how<canttimelen) {
+				canhours.remove(count);
+				how++;
 			}
 			String _canhour="";
 			for (int i = 0; i < canhours.size(); i++) {
@@ -183,6 +193,24 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 			}
 			scedto.setStart_time(_canhour);
 		return scedto.getStart_time();
+	}
+
+	@Override
+	public List<MediSpecialtyDto> byspecialty(MediSpecialtyDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediAppointmentDao.byspecialty(alldto);
+	}
+
+	@Override
+	public List<MediDoctorDto> doclist(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediAppointmentDao.doclist(alldto);
+	}
+
+	@Override
+	public List<MediAppointmentDto> reservedetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediAppointmentDao.reservedetail(alldto);
 	}
 	
 	

@@ -119,6 +119,14 @@
 		<!-- 서브 페이지는 subfooter 써야해요 -->
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>	
+	
+	
+	<definition name="QnAbblist.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbslist.jsp"/>
+		
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 </tiles-definitions>
 
 

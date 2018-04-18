@@ -52,7 +52,7 @@ input:valid+span:after {
 			<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
 				ID : <input name="id" type="text" class="form-control" id="id"
-					placeholder="id" required=""><font id="result_id_msg" size="2"></font><br>
+					placeholder="id" required="" pattern="[^(a-zA-Z0-9)]"><font id="result_id_msg" size="2"></font><br>
 				
 				PWD : <input name="password1" type="password" class="form-control"
 					id="password1" placeholder="password" required=""><font
@@ -65,11 +65,11 @@ input:valid+span:after {
 <br>
 				EMAIL:<input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="이메일을 입력하세요">
 				<!-- <input name="email" type="email" class="form-control" id="email"
-					placeholder="email" required=""> --> <br>
+					placeholder="email" required=""> --><font id="result_email_msg" size="2"></font> <br>
 				PHONE:<input type="tel" name="phone" id="phone" title="phone number"
 					placeholder="000-0000-0000"
 					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
-					required><span class="validity"></span>
+					required><font id="result_phone_msg" size="2"></font><span class="validity"></span>
 					<!-- <input type="tel" name="phone" id="phone" title="phone number"
 					placeholder="000-0000-0000"
 					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
@@ -173,6 +173,7 @@ if( !patt.test( $("#").val()) ){
         }).open();
     }
 </script>
+
 <script type="text/javascript">
 //id중복검사 스크립트
 $(document).ready(function(){
@@ -211,6 +212,80 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
+//email중복검사 스크립트
+$(document).ready(function(){
+	console.log("1");
+    $('#email').keyup(function(){
+    	console.log("2");
+        if ( $('#email').val().length > 0) {
+        	console.log("3");
+            var email = $(this).val();
+            var url = "emailcheck.do";
+            // ajax 실행
+            $.ajax({
+                type : "GET",
+                url : url,
+                data:"email=" + $('#email').val(),
+                success : function(data) {
+                    console.log("4");
+                    console.log("data = "+data);
+					if(data == "ok") {
+    					console.log("6");
+    					$("#result_email_msg").css("color", "#ff0000");
+    					$("#result_email_msg").text("사용 중인 email입니다");	
+    					$("#result_email_msg").prop("disabled", true);
+    				}else{
+    					console.log("5");
+    					$("#result_email_msg").css("color", "#0000ff");
+    					$("#result_email_msg").text("사용할 수 있는 email입니다");
+    					$("#result_email_msg").prop("disabled", false);
+    				}
+                    
+                }
+            }); // end ajax
+        }
+    }); // end keyup
+});
+</script>
+
+<script type="text/javascript">
+//phone중복검사 스크립트
+$(document).ready(function(){
+	console.log("1");
+    $('#phone').keyup(function(){
+    	console.log("2");
+        if ( $('#phone').val().length > 0) {
+        	console.log("3");
+            var phone = $(this).val();
+            var url = "phonecheck.do";
+            // ajax 실행
+            $.ajax({
+                type : "GET",
+                url : url,
+                data:"phone=" + $('#phone').val(),
+                success : function(data) {
+                    console.log("4");
+                    console.log("data = "+data);
+					if(data == "ok") {
+    					console.log("6");
+    					$("#result_phone_msg").css("color", "#ff0000");
+    					$("#result_phone_msg").text("사용 중인 번호 입니다");	
+    					$("#result_phone_msg").prop("disabled", true);
+    				}else{
+    					console.log("5");
+    					$("#result_phone_msg").css("color", "#0000ff");
+    					$("#result_phone_msg").text("사용할 수 있는 번호 입니다");
+    					$("#result_phone_msg").prop("disabled", false);
+    				}
+                    
+                }
+            }); // end ajax
+        }
+    }); // end keyup
+});
+</script>
+
+<script type="text/javascript">
 //동일 pwd 검사
 $(function(){
   $('#password1').keyup(function(){
@@ -234,7 +309,9 @@ $(function(){
 //동일 pwd 검사
 $(function(){
 	$('#form-submit').mouseenter(function(){ 
-	   if($('#password1').val()!=$('#password2').val() || $("#result_id_msg").prop("disabled") ){
+	   if($('#password1').val()!=$('#password2').val() || $("#result_id_msg").prop("disabled") 
+			   || $("#result_email_msg").prop("disabled")|| $("#result_phone_msg").prop("disabled")
+			   || $("font[name=check1]").prop("disabled")){
 		   console.log("button 비활성화2");
 		   $("#form-submit").attr("disabled", true);
 		   $('#password1').text('');
@@ -265,6 +342,7 @@ $(function(){
   if(ObjUserPassword.value.length<6) {
 	  $('font[name=check1]').html("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 6~16자까지, 영문은 대소문자를 구분합니다.");
 	    $('font[name=check1]').css("color", "#ff0000");
+	    $("font[name=check1]").prop("disabled", true);
    /*  alert("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 6~16자까지, 영문은 대소문자를 구분합니다."); */
     return false;
   }
@@ -272,6 +350,7 @@ $(function(){
   if(!ObjUserPassword.value.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)) {
 	  $('font[name=check1]').html("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 6~16자까지, 영문은 대소문자를 구분합니다.");
 	    $('font[name=check1]').css("color", "#ff0000");
+	    $("font[name=check1]").prop("disabled", true);
  /*  alert("비밀번호는 영문,숫자,특수문자(!@$%^&* 만 허용)를 사용하여 6~16자까지, 영문은 대소문자를 구분합니다."); */
     return false;
   }
@@ -310,6 +389,7 @@ $(function(){
   if(SamePass_0 > 1) {
 	  $('font[name=check1]').html("동일문자를 3번 이상 사용할 수 없습니다.");
 	    $('font[name=check1]').css("color", "#ff0000");
+	    $("font[name=check1]").prop("disabled", true);
     /* alert("동일문자를 3번 이상 사용할 수 없습니다."); */
     flag = 0;
     return false;
@@ -318,6 +398,7 @@ $(function(){
   if(SamePass_1 > 1 || SamePass_2 > 1 ) {
 	  $('font[name=check1]').html("연속된 문자열(123 또는 321, abc, cba 등)을\n 3자 이상 사용 할 수 없습니다.");
 	    $('font[name=check1]').css("color", "#ff0000");
+	    $("font[name=check1]").prop("disabled", true);
 	    flag1 =0;
     /* alert("연속된 문자열(123 또는 321, abc, cba 등)을\n 3자 이상 사용 할 수 없습니다."); */
     return false;
@@ -326,6 +407,7 @@ $(function(){
   if((flag==1)&&(flag1==1)){
 	  $('font[name=check1]').html("사용할 수 있습니다.");
 	    $('font[name=check1]').css("color", "#0000ff");
+	    $("font[name=check1]").prop("disabled", false);
 	    return true;
   }
   

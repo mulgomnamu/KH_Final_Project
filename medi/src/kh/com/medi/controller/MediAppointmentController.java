@@ -26,6 +26,7 @@ import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMember_hDto;
+import kh.com.medi.model.MediSpecialtyDto;
 import kh.com.medi.service.MediAppointmentService;
 import kh.com.medi.service.MediMemberService;
 
@@ -45,7 +46,7 @@ public class MediAppointmentController {
 		model.addAttribute("jcal", jcal);
 		return "appointment.tiles";
 	}
-	
+	//병원명으로검색해서가져오는곳
 	@ResponseBody
 	@RequestMapping(value="serchhospital.do", method={RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> serchhospital(MediAppointmentNeedDto alldto,Model model) throws Exception{
@@ -63,6 +64,7 @@ public class MediAppointmentController {
 		map.put("yn",yn);
 		return map;
 	}		
+	//병원 seq로 그병원에 의사들데이터가져오기
 	@ResponseBody
 	@RequestMapping(value="getdoctor.do", method={RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> getdoclist(MediAppointmentNeedDto alldto,Model model) throws Exception{
@@ -76,6 +78,7 @@ public class MediAppointmentController {
 		map.put("tel",selecthos.getTel());	//메인사진은나중다른dto에서받아와야한다
 		return map;
 	}
+	//의사seq로 그의사의 스케쥴가져오기
 	@ResponseBody
 	@RequestMapping(value="getscadule.do", method={RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> getscadule(MediAppointmentNeedDto alldto,Model model) throws Exception{
@@ -112,6 +115,7 @@ public class MediAppointmentController {
 		map.put("doc_profile",selectdoc.getDoc_profile());
 		return map;
 	}
+	//캘린더에서다음달이나 저번달갈때
 	@ResponseBody
 	@RequestMapping(value="monnext.do", method={RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> monnext(MediAppointmentNeedDto alldto,myCal chcal,Model model) throws Exception{
@@ -143,6 +147,7 @@ public class MediAppointmentController {
 		map.put("doc_profile",selectdoc.getDoc_profile());
 		return map;
 	}	
+	//실질적으로 예약되는곳
 	@ResponseBody		
 	@RequestMapping(value="reserve.do", method= {RequestMethod.POST,RequestMethod.GET})
 	public Map<String, Object> checkreserve(MediAppointmentNeedDto alldto,HttpServletRequest req,Model model)throws Exception {
@@ -174,6 +179,7 @@ public class MediAppointmentController {
 		map.put("doc_seq",alldto.getDoc_seq());
 		return map;
 	}
+	//의사의 가능시간에서 예약된시간빼주는곳
 	@ResponseBody
 	@RequestMapping(value="cantime.do", method={RequestMethod.GET, RequestMethod.POST})
 	public Map<String, Object> cantime(MediAppointmentNeedDto alldto,Model model) throws Exception{
@@ -185,14 +191,63 @@ public class MediAppointmentController {
 		map.put("doc_seq",alldto.getDoc_seq());
 		return map;
 	}	
+	//디테일창으로넘어갈때
 	@RequestMapping(value="reservedetail.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String reservedetail(MediAppointmentNeedDto alldto,Model model) throws Exception{
 		logger.info("MediAppointmentController reservedetail " + new Date());
 		System.out.println(alldto.toString());
-		model.addAttribute("mem_seq", alldto.getMem_seq());
 		model.addAttribute("hos_seq", alldto.getHos_seq());
 		model.addAttribute("doc_seq", alldto.getDoc_seq());
 		return "reservedetail.tiles";
 	}
-
+	//진료과목으로병원리스트검색하는곳
+	@ResponseBody
+	@RequestMapping(value="byspecialty.do", method={RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> byspecialty(MediSpecialtyDto spedto,Model model) throws Exception{
+		logger.info("MediAppointmentController byspecialty " + new Date());
+		Map<String, Object> map=new HashMap<String, Object>();
+		List<MediSpecialtyDto> hospitallist=mediAppointmentService.byspecialty(spedto);
+		for (int i = 0; i < hospitallist.size(); i++) {
+		System.out.println(hospitallist.get(i).getMedimember_hdto().toString());	
+		}
+		String yn="";
+		if (hospitallist.size()==0||hospitallist==null) {
+			yn="no";
+		}else {
+			yn="yes";
+		}
+		map.put("hospitallist",hospitallist);
+		map.put("yn",yn);
+		return map;
+	}		
+	//의사명으로검색해서가져오는곳
+	@ResponseBody
+	@RequestMapping(value="doclist.do", method={RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> doclist(MediAppointmentNeedDto alldto,Model model) throws Exception{
+		logger.info("MediAppointmentController doclist " + new Date());
+		Map<String, Object> map=new HashMap<String, Object>();
+		List<MediDoctorDto> doclist=mediAppointmentService.doclist(alldto);
+		
+		String yn="";
+		if (doclist.size()==0||doclist==null) {
+			yn="no";
+		}else {
+			yn="yes";
+		}
+		map.put("doclist",doclist);
+		map.put("yn",yn);
+		return map;
+	}
+	//의사명으로검색해서가져오는곳
+		@ResponseBody
+		@RequestMapping(value="hosdto.do", method={RequestMethod.GET, RequestMethod.POST})
+		public Map<String, Object> hosdto(MediAppointmentNeedDto alldto,Model model) throws Exception{
+			logger.info("MediAppointmentController hosdto " + new Date());
+			Map<String, Object> map=new HashMap<String, Object>();
+			
+			MediMember_hDto hosdto=mediAppointmentService.gethospitaldetail(alldto);
+			
+			map.put("hosdto",hosdto);
+			return map;
+		}		
 }
