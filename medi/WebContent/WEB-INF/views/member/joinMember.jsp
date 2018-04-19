@@ -52,7 +52,7 @@ input:valid+span:after {
 			<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
 				ID : <input name="id" type="text" class="form-control" id="id"
-					placeholder="id" required="" pattern="[^(a-zA-Z0-9)]"><font id="result_id_msg" size="2"></font><br>
+					placeholder="id" required="" ><font id="result_id_msg" size="2"></font><br>
 				
 				PWD : <input name="password1" type="password" class="form-control"
 					id="password1" placeholder="password" required=""><font
