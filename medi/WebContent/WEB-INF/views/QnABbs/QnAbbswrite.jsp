@@ -36,7 +36,7 @@
 							<th>말머리 선택</th>
 							<td style="text-align: left">
 								<select id="question" name="question">
-									<option>질문선택</option>
+									<option value="질문선택">질문선택</option>
 									<option value="버그문제">버그문제</option>
 									<option value="신고">신고</option>
 									<option value="의료사고">의료사고</option>
@@ -83,7 +83,12 @@
 <script type="text/javascript">
 $("#_btnLogin").click(function() {	
 	/* alert('글작성'); */	
-	$("#_frmForm").attr({ "target":"_self", "action":"QnabbsWriteAf.do" }).submit();	
+	if(("#question").val() == "질문선택"){
+		alert("질문을 선택해주세요.");
+	}else{
+		$("#_frmForm").attr({ "target":"_self", "action":"QnabbsWriteAf.do" }).submit();	
+	}
+	
 });
 </script>
 
