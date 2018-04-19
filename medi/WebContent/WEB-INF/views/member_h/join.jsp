@@ -158,6 +158,82 @@ input:valid + span:after {
 							</tr>
 							<tr>
 								<td>
+									진료 분야
+								</td>
+									
+								<td>
+									<table>
+										<tr>
+											<td>
+												<div>				
+													전체 진료과목
+													<div>
+														<select name="all_cl_sjt" id="all_cl_sjt" multiple="multiple" size="14" style="width:200px" onclick="click_select('all_cl_sjt');" ondblclick="append_cl();">
+															<option value="내과">내과</option>
+															<option value="치과">치과</option>
+															<option value="소아청소년과">소아청소년과</option>
+															<option value="산부인과">산부인과</option>
+															<option value="산후조리원">산후조리원</option>
+															<option value="조산원">조산원</option>
+															<option value="이비인후과">이비인후과</option>
+															<option value="안과">안과</option>
+															<option value="피부과">피부과</option>
+															<option value="비뇨기과">비뇨기과</option>
+															<option value="신경정신과">신경정신과</option>
+															<option value="외과">외과</option>
+															<option value="정형외과">정형외과</option>
+															<option value="성형외과">성형외과</option>
+															<option value="신경외과">신경외과</option>
+															<option value="항문외과">항문외과</option>
+															<option value="흉부외과">흉부외과</option>
+															<option value="한방">한방</option>
+															<option value="한의원">한의원</option>
+															<option value="가정의학과">가정의학과</option>
+															<option value="재활의학과">재활의학과</option>
+															<option value="노인전문">노인전문</option>
+															<option value="치매">치매</option>
+															<option value="통증클리닉">통증클리닉</option>
+															<option value="방사선과">방사선과</option>
+															<option value="마취과">마취과</option>
+															<option value="결핵과">결핵과</option>
+															<option value="임상병리과">임상병리과</option>
+															<option value="알콜병원">알콜병원</option>
+															<option value="일반">일반</option>
+															<option value="종합">종합</option>
+															<option value="기타">기타</option>
+														</select>						
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="pad_tp80l">					
+													<br><input type="button" class="bg_blue" value="▶" onclick="append_cl();" style="width:25px;height:25px"><br><br>
+													<input type="button" class="bg_blue" value="◀" onclick="remove_cl();" style="width:25px;height:25px">
+												</div>
+											</td>
+											<td>
+												<div>		
+													선택한 진료과목
+													<div>
+														<select name="cl_sjt" id="cl_sjt" multiple="multiple" size="14" style="width:200px" onclick="click_select('cl_sjt');" ondblclick="remove_cl();">
+														</select>
+														<input type="hidden" name="cl_sjt_list" id="cl_sjt_list">		
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="pad_tp80">
+													<input type="button" class="bg_blue" value="▲" onclick="move_up();" style="width:25px;height:25px"><br><br>
+													<input type="button" class="bg_blue" value="▼" onclick="move_down();" style="width:25px;height:25px">
+												</div>
+												<p class="clear"></p>
+											</td>
+										<tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
 									병원 소개
 								</td>
 								<td>
@@ -220,7 +296,6 @@ input:valid + span:after {
 			});
 		}
 	}
-/*/아이디 중복 확인 */
 
 /* 비밀번호 유효성 확인 (문자, 숫자, 특수문자의 조합으로 6~16자리) */
  	function pwdCheckFunction() {
@@ -269,8 +344,7 @@ input:valid + span:after {
 			}
 		}
 	}
-/* /비밀번호 유효성 확인 */
-
+	
 /* 비밀번호 확인 */
 	function pwdCheckFunction2() {
 		var pwd1 = $("#pwd").val();
@@ -283,8 +357,7 @@ input:valid + span:after {
 			$("#pwdCheckMessage2").html("");
 		}
 	}
-/*/비밀번호 확인 */
-
+	
 /* 우편번호 */
 	function btnPost() {
     	new daum.Postcode({
@@ -315,8 +388,7 @@ input:valid + span:after {
             }
         }).open();
     }
-/* /우편번호  */
-
+    
 /* address1 address2 합치기 */
 	$(function() {
 		$("#address2").blur(function() {
@@ -325,8 +397,7 @@ input:valid + span:after {
 			$("#address").val(address1+"+"+address2);
 		});
 	});
-/*/address1 address2 합치기 */
-
+	
 /* 이메일 유효성 확인 */
 	function emailCheckFunction() {
 		var email = $("#email").val();
@@ -337,14 +408,12 @@ input:valid + span:after {
 			$("#emailCheckMessage").html("");
 		}
 	}
-/* /이메일 유효성 확인 */
-
+	
 /* 의료 자격증 (단일)파일 업로드 제어 */
 	$(function() {
 		$("#upload").change(function() {
 			fileCheck($(this));
 			addPreview($(this));
-			fileSizeCheck($(this));
 		});
 	});
 	
@@ -375,17 +444,7 @@ input:valid + span:after {
 			}
 		}
 	}
-	function fileSizeCheck() {
-		var fileSize = this.files[0].Size;
-		var maxSize = 10485760;
-		if(fileSize > maxSize){
-			$("#uploadCheckMessage").html("파일 용량 10MB를 초과하였습니다.");
-			$("#upload").val("");
-			return;
-		}
-	}
-/*/의료 자격증 (단일)파일 업로드 제어 */
-
+	
 /* 병원 이미지 추가 버튼(다중 파일 제어) */
 	$(document).ready(function() {
 
@@ -427,7 +486,7 @@ $(".selectedItem").remove();
           }
         });
       });
-/*/병원 이미지 추가 버튼(다중 파일 제어) */
+      
 /* submit 전 확인 */
 	$("#join_hBtn").click(function() {
 		var data = {
@@ -441,7 +500,7 @@ $(".selectedItem").remove();
 				answer: $("#answer").val(),
 				info: $("#info").val(),
 		}
- 		
+
   		if(idCheck == 0 || data.id == ""){
 			$("#idCheckMessage").html("아이디를 확인해주세요.");
 			$("#id").focus();
@@ -467,6 +526,17 @@ $(".selectedItem").remove();
 			$("#infoCheckMessage").html("병원 소개 글을 확인해주세요.");
 			$("#info").focus();
 		}else{
+
+			var cl_list_str = "";
+			var box = document.getElementById("cl_sjt");
+			for(var i = 0; i < box.options.length; i++){
+				if(i == cl_sjt.length - 1)
+					cl_list_str=cl_list_str + box.options[i].value ;
+				else
+					cl_list_str=cl_list_str + box.options[i].value +",";
+			}
+			$("#cl_sjt_list").val(cl_list_str);
+			
 			var form = new FormData(document.getElementById('_form'));
 			$.ajax({
 				url: 'join_hAf.do',
@@ -492,8 +562,7 @@ $(".selectedItem").remove();
 
 		}
 	});
-/*/submit 전 확인 */
-
+	
 /* 메시지 초기화 */
 	function nameCheckFunction() {
 		var name = $("#name").val();
@@ -525,7 +594,95 @@ $(".selectedItem").remove();
 			$("#infoCheckMessage").html("");
 		}
 	}
-/* 메시지 초기화 */
+	
+/*진료과목 추가*/
+function append_cl() {
+	var box = document.getElementById("cl_sjt");
+	var oribox;
+	oribox = document.getElementById("all_cl_sjt");
+
+	for (i = oribox.length - 1; i >= 0 ; i--) {
+		if (oribox.options[i].selected) {
+			// 중복 체크
+			for (j = 0; j < box.length; j++) {
+				if (box.options[j].value == oribox.options[i].value) {
+					alert("\""+oribox.options[i].text+"\"은 이미 추가되었습니다.");
+					break;
+				}
+			}
+			// 옵션 추가
+			if (j == box.length) {
+				box.options[box.length] = new Option(oribox.options[i].text, oribox.options[i].value);
+			}
+		}
+	}
+}
+
+/*다른 쪽에 포커스가 갔을때 선택이 되어져있으면 해지 시킨다.*/
+function click_select(select_name) {
+	if (select_name != "cl_sjt") {
+		document.getElementById("cl_sjt").selectedIndex = -1;
+	}
+
+	if (select_name != "all_cl_sjt") {
+		document.getElementById("all_cl_sjt").selectedIndex = -1;
+	}
+}
+
+/*진료과목 빼기*/
+function remove_cl() {
+	var box = document.getElementById("cl_sjt"); 
+	var oribox;
+	oribox = document.getElementById("all_cl_sjt");
+	
+	for (i = box.length - 1; i >= 0 ; i--) {
+		if (box.options[i].selected) {
+				box.options[i] = null;
+		}
+	}
+}
+
+/*삭제진료과목 체크 (진료과목을 선택한 의사가 있을때 오류 메시지를 낸다.*/
+function remove_cl_final_notok(arg) {
+	document.getElementById("cl_sjt").options[arg].selected = false;
+	remove_cl();
+}
+
+/*삭제진료과목 체크(진료과목을 선택한 의사가 없을때 해당 과목을 삭제한다.)*/
+function remove_cl_final_ok(arg) {
+	var box = document.getElementById("cl_sjt");
+	box.options[arg] = null;
+	remove_cl();
+}
+
+/*진료과목 순서올리기*/
+function move_up() {
+	var box = document.getElementById("cl_sjt");
+	for (i = 0; i < box.length ; i++) {
+		if(i == 0) continue;
+		if (box.options[i].selected && !box.options[i-1].selected) {
+			swap_option(box, i, i-1);
+		}
+	}
+}
+
+/*진료과목 순서내리기*/
+function move_down() {
+	var box = document.getElementById("cl_sjt");
+	for (i = box.length - 1; i >= 0 ; i--) {
+		if(i == box.length - 1) continue;
+		if (box.options[i].selected && !box.options[i+1].selected) {
+			swap_option(box, i, i+1);
+		}
+	}
+}
+
+/*진료과목 순서정렬*/
+function swap_option(target, swap_a, swap_b) {
+	var temp_option = new Option(target.options[swap_a].text,target.options[swap_a].value,false,true);
+	target[swap_a] = new Option(target.options[swap_b].text,target.options[swap_b].value);
+	target[swap_b] = temp_option;
+}
 
 
 </script>

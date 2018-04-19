@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediMember_hDao;
 import kh.com.medi.model.MediHospital_imageDto;
+import kh.com.medi.model.MediHospital_subject;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.service.MediMember_hService;
 
@@ -32,6 +33,11 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 	@Override
 	public boolean addHospitalImage(MediHospital_imageDto dto_hi) {
 		return mediMember_hDao.addHospitalImage(dto_hi);
+	}
+
+	@Override
+	public boolean addHospitalSubject(MediHospital_subject dto_s) {
+		return mediMember_hDao.addHospitalSubject(dto_s);
 	}
 
 }

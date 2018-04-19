@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.com.medi.model.MediHospital_imageDto;
+import kh.com.medi.model.MediHospital_subject;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.service.MediMember_hService;
 import kh.com.medi.util.FUpUtil;
@@ -46,7 +47,8 @@ public class MediMember_hController {
 	
 	@ResponseBody
 	@RequestMapping(value="join_hAf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public int join_hAf(MediHospital_imageDto dto_hi, MediMember_hDto dto_h, HttpServletRequest req, Model model, 
+	public int join_hAf(MediHospital_imageDto dto_hi, MediMember_hDto dto_h, MediHospital_subject dto_s, 
+			HttpServletRequest req, Model model, 
 			@RequestParam(value="upload", required=false)MultipartFile fileload, 
 			@RequestParam(value="_upload", required=false)List<MultipartFile> images) {
 		logger.info("MediMember_hController join_hAf " + new Date());
@@ -113,6 +115,25 @@ public class MediMember_hController {
 				e.printStackTrace();
 			}
         }
+
+		System.out.println(dto_s);
+		
+		dto_s.setHos_seq(mediMember_hService.getHospitalColumn(dto_h.getId()).getSeq());
+		
+		System.out.println(dto_s);
+		
+		String splits[] = dto_s.getCl_sjt_list().split(",");
+		
+		for(String split : splits) {
+			dto_s.setSubject(split);
+			
+			mediMember_hService.addHospitalSubject(dto_s);
+		}
+
+		
+		
+		
+		
 		
 		return 1;
 	}
