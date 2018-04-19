@@ -108,12 +108,37 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>	
 	
-	
+	<!-- QnA게시판리스트 -->
 	<definition name="QnAbblist.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbslist.jsp"/>
-		
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	
+	<!-- QnA게시판디테일 -->
+	<definition name="Qnabbsdetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsdetail.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- QnA게시판글쓰기 -->
+	<definition name="QnabbsWrite.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbswrite.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- QnA게시판글수정 -->
+	<definition name="QnabbsUpdate.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsupdate.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- QnA게시판답글달기 -->
+	<definition name="Qnabbsreply.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsreply.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	
 	
 </tiles-definitions>
 

@@ -77,7 +77,6 @@ public class MediMemberController {
 			flag = true;
 		}
 
-		
 		if(flag) {
 			if(b.getAuth() == 0) {
 				System.out.println("3");

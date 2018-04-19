@@ -3,81 +3,104 @@
 
 
  <mapper namespace="MediQnaBbs">
- <!--
-	<select resultType="kh.com.a.model.BbsDto" id="getBbsList"> SELECT SEQ, ID,
+ 
+	<!-- <select resultType="kh.com.a.model.BbsDto" id="getBbsList"> 
+	SELECT SEQ, ID,
 		REF, STEP, DEPTH, TITLE, CONTENT, WDATE, PARENT, DEL, READCOUNT FROM
-		BBS ORDER BY REF DESC, STEP ASC </select>
+		BBS ORDER BY REF DESC, STEP ASC 
+	</select>
+	-->
 
-	디테일가져오기
-
-	<select resultType="kh.com.a.model.BbsDto" id="getBbsDetail"
-		parameterType="java.lang.Integer"> SELECT SEQ, ID, REF, STEP, DEPTH, TITLE, CONTENT,
-		WDATE, PARENT, DEL, READCOUNT FROM BBS WHERE SEQ=#{seq} </select>
-
-	추가
-	<insert id="insertBbs" parameterType="kh.com.a.model.BbsDto"> INSERT INTO BBS(SEQ, ID,
-		REF, STEP, DEPTH, TITLE, CONTENT, WDATE, PARENT, DEL, READCOUNT)
-		VALUES(SEQ_BBS.NEXTVAL,#{id},(SELECT NVL(MAX(REF), 0)+1 FROM
-		BBS),0,0,#{title},#{content},SYSDATE,0,0,0) </insert>
-
-	수정
-	<update id="bbsUpdate" parameterType="kh.com.a.model.BbsDto"> UPDATE BBS SET TITLE
-		=#{title}, CONTENT =#{content}, WDATE=SYSDATE WHERE SEQ =#{seq}
-	</update>
-
-	업데이트
-	<update id="bbsDelete" parameterType="kh.com.a.model.BbsDto"> UPDATE BBS SET DEL = 1
-		WHERE SEQ=#{seq} </update>
-
-	조회수
-	<update id="bbsReadcount" parameterType="kh.com.a.model.BbsDto"> UPDATE BBS SET
-		READCOUNT=READCOUNT+1 WHERE SEQ=#{seq} </update>
-
-	댓글업데이트
-	<update id="answerUpdate" parameterType="kh.com.a.model.BbsDto"> UPDATE BBS SET
-		STEP=STEP+1 WHERE REF=(SELECT REF FROM BBS WHERE SEQ=#{seq}) AND STEP
-		> (SELECT STEP FROM BBS WHERE SEQ=#{seq}) </update>
-
-	답글추가
-	<insert id="answerInsert" parameterType="kh.com.a.model.BbsDto"> INSERT INTO BBS(SEQ,
-		ID, REF, STEP, DEPTH, TITLE, CONTENT, WDATE, PARENT, DEL, READCOUNT)
-		VALUES(SEQ_BBS.NEXTVAL,#{id}, (SELECT REF FROM BBS WHERE SEQ=#{seq}),
-		(SELECT STEP FROM BBS WHERE SEQ=#{seq})+1, (SELECT DEPTH FROM BBS
-		WHERE SEQ=#{seq})+1, #{title}, #{content}, SYSDATE, #{seq}, 0, 0)
-	</insert>
-
-	페이징
-	<select resultType="kh.com.a.model.BbsDto" id="getBbsPagingList"
-		parameterType="kh.com.a.model.BbsParam">
-		SELECT SEQ, ID, REF, STEP, DEPTH, TITLE, CONTENT, WDATE, PARENT, DEL,
-		READCOUNT FROM (SELECT ROW_NUMBER() OVER(ORDER BY REF DESC, STEP ASC)
-		AS RNUM, SEQ, ID, REF, STEP, DEPTH, TITLE, CONTENT, WDATE, PARENT,
-		DEL, READCOUNT FROM BBS WHERE 1=1
-
-		<if
-			test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
-
-			<if test="s_category == 'title'"> AND TITLE LIKE '%'||#{s_keyword}||'%' </if>
-
-			<if test="s_category == 'contents'"> AND CONTENT LIKE '%'||#{s_keyword}||'%' </if>
-
-		</if>
-		) A WHERE RNUM BETWEEN ${start} AND ${end}
+	<!-- 디테일가져오기 -->
+	<select resultType="kh.com.medi.model.MediQnaBbsDto" id="getBbsDetail" parameterType="java.lang.Integer"> 
+		SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT
+		FROM `MEDI`.`medi_question_bbs` 
+		WHERE SEQ=#{seq} 
 	</select>
 
-	데이터 전체갯수 취득
-	<select resultType="java.lang.Integer" id="getBbsCount"
-		parameterType="kh.com.a.model.BbsParam">
-		SELECT NVL(COUNT(*), 0) AS CNT FROM BBS WHERE 1=1
+	<!-- 맴버 글쓰기 -->
+	<insert id="insertBbs" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
+	INSERT INTO `MEDI`.`medi_question_bbs`(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT)
+		VALUES(#{id},(SELECT ifnull(MAX(REF), 0)+1 FROM (SELECT * FROM medi_question_bbs)CNT),0,0,#{question},#{title},#{content},NOW(), 1,0,0,0) 
+	</insert>
 
-		<if
-			test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+	<!-- 수정하기 -->
+	<update id="bbsUpdate" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
+	UPDATE `MEDI`.`medi_question_bbs` SET TITLE=#{title}, CONTENT =#{content}, WDATE=NOW(), READCOUNT=0 
+	WHERE SEQ =#{seq}
+	</update>
 
-			<if test="s_category == 'title'"> AND TITLE LIKE '%'||#{s_keyword}||'%' </if>
+	<!-- 글 삭제 -->
+	<update id="bbsDelete" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
+	UPDATE `MEDI`.`medi_question_bbs` SET DEL = 1
+		WHERE SEQ=#{seq} 
+	</update>
 
-			<if test="s_category == 'contents'"> AND CONTENT LIKE '%'||#{s_keyword}||'%' </if>
+	<!--
+	<update id="bbsReadcount" parameterType="kh.com.a.model.BbsDto"> 
+	UPDATE BBS SET
+		READCOUNT=READCOUNT+1 WHERE SEQ=#{seq} 
+		</update>
 
-		</if>
 
-	</select>-->
+	<update id="answerUpdate" parameterType="kh.com.a.model.BbsDto"> 
+	UPDATE BBS SET
+		STEP=STEP+1 WHERE REF=(SELECT REF FROM BBS WHERE SEQ=#{seq}) AND STEP
+		> (SELECT STEP FROM BBS WHERE SEQ=#{seq}) 
+		</update>
+	-->
+	
+	<insert id="answerInsert" parameterType="kh.com.medi.model.MediQnaBbsParamDto"> 
+	INSERT INTO medi_question_bbs(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT)
+		VALUES(#{id}, (SELECT REF FROM (SELECT * FROM medi_question_bbs)CNT1 WHERE SEQ=#{seq}),
+		(SELECT STEP FROM (SELECT * FROM medi_question_bbs)CNT2 WHERE SEQ=#{seq})+1, (SELECT DEPTH FROM (SELECT * FROM medi_question_bbs)CNT3
+		WHERE SEQ=#{seq})+1, #{question}, #{title}, #{content}, NOW(), 2, #{seq}, 0, 0)
+	</insert> 
+
+	<select id="getBbsPagingList" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="kh.com.medi.model.MediQnaBbsDto" >
+		 SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT 
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT 
+		    FROM
+		        `MEDI`.`medi_question_bbs`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1
+			 <if test="s_category != '' and s_category != null 
+			 	and s_keyword != '' and s_keyword != null">		 	
+			 	<if test="s_category == 'question'">
+					AND question LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'title'">
+					AND title LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'content'">
+					AND content LIKE CONCAT('%',#{s_keyword},'%')
+				</if>		 	
+			 </if>
+			 ORDER BY SEQ ASC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}	
+	</select>
+
+	
+	<select id="getBbsCount" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`medi_question_bbs` WHERE 1=1 AND DEL=0
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'question'">
+				AND question LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'title'">
+				AND title LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'content'">
+				AND content LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+	
 </mapper> 
