@@ -17,6 +17,7 @@ public class MediSpecialtyDto implements Serializable {
 	private int hos_seq;		//병원번호
 	private String specialty;	//병원디테일에뿌릴진료분야 -> 의사가입하면서 선택되는것들이저장될것이다
 	private MediMember_hDto medimember_hdto;
+	
 	public MediSpecialtyDto() {
 	}
 	

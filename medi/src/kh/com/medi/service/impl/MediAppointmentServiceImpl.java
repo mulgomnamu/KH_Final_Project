@@ -1,6 +1,8 @@
 package kh.com.medi.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,7 +157,6 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 					
 				}
 			}
-			System.out.println("의사가능한시간"+canhour);
 			String can[]=canhour.split("-");
 			List<String> canhours=new ArrayList<>();
 			for (int c = 0; c < can.length; c++) {
@@ -171,26 +172,29 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 			for (int c = 0; c < split.length; c++) {
 				canttime.add(split[c]);
 			}
-			
+			System.out.println("의사가능한시간"+canhour);
+			System.out.println("의사불가능한시간"+_canttime);
 			for (int k = 0; k < canhours.size(); k++) {
 				for (int z = 0; z < canttime.size(); z++) {
 					if (canhours.get(k).equals(canttime.get(z))) {
 						canhours.remove(k);
-						canhours.add("이");
+						canhours.add(k,"");
 					}
 				}
 			}
-			int canttimelen=canttime.size();
-			int count=canhours.size()-canttime.size();
-			int how=0;
-			while (how<canttimelen) {
-				canhours.remove(count);
-				how++;
-			}
+			
+			canhours.removeAll(Collections.singleton(null));
+			
 			String _canhour="";
 			for (int i = 0; i < canhours.size(); i++) {
-				_canhour=_canhour+canhours.get(i)+"-";
+				if (canhours.get(i).equals("")) {
+					
+				}
+				else {
+					_canhour=_canhour+canhours.get(i)+"-";
+				}
 			}
+			System.out.println(_canhour);
 			scedto.setStart_time(_canhour);
 		return scedto.getStart_time();
 	}
@@ -208,9 +212,51 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 	}
 
 	@Override
-	public List<MediAppointmentDto> reservedetail(MediAppointmentNeedDto alldto) throws Exception {
+	public MediAppointmentDto reservedetail(MediAppointmentNeedDto alldto) throws Exception {
+		Calendar cal=Calendar.getInstance();
+		MediAppointmentDto reservedto=mediAppointmentDao.reservedetail(alldto);
+		String _year=reservedto.getDay().substring(0, 4);
+		String _month=reservedto.getDay().substring(5, 7);
+		String _date=reservedto.getDay().substring(8, 10);
+		int year=Integer.parseInt(_year);
+		int month=Integer.parseInt(_month);
+		int date=Integer.parseInt(_date);
+		cal.set(year, month-1, date);
+		String day="";
+		switch(cal.get(Calendar.DAY_OF_WEEK)){
+        case 1:
+            day = "일";
+            break ;
+        case 2:
+            day = "월";
+            break ;
+        case 3:
+            day = "화";
+            break ;
+        case 4:
+            day = "수";
+            break ;
+        case 5:
+            day = "목";
+            break ;
+        case 6:
+            day = "금";
+            break ;
+        case 7:
+            day = "토";
+            break ;
+             
+    }
+		String time=reservedto.getTime();
+		reservedto.setTime(time.substring(0, 5));
+		reservedto.setWdate(day);
+		return reservedto;
+	}
+
+	@Override
+	public boolean resevecancel(MediAppointmentNeedDto alldto) throws Exception {
 		// TODO Auto-generated method stub
-		return mediAppointmentDao.reservedetail(alldto);
+		return mediAppointmentDao.resevecancel(alldto);
 	}
 	
 	

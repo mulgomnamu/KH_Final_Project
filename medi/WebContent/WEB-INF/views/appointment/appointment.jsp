@@ -7,17 +7,41 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.24"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.25"/>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/appointment.js"></script>
-
-<script type="text/javascript">
-
-</script>
-
 <style>
-
+#tab li{
+margin-top:132px;
+margin-left:3px;
+width:33%;
+height:63px;
+float: left;
+background-color: rgb(217,217,217);
+}
+#tab li a{
+display: block;
+padding-top: 14px;
+height:63px;
+color: #fff;
+font-size: 1.3em;
+font-weight: bolder;
+}
+#tab li em{
+font-weight: bolder;
+}
+.h3title{
+	margin-bottom: 30px;
+}
+.selected{
+background-color: #fff;
+border-top: 2px solid #1f4bb4;
+color: #1f4bb4;
+}
+.selected>em{
+color: #1f4bb4;
+font-weight: bolder;
+}
 </style>
-
 <c:if test="${empty login }">
 	<script type="text/javascript">
 	alert("로그인후이용가능합니다");
@@ -32,9 +56,10 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="subpagetitle">
-				  <p class="m_txt"><strong>${login.id }</strong>님, 오늘도 건강한 하루 되세요</p>
+				  <h2 style="padding-top: 30px;"><strong>${login.id }</strong>님, 오늘도 건강한 하루 되세요</h2>
        			  <p class="s_txt">온라인 예약으로 빠르고 편리하게 진료받으실 수 있습니다</p> 
        			  <div class="sub_tap">
+       			  <div class="inner_flogin" style="background: transparent">
 	             <ul id="tab">
 	             	 <li>
 	                     <a href="#tab1" onclick="cleanser()" class="selected">
@@ -52,10 +77,11 @@
 	                     </a>
 	                 </li>
 	             </ul>
+	             </div>
          		</div>
    			</div>
 			<!-- content 시작 -->
-			<div class="content"> 
+			<div class="content" style="clear: both;"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
 				<!-- 어디서예약을누르냐에따라서 뿌려주는페이지가다르게해야한다 진료(0)/화상(1)구분 디폴트값 진료 메인에서화상진료선택시만처리해준다
@@ -71,9 +97,9 @@
 			        <div>
 			            <div class="hospital_detail">
 			            	<div class="select_wrap_team">
-			            		<div class="step_cont_wrap" style="float: left; width: 820px; margin-top: 50px;" id="step1_1">
+			            		<div class="cont_box-office_select" style="float: left; width: 820px; margin-top: 50px;" id="step1_1">
 			            			<div class="title-type02">
-							            <h3>병원으로 선택</h3>
+							            <h3 class="h3title">병원으로 선택</h3>
 							        </div>
 				            		<span class="form-text" style="width: 560px;">
 				            			<label for="team_searhc" class="placeholder">
@@ -87,8 +113,8 @@
 							        	<!-- ajax로 리스트받아오는부분 -->
 							        </div>
 			            		</div>
-			            		<div class="list_wrap" style="width: 280px; height: 600px;float: right; margin-top: 50px;margin-bottom: 50px;">
-			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;">
+			            		<div class="list_wrap" style="width: 280px; height: 630px;float: right;margin-top: 50px;margin-bottom: 50px;">
+			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff; border-bottom: 2px solid #fff; ">
 			            				<strong class="f_eng" style="font-size: 2.3em;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
 			            				<br>
 			            				<ul style="padding-left: 40px;">
@@ -97,7 +123,7 @@
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.email }</li>
 			            				</ul>
 			            			</div>
-			            			<div style="height: 150px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">2</strong>&nbsp;&nbsp;&nbsp;병원정보
 			            				<br>
 			            				<div id="hospital_info" class="reserve2">
@@ -106,7 +132,7 @@
 			            					</p>
 			            				</div>
 			            			</div>
-			            			<div style="height: 150px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">3</strong>&nbsp;&nbsp;&nbsp;의료진
 			            				<br>
 			            				<div id="doctor_info" class="reserve3">
@@ -115,7 +141,7 @@
 			            					</p> 
 			            				</div>
 			            			</div>
-			            			<div style="height: 170px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
 			            				<br>
 			            				<div id="time_info" class="reserve4">
@@ -379,8 +405,8 @@
 			                    	</table>
 					               </div>
 					            </div>
-					            <div class="list_wrap" style="width: 280px; height: 600px;float: right; margin-top: 50px;margin-bottom: 50px;">
-			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;">
+					            <div class="list_wrap" style="width: 280px; height: 630px;float: right; margin-top: 50px;margin-bottom: 50px;">
+			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
 			            				<br>
 			            				<ul style="padding-left: 40px;">
@@ -389,7 +415,7 @@
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.email }</li>
 			            				</ul>
 			            			</div>
-			            			<div style="height: 150px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">2</strong>&nbsp;&nbsp;&nbsp;병원정보
 			            				<br>
 			            				<div id="hospital_info2" class="reserve2">
@@ -398,7 +424,7 @@
 			            					</p>
 			            				</div>
 			            			</div>
-			            			<div style="height: 150px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">3</strong>&nbsp;&nbsp;&nbsp;의료진
 			            				<br>
 			            				<div id="doctor_info2" class="reserve3">
@@ -407,7 +433,7 @@
 			            					</p> 
 			            				</div>
 			            			</div>
-			            			<div style="height: 170px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
 			            				<br>
 			            				<div id="time_info2" class="reserve4">
@@ -487,9 +513,9 @@
 			        <div>
 			            <div class="doctor_detail">
 			            	<div class="select_wrap_team">
-			            	  <div class="step_cont_wrap" style="float: left; width: 820px; margin-top: 50px;" id="step3_1">
+			            	  <div class="cont_box-office_select" style="float: left; width: 820px; margin-top: 50px;" id="step3_1">
 				            	<div class="title-type02">
-						            <h3>의료진 선택</h3>
+						            <h3 class="h3title">의료진 선택</h3>
 						        </div>
 			            		<span class="form-text" style="width: 560px;">
 			            			<label for="team_searhc" class="placeholder">
@@ -503,8 +529,8 @@
 						        	<!-- ajax로 리스트받아오는부분 -->
 						        </div>
 						      </div>
-						      <div class="list_wrap" style="width: 280px; height: 600px;float: right; margin-top: 50px;margin-bottom: 50px;">
-			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;">
+						      <div class="list_wrap" style="width: 280px; height: 630px;float: right; margin-top: 50px;margin-bottom: 50px;">
+			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
 			            				<br>
 			            				<ul style="padding-left: 40px;">
@@ -513,7 +539,7 @@
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.email }</li>
 			            				</ul>
 			            			</div>
-			            			<div style="height: 150px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">2</strong>&nbsp;&nbsp;&nbsp;의료진
 			            				<br>
 			            				<div id="doctor_info3" class="reserve3">
@@ -522,7 +548,7 @@
 			            					</p> 
 			            				</div>
 			            			</div>
-			            			<div style="height: 150px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">3</strong>&nbsp;&nbsp;&nbsp;병원정보
 			            				<br>
 			            				<div id="hospital_info3" class="reserve2">
@@ -531,7 +557,7 @@
 			            					</p>
 			            				</div>
 			            			</div>
-			            			<div style="height: 170px; background: #555;color: #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
 			            				<br>
 			            				<div id="time_info3" class="reserve4">
