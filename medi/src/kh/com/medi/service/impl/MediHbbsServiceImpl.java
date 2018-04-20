@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediHbbsDao;
+import kh.com.medi.model.MediDoctorDto;
+import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediHbbsParamDto;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.service.MediHbbsService;
@@ -30,5 +32,16 @@ public class MediHbbsServiceImpl implements MediHbbsService {
 	public MediMember_hDto getBbsDetail(int seq) throws Exception {
 		return mediHbbsDao.getBbsDetail(seq);
 	}
+
+	@Override
+	public List<MediDoctorDto> getDoctorDetail(int seq) throws Exception {
+		return mediHbbsDao.getDoctorDetail(seq);
+	}
 	
+	// 맵 시작
+	@Override
+	public List<MediMember_hDto> getHospitalList(MediHbbsParamDto hbbs) throws Exception {
+		return mediHbbsDao.getHospitalList(hbbs);
+	}
+
 }

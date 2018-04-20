@@ -1,6 +1,12 @@
+<%@page import="java.util.List"%>
+<%@page import="kh.com.medi.model.MediMember_hDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<fmt:requestEncoding value="utf-8"/>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/reset.css"/>
@@ -52,6 +58,9 @@
 
 </style>
 </head>
+<%
+List<MediMember_hDto> list = (List<MediMember_hDto>)request.getAttribute("hoslist");
+%>
 <body class="layout-member" style="position:absolute;width:100%;height:100%;">
 <div id="skipnavigation">
     <ul>
@@ -96,8 +105,10 @@
 			</div>
 		</div>
 	</div>
+	
+	
 	<script>
-		function initMap() {
+		/* function initMap() {
 			var uluru = {lat: 37.357386, lng: 126.970704};
 			var map = new google.maps.Map(document.getElementById('fullmap'), {
 				zoom: 15,
@@ -107,87 +118,223 @@
 				position: uluru,
 				map: map
 			});
-		}
+		} */
+		 function initMap() {
+
+	        var map = new google.maps.Map(document.getElementById('fullmap'), {
+	          zoom: 3,
+	          center: {lat: 37.498214, lng: 127.027589}
+	        });
+
+	        // Create an array of alphabetical characters used to label the markers.
+	        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+	        // Add some markers to the map.
+	        // Note: The code uses the JavaScript Array.prototype.map() method to
+	        // create an array of markers based on a given "locations" array.
+	        // The map() method here has nothing to do with the Google Maps API.
+	        var markers = locations.map(function(location, i) {
+	          return new google.maps.Marker({
+	            position: location,
+	            label: labels[i % labels.length]
+	          });
+	        });
+
+	        // Add a marker clusterer to manage the markers.
+	        var markerCluster = new MarkerClusterer(map, markers,
+	            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+	      }		
+		
+		/* var locations = []; */
+		var str ="";
+		var str2 ="";
+		var str5="";
+		<%
+			for (int i = 0; i < list.size(); i++) {
+				MediMember_hDto hdto = list.get(i);
+		%>
+				str += "{\"lat\": " + <%=hdto.getLatitude() %> + ", \"lng\": " + <%=hdto.getLongtitude()%>;
+				<%
+				if(i == (list.size()-1)){
+				%>
+					str += "}";
+				<%
+				}else{
+				%>
+				  str += "},";
+				<%
+				}
+				%>
+		<%
+			}
+		%>
+		
+		//locations = "[" + str + "]";
+		str5 = "[" + str + "]";
+		//str6 = jQuery.parseJSON(str5);
+		var locations = jQuery.parseJSON(str5);
+		/*jQuery.parseJSON(locations); */
+		 /*  var locations = [
+	        {lat: -31.563910, lng: 147.154312},
+	        {lat: -33.718234, lng: 150.363181},
+	        {lat: -33.727111, lng: 150.371124},
+	        {lat: -33.848588, lng: 151.209834},
+	        {lat: -33.851702, lng: 151.216968},
+	        {lat: -34.671264, lng: 150.863657},
+	        {lat: -35.304724, lng: 148.662905},
+	        {lat: -36.817685, lng: 175.699196},
+	        {lat: -36.828611, lng: 175.790222},
+	        {lat: -37.750000, lng: 145.116667},
+	        {lat: -37.759859, lng: 145.128708},
+	        {lat: -37.765015, lng: 145.133858},
+	        {lat: -37.770104, lng: 145.143299},
+	        {lat: -37.773700, lng: 145.145187},
+	        {lat: -37.774785, lng: 145.137978},
+	        {lat: -37.819616, lng: 144.968119},
+	        {lat: -38.330766, lng: 144.695692},
+	        {lat: -39.927193, lng: 175.053218},
+	        {lat: -41.330162, lng: 174.865694},
+	        {lat: -42.734358, lng: 147.439506},
+	        {lat: -42.734358, lng: 147.501315},
+	        {lat: -42.735258, lng: 147.438000},
+	        {lat: -43.999792, lng: 170.463352}
+	      ];  */
+	     
+	     
+		 /* 
+		 $.ajax({
+			type:"post",
+			url:"getloctation.do",
+			data:"서울",
+			success:function (data) {
+				$.each(data.hoslist, function(index, hoslist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+					//alert(hoslist.latitude);
+					
+				});//each끝
+			},
+			error:function () {
+				alert("에러 발생");
+			}
+		});
+		  */
+		
+    </script>
+    
+    <%-- <c:forEach items="${hoslist}" var="hbbs" varStatus="i">
+    	<script type="text/javascript">
+    	
+    			
+    		/* 시작 */
+	    	/* function initMap() {
+	
+		        var map = new google.maps.Map(document.getElementById('fullmap'), {
+		          zoom: 3,
+		          center: {lat: -28.024, lng: 140.887}
+		        });
+	
+		        // Create an array of alphabetical characters used to label the markers.
+		        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	
+		        // Add some markers to the map.
+		        // Note: The code uses the JavaScript Array.prototype.map() method to
+		        // create an array of markers based on a given "locations" array.
+		        // The map() method here has nothing to do with the Google Maps API.
+		        var markers = locations.map(function(location, i) {
+		          return new google.maps.Marker({
+		            position: location,
+		            label: labels[i % labels.length]
+		          });
+		        });
+	
+		        // Add a marker clusterer to manage the markers.
+		        var markerCluster = new MarkerClusterer(map, markers,
+		            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+		    }	 */	
+	    	/* 끝 */
+    	
+    	
+			//var locations = new Array();
+			var str = "${hbbs.latitude}";
+			var str2 = "${hbbs.longitude}";
+			//var str3 = "{\"lat\": " + str +", \"lng\":" + str2 + "}"; 
+			var str3 = "{\"lat\": " + str +", \"lng\":" + str2 + "}"; 
+			var str4 = jQuery.parseJSON(str3);
+			
+			// alert("bbb" + locations[1].lat);
+			// alert(locations["${i.index}"].lat);
+			
+			/* 시작 */
+   	    	function initMap() {
+				console.log("${i.index}");
+   		        var map = new google.maps.Map(document.getElementById('fullmap'), {
+   		          zoom: 3,
+   		          center: {lat: -28.024, lng: 140.887}
+   		        });
+   	
+   		        // Create an array of alphabetical characters used to label the markers.
+   		        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+   	
+   		        // Add some markers to the map.
+   		        // Note: The code uses the JavaScript Array.prototype.map() method to
+   		        // create an array of markers based on a given "locations" array.
+   		        // The map() method here has nothing to do with the Google Maps API.
+   		        var markers = locations.map(function(location, i) {
+   		          return new google.maps.Marker({
+   		            position: location,
+   		            label: labels[i % labels.length]
+   		          });
+   		        });
+   	
+   		        // Add a marker clusterer to manage the markers.
+   		        var markerCluster = new MarkerClusterer(map, markers,
+   		            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+   		    }
+
+			var locations = str4;
+   	    	/* 끝 */
+    	</script>
+    </c:forEach> --%>
+    
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS-kA70GhIwstJM_0pRT4kO6AM7wx8lEc&callback=initMap"></script>
     
 	<!-- 게시판 list -->
     <div class="mapbbslist">
     	<div class="searchWrap">
-    		<form>
+    		<form name="frmForm1" id="_frmFormSearch" method="post" action="">
     			<div class="mapsearchbox">
-	    			<input type="text" name="keyword" class="mapsearchtext">
-	    			<input type="submit" value="검색" class="mapbbsbtn">
+	    			<input type="text" id="_s_keyword" name="s_keyword" class="mapsearchtext" placeholder="주소를 입력해주세요" value="${s_keyword }">
+	    			<input type="submit" value="검색" class="mapbbsbtn">	
     			</div>
     		</form>
     	</div>
     	<ul class="mapbbsboxwrap">
-    		<li class="mapbbsbox">
-    			<a href="#;">
-    				<div class="mapimgbox"><img src="images/sub/hospital.jpg" alt=""></div>
-    				<div class="mapbbsinfo">
-    					<ul>
-    						<li class="mbiTitle">병원명</li>
-    						<li class="mbiAddress">서울시 강남구 역삼동 111-111</li>
-    						<li class="mbiCategory">이비인후과</li>
-    					</ul>
-    				</div>
-    			</a>
-    		</li>
-    		<li class="mapbbsbox">
-    			<a href="#;">
-    				<div class="mapimgbox"><img src="images/sub/hospital.jpg" alt=""></div>
-    				<div class="mapbbsinfo">
-    					<ul>
-    						<li class="mbiTitle">병원명</li>
-    						<li class="mbiAddress">서울시 강남구 역삼동 111-111</li>
-    						<li class="mbiCategory">이비인후과</li>
-    					</ul>
-    				</div>
-    			</a>
-    		</li>
-    		<li class="mapbbsbox">
-    			<a href="#;">
-    				<div class="mapimgbox"><img src="images/sub/hospital.jpg" alt=""></div>
-    				<div class="mapbbsinfo">
-    					<ul>
-    						<li class="mbiTitle">병원명</li>
-    						<li class="mbiAddress">서울시 강남구 역삼동 111-111</li>
-    						<li class="mbiCategory">이비인후과</li>
-    					</ul>
-    				</div>
-    			</a>
-    		</li>
-    		<li class="mapbbsbox">
-    			<a href="#;">
-    				<div class="mapimgbox"><img src="images/sub/hospital.jpg" alt=""></div>
-    				<div class="mapbbsinfo">
-    					<ul>
-    						<li class="mbiTitle">병원명</li>
-    						<li class="mbiAddress">서울시 강남구 역삼동 111-111</li>
-    						<li class="mbiCategory">이비인후과</li>
-    					</ul>
-    				</div>
-    			</a>
-    		</li>
-    		<li class="mapbbsbox">
-    			<a href="#;">
-    				<div class="mapimgbox"><img src="images/sub/hospital.jpg" alt=""></div>
-    				<div class="mapbbsinfo">
-    					<ul>
-    						<li class="mbiTitle">병원명</li>
-    						<li class="mbiAddress">서울시 강남구 역삼동 111-111</li>
-    						<li class="mbiCategory">이비인후과</li>
-    					</ul>
-    				</div>
-    			</a>
-    		</li>
+    		<c:forEach items="${hoslist}" var="hbbs" varStatus="i">
+	    		<li class="mapbbsbox">
+	    			<a href="#;">
+	    				<div class="mapimgbox"><img src="images/sub/${hbbs.confirm_img }" alt=""></div>
+	    				<div class="mapbbsinfo">
+	    					<ul>
+	    						<li class="mbiTitle">${hbbs.name }</li>
+	    						<li class="mbiAddress">${hbbs.address }</li>
+	    						<li class="mbiCategory">${hbbs.info }</li>
+	    					</ul>
+	    				</div>
+	    			</a>
+	    		</li>
+    		</c:forEach>
     	</ul>
     </div>
     
     
 </div>
-
+<script type="text/javascript">
+$(".mapbbsbtn").click(function() {
+	//alert('search');						
+	$("#_frmFormSearch").attr({ "target":"_self", "action":"maplist.do" }).submit();
+});
+</script>
 
 </body>
 </html>
