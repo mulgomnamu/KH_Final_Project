@@ -902,8 +902,8 @@ function reservation(day,doc_seq) {
 	      success:function(data){
 	    	  if(data.yes == 'RESERVEYES'){
 	    	     /* 디테일창으로~ */
-	    	     alert("예약했다니");
-	    	     location.href="reservedetail.do?mem_seq="+data.mem_seq+"&hos_seq="+data.hos_seq+"&doc_seq="+data.doc_seq;
+	    	     alert("예약됐습니다");
+	    	     location.href="reservedetail.do?mem_seq="+data.mem_seq+"&hos_seq="+data.hos_seq+"&doc_seq="+data.doc_seq+"&day="+data.day+"&time="+data.time;
 	    	      
 	    	   } else{
     		   /* 정보다끌고...다시appointment로.. */
@@ -1777,8 +1777,7 @@ function reservation2(day,doc_seq) {
 	      success:function(data){
 	    	  if(data.yes == 'RESERVEYES'){
 	    	     /* 디테일창으로~ */
-	    	     alert("예약했다니");
-	    	     location.href="reservedetail.do?mem_seq="+data.mem_seq+"&hos_seq="+data.hos_seq+"&doc_seq="+data.doc_seq;
+	    	     location.href="reservedetail.do?mem_seq="+data.mem_seq+"&hos_seq="+data.hos_seq+"&doc_seq="+data.doc_seq+"&day="+data.day+"&time="+data.time;
 	    	      
 	    	   } else{
     		   /* 정보다끌고...다시appointment로.. */
@@ -2624,8 +2623,7 @@ function reservation3(day,doc_seq) {
 	      success:function(data){
 	    	  if(data.yes == 'RESERVEYES'){
 	    	     /* 디테일창으로~ */
-	    	     alert("예약했다니");
-	    	     location.href="reservedetail.do?mem_seq="+data.mem_seq+"&hos_seq="+data.hos_seq+"&doc_seq="+data.doc_seq;
+	    	     location.href="reservedetail.do?mem_seq="+data.mem_seq+"&hos_seq="+data.hos_seq+"&doc_seq="+data.doc_seq+"&day="+data.day+"&time="+data.time;
 	    	      
 	    	   } else{
     		   /* 정보다끌고...다시appointment로.. */
