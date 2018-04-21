@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.com.medi.aop.CalendarUtil;
 import kh.com.medi.aop.myCal;
-import kh.com.medi.model.CalendarDto;
 import kh.com.medi.model.MediAppointmentDto;
 import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;
@@ -174,6 +173,8 @@ public class MediAppointmentController {
 		}
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("yes",yes.getMessage());
+		map.put("day",alldto.getDay());
+		map.put("time",alldto.getTime());
 		map.put("mem_seq",alldto.getMem_seq());
 		map.put("hos_seq",alldto.getHos_seq());
 		map.put("doc_seq",alldto.getDoc_seq());
@@ -189,15 +190,19 @@ public class MediAppointmentController {
 		map.put("canttimes",canttimes);
 		map.put("day",alldto.getDay());
 		map.put("doc_seq",alldto.getDoc_seq());
+		map.put("dayofweek",alldto.getMessage());
 		return map;
 	}	
 	//디테일창으로넘어갈때
 	@RequestMapping(value="reservedetail.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String reservedetail(MediAppointmentNeedDto alldto,Model model) throws Exception{
 		logger.info("MediAppointmentController reservedetail " + new Date());
-		System.out.println(alldto.toString());
-		model.addAttribute("hos_seq", alldto.getHos_seq());
-		model.addAttribute("doc_seq", alldto.getDoc_seq());
+		MediMember_hDto hosdto=mediAppointmentService.gethospitaldetail(alldto);
+		MediDoctorDto docdto=mediAppointmentService.getdocdetail(alldto);
+		MediAppointmentDto reservedto=mediAppointmentService.reservedetail(alldto);
+		model.addAttribute("hosdto", hosdto);
+		model.addAttribute("docdto", docdto);
+		model.addAttribute("reservedto", reservedto);
 		return "reservedetail.tiles";
 	}
 	//진료과목으로병원리스트검색하는곳
@@ -239,15 +244,32 @@ public class MediAppointmentController {
 		return map;
 	}
 	//의사명으로검색해서가져오는곳
-		@ResponseBody
-		@RequestMapping(value="hosdto.do", method={RequestMethod.GET, RequestMethod.POST})
-		public Map<String, Object> hosdto(MediAppointmentNeedDto alldto,Model model) throws Exception{
-			logger.info("MediAppointmentController hosdto " + new Date());
-			Map<String, Object> map=new HashMap<String, Object>();
-			
-			MediMember_hDto hosdto=mediAppointmentService.gethospitaldetail(alldto);
-			
-			map.put("hosdto",hosdto);
-			return map;
-		}		
+	@ResponseBody
+	@RequestMapping(value="hosdto.do", method={RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> hosdto(MediAppointmentNeedDto alldto,Model model) throws Exception{
+		logger.info("MediAppointmentController hosdto " + new Date());
+		Map<String, Object> map=new HashMap<String, Object>();
+		
+		MediMember_hDto hosdto=mediAppointmentService.gethospitaldetail(alldto);
+		
+		map.put("hosdto",hosdto);
+		return map;
+	}
+	//예약취소
+	@ResponseBody
+	@RequestMapping(value="resevecancel.do", method={RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> resevecancel(MediAppointmentNeedDto alldto,Model model) throws Exception{
+		logger.info("MediAppointmentController resevecancel " + new Date());
+		Map<String, Object> map=new HashMap<String, Object>();
+		MediAppointmentNeedDto yes=new MediAppointmentNeedDto();
+		
+		boolean isS=mediAppointmentService.resevecancel(alldto);
+		if (isS) {
+			yes.setMessage("yes");
+		}else {
+			yes.setMessage("no");
+		}
+		map.put("yes",yes.getMessage());
+		return map;
+	}
 }

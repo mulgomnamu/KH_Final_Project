@@ -257,7 +257,7 @@ public class MediMemberController {
 	public String idFind(Model model, MediMemberDto dto) throws Exception{
 		logger.info("MediMemberController idFind " + new Date());
 		dto = mediMemberService.idFind(dto);
-		
+		System.out.println("getId " + dto.getId());
 		if(dto == null) {
 			String str = "no";
 			return str;

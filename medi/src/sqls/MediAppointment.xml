@@ -4,12 +4,12 @@
 
 <mapper namespace="Appointment">
 	<select id="getserchhospitalList" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
-		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,MAP,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE 
+		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE 
 		FROM medi_hospital
 		WHERE NAME LIKE CONCAT('%',#{name},'%')
 	</select>
 	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
-		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,MAP,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE  
+		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE  
 		FROM medi_hospital
 		WHERE SEQ=#{hos_seq}
 	</select>
@@ -46,7 +46,7 @@
 	<select id="reservedetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
 		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
 		FROM medi_reservation
-		WHERE MEM_SEQ=#{mem_seq} AND HOS_SEQ=#{hos_seq} AND DOC_SEQ=#{doc_seq}
+		WHERE MEM_SEQ=#{mem_seq} AND HOS_SEQ=#{hos_seq} AND DOC_SEQ=#{doc_seq} AND DAY=#{day} AND TIME=#{time}
 	</select>
 	<insert id="reserve" parameterType="kh.com.medi.model.MediAppointmentNeedDto">
 		INSERT INTO medi_reservation (MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE) 
@@ -60,7 +60,8 @@
     <result column="TEL" property="tel"/>
     <result column="POST" property="post"/>
     <result column="ADDRESS" property="address"/>
-    <result column="MAP" property="map"/>
+    <result column="LATITUDE" property="latitude"/>
+    <result column="LONGTITUDE" property="longtitude"/>
     <result column="EMAIL" property="email"/>
     <result column="QUESTION" property="question"/>
     <result column="ANSWER" property="answer"/>
@@ -78,7 +79,7 @@
 	 
 	<select id="byspecialty" parameterType="kh.com.medi.model.MediSpecialtyDto" resultMap="SpecialtyDto">
 	    SELECT
-	        h.SEQ,h.ID,h.PWD,h.NAME,h.TEL,h.POST,h.ADDRESS,h.MAP,h.MAP,
+	        h.SEQ,h.ID,h.PWD,h.NAME,h.TEL,h.POST,h.ADDRESS,h.LATITUDE,h.LONGTITUDE,
 	        h.EMAIL,h.QUESTION,h.ANSWER,h.CONFIRM_IMG,h.INFO,h.DEL,h.REGDATE,
 	        S.HOS_SEQ,S.SPECIALTY
 	    FROM
@@ -95,4 +96,13 @@
 		FROM medi_doctor
 		WHERE NAME LIKE CONCAT('%',#{name},'%')
 	</select>
+	<delete id="resevecancel" parameterType="kh.com.medi.model.MediAppointmentNeedDto">
+		DELETE FROM medi_reservation
+		WHERE SEQ=${seq}
+	</delete>
+	<!-- <select id="reservelist" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
+		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
+		FROM medi_reservation
+		WHERE MEM_SEQ=#{mem_seq} AND HOS_SEQ=#{hos_seq} AND DOC_SEQ=#{doc_seq} AND DAY=#{day} AND TIME=#{time}
+	</select> -->
 </mapper>

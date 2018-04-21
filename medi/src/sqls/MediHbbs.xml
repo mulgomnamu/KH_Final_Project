@@ -20,12 +20,12 @@
 	<!-- 페이징 리스트 -->
 	<select id="getBbsPagingList" parameterType="kh.com.medi.model.MediHbbsParamDto" resultType="kh.com.medi.model.MediMember_hDto" >
 
-		 SELECT SEQ, ID, NAME, TEL, POST, ADDRESS, MAP, EMAIL, QUESTION, ANSWER, CONFIRM_IMG, INFO, DEL, REGDATE 
+		 SELECT SEQ, ID, NAME, TEL, POST, ADDRESS, EMAIL, QUESTION, ANSWER, CONFIRM_IMG, INFO, DEL, REGDATE 
 		FROM
 		(
 		    SELECT
 		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
-		         SEQ, ID, NAME, TEL, POST, ADDRESS, MAP, EMAIL, QUESTION, ANSWER, CONFIRM_IMG, INFO, DEL, REGDATE 
+		         SEQ, ID, NAME, TEL, POST, ADDRESS, EMAIL, QUESTION, ANSWER, CONFIRM_IMG, INFO, DEL, REGDATE 
 		    FROM
 		        `MEDI`.`MEDI_HOSPITAL`,
 		       (SELECT @ROWNUM := 0) R
@@ -47,10 +47,35 @@
 	
 	<!-- 게시판 디테일 -->
 	<select id="getBbsDetail" parameterType="java.lang.Integer" resultType="kh.com.medi.model.MediMember_hDto">
-		SELECT SEQ, ID, NAME, TEL, POST, ADDRESS, MAP, EMAIL, QUESTION, ANSWER, CONFIRM_IMG, INFO, DEL, REGDATE 
+		SELECT SEQ, ID, NAME, TEL, POST, ADDRESS, EMAIL, QUESTION, ANSWER, CONFIRM_IMG, INFO, DEL, REGDATE 
 		FROM `MEDI`.`MEDI_HOSPITAL`
 		WHERE SEQ=#{seq}
 	</select>
 	
+	<!-- 게시판 디테일  의사 정보 취득 -->
+	<select id="getDoctorDetail" parameterType="java.lang.Integer" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT SEQ, HOS_SEQ, NAME, SPECIALTY, DOC_PROFILE, DOC_CONTENT
+		FROM `MEDI`.`MEDI_DOCTOR`
+		WHERE HOS_SEQ=#{seq}
+	</select>
+		
+	
+	<!-- 맵 sql 시작 -->
+	<!-- 전체 병원 리스트 -->
+	<select id="getHospitalList" parameterType="kh.com.medi.model.MediHbbsParamDto" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT SEQ, ID, NAME, TEL, POST, ADDRESS, EMAIL, QUESTION, ANSWER, CONFIRM_IMG, INFO, DEL, REGDATE, LATITUDE, LONGTITUDE
+		FROM `MEDI`.`MEDI_HOSPITAL`
+		WHERE 1=1
+		 <if test="s_keyword != '' and s_keyword != null">	
+		 	AND ADDRESS LIKE CONCAT('%',#{s_keyword},'%') 	
+		 </if>
+	</select>
+	
 	
 </mapper>
+
+
+
+
+
+
