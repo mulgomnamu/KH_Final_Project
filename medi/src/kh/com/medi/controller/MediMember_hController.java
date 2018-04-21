@@ -130,11 +130,6 @@ public class MediMember_hController {
 			mediMember_hService.addHospitalSubject(dto_s);
 		}
 
-		
-		
-		
-		
-		
 		return 1;
 	}
 	

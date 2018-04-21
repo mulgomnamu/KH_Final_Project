@@ -8,5 +8,10 @@
 		INSERT INTO `medi`.`medi_doctor` (`hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`)
 		VALUES (#{hos_seq}, #{name}, #{specialty}, now(), #{doc_profile}, #{doc_content}, #{day_tostring})
 	</insert>
+	
+	<insert id="addSpecialty" parameterType="kh.com.medi.model.MediDoctor_specialtyDto">
+		INSERT INTO `medi`.`medi_doctor` (`hos_seq`, `specialty`)
+		VALUES (#{hos_seq}, #{specialty})
+	</insert>
 
 </mapper>

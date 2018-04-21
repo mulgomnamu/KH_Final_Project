@@ -6,10 +6,10 @@
 <style type="text/css">.thumb-image{float:left;width:100px;position:relative;padding:5px;}/* .selectedItem{border:2px solid blue;} */</style>
 
 <style type="text/css">
-div {
+/* div {
   margin-bottom: 10px;
   position: relative;
-}
+} */
 
 input[type="number"] {
   width: 100px;
@@ -33,6 +33,10 @@ input:valid + span:after {
   color: #009000;
 }
 
+.tableWrap tr{border-bottom:1px solid #d9d9d9;}
+.tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
+.tableWrap th{text-align:left;}
+
 </style>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -50,47 +54,48 @@ input:valid + span:after {
 			<div class="content"> 
 				<div class="inner_flogin">
 					<form action="join_hAf" id="_form" name="_form" method="post" enctype="multipart/form-data">
-						<table>
+						<table class="tableWrap">
+							<col width="200px"><col width="">
 							<tr>
-								<td>
-									아이디
-								</td>
+								<th>
+									<span></span>아이디
+								</th>
 								<td>
 									<input type="text" id="id" name="id" onkeyup="idCheckFunction()" placeholder="아이디를 입력하세요">
 									<h5 style="color: red;" id="idCheckMessage" align="left"></h5>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									패스워드
-								</td>
+								</th>
 								<td>
 									<input type="password" id="pwd" name="pwd" onkeyup="pwdCheckFunction()" placeholder="비밀번호를 입력하세요">
 									<h5 style="color: red;" id="pwdCheckMessage" align="left"></h5>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									패스워드 확인
-								</td>
+								</th>
 								<td>
 									<input type="password" id="pwd2" name="pwd2" onkeyup="pwdCheckFunction2()" placeholder="비밀번호를 입력하세요">
 									<h5 style="color: red;" id="pwdCheckMessage2" align="left"></h5>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									병원명
-								</td>
+								</th>
 								<td>
 									<input type="text" id="name" name="name" onkeyup="nameCheckFunction()" placeholder="병원 이름을 입력하세요">
 									<h5 style="color: red;" id="nameCheckMessage" align="left"></h5>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									대표 전화번호
-								</td>
+								</th>
 								<td>
 									<input type="tel" id="tel" name="tel" onkeyup="telCheckFunction()" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}">
 									<span class="validity"></span>
@@ -98,9 +103,9 @@ input:valid + span:after {
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									주소
-								</td>
+								</th>
 								<td>
 									<input type="text" id="post" name="post" placeholder="우편번호">
 									<input type="button" onclick="btnPost()" value="우편번호 찾기"><br>
@@ -111,18 +116,18 @@ input:valid + span:after {
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									이메일
-								</td>
+								</th>
 								<td>
 									<input type="text" id="email" name="email" onkeyup="emailCheckFunction()" placeholder="이메일을 입력하세요">
 									<h5 style="color: red;" id="emailCheckMessage" align="left"></h5>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									질문
-								</td>
+								</th>
 								<td>
 									<select id="question" name="question">
 										<option value="감명 깊게 읽은 책은?">감명 깊게 읽은 책은?</option>
@@ -147,7 +152,7 @@ input:valid + span:after {
 									의료 자격증
 								</td>
 								<td>
-									<input type="file" id="upload" name="upload" multiple/>
+									<input type="file" id="upload" name="upload">
 									<h5 style="color: red;" id="uploadCheckMessage" align="left"></h5>
 								</td>
 								<td>
@@ -487,7 +492,7 @@ $(".selectedItem").remove();
         });
       });
       
-/* submit 전 확인 */
+/* submit */
 	$("#join_hBtn").click(function() {
 		var data = {
 				id: $("#id").val(),
@@ -556,7 +561,7 @@ $(".selectedItem").remove();
 					}
 				},
 				error: function(jqXHR) {
-					alert('error1');
+					alert('error');
 				}
 			});
 
