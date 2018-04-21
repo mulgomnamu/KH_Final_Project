@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.com.medi.aop.CalendarUtil;
 import kh.com.medi.aop.myCal;
-import kh.com.medi.model.CalendarDto;
 import kh.com.medi.model.MediAppointmentDto;
 import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediDoctorDto;

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Consulting">
+	<select id="ConsultingPagingList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
+		 SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE 
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
+		    FROM
+		        `MEDI`.`medi_question`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND DEL=0
+			 <if test="s_category != '' and s_category != null 
+			 	and s_keyword != '' and s_keyword != null">		 	
+			 	<if test="s_category == 'category'">
+					AND category LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'title'">
+					AND title LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'content'">
+					AND content LIKE CONCAT('%',#{s_keyword},'%')
+				</if>		 	
+			 </if>
+			 ORDER BY SEQ ASC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}	
+	</select>
+
+	
+	<select id="getBbsCount" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`medi_question` WHERE 1=1 AND DEL=0
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'category'">
+				AND category LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'title'">
+				AND title LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'content'">
+				AND content LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+</mapper>
