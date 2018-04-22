@@ -9,5 +9,7 @@ public interface MediDoctorService {
 	public boolean addDoctor(MediDoctorDto dto_d);
 	public boolean addSpecialty(MediDoctor_specialtyDto dto_ds);
 	public boolean addSchedul(MediDoctorSchedulDto dto_dsc);
+	public boolean updateDoctor(MediDoctorDto dto_d);
+	public boolean deleteDoctor(MediDoctorDto dto_d);
 
 }

@@ -452,14 +452,13 @@ input:valid + span:after {
 	
 /* 병원 이미지 추가 버튼(다중 파일 제어) */
 	$(document).ready(function() {
+		$("#image-holder").on('click','.thumb-image',function(){
+			$(this).toggleClass("selectedItem");
+		});
 
-$("#image-holder").on('click','.thumb-image',function(){
-   $(this).toggleClass("selectedItem");
-});
-
-$("#btnDelete").on("click",function(){
-$(".selectedItem").remove();
-});
+		$("#btnDelete").on("click",function(){
+			$(".selectedItem").remove();
+		});
 
         $("#_upload").on('change', function() {
           //Get count of selected files

@@ -41,6 +41,22 @@ public class MediDoctorController {
 		return "join_d.tiles";
 	}
 	
+	@RequestMapping(value="update_d.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String update_d(MediDoctorDto dto_d, Model model) {
+		logger.info("MediDoctorController update_d " + new Date());
+		
+		return "update_d.tiles";
+	}
+	
+	@RequestMapping(value="delete_d.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String delete_d(MediDoctorDto dto_d, Model model) {
+		logger.info("MediDoctorController delete_d " + new Date());
+		
+		mediDoctorService.deleteDoctor(dto_d);
+		
+		return "redirect:/main.do";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="join_dAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public int join_dAf(MediDoctorDto dto_d, MediDoctor_specialtyDto dto_ds, MediDoctorSchedulDto dto_dsc,  

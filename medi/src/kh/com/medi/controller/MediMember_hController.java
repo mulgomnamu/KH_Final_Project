@@ -45,6 +45,56 @@ public class MediMember_hController {
 		return "join_h.tiles";
 	}
 	
+	@RequestMapping(value="update_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String update_h(Model model, MediMember_hDto dto_h) {
+		logger.info("MediMember_hController update_h " + new Date());
+		
+		mediMember_hService.getHospitalColumn(dto_h.getId());
+		
+		model.addAttribute("dto_h", dto_h);
+		
+		return "update_h.tiles";
+	}
+	
+	@RequestMapping(value="delete_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String delete_h(MediMember_hDto dto_h) {
+		logger.info("MediMember_hController delete_h " + new Date());
+		
+		mediMember_hService.deleteMember_h(dto_h);
+		
+		return "redirect:/main.do";
+	}
+	
+	@RequestMapping(value="login_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String login_h() {
+		logger.info("MediMember_hController login_h " + new Date());
+		
+		return "login_h.tiles";
+	}
+	
+	@RequestMapping(value="login_hAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String login_hAf(MediMember_hDto dto_h, Model model, HttpServletRequest req) {
+		logger.info("MediMember_hController login_hAf " + new Date());
+		
+		MediMember_hDto dto_login_h = mediMember_hService.login(dto_h);
+		
+		if(dto_login_h == null) {
+			System.out.println("아이디 비밀번호 틀림");
+			model.addAttribute("msg", "아이디나 비밀번호를 확인하세요");
+			return "login_h.tiles";
+		}else if(dto_login_h.getAuth() == 3) {
+			System.out.println("dto_login_h.getAuth() : " + dto_login_h.getAuth());
+			model.addAttribute("msg", "관리자 가입 승인을 기다려주세요.");
+			return "login_h.tiles";
+		}
+		
+		req.getSession().setAttribute("login", dto_login_h);
+		req.getSession().setAttribute("auth", dto_login_h.getAuth());
+		
+		return "redirect:/main.do";
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping(value="join_hAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public int join_hAf(MediHospital_imageDto dto_hi, MediMember_hDto dto_h, MediHospital_subject dto_s, 
@@ -125,53 +175,17 @@ public class MediMember_hController {
 
 		return dto_hi.getHos_seq();
 	}
-/*	
+	
 	@ResponseBody
-	@RequestMapping(value="imgUploads.do", method={RequestMethod.GET, RequestMethod.POST})
-	public int imgUploads(MediHospital_imageDto dto_hi, HttpServletRequest req, @RequestParam(value="_upload", required=false)List<MultipartFile> images) {
-		logger.info("MediMember_hController imgUploads " + new Date());
+	@RequestMapping(value="update_hAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public int update_hAf(MediMember_hDto dto_h, HttpServletRequest req) {
+		logger.info("MediMember_hController update_hAf " + new Date());
 		
-		long sizeSum = 0;
-		for(MultipartFile image : images) {
-            String originalName = image.getOriginalFilename();
-            // 확장자 검사
-            if(!isValidExtension(originalName)){
-                return RESULT_UNACCEPTED_EXTENSION;
-            }
-            
-            // 용량 검사
-            sizeSum += image.getSize();
-            if(sizeSum >= LIMIT_SIZE) {
-                return RESULT_EXCEED_SIZE;
-            }
-            
-            // 저장
-            dto_hi.setImage(image.getOriginalFilename());
-            
-            String fupload = req.getServletContext().getRealPath("/upload");
-    		logger.info("업로드 경로 : " + fupload);
-            
-    		String f = dto_hi.getImage();
-    		String newFile = FUpUtil.getNewFile(f);
-    		logger.info("파일 이름 : " + newFile);
-    		
-    		dto_hi.setImage(newFile);
-    		
-    		try {
-    			File file = new File(fupload + "/" + newFile);
-    			
-    			FileUtils.writeByteArrayToFile(file, image.getBytes());
-    			    			
-    			mediMember_hService.addHospitalImage(dto_hi);
-    			
-    		}catch (Exception e) {
-				e.printStackTrace();
-			}
-        }
-        
-        return RESULT_SUCCESS;
+		mediMember_hService.updateMember_h(dto_h);
+
+		return 1;
 	}
-*/
+	
 	@ResponseBody
 	@RequestMapping(value="checkId_h.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String checkId_h(MediMember_hDto dto_h) {

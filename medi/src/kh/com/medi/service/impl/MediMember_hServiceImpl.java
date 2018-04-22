@@ -40,4 +40,19 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 		return mediMember_hDao.addHospitalSubject(dto_s);
 	}
 
+	@Override
+	public boolean updateMember_h(MediMember_hDto dto_h) {
+		return mediMember_hDao.updateMember_h(dto_h);
+	}
+
+	@Override
+	public boolean deleteMember_h(MediMember_hDto dto_h) {
+		return mediMember_hDao.deleteMember_h(dto_h);
+	}
+
+	@Override
+	public MediMember_hDto login(MediMember_hDto dto_h) {
+		return mediMember_hDao.login(dto_h);
+	}
+
 }

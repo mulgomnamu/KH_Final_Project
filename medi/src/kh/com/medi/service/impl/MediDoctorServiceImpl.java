@@ -30,4 +30,14 @@ public class MediDoctorServiceImpl implements MediDoctorService {
 		return mediDoctorDao.addSchedul(dto_dsc);
 	}
 
+	@Override
+	public boolean updateDoctor(MediDoctorDto dto_d) {
+		return mediDoctorDao.updateDoctor(dto_d);
+	}
+
+	@Override
+	public boolean deleteDoctor(MediDoctorDto dto_d) {
+		return mediDoctorDao.deleteDoctor(dto_d);
+	}
+
 }

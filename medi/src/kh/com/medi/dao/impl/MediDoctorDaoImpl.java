@@ -35,4 +35,16 @@ public class MediDoctorDaoImpl implements MediDoctorDao {
 		return n > 0;
 	}
 
+	@Override
+	public boolean updateDoctor(MediDoctorDto dto_d) {
+		int n = sqlSession.update(ns+"updateDoctor", dto_d);
+		return n > 0;
+	}
+
+	@Override
+	public boolean deleteDoctor(MediDoctorDto dto_d) {
+		int n = sqlSession.update(ns+"deleteDoctor", dto_d);
+		return n > 0;
+	}
+
 }

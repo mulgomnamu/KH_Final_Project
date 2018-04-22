@@ -9,5 +9,7 @@ public interface MediDoctorDao {
 	boolean addDoctor(MediDoctorDto dto_d);
 	boolean addSpecialty(MediDoctor_specialtyDto dto_ds);
 	boolean addSchedul(MediDoctorSchedulDto dto_dsc);
+	boolean updateDoctor(MediDoctorDto dto_d);
+	boolean deleteDoctor(MediDoctorDto dto_d);
 
 }
