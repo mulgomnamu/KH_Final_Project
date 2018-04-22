@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.com.medi.model.MediDoctorDto;
+import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediDoctor_specialtyDto;
 import kh.com.medi.service.MediDoctorService;
 import kh.com.medi.util.FUpUtil;
@@ -32,18 +33,30 @@ public class MediDoctorController {
 	MediDoctorService mediDoctorService;
 	
 	@RequestMapping(value="join_d.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String join_d() {
+	public String join_d(MediDoctorDto dto_d, Model model) {
 		logger.info("MediDoctorController join_d " + new Date());
+		
+		model.addAttribute("hos_seq", dto_d.getHos_seq());
 		
 		return "join_d.tiles";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="join_dAf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public int join_dAf(MediDoctorDto dto_d, MediDoctor_specialtyDto dto_ds, 
+	public int join_dAf(MediDoctorDto dto_d, MediDoctor_specialtyDto dto_ds, MediDoctorSchedulDto dto_dsc,  
 			HttpServletRequest req, Model model, 
 			@RequestParam(value="profile", required=false)MultipartFile fileload) {
 		logger.info("MediDoctorController join_dAf " + new Date());
+
+		String list_day[] = dto_dsc.getList_day();
+		String day_tostring = "";
+		
+		for(int i = 0; i < list_day.length; i ++) {			
+			if(i == list_day.length - 1)
+				day_tostring = day_tostring + list_day[i];
+			else
+				day_tostring = day_tostring + list_day[i] + ",";
+		}
 		
 		dto_d.setDoc_profile(fileload.getOriginalFilename());
 		
@@ -55,6 +68,8 @@ public class MediDoctorController {
 		logger.info("파일 이름 : " + newFile);
 		
 		dto_d.setDoc_profile(newFile);
+		dto_d.setDay_tostring(day_tostring);
+		System.out.println(day_tostring);
 		
 		try {
 			File file = new File(fupload + "/" + newFile);
@@ -72,10 +87,23 @@ public class MediDoctorController {
 		
 		for(String split : splits) {
 			dto_ds.setSpecialty(split);
-			// TODO hos_seq 값 넣기
-			dto_ds.setHos_seq(1);
 			
 			mediDoctorService.addSpecialty(dto_ds);
+		}
+
+		String list_s_time[] = dto_dsc.getS_time();
+		String list_e_time[] = dto_dsc.getE_time();
+		String list_l_time[] = dto_dsc.getL_time();
+		
+		System.out.println("dto_dsc" + dto_dsc);
+		
+		for(int i = 0; i < list_day.length; i ++) {
+			dto_dsc.setDay(list_day[i]);
+			dto_dsc.setStart_time(list_s_time[i]);
+			dto_dsc.setEnd_time(list_e_time[i]);
+			dto_dsc.setLunch_time(list_l_time[i]);
+			
+			mediDoctorService.addSchedul(dto_dsc);
 		}
 		
 		return 1;

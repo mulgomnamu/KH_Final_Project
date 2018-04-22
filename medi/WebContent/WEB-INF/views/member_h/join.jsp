@@ -551,17 +551,8 @@ $(".selectedItem").remove();
 				contentType: false,
 				type: 'post',
 				success: function(response) {
-					if(response == 1){
-						alert('회원가입 성공');
-						location.href ="main.do";
-					}else if(response == -1){
-						alert('회원가입 실패');
-					}else{
-						alert(response);
-					}
-				},
-				error: function(jqXHR) {
-					alert('error');
+					alert('회원가입 성공');
+					location.href ="join_d.do?hos_seq=" + response;
 				}
 			});
 

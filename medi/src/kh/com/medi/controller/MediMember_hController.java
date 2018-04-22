@@ -73,7 +73,6 @@ public class MediMember_hController {
 			
 		}catch (IOException e) {
 			e.printStackTrace();
-			return -1;
 		}
 		
 		long sizeSum = 0;
@@ -81,13 +80,11 @@ public class MediMember_hController {
             String originalName = image.getOriginalFilename();
             // 확장자 검사
             if(!isValidExtension(originalName)){
-                return RESULT_UNACCEPTED_EXTENSION;
             }
             
             // 용량 검사
             sizeSum += image.getSize();
             if(sizeSum >= LIMIT_SIZE) {
-                return RESULT_EXCEED_SIZE;
             }
             
             // 저장
@@ -115,12 +112,8 @@ public class MediMember_hController {
 				e.printStackTrace();
 			}
         }
-
-		System.out.println(dto_s);
 		
 		dto_s.setHos_seq(mediMember_hService.getHospitalColumn(dto_h.getId()).getSeq());
-		
-		System.out.println(dto_s);
 		
 		String splits[] = dto_s.getCl_sjt_list().split(",");
 		
@@ -130,9 +123,9 @@ public class MediMember_hController {
 			mediMember_hService.addHospitalSubject(dto_s);
 		}
 
-		return 1;
+		return dto_hi.getHos_seq();
 	}
-	
+/*	
 	@ResponseBody
 	@RequestMapping(value="imgUploads.do", method={RequestMethod.GET, RequestMethod.POST})
 	public int imgUploads(MediHospital_imageDto dto_hi, HttpServletRequest req, @RequestParam(value="_upload", required=false)List<MultipartFile> images) {
@@ -178,7 +171,7 @@ public class MediMember_hController {
         
         return RESULT_SUCCESS;
 	}
-
+*/
 	@ResponseBody
 	@RequestMapping(value="checkId_h.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String checkId_h(MediMember_hDto dto_h) {

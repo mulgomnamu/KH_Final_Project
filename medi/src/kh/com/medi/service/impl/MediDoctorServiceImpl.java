@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediDoctorDao;
 import kh.com.medi.model.MediDoctorDto;
+import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediDoctor_specialtyDto;
 import kh.com.medi.service.MediDoctorService;
 
@@ -22,6 +23,11 @@ public class MediDoctorServiceImpl implements MediDoctorService {
 	@Override
 	public boolean addSpecialty(MediDoctor_specialtyDto dto_ds) {
 		return mediDoctorDao.addSpecialty(dto_ds);
+	}
+
+	@Override
+	public boolean addSchedul(MediDoctorSchedulDto dto_dsc) {
+		return mediDoctorDao.addSchedul(dto_dsc);
 	}
 
 }

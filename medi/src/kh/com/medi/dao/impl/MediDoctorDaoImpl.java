@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediDoctorDao;
 import kh.com.medi.model.MediDoctorDto;
+import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediDoctor_specialtyDto;
 
 @Repository
@@ -25,6 +26,12 @@ public class MediDoctorDaoImpl implements MediDoctorDao {
 	@Override
 	public boolean addSpecialty(MediDoctor_specialtyDto dto_ds) {
 		int n = sqlSession.insert(ns+"addSpecialty", dto_ds);
+		return n > 0;
+	}
+
+	@Override
+	public boolean addSchedul(MediDoctorSchedulDto dto_dsc) {
+		int n = sqlSession.insert(ns+"addSchedul", dto_dsc);
 		return n > 0;
 	}
 

@@ -10,8 +10,14 @@
 	</insert>
 	
 	<insert id="addSpecialty" parameterType="kh.com.medi.model.MediDoctor_specialtyDto">
-		INSERT INTO `medi`.`medi_doctor` (`hos_seq`, `specialty`)
+		INSERT INTO `medi`.`medi_specialty` (`hos_seq`, `specialty`)
 		VALUES (#{hos_seq}, #{specialty})
+	</insert>
+	
+	<insert id="addSchedul" parameterType="kh.com.medi.model.MediDoctorSchedulDto">
+		INSERT INTO `medi`.`medi_schedul` (`doc_seq`, `day`, `start_time`, `end_time`, `lunch_time`)
+		VALUES ((SELECT MAX(`seq`) FROM `medi_doctor`), 
+					#{day}, #{start_time}, #{end_time}, #{lunch_time})
 	</insert>
 
 </mapper>

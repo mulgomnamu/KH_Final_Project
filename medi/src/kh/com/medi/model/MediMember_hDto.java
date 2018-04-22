@@ -20,13 +20,14 @@ public class MediMember_hDto implements Serializable {
 	private String info;
 	private int del;
 	private String regdate;
+	private int auth;
 	
 	public MediMember_hDto() {
 	}
 
 	public MediMember_hDto(int seq, String id, String pwd, String name, String tel, String post, String address,
 			String latitude, String longtitude, String email, String question, String answer, String confirm_img,
-			String info, int del, String regdate) {
+			String info, int del, String regdate, int auth) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -44,6 +45,7 @@ public class MediMember_hDto implements Serializable {
 		this.info = info;
 		this.del = del;
 		this.regdate = regdate;
+		this.auth = auth;
 	}
 
 	public int getSeq() {
@@ -174,12 +176,20 @@ public class MediMember_hDto implements Serializable {
 		this.regdate = regdate;
 	}
 
+	public int getAuth() {
+		return auth;
+	}
+
+	public void setAuth(int auth) {
+		this.auth = auth;
+	}
+
 	@Override
 	public String toString() {
 		return "MediMember_hDto [seq=" + seq + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", tel=" + tel
 				+ ", post=" + post + ", address=" + address + ", latitude=" + latitude + ", longtitude=" + longtitude
 				+ ", email=" + email + ", question=" + question + ", answer=" + answer + ", confirm_img=" + confirm_img
-				+ ", info=" + info + ", del=" + del + ", regdate=" + regdate + "]";
+				+ ", info=" + info + ", del=" + del + ", regdate=" + regdate + ", auth=" + auth + "]";
 	}
 	
 }
