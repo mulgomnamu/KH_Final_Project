@@ -11,7 +11,7 @@
 		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
 		         SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
 		    FROM
-		        `MEDI`.`medi_question`,
+		        `MEDI`.`medi_consulting_question`,
 		       (SELECT @ROWNUM := 0) R
 			 WHERE 1=1 AND DEL=0
 			 <if test="s_category != '' and s_category != null 
@@ -26,16 +26,14 @@
 					AND content LIKE CONCAT('%',#{s_keyword},'%')
 				</if>		 	
 			 </if>
-			 ORDER BY SEQ ASC
+			 ORDER BY SEQ DESC
 			 ) A
 		WHERE
 		    A.ROWNUM BETWEEN ${start} AND ${end}	
 	</select>
-
-	
 	<select id="getBbsCount" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)
-		FROM `MEDI`.`medi_question` WHERE 1=1 AND DEL=0
+		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
 			<if test="s_category == 'category'">
 				AND category LIKE CONCAT('%',#{s_keyword},'%')
@@ -48,4 +46,91 @@
 			</if>
 		</if> 
 	</select>
+	<!-- 디테일가져오기 -->
+	<select resultType="kh.com.medi.model.MediConsultingQuestionDto" id="getBbsDetail" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+		SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
+		FROM `MEDI`.`medi_consulting_question` 
+		WHERE SEQ=#{seq} 
+	</select>
+
+	<!-- 맴버 글쓰기 -->
+	<insert id="insertBbs" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	INSERT INTO `MEDI`.`medi_consulting_question`(MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE)
+		VALUES(#{mem_seq},#{wid},#{title},#{content},#{category},0,0,0,0,NOW()) 
+	</insert>
+
+	<!-- 수정하기 -->
+	<update id="bbsUpdate" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_question` SET TITLE=#{title}, CONTENT =#{content}, WDATE=NOW()
+	WHERE SEQ =#{seq}
+	</update>
+
+	<!-- 글 삭제 -->
+	<update id="bbsDelete" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_question` SET DEL = 1
+		WHERE SEQ=#{seq} 
+	</update>
+	<!-- 조회수업데이트 -->
+	<update id="plusreadcount" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE medi_consulting_question SET
+	READCOUNT=READCOUNT+1 WHERE SEQ=#{seq} 
+	</update>
+	<!-- 조회수업데이트 -->
+	<update id="pluscommentcount" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE medi_consulting_question SET
+	READCOUNT=COMMENTCOUNT+1 WHERE SEQ=#{seq} 
+	</update>
+	<!-- 의사답글쓰기 -->
+	<insert id="answerinsert" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	INSERT INTO `MEDI`.`medi_consulting_answer`(HOS_SEQ,WHOS_NAME, CONTENT, PARENT, DEL, WDATE)
+		VALUES(#{hos_seq},#{whos_name},#{content},#{parent},0,NOW()) 
+	</insert>
+
+	<!-- 의사답글수정하기 -->
+	<update id="answerUpdate" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_answer` CONTENT =#{content}, WDATE=NOW()
+	WHERE SEQ=#{seq}
+	</update>
+
+	<!-- 의사답글삭제 -->
+	<update id="answerDelete" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 1
+		WHERE SEQ=#{seq} 
+	</update>
+	
+	<!-- 병원디테일가져오기 -->
+	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE  
+		FROM medi_hospital
+		WHERE SEQ=1
+	</select>
+	
+	<!-- 답변가져오기 -->
+	<select id="answerlist" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingAnswerDto">
+		SELECT SEQ,HOS_SEQ,WHOS_NAME, CONTENT, PARENT, DEL, WDATE
+		FROM medi_consulting_answer
+		WHERE PARENT=#{seq} AND DEL!=1
+		ORDER BY DEL DESC
+	</select>
+	<!-- 답변가져오기 -->
+	<select id="answerdetail" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingAnswerDto">
+		SELECT SEQ,HOS_SEQ,WHOS_NAME, CONTENT, PARENT, DEL, WDATE
+		FROM medi_consulting_answer
+		WHERE SEQ=#{seq} AND DEL!=1
+	</select>
+	<!-- 병원스코어상승 
+	<update id="plusscore" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 1
+		WHERE SEQ=#{seq} 
+	</update>-->
+	<!-- 질문글채택완료 -->
+	<update id="selectyn" parameterType="kh.com.medi.model.MediConsultingAnswerDto"> 
+	UPDATE `MEDI`.`medi_consulting_question` SET SELECTYN = 1
+		WHERE SEQ=#{parent} 
+	</update>
+	<!-- del=3으로해줌으로서 채택된걸표시 -->
+	<update id="selected" parameterType="kh.com.medi.model.MediConsultingAnswerDto"> 
+	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 3
+		WHERE SEQ=#{seq} 
+	</update>
 </mapper>

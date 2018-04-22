@@ -170,7 +170,26 @@
 		<put-attribute name="content" value="/WEB-INF/views/consulting/consultinglist.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	
+	<!-- 상담게시판글쓰기 -->
+	<definition name="consultingwrite.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/consultingwrite.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!-- 상담게시판디테일 -->
+	<definition name="consultingdetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/consultingdetail.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!-- 상담게시판글수정 -->
+	<definition name="consultingupdate.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/consultingupdate.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!-- 상담게시판글쓰기 -->
+	<definition name="answerwrite.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/answerwrite.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
 </tiles-definitions>
 
 

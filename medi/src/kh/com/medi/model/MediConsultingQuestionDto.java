@@ -3,7 +3,7 @@ package kh.com.medi.model;
 import java.io.Serializable;
 /*
 //건강정보 질문
-CREATE TABLE `medi`.`medi_question` (
+CREATE TABLE `medi`.`medi_consulting_question` (
   
 `seq` INT(8) NOT NULL AUTO_INCREMENT,
  
