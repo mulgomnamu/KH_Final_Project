@@ -194,17 +194,13 @@
 		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsreply.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	
-<<<<<<< HEAD
+
 	<!-- QnA게시판비밀번호 -->
 	<definition name="QnabbsdetailRock.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsdetailRock.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	
-	
-	
-=======
+
 	<!-- 상담게시판들어가기 -->
 	<definition name="consultinglist.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/consulting/consultinglist.jsp"/>
@@ -230,7 +226,6 @@
 		<put-attribute name="content" value="/WEB-INF/views/consulting/answerwrite.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
->>>>>>> branch 'master' of https://github.com/mulgomnamu/KH_Final_Project.git
 </tiles-definitions>
 
 
