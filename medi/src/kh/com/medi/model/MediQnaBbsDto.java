@@ -53,6 +53,7 @@ public class MediQnaBbsDto implements Serializable{
 	private String wdate;
 	private int memchoice;
 	private int parent;	// 부모글
+	private String rock;
 	
 	private int del;	// 삭제
 	private int readcount;
@@ -60,7 +61,7 @@ public class MediQnaBbsDto implements Serializable{
 	public MediQnaBbsDto() {}
 
 	public MediQnaBbsDto(int seq, String id, int ref, int step, int depth, String question, String title,
-			String content, String wdate, int memchoice, int parent, int del, int readcount) {
+			String content, String wdate, int memchoice, int parent, int del, int readcount, String rock) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -75,6 +76,17 @@ public class MediQnaBbsDto implements Serializable{
 		this.parent = parent;
 		this.del = del;
 		this.readcount = readcount;
+		this.rock = rock;
+	}
+	
+	
+
+	public String getRock() {
+		return rock;
+	}
+
+	public void setRock(String rock) {
+		this.rock = rock;
 	}
 
 	public int getSeq() {
@@ -185,7 +197,7 @@ public class MediQnaBbsDto implements Serializable{
 	public String toString() {
 		return "MediQnaBbsDto [seq=" + seq + ", id=" + id + ", ref=" + ref + ", step=" + step + ", depth=" + depth
 				+ ", question=" + question + ", title=" + title + ", content=" + content + ", wdate=" + wdate
-				+ ", memchoice=" + memchoice + ", parent=" + parent + ", del=" + del + ", readcount=" + readcount + "]";
+				+ ", memchoice=" + memchoice + ", parent=" + parent + ", del=" + del + ", readcount=" + readcount + ", rock=" + rock +"]";
 	}
 	
 	

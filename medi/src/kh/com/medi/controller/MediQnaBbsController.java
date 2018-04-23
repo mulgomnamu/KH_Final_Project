@@ -59,14 +59,49 @@ public class MediQnaBbsController {
 	public String Qnabbsdetail(Model model, MediQnaBbsDto dto, @RequestParam String seq) throws Exception{
 		logger.info("MediQnaBbsController Qnabbsdetail " + new Date());
 		// paging처리
-		System.out.println("1");
+	
 		dto.setSeq(Integer.parseInt(seq));
-		System.out.println("2" + dto.getSeq());
-		dto = mediQnaBbsService.getBbsDetail(dto);
-		System.out.println("3 " + dto.toString());
+		dto = mediQnaBbsService.getBbsDetail(dto);		
 		model.addAttribute("bbs", dto);
-		System.out.println("4");
+
 		return "Qnabbsdetail.tiles";
+	}
+	
+	@RequestMapping(value="QnabbsdetailRock.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String QnabbsdetailRock(Model model, MediQnaBbsDto dto, @RequestParam String seq) throws Exception{
+		logger.info("MediQnaBbsController QnabbsdetailRock " + new Date());
+		// paging처리
+		model.addAttribute("bbs", dto);
+		/*dto.setSeq(Integer.parseInt(seq));
+		dto = mediQnaBbsService.getBbsDetail(dto);		
+		model.addAttribute("bbs", dto);*/
+		System.out.println("dto.getRock !!" + dto.getRock());
+		System.out.println("dto.getSeq !!" + dto.getSeq());
+		return "QnabbsdetailRock.tiles";
+	}
+	
+	@RequestMapping(value="QnabbsdetailRockAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String QnabbsdetailRockAf(Model model, MediQnaBbsDto dto, @RequestParam String pwd, @RequestParam String seq) throws Exception{
+		logger.info("MediQnaBbsController QnabbsdetailRockAf " + new Date());
+		
+		System.out.println("pwd " + pwd);
+		/*System.out.println("rock " + rock);*/
+		System.out.println("dto.getRock !!" + dto.getRock());
+		System.out.println("dto.getSeq !!" + dto.getSeq());
+		if(pwd.equals(dto.getRock())) {
+			dto = mediQnaBbsService.getBbsDetail(dto);		
+			model.addAttribute("bbs", dto);
+
+			return "Qnabbsdetail.tiles";
+		}else {
+			model.addAttribute("msg", "비밀번호가 틀렸습니다.");
+			return "redirect:/QnAbblist.do";
+		}
+		/*dto.setSeq(Integer.parseInt(seq));
+		dto = mediQnaBbsService.getBbsDetail(dto);		
+		model.addAttribute("bbs", dto);*/
+
+		
 	}
 	
 		
@@ -80,6 +115,10 @@ public class MediQnaBbsController {
 	@RequestMapping(value="QnabbsWriteAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String QnabbsWriteAf(Model model, MediQnaBbsDto dto) throws Exception{
 		logger.info("MediQnaBbsController QnabbsWriteAf " + new Date());
+		
+		if(dto.getRock() == null) {
+			dto.setRock("no");
+		}
 		
 		boolean flag = mediQnaBbsService.insertBbs(dto);
 		
@@ -137,6 +176,16 @@ public class MediQnaBbsController {
 	public String QnabbsreplyAf(Model model, MediQnaBbsDto dto) throws Exception{
 		logger.info("MediQnaBbsController QnabbsreplyAf " + new Date());
 		System.out.println("MediQnaBbsController QnabbsreplyAf dto :" + dto.toString());
+
+		mediQnaBbsService.answerInsert(dto);
+		return "redirect:/QnAbblist.do";
+	
+	}
+	
+	@RequestMapping(value="QnAbbsSearch.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String QnAbbsSearch(Model model, MediQnaBbsDto dto) throws Exception{
+		logger.info("MediQnaBbsController QnAbbsSearch " + new Date());
+		System.out.println("MediQnaBbsController QnAbbsSearch dto :" + dto.toString());
 
 		mediQnaBbsService.answerInsert(dto);
 		return "redirect:/QnAbblist.do";

@@ -165,6 +165,12 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
+	<!-- QnA게시판비밀번호 -->
+	<definition name="QnabbsdetailRock.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsdetailRock.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	
 	
 </tiles-definitions>

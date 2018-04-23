@@ -13,20 +13,20 @@
 
 	<!-- 디테일가져오기 -->
 	<select resultType="kh.com.medi.model.MediQnaBbsDto" id="getBbsDetail" parameterType="java.lang.Integer"> 
-		SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT
+		SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
 		FROM `MEDI`.`medi_question_bbs` 
 		WHERE SEQ=#{seq} 
 	</select>
 
 	<!-- 맴버 글쓰기 -->
 	<insert id="insertBbs" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
-	INSERT INTO `MEDI`.`medi_question_bbs`(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT)
-		VALUES(#{id},(SELECT ifnull(MAX(REF), 0)+1 FROM (SELECT * FROM medi_question_bbs)CNT),0,0,#{question},#{title},#{content},NOW(), 1,0,0,0) 
+	INSERT INTO `MEDI`.`medi_question_bbs`(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK)
+		VALUES(#{id},(SELECT ifnull(MAX(REF), 0)+1 FROM (SELECT * FROM medi_question_bbs)CNT),0,0,#{question},#{title},#{content},NOW(), 1,0,0,0, #{rock}) 
 	</insert>
 
 	<!-- 수정하기 -->
 	<update id="bbsUpdate" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
-	UPDATE `MEDI`.`medi_question_bbs` SET TITLE=#{title}, CONTENT =#{content}, WDATE=NOW(), READCOUNT=0 
+	UPDATE `MEDI`.`medi_question_bbs` SET TITLE=#{title}, CONTENT =#{content}, WDATE=NOW(), READCOUNT=0, ROCK=#{rock}
 	WHERE SEQ =#{seq}
 	</update>
 
@@ -51,19 +51,19 @@
 	-->
 	
 	<insert id="answerInsert" parameterType="kh.com.medi.model.MediQnaBbsParamDto"> 
-	INSERT INTO medi_question_bbs(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT)
+	INSERT INTO medi_question_bbs(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK)
 		VALUES(#{id}, (SELECT REF FROM (SELECT * FROM medi_question_bbs)CNT1 WHERE SEQ=#{seq}),
 		(SELECT STEP FROM (SELECT * FROM medi_question_bbs)CNT2 WHERE SEQ=#{seq})+1, (SELECT DEPTH FROM (SELECT * FROM medi_question_bbs)CNT3
-		WHERE SEQ=#{seq})+1, #{question}, #{title}, #{content}, NOW(), 2, #{seq}, 0, 0)
+		WHERE SEQ=#{seq})+1, #{question}, #{title}, #{content}, NOW(), 2, #{seq}, 0, 0, #{rock})
 	</insert> 
 
 	<select id="getBbsPagingList" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="kh.com.medi.model.MediQnaBbsDto" >
-		 SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT 
+		 SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
 		FROM
 		(
 		    SELECT
 		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
-		         SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT 
+		         SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
 		    FROM
 		        `MEDI`.`medi_question_bbs`,
 		       (SELECT @ROWNUM := 0) R
