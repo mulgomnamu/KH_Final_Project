@@ -102,6 +102,14 @@
 </div>
 
 <script type="text/javascript">
+
+var message = '${msg}'; 
+var returnUrl = '${url}'; 
+if(message != ""){
+	alert(message);	
+}
+</script>
+
 $("#_btnLogin").click(function() {
 	if($("#_pwd").val() == ""){
 		alert($("#_pwd").attr("data-msg") + " 입력해 주십시오" );

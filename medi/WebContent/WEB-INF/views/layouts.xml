@@ -132,8 +132,15 @@
 	</definition>
 	<!-- 탈퇴자 -->
 	<definition name="Mybye.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/member/Mybye.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/mypage/Mybye.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<!-- 마이페이지리스트 -->
+	<definition name="MyPageList.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/MyPageList.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	
 	
 	<!-- 건강 수첩 -->

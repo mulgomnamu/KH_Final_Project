@@ -1,6 +1,7 @@
 package kh.com.medi.dao.impl;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediMyPageDao;
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMyListPagingDto;
 
 
 @Repository
@@ -48,5 +50,17 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 		return h>0?true:false;
 	}
 	
+	@Override
+	public int getBbsCount(MediMyListPagingDto mylist) throws Exception {
+		int number = 0;
+		number = sqlSession.selectOne(ns+"getBbsCount", mylist);
+		return number;
+	}
+
+	@Override
+	public List<MediMemberDto> getBbsPagingList(MediMyListPagingDto mylist) throws Exception {
+		List<MediMemberDto>list = sqlSession.selectList(ns+"getBbsPagingList", mylist);
+		return list;
+	}
 	
 }
