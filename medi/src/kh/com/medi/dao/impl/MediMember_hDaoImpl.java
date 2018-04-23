@@ -47,4 +47,21 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 		return sqlSession.selectOne(ns+"getHospitalColumn", id);
 	}
 
+	@Override
+	public boolean updateMember_h(MediMember_hDto dto_h) {
+		int n = sqlSession.update(ns+"updateMember_h", dto_h);
+		return n > 0;
+	}
+
+	@Override
+	public boolean deleteMember_h(MediMember_hDto dto_h) {
+		int n = sqlSession.update(ns+"deleteMember_h", dto_h);
+		return n > 0;
+	}
+
+	@Override
+	public MediMember_hDto login(MediMember_hDto dto_h) {
+		return sqlSession.selectOne(ns+"loginCheck", dto_h);
+	}
+
 }

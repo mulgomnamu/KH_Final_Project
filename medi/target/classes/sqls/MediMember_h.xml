@@ -5,8 +5,8 @@
 <mapper namespace="MediMember_h">
 
 	<insert id="addMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
-		INSERT INTO `medi`.`medi_hospital` (`id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `del`, `regdate`) 
-		VALUES (#{id}, #{pwd}, #{name}, #{tel}, #{post}, #{address}, 'latitude', 'longtitude', #{email}, #{question}, #{answer}, #{confirm_img}, #{info}, #{del}, now())
+		INSERT INTO `medi`.`medi_hospital` (`id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `del`, `regdate`, `auth`) 
+		VALUES (#{id}, #{pwd}, #{name}, #{tel}, #{post}, #{address}, 'latitude', 'longtitude', #{email}, #{question}, #{answer}, #{confirm_img}, #{info}, 1, now(), 3)
 	</insert>
 
 	<insert id="addImage" parameterType="kh.com.medi.model.MediHospital_imageDto">
@@ -20,7 +20,7 @@
 	</insert>
 	
 	<select id="getHospitalColumn" parameterType="java.lang.String" resultType="kh.com.medi.model.MediMember_hDto">
-		SELECT `seq`, `id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `del`, `regdate`
+		SELECT `seq`, `id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `del`, `regdate`, `auth`
 		FROM `MEDI`.`MEDI_HOSPITAL`
 		WHERE `id`=#{id}
 	</select>
@@ -29,6 +29,24 @@
 		SELECT IFNULL(COUNT(*), 0)
 		FROM `MEDI`.`MEDI_HOSPITAL`
 		WHERE ID=#{id}
+	</select>
+	
+	<update id="updateMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
+		UPDATE `medi`.`medi_hospital`
+		SET `pwd`=#{pwd} AND `name`=#{name} AND `tel`=#{tel} AND `address`=#{address} AND email=#{email} AND `info`=${info}
+		WHERE `seq`=#{seq}
+	</update>
+	
+	<update id="deleteMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
+		UPDATE `medi`.`medi_hospital`
+		SET `del`=0
+		WHERE `seq`=#{seq}
+	</update>
+	
+	<select id="loginCheck" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT `seq`, `id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `del`, `regdate`, `auth`
+		FROM `MEDI`.`MEDI_HOSPITAL`
+		WHERE `id`=#{id} AND `pwd`=#{pwd}
 	</select>
 
 </mapper>

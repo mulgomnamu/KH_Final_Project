@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediHbbsDao;
+import kh.com.medi.model.MediDoctorDto;
+import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediHbbsParamDto;
 import kh.com.medi.model.MediMember_hDto;
 
@@ -35,6 +37,18 @@ public class MediHbbsDaoImpl implements MediHbbsDao {
 	public MediMember_hDto getBbsDetail(int seq) throws Exception {
 		MediMember_hDto hdto = sqlSession.selectOne(ns + "getBbsDetail", seq);
 		return hdto;
+	}
+
+	@Override
+	public List<MediDoctorDto> getDoctorDetail(int seq) throws Exception {
+		List<MediDoctorDto> doctorList = sqlSession.selectList(ns + "getDoctorDetail", seq);
+		return doctorList;
+	}
+
+	@Override
+	public List<MediMember_hDto> getHospitalList(MediHbbsParamDto hbbs) throws Exception {
+		List<MediMember_hDto> hlist = sqlSession.selectList(ns + "getHospitalList", hbbs);
+		return hlist;
 	}
 	
 }

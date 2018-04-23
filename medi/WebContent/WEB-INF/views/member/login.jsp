@@ -4,7 +4,7 @@
 
 
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
-	<div class="login"><!-- 2뎁스명 클래스 -->
+	<div class="login" style="background-color: #f4f5f9;"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
 		<section id="sub_section">
 			<!-- #LOCATION -->
@@ -17,46 +17,27 @@
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-				<form action="loginAf.do" name="frmForm" id="_frmForm" method="post">
-						<table class="content_table" style="width:75%">
-							<colgroup>
-								<col style="width:30%">
-								<col style="width:70%">
-							</colgroup>
-							<tbody>
-								<tr>
-									<th style="background: #eeeeee; color: #3e5fba;">아이디</th>
-									<td>&nbsp;
-										<input type="text" id="_userid" name="id" value="" data-msg="ID를" size="15" title="아이디" style="border:1px solid #dddddd;">
-
-									</td>
-								</tr>
-								
-								<tr>
-									<th style="background: #eeeeee; color: #3e5fba;">비밀번호</th>
-									<td>&nbsp;
-										<input type="text" id="_pwd" name="pwd" value="" data-msg="PWD를" size="15" title="비밀번호" style="border:1px solid #dddddd;">
-									</td>
-								</tr>
-								
-								<tr>
-									<td colspan="2" style="height:50px; text-align:center;">
-										<span>
-											<a href="#none" id="_btnLogin" title="로그인">
-												<img alt="로그인" src="image/login_btn.jpg">
-											</a>
-											<!-- <a href="#none" id="_btnRegi" title="회원가입">
-												<img alt="회원가입" src="image/regi.jpg">
-											</a> -->
-										</span>
-									</td>
-								</tr>
-							</tbody>
-						
-						</table>
-					</form>
+				<div style="height: 300px">
+				<form action="loginAf.do" name="frmForm" id="_frmForm" method="post" style="width: 400px;position: absolute;"> 
 					
-					<table  style="width:75%">
+					 <span class="form-text" style="margin-bottom: 20px;">
+                        <label class="placeholder" for="id">아이디</label>
+                        <input type="text" id="_userid" name="id" value="" size="15" title="아이디" style="border:1px solid #dddddd;">
+                	 </span>
+					<span class="form-text"style="margin-bottom:40px;">
+                     	<label class="placeholder" for="id">비밀번호</label>
+                        <input type="text" id="_pwd" name="pwd" value="" size="15" title="비밀번호" style="border:1px solid #dddddd;">
+               	 	</span>
+               	 	
+					
+				</form>
+				<div class="btn_login" style="width: 400px; position: absolute;left: 650px;">
+					<a href="#none" id="_btnLogin" title="로그인" class="btn-type01" style="display: block; width: 130px;height: 107px;">
+						<em style="margin-top: 20px;">로그인</em>
+					</a>
+				</div>	
+				
+					<table  style="width:75%;position: absolute;bottom: 150px;">
 							
 							<tbody>
 								<tr>
@@ -100,6 +81,7 @@
 							</tbody>
 						
 						</table>
+						</div>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>
 			</div>

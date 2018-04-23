@@ -8,5 +8,28 @@
 		INSERT INTO `medi`.`medi_doctor` (`hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`)
 		VALUES (#{hos_seq}, #{name}, #{specialty}, now(), #{doc_profile}, #{doc_content}, #{day_tostring})
 	</insert>
+	
+	<insert id="addSpecialty" parameterType="kh.com.medi.model.MediDoctor_specialtyDto">
+		INSERT INTO `medi`.`medi_specialty` (`hos_seq`, `specialty`)
+		VALUES (#{hos_seq}, #{specialty})
+	</insert>
+	
+	<insert id="addSchedul" parameterType="kh.com.medi.model.MediDoctorSchedulDto">
+		INSERT INTO `medi`.`medi_schedul` (`doc_seq`, `day`, `start_time`, `end_time`, `lunch_time`)
+		VALUES ((SELECT MAX(`seq`) FROM `medi_doctor`), 
+					#{day}, #{start_time}, #{end_time}, #{lunch_time})
+	</insert>
+	
+	<update id="updateDoctor" parameterType="kh.com.medi.model.MediDoctorDto">
+		UPDATE `medi`.`medi_doctor`
+		SET `name`=#{name} AND `specialty`=#{specialty} AND `addrdoc_profileess`=#{doc_profile} AND doc_content=#{doc_content} AND `day_tostring`=${day_tostring}
+		WHERE `seq`=#{seq}
+	</update>
+	
+	<update id="deleteDoctor" parameterType="kh.com.medi.model.MediDoctorDto">
+		UPDATE `medi`.`medi_doctor`
+		SET `del`=0
+		WHERE `seq`=#{seq}
+	</update>
 
 </mapper>

@@ -102,9 +102,17 @@ public class MediAppointmentDaoImpl implements MediAppointmentDao {
 
 
 	@Override
-	public List<MediAppointmentDto> reservedetail(MediAppointmentNeedDto alldto) throws Exception {
+	public MediAppointmentDto reservedetail(MediAppointmentNeedDto alldto) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(ns+"reservedetail", alldto);
+		return sqlSession.selectOne(ns+"reservedetail", alldto);
+	}
+
+
+	@Override
+	public boolean resevecancel(MediAppointmentNeedDto alldto) throws Exception {
+		int count=sqlSession.delete(ns+"resevecancel", alldto);
+		
+		return count>0?true:false;
 	}
 	
 

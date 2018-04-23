@@ -137,6 +137,19 @@
 								</div> -->
 							</li>
 							<!-- 여기 까지 -->
+							<li>
+								<div class="d_btn_1">
+									<a href="consultinglist.do" target="_self"><em>건강상담</em></a>
+								</div>
+								<!-- <div class="d_2">
+									<ul>
+										<li>
+											<a href="maplist.do" target="_self"><em>QnA</em></a>
+										</li>
+									</ul>
+								</div> -->
+							</li>
+							<!-- 여기 까지 -->
 						</ul>
 					</div>
 				</div>

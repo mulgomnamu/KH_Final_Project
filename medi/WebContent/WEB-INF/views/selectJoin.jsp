@@ -22,7 +22,17 @@
 					<br>
 					<a href="join_h.do">병원 회원가입</a>
 					<br>
+					<a href="update_h.do">병원 회원수정</a>
+					<br>
+					<a href="delete_h.do">병원 회원탈퇴</a>
+					<br>
 					<a href="join_d.do">의사 회원가입</a>
+					<br>
+					<a href="update_d.do">의사 회원수정</a>
+					<br>
+					<a href="delete_d.do">의사 회원탈퇴</a>
+					<br>
+					<a href="login_h.do">로그인</a>
 				</div>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>

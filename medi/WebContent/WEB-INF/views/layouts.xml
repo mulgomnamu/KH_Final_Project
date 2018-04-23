@@ -23,15 +23,45 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
+	<!-- 로그인(병원) -->
+	<definition name="login_h.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/login_h.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	<!-- 회원가입(병원) -->
 	<definition name="join_h.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member_h/join.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
-	<!-- 회원가입(의사) -->
+	<!-- 회원수정(병원) -->
+	<definition name="update_h.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/update.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- 회원탈퇴(병원) -->
+	<definition name="delete_h.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/delete.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- 회원수정(의사) -->
 	<definition name="join_d.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member_h/join_doctor.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- 회원탈퇴(의사) -->
+	<definition name="update_d.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/update_doctor.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- 회원가입(의사) -->
+	<definition name="delete_d.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/delete_doctor.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
@@ -165,6 +195,7 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
+<<<<<<< HEAD
 	<!-- QnA게시판비밀번호 -->
 	<definition name="QnabbsdetailRock.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsdetailRock.jsp"/>
@@ -173,6 +204,33 @@
 	
 	
 	
+=======
+	<!-- 상담게시판들어가기 -->
+	<definition name="consultinglist.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/consultinglist.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!-- 상담게시판글쓰기 -->
+	<definition name="consultingwrite.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/consultingwrite.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!-- 상담게시판디테일 -->
+	<definition name="consultingdetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/consultingdetail.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!-- 상담게시판글수정 -->
+	<definition name="consultingupdate.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/consultingupdate.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!-- 상담게시판글쓰기 -->
+	<definition name="answerwrite.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/consulting/answerwrite.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+>>>>>>> branch 'master' of https://github.com/mulgomnamu/KH_Final_Project.git
 </tiles-definitions>
 
 

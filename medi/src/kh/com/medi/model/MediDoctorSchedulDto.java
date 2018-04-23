@@ -1,6 +1,8 @@
 package kh.com.medi.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 /*
  CREATE TABLE `medi`.`medi_schedul` (
@@ -25,6 +27,13 @@ public class MediDoctorSchedulDto implements Serializable {
 	private String start_time;	//09:00:00
 	private String end_time;	//13:30:00 start_time~end_time-lunch_time으로 30분씩으로나눠서표현해준다
 	private String lunch_time;	//12:00:00 입력받으면 그후한시간은막아야된다
+	
+	private String[] list_day;
+	private String[] s_time;
+	private String[] e_time;
+	private String[] l_time;
+	
+	
 	public MediDoctorSchedulDto() {
 	}
 	public MediDoctorSchedulDto(int seq, int doc_seq, String day, String start_time, String end_time,
@@ -36,6 +45,20 @@ public class MediDoctorSchedulDto implements Serializable {
 		this.start_time = start_time;
 		this.end_time = end_time;
 		this.lunch_time = lunch_time;
+	}
+	public MediDoctorSchedulDto(int seq, int doc_seq, String day, String start_time, String end_time, String lunch_time,
+			String[] list_day, String[] s_time, String[] e_time, String[] l_time) {
+		super();
+		this.seq = seq;
+		this.doc_seq = doc_seq;
+		this.day = day;
+		this.start_time = start_time;
+		this.end_time = end_time;
+		this.lunch_time = lunch_time;
+		this.list_day = list_day;
+		this.s_time = s_time;
+		this.e_time = e_time;
+		this.l_time = l_time;
 	}
 	public int getSeq() {
 		return seq;
@@ -73,10 +96,36 @@ public class MediDoctorSchedulDto implements Serializable {
 	public void setLunch_time(String lunch_time) {
 		this.lunch_time = lunch_time;
 	}
+	public String[] getList_day() {
+		return list_day;
+	}
+	public void setList_day(String[] list_day) {
+		this.list_day = list_day;
+	}
+	public String[] getS_time() {
+		return s_time;
+	}
+	public void setS_time(String[] s_time) {
+		this.s_time = s_time;
+	}
+	public String[] getE_time() {
+		return e_time;
+	}
+	public void setE_time(String[] e_time) {
+		this.e_time = e_time;
+	}
+	public String[] getL_time() {
+		return l_time;
+	}
+	public void setL_time(String[] l_time) {
+		this.l_time = l_time;
+	}
 	@Override
 	public String toString() {
 		return "MediDoctorSchedulDto [seq=" + seq + ", doc_seq=" + doc_seq + ", day=" + day + ", start_time="
-				+ start_time + ", end_time=" + end_time + ", lunch_time=" + lunch_time + "]";
+				+ start_time + ", end_time=" + end_time + ", lunch_time=" + lunch_time + ", list_day="
+				+ Arrays.toString(list_day) + ", s_time=" + Arrays.toString(s_time) + ", e_time="
+				+ Arrays.toString(e_time) + ", l_time=" + Arrays.toString(l_time) + "]";
 	}
 	
 	
