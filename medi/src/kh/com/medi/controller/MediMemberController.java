@@ -113,11 +113,11 @@ public class MediMemberController {
 			if(dto_login_h == null) {
 				System.out.println("아이디 비밀번호 틀림");
 				model.addAttribute("msg", "아이디나 비밀번호를 확인하세요");
-				return "login_h.tiles";
+				return "login.tiles";
 			}else if(dto_login_h.getAuth() == 3) {
 				System.out.println("dto_login_h.getAuth() : " + dto_login_h.getAuth());
 				model.addAttribute("msg", "관리자 가입 승인을 기다려주세요.");
-				return "login_h.tiles";
+				return "login.tiles";
 			}
 			
 			req.getSession().setAttribute("login_h", dto_login_h);
