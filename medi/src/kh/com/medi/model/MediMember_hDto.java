@@ -18,6 +18,7 @@ public class MediMember_hDto implements Serializable {
 	private String answer;
 	private String confirm_img;
 	private String info;
+	private int score;
 	private int del;
 	private String regdate;
 	private int auth;
@@ -29,7 +30,7 @@ public class MediMember_hDto implements Serializable {
 
 	public MediMember_hDto(int seq, String id, String pwd, String name, String tel, String post, String address,
 			String latitude, String longtitude, String email, String question, String answer, String confirm_img,
-			String info, int del, String regdate, int auth, String pwd1) {
+			String info, int score, int del, String regdate, int auth, String pwd1) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -45,6 +46,7 @@ public class MediMember_hDto implements Serializable {
 		this.answer = answer;
 		this.confirm_img = confirm_img;
 		this.info = info;
+		this.score = score;
 		this.del = del;
 		this.regdate = regdate;
 		this.auth = auth;
@@ -163,6 +165,14 @@ public class MediMember_hDto implements Serializable {
 		this.info = info;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 	public int getDel() {
 		return del;
 	}
@@ -200,8 +210,8 @@ public class MediMember_hDto implements Serializable {
 		return "MediMember_hDto [seq=" + seq + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", tel=" + tel
 				+ ", post=" + post + ", address=" + address + ", latitude=" + latitude + ", longtitude=" + longtitude
 				+ ", email=" + email + ", question=" + question + ", answer=" + answer + ", confirm_img=" + confirm_img
-				+ ", info=" + info + ", del=" + del + ", regdate=" + regdate + ", auth=" + auth + ", pwd1=" + pwd1
-				+ "]";
+				+ ", info=" + info + ", score=" + score + ", del=" + del + ", regdate=" + regdate + ", auth=" + auth
+				+ ", pwd1=" + pwd1 + "]";
 	}
 	
 }
