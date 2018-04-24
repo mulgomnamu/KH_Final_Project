@@ -5,8 +5,8 @@
 <mapper namespace="MediMember_h">
 
 	<insert id="addMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
-		INSERT INTO `medi`.`medi_hospital` (`id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `del`, `regdate`, `auth`) 
-		VALUES (#{id}, #{pwd}, #{name}, #{tel}, #{post}, #{address}, 'latitude', 'longtitude', #{email}, #{question}, #{answer}, #{confirm_img}, #{info}, 1, now(), 3)
+		INSERT INTO `medi`.`medi_hospital` (`id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `score`, `del`, `regdate`, `auth`) 
+		VALUES (#{id}, #{pwd}, #{name}, #{tel}, #{post}, #{address}, 'latitude', 'longtitude', #{email}, #{question}, #{answer}, #{confirm_img}, #{info}, 0, 1, now(), 3)
 	</insert>
 
 	<insert id="addImage" parameterType="kh.com.medi.model.MediHospital_imageDto">
@@ -48,5 +48,11 @@
 		FROM `MEDI`.`MEDI_HOSPITAL`
 		WHERE `id`=#{id} AND `pwd`=#{pwd}
 	</select>
+	
+	<update id="changePwd" parameterType="kh.com.medi.model.MediMember_hDto">
+		UPDATE `medi`.`medi_hospital`
+		SET `pwd`=#{pwd1}
+		WHERE `id`=#{id}
+	</update>
 
 </mapper>

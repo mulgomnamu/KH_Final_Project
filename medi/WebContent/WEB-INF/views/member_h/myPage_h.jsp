@@ -18,7 +18,7 @@
 				<div class="inner_flogin">
 					
 					<div>
-						<a href="joinMember.do">비밀번호 변경</a>
+						<a href="change_pwd_h.do">비밀번호 변경</a>
 						<br>
 						<a href="joinMember.do">병원 회원 정보 변경</a>
 						<br>

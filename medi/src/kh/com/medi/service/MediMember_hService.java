@@ -14,5 +14,6 @@ public interface MediMember_hService {
 	public boolean updateMember_h(MediMember_hDto dto_h);
 	public boolean deleteMember_h(MediMember_hDto dto_h);
 	public MediMember_hDto login(MediMember_hDto dto_h);
+	boolean changePwd(MediMember_hDto dto_h);
 
 }

@@ -74,13 +74,13 @@
 <!-- 병원회원 -->
 			<c:if test="${loginType eq 4 }">
 				<li>
-					<a href="MyPageLogin.do">
+					<a href="myPage_h.do">
 	
 						<em>정보수정</em>
 					</a>
 				</li>
 				<li>
-					<a href="MyPage.do">
+					<a href="myPage_h.do">
 						<em>마이페이지</em>
 					</a>
 				</li>	
