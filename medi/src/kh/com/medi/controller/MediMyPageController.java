@@ -2,6 +2,7 @@ package kh.com.medi.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.model.MediMyPageDto;
 import kh.com.medi.service.MediMemberService;
 import kh.com.medi.service.MediMyPageService;
@@ -27,6 +29,37 @@ public class MediMyPageController {
 	private MediMyPageService medimyPageservice;
 	
 	private MediMemberService mediMemberService;
+	
+	/*내예약현황*/
+	@RequestMapping(value="MyPageList.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String MyPageList(Model model, MediMyListPagingDto paging) throws Exception{
+		logger.info("MediMyPageController MyPageList " + new Date());
+		System.out.println("++++++++++++++++++++++++++++++++++++++"+paging.toString());
+		// paging처리
+				int sn = paging.getPageNumber();
+				int start = (sn) * paging.getRecordCountPerPage() + 1;
+				int end = (sn + 1) * paging.getRecordCountPerPage();
+				
+				paging.setStart(start);
+				paging.setEnd(end);
+				
+				int totalRecordCount = medimyPageservice.getBbsCount(paging);
+				List<MediMemberDto> Mylisy = medimyPageservice.getBbsPagingList(paging);
+				
+				model.addAttribute("Mylisy", Mylisy);
+				model.addAttribute("pageNumber", sn);
+				model.addAttribute("pageCountPerScreen", 4);
+				model.addAttribute("recordCountPerPage", paging.getRecordCountPerPage());
+				model.addAttribute("totalRecordCount", totalRecordCount);
+				
+				model.addAttribute("s_category", paging.getS_category());
+				model.addAttribute("s_keyword", paging.getS_keyword());
+				
+				
+				return "MyPageList.tiles";
+	}
+	
+	
 	
 	@RequestMapping(value="MyPage.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model, MediMemberDto dto, HttpServletRequest req) throws Exception{
@@ -47,7 +80,7 @@ public class MediMyPageController {
 		return "MyPageLogin.tiles";
 		
 	}
-	
+	/*내정보수정로그인*/
 	@RequestMapping(value="MyPageLoginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String MyPageLoginAf(Model model, MediMemberDto my, HttpServletRequest req) throws Exception{
 		logger.info("MediMyPageController MyPageLoginAf " + new Date());
@@ -59,7 +92,8 @@ public class MediMyPageController {
 			return "redirect:/MyPage.do";
 		}else {
 			System.out.println("3");
-			return "login.tiles";	//그냥 몸만 감
+			model.addAttribute("msg", "비밀번호가 틀렸습니다");
+			return "MyPageLogin.tiles";	//그냥 몸만 감
 			//return "forward:/login.do";	//데이터도 가지고 감 
 		}
 		
@@ -68,7 +102,7 @@ public class MediMyPageController {
 	
 	
 	
-
+	/*내정보 mydetail*/
 	@RequestMapping(value="Mydetail.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String mydetail(Model model, MediMemberDto my ) throws Exception{
 		logger.info("MediMyPageController Mydetail " + new Date());
@@ -77,7 +111,7 @@ public class MediMyPageController {
 		model.addAttribute("my",dto);
 		return"Mydetail.tiles";
 	}
-	
+	/*내정보 수정*/ 
 	@RequestMapping(value="mysupdateAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String myupdate(Model model, MediMemberDto my ) throws Exception{
 		logger.info("MediMyPageController mysupdateAf " + new Date());
@@ -114,7 +148,7 @@ public class MediMyPageController {
 		}
 		
 	}
-		
+	/*회원탈퇴*/
 		@RequestMapping(value="mydelete.do", method={RequestMethod.GET, RequestMethod.POST})
 		public String mydelete(Model model, MediMemberDto my) throws Exception{
 			logger.info("MediMyPageController mydelete " + new Date());
@@ -124,7 +158,7 @@ public class MediMyPageController {
 			
 		
 		}
-		
+		/*회원탈퇴*/
 		@RequestMapping(value="MydeleteAf.do", method={RequestMethod.GET, RequestMethod.POST})
 		public String mydeleteAf(Model model, MediMemberDto my) throws Exception{
 			logger.info("MediMyPageController mydelete " + new Date());
@@ -149,7 +183,7 @@ public class MediMyPageController {
 		
 		}
 		
-		
+		/*탈퇴후 메인 화면*/
 		@RequestMapping(value="Mybye.do", method={RequestMethod.GET, RequestMethod.POST})
 		public String mybye(Model model, MediMemberDto my) throws Exception{
 			logger.info("MediMyPageController mydelete " + new Date());

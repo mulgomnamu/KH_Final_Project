@@ -79,7 +79,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="MyPage.do">
+				<a href="MyPageList.do">
 					<em>마이페이지</em>
 				</a>
 			</li>	

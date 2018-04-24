@@ -78,7 +78,7 @@ MediMemberDto dto = (MediMemberDto)session.getAttribute("login");
 					<tbody >   
 					   <c:if test="${empty hbbslist}">
 					   <tr>
-					      <td colspan="3">작성된 글이 없습니다.</td>
+					      <td colspan="3" style="text-align: center">작성된 글이 없습니다.</td>
 					   </tr>   
 					   </c:if>
 						  <%
@@ -108,15 +108,29 @@ MediMemberDto dto = (MediMemberDto)session.getAttribute("login");
 					   </tr> --%>
 					   
 					   <tr class="_hover_tr">
+					   <!-- Db에서 가져온 rock 비밀번호 -->
+					   <input type="hidden" name="rock" id="rock" value="${bbs.rock}">
+					   
 					   <c:choose>
 						    <c:when test="${bbs.del eq 0}">
 							    <td>${vs.count}</td> 
 							    <td>${bbs.question}</td>
 								<td style="text-align: left">
 							    <jsp:getProperty property="arrow" name="ubbs"/>
-									<a href='Qnabbsdetail.do?seq=${bbs.seq}'>
+								    <c:if test="${bbs.rock ne 'no'}">
+								    	<%-- <c:if test="${}"></c:if> --%>
+								    	<a href='QnabbsdetailRock.do?seq=${bbs.seq}&rock=${bbs.rock}'>
+								    		${bbs.title}
+								   		</a>
+								    	<img alt="" src="images/Qnabbs/rock.jpg">
+								    </c:if>
+								    <c:if test="${bbs.rock eq 'no'}">
+								    	<a href='Qnabbsdetail.do?seq=${bbs.seq}'>
 								    	${bbs.title}
-								    </a>
+								   		</a>
+								    </c:if>
+								    
+								    
 								</td>
 							    <td>
 							    	${bbs.id}

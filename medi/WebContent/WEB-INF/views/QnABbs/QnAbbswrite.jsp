@@ -42,7 +42,8 @@
 									<option value="의료사고">의료사고</option>
 									<option value="개선사항">개선사항</option>	
 									<option value="부당대우">부당대우</option>		
-								 </select>
+								 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								 <input type="checkbox" id="check" name="check" value="check">비밀번호 설정<input type="text" id="rock" name="rock" disabled="disabled">
 							</td>
 						</tr>
 						<tr>
@@ -80,10 +81,28 @@
 	<!-- phone_num 끝 -->
 </div>
 <br><br><br>
+
+<script type="text/javascript">
+var test1 = document.getElementById('check');
+$(document).ready(function(){
+	console.log("1");
+    $('#check').click(function(){
+    	console.log("2");
+    	/* alert("!!"); */
+       if($(test1).prop("checked")){
+        	$("#rock").prop("disabled", false);
+       }else{
+    	   $("#rock").prop("disabled", true);
+       }
+    }); // end keyup
+});
+</script>
+
 <script type="text/javascript">
 $("#_btnLogin").click(function() {	
 	/* alert('글작성'); */	
-	if(("#question").val() == "질문선택"){
+	/* alert(document.getElementById("question").value); */
+	if(document.getElementById("question").value == "질문선택"){
 		alert("질문을 선택해주세요.");
 	}else{
 		$("#_frmForm").attr({ "target":"_self", "action":"QnabbsWriteAf.do" }).submit();	

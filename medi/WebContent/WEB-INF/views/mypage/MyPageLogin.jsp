@@ -111,6 +111,12 @@ $("#_btnLogin").click(function() {
 	}	
 });
 
+var message = '${msg}'; 
+var returnUrl = '${url}'; 
+if(message != ""){
+	alert(message);	
+}
+
 
 $("#_btnRegi").click(function() {
 	location.href = "joinMember.do";

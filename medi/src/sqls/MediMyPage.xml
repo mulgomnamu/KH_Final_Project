@@ -3,7 +3,7 @@
 
 
 <mapper namespace="MediMyPage">
-
+<!--내정보  -->
 <select id="mydetail"
 parameterType="kh.com.medi.model.MediMemberDto"
 resultType="kh.com.medi.model.MediMemberDto">
@@ -12,30 +12,79 @@ resultType="kh.com.medi.model.MediMemberDto">
 	FROM medi_member
 	WHERE ID=#{id}
 </select>
-
+<!--내정보수정  -->
 <update id="myupdate" parameterType="hashmap">
 UPDATE medi_member SET 
 EMAIL=#{email},POST=#{post},ADDRESS=#{address}
 WHERE ID=#{id}
 </update>
-
+<!--회원탈퇴  -->
 <update id="Mydelete" parameterType="hashmap">
 	UPDATE medi_member
 	SET DEL=1
-	WHERE ID=#{id} AND PWD=sha1(md5(#{pwd}))
+	WHERE ID=#{id} AND PWD=#{pwd}
 </update>
 
 <!--중요하네-->
 <select parameterType="kh.com.medi.model.MediMemberDto" id="myup" resultType="kh.com.medi.model.MediMemberDto">
 		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
 		FROM medi_member 
-		WHERE ID=#{id} AND PWD=sha1(md5(#{pwd})) 
+		WHERE ID=#{id} AND PWD=#{pwd}
 </select>
 
 <!--비밀번호 수정  -->
 <update id="mypwdupdateAf" parameterType="hashmap">
-UPDATE medi_member SET PWD=sha1(md5(#{name}))
-WHERE PWD=sha1(md5(#{pwd}))
+UPDATE medi_member SET PWD=#{name}
+WHERE PWD=#{pwd}
 </update>
+
+<!-- 데이터 전체갯수 취득 -->
+	<select id="getBbsCount" parameterType="kh.com.medi.model.MediMyListPagingDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.medi_member WHERE 1=1 AND DEL=0
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'id'">
+				AND ID LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'name'">
+				AND NAME LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+
+<!--MyPageList페이징  -->
+<select id="getBbsPagingList" 
+	parameterType="kh.com.medi.model.MediMyListPagingDto"
+	resultType="kh.com.medi.model.MediMemberDto">
+	 SELECT  SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
+      FROM
+      (
+          SELECT
+              @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+              SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
+          FROM
+              `MEDI`.medi_member,
+             (SELECT @ROWNUM := 0) R
+          WHERE 1=1 AND DEL=0
+          <if test="s_category != '' and s_category != null 
+             and s_keyword != '' and s_keyword != null">          
+             <if test="s_category == 'id'">
+               AND ID LIKE CONCAT('%',#{s_keyword},'%')
+            </if>
+            <if test="s_category == 'name'">
+               AND NAME LIKE CONCAT('%',#{s_keyword},'%')
+            </if>      
+          </if>
+          ORDER BY SEQ DESC
+          ) A
+      WHERE
+          A.ROWNUM BETWEEN ${start} AND ${end}   
+</select>
+
+
+
+ 
+
+
 
 </mapper>

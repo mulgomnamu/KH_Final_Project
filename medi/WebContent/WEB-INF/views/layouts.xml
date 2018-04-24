@@ -120,8 +120,15 @@
 	</definition>
 	<!-- 탈퇴자 -->
 	<definition name="Mybye.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/member/Mybye.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/mypage/Mybye.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<!-- 마이페이지리스트 -->
+	<definition name="MyPageList.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/MyPageList.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	
 	
 	<!-- 건강 수첩 -->
@@ -182,7 +189,13 @@
 		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsreply.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	
+
+	<!-- QnA게시판비밀번호 -->
+	<definition name="QnabbsdetailRock.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/QnABbs/QnAbbsdetailRock.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+
 	<!-- 상담게시판들어가기 -->
 	<definition name="consultinglist.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/consulting/consultinglist.jsp"/>

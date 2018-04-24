@@ -40,7 +40,7 @@
 								<font size="5"> ${login.name}님, 오늘도 건강한 하루되세요. </font>
 								<hr color="black" width="350">
 								<div class="btn_area">
-									<span class="login_btn"> <a href="MyPage.do"
+									<span class="login_btn"> <a href="MyPageList.do"
 										class="btn-type02"> <em>마이페이지</em>
 									</a>
 									</span>
