@@ -52,6 +52,7 @@
 		INSERT INTO medi_reservation (MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE) 
 		VALUES (#{mem_seq}, #{hos_seq}, #{doc_seq},#{content}, #{day}, #{time}, now(),#{type})
 	</insert>
+	
 	<resultMap type="kh.com.medi.model.MediMember_hDto" id="hDto">
     <result column="SEQ" property="seq"/>
     <result column="ID" property="id"/>

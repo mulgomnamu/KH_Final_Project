@@ -46,6 +46,92 @@
 			</if>
 		</if> 
 	</select>
+	<select id="getquePagingList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
+		 SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE 
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
+		    FROM
+		        `MEDI`.`medi_consulting_question`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND DEL=0 AND SELECTYN=0
+			 <if test="s_category1 != '' and s_category1 != null 
+			 	and s_keyword1 != '' and s_keyword1 != null">		 	
+			 	<if test="s_category1 == 'category'">
+					AND category LIKE CONCAT('%',#{s_keyword1},'%')
+				</if>
+				<if test="s_category1 == 'title'">
+					AND title LIKE CONCAT('%',#{s_keyword1},'%')
+				</if>
+				<if test="s_category1 == 'content'">
+					AND content LIKE CONCAT('%',#{s_keyword1},'%')
+				</if>		 	
+			 </if>
+			 ORDER BY SEQ DESC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}	
+	</select>
+	<select id="getqueCount" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0 AND SELECTYN=0
+		<if test="s_category1 != '' and s_category1 != null and s_keyword1 != '' and s_keyword1 != null">
+			<if test="s_category1 == 'category'">
+				AND category LIKE CONCAT('%',#{s_keyword1},'%')
+			</if>
+			<if test="s_category1 == 'title'">
+				AND title LIKE CONCAT('%',#{s_keyword1},'%')
+			</if>
+			<if test="s_category1 == 'content'">
+				AND content LIKE CONCAT('%',#{s_keyword1},'%')
+			</if>
+		</if> 
+	</select>
+	<select id="getansweredList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
+		 SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE 
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
+		    FROM
+		        `MEDI`.`medi_consulting_question`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND DEL=0 AND SELECTYN=1
+			 <if test="s_category2 != '' and s_category2 != null 
+			 	and s_keyword2 != '' and s_keyword2 != null">		 	
+			 	<if test="s_category2 == 'category'">
+					AND category LIKE CONCAT('%',#{s_keyword2},'%')
+				</if>
+				<if test="s_category2 == 'title'">
+					AND title LIKE CONCAT('%',#{s_keyword2},'%')
+				</if>
+				<if test="s_category2 == 'content'">
+					AND content LIKE CONCAT('%',#{s_keyword2},'%')
+				</if>		 	
+			 </if>
+			 ORDER BY SEQ DESC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}	
+	</select>
+	<select id="getanswerCount" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0 AND SELECTYN=1
+		<if test="s_category2 != '' and s_category2 != null and s_keyword2 != '' and s_keyword2 != null">
+			<if test="s_category2 == 'category'">
+				AND category LIKE CONCAT('%',#{s_keyword2},'%')
+			</if>
+			<if test="s_category2 == 'title'">
+				AND title LIKE CONCAT('%',#{s_keyword2},'%')
+			</if>
+			<if test="s_category2 == 'content'">
+				AND content LIKE CONCAT('%',#{s_keyword2},'%')
+			</if>
+		</if> 
+	</select>
 	<!-- 디테일가져오기 -->
 	<select resultType="kh.com.medi.model.MediConsultingQuestionDto" id="getBbsDetail" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
 		SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
@@ -75,28 +161,16 @@
 	UPDATE medi_consulting_question SET
 	READCOUNT=READCOUNT+1 WHERE SEQ=#{seq} 
 	</update>
-	<!-- 조회수업데이트 -->
+	<!-- 답변업데이트 -->
 	<update id="pluscommentcount" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
 	UPDATE medi_consulting_question SET
-	READCOUNT=COMMENTCOUNT+1 WHERE SEQ=#{seq} 
+	COMMENTCOUNT=COMMENTCOUNT+1 WHERE SEQ=#{seq} 
 	</update>
 	<!-- 의사답글쓰기 -->
 	<insert id="answerinsert" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
 	INSERT INTO `MEDI`.`medi_consulting_answer`(HOS_SEQ,WHOS_NAME, CONTENT, PARENT, DEL, WDATE)
 		VALUES(#{hos_seq},#{whos_name},#{content},#{parent},0,NOW()) 
 	</insert>
-
-	<!-- 의사답글수정하기 -->
-	<update id="answerUpdate" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
-	UPDATE `MEDI`.`medi_consulting_answer` CONTENT =#{content}, WDATE=NOW()
-	WHERE SEQ=#{seq}
-	</update>
-
-	<!-- 의사답글삭제 -->
-	<update id="answerDelete" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
-	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 1
-		WHERE SEQ=#{seq} 
-	</update>
 	
 	<!-- 병원디테일가져오기 -->
 	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediMember_hDto">
@@ -105,7 +179,7 @@
 		WHERE SEQ=1
 	</select>
 	
-	<!-- 답변가져오기 -->
+	<!-- 답변리스트가져오기 -->
 	<select id="answerlist" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingAnswerDto">
 		SELECT SEQ,HOS_SEQ,WHOS_NAME, CONTENT, PARENT, DEL, WDATE
 		FROM medi_consulting_answer
@@ -132,5 +206,16 @@
 	<update id="selected" parameterType="kh.com.medi.model.MediConsultingAnswerDto"> 
 	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 3
 		WHERE SEQ=#{seq} 
+	</update>
+	<!-- 병원답글수정하기 -->
+	<update id="answerupdate" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_answer` SET CONTENT=#{content}, WDATE=NOW()
+	WHERE SEQ=#{seq}
+	</update>
+
+	<!-- 의사답글삭제 -->
+	<update id="answerdelete" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 1
+	WHERE SEQ=#{seq} 
 	</update>
 </mapper>

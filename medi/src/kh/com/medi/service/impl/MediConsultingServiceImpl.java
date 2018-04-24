@@ -110,5 +110,29 @@ public class MediConsultingServiceImpl implements MediConsultingService {
 		return mediConsultingDao.selected(dto);
 	}
 
+	@Override
+	public List<MediConsultingQuestionDto> getquePagingList(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediConsultingDao.getquePagingList(alldto);
+	}
+
+	@Override
+	public int getqueCount(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediConsultingDao.getqueCount(alldto);
+	}
+
+	@Override
+	public List<MediConsultingQuestionDto> getansweredList(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediConsultingDao.getansweredList(alldto);
+	}
+
+	@Override
+	public int getanswerCount(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediConsultingDao.getanswerCount(alldto);
+	}
+
 
 }
