@@ -619,7 +619,7 @@ font-weight: bolder;
 				<input type="hidden" name="type" id="_type">
 			</div>
 		</div>
-     </div></div>
+     </div></div> 
 		</section>
 	</div>
 </div>
