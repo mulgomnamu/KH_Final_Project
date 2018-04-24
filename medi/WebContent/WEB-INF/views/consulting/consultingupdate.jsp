@@ -21,7 +21,7 @@
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
 					<form name="frmForm" id="_frmForm" method="post">
-					<input type="hidden" name="seq" id="seq" value='${bbs.seq}' size="60"/>
+					<input type="hidden" name="seq" id="seq" value='${bbs.mem_seq}' size="60"/><!-- 질문의seq -->
 					<table class="list_table" style="width:85%;">
 					<colgroup>
 					<col style="width:200px;" />
@@ -32,7 +32,7 @@
 						<tr class="id">
 							<th>아이디</th>
 							<td style="text-align: left">
-								<input type="text" name="id"  value='${login.id}' size="60"/>
+								<input type="text" name="wid"  value='${login.id}' size="60"/>
 							</td>
 						</tr>
 						<tr class="id">
@@ -85,7 +85,7 @@
 						<tr>
 							<th>내용</th>
 							<td style="text-align: left">
-								<textarea rows="10" cols="50" name='content' id="_content"></textarea>
+								<textarea rows="10" cols="50" name='content' id="_content">${bbs.content }</textarea>
 							</td>
 						</tr>
 						<tr>
@@ -113,7 +113,6 @@
 <br><br><br>
 <script type="text/javascript">
 $("#_btnLogin").click(function() {	
-	 alert('글수정');
 	$("#_frmForm").attr({ "target":"_self", "action":"consultingupdateAf.do" }).submit();	
 });
 </script>

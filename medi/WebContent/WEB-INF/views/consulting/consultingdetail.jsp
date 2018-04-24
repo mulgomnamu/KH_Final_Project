@@ -47,9 +47,11 @@ width:140px;
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-					<form name="frmForm" id="_frmForm" method="post">
-					<input type="hidden" name="mem_seq" id="seq" value="${bbs.seq}"/>
-					<input type="hidden" name="seq" id="seq" value="${login_h.seq}"/>
+					<form name="frmForm" id="_frmForm" method="get">
+					<input type="hidden" name="mem_seq" id="seq" value="${bbs.seq}"/><!-- 질문의seq -->
+					<c:if test="${not empty login_h }">
+					<input type="hidden" name="seq" id="seq1" value="${login_h.seq}"/><!-- 로그인한병원seq -->
+					</c:if>
 					<input type="hidden" name="category" id="category" value="${bbs.category}"/>
 					<table class="list_table" style="width:85%;">
 					<tbody>	
@@ -92,15 +94,16 @@ width:140px;
 							<div class="titlediv">
 							<span></span>
 							<span>${ansbbs.whos_name}에서 답변한 글</span><br><br>
-							<span style="margin-left: 20px;">${ansbbs.wdate}&nbsp;&nbsp;|&nbsp;&nbsp;채택수&nbsp;${login_h.score}<!-- score표시하기 --></span>
+							<span style="margin-left: 20px;">${ansbbs.ans_wdate }&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+							<span>채택수&nbsp;${ansbbs.medimember_hdto.score }</span>
 							<p class="selectbtn">
-							<c:if test="${bbs.selectyn eq 0}">	<!-- 채택아직안된글 -->
-								<c:if test="${bbs.wid eq login.id}"><!-- 일반사용자가로그인했을때 -->
-								<a href="#none" onclick="saveselected(${ansbbs.seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin-right: 50px;"><em style="padding:0px;">채택하기</em></a>
+							<c:if test="${bbs.selectyn eq 0} ">	<!-- 채택아직안된글 -->
+								<c:if test="${bbs.wid eq login.id }"><!-- 일반사용자가로그인했을때 -->
+								<a href="#none" onclick="saveselected(${ansbbs.ans_seq },${ansbbs.hos_seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin-right: 50px;"><em style="padding:0px;">채택하기</em></a>
 								</c:if>
 							</c:if>
 							<c:if test="${bbs.selectyn eq 1 }">
-								<c:if test="${ansbbs.del eq 3}">
+								<c:if test="${ansbbs.ans_del eq 3}">
 									<span class="btn-type02" style="width: 140px;background-color:#1f4bb4; margin-right: 50px;"><em style="padding:0px;">채택된글입니다</em></span>
 								</c:if>
 							</c:if>
@@ -108,18 +111,19 @@ width:140px;
 							<hr style="margin-top: 20px;"><br>
 							</div>
 							<div class="contentdiv">
-							<textarea id='${ansbbs.seq}' readonly="readonly" rows="10" cols="50"  style="resize: none;"> ${ansbbs.content}</textarea>
+							<textarea id='${ansbbs.ans_seq}' readonly="readonly" rows="10" cols="50"  style="resize: none;"> ${ansbbs.content}</textarea>
 							</div>
 							
-							<td id="hh${ansbbs.seq}" style="padding-top: 125px;">
+							<td id="hh${ansbbs.ans_seq}" style="padding-top: 125px;">
 							<c:if test="${ansbbs.hos_seq eq login_h.seq}"> 
-							<c:if test="${bbs.selectyn eq 0 }">
-						<a href="#none" onclick="answerupdate(${ansbbs.seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">답글수정하기</em></a>
-						<a href="#none" onclick="answerdelete(${ansbbs.seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px;  margin: 20px;"><em style="padding:0px;">답글삭제하기</em></a>
+							<c:if test="${ansbbs.ans_del eq 0}">
+							<a href="#none" onclick="answerupdate(${ansbbs.ans_seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">답글수정하기</em></a>
+							<a href="#none" onclick="answerdelete(${ansbbs.ans_seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px;  margin: 20px;"><em style="padding:0px;">답글삭제하기</em></a>
+							</c:if>
+							
 							</c:if>
 							<c:if test="${bbs.selectyn eq 1 }">
 							<a href="#none" style="width: 140px; margin: 20px;display: block;"></a>
-							</c:if>
 							</c:if>
 							</td> 
 							
@@ -152,20 +156,24 @@ width:140px;
         }
         $("#_checked").val($(this).val());
     }); */
-    function saveselected(seq) {
+    function saveselected(seq,hos_seq) {
     	/* 
    			//답변에 del3으로바꿔주기위함 ->이용해서 컨트롤러에서 디테일받은다음에 
    			hos_seq로 변원스코어,
    			parent로 selectyn을 1로바꿔준다
     	*/
+    	var data={
+   				seq:seq,
+   				hos_seq:hos_seq
+   			};
     	$.ajax({
     		url : "saveselected.do",
-    		data:"seq="+seq,
+    		data:data,
     		dataType : "json",
     		cache : false,
     		success : function(data) {
     			if (data.yn=="yesyes") {	//채택성공 - 체크박스다없애고 그자리에 채택된글이라고뜨게한다, 부모글에 selectyn바꿔주고 hospital score올려주기
-    				alert("성공");
+    				alert("채택했습니다");
     				location.reload();
     			}else if(data.yn=="yes"){
     				alert("채택에실패했습니다.");
@@ -186,7 +194,7 @@ function answerupdate(answerseq) {
 }
 function updateAf(answerseq) {
 	var data={
-			seq:answerseq,
+			ans_seq:answerseq,
 			content:$("#"+answerseq).val()
 	}
 	$.ajax({
@@ -195,7 +203,7 @@ function updateAf(answerseq) {
 	dataType : "json",
 	cache : false,
 	success : function(data) {
-		if (data.yn=="yes") {	//채택성공 - 체크박스다없애고 그자리에 채택된글이라고뜨게한다, 부모글에 selectyn바꿔주고 hospital score올려주기
+		if (data.yn=="yes") {	
 			alert("답글수정성공했습니다");
 			location.reload();
 		}else{

@@ -28,13 +28,13 @@
 						<tr class="id">
 							<th>병원이름</th>
 							<td style="text-align: left">
-								<input type="text" name="whos_name" readonly="readonly" value='${hdto.name}' size="60"/>
+								<input type="text" name="whos_name" readonly="readonly" value='${hdto.medimember_hdto.name}' size="60"/>
 							</td>
 						</tr>
 						<tr class="id">
 							<th>대표번호</th>
 							<td style="text-align: left">
-								<input type="text" style="letter-spacing: 3px;width: 40px; background-color: #f8f8f8;" name="phone" readonly="readonly" value='${hdto.tel }'/>
+								<input type="text" style="letter-spacing: 3px;width: 40px; background-color: #f8f8f8;" name="phone" readonly="readonly" value='${hdto.medimember_hdto.tel }'/>
 								
 							</td>
 						</tr>
@@ -56,8 +56,8 @@
 					</tbody>
 					
 					</table>
-					<input type="hidden" name="seq" value="${hdto.seq}">
-					<input type="hidden" name="hos_seq" value="${hdto.seq}">
+					<input type="hidden" name="ans_seq" value="${hdto.ans_seq}">
+					<input type="hidden" name="hos_seq" value="${hdto.medimember_hdto.seq}">
 					<input type="hidden" name="parent" value="${parent}">
 					</form>
 				<!-- 이부분에 컨텐츠 끝 -->

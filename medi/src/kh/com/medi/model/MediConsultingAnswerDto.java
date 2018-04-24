@@ -5,7 +5,7 @@ import java.io.Serializable;
 //건강정보 답변
 CREATE TABLE `medi`.`medi_consulting_answer` (
  
-`seq` INT(8) NOT NULL AUTO_INCREMENT,
+`ans_seq` INT(8) NOT NULL AUTO_INCREMENT,
 
 `hos_seq` INT(8) NOT NULL,
 
@@ -14,8 +14,8 @@ CREATE TABLE `medi`.`medi_consulting_answer` (
 
 `parent` INT(8) NOT NULL,
 
-`del` INT(1) NOT NULL,
-`wdate` DATETIME NOT NULL,
+`ans_del` INT(1) NOT NULL,
+`ans_wdate` DATETIME NOT NULL,
 
 PRIMARY KEY (`seq`),
 
@@ -35,101 +35,85 @@ ON UPDATE NO ACTION);
 
  * */
 public class MediConsultingAnswerDto implements Serializable {
-	private int seq;
+	private int ans_seq;
 	private int hos_seq;
 	private String whos_name;
 	private String content;
 	private int parent;			//질문글의seq
-	private int del;
-	private String wdate;
-	
+	private int ans_del;
+	private String ans_wdate;
+	private MediMember_hDto medimember_hdto;
 	public MediConsultingAnswerDto() {}
-
-	
-
-	public MediConsultingAnswerDto(int seq, int hos_seq, String whos_name, String content, int parent, int del,
-			String wdate) {
+	public MediConsultingAnswerDto(int ans_seq, int hos_seq, String whos_name, String content, int parent, int ans_del,
+			String ans_wdate, MediMember_hDto medimember_hdto) {
 		super();
-		this.seq = seq;
+		this.ans_seq = ans_seq;
 		this.hos_seq = hos_seq;
 		this.whos_name = whos_name;
 		this.content = content;
 		this.parent = parent;
-		this.del = del;
-		this.wdate = wdate;
+		this.ans_del = ans_del;
+		this.ans_wdate = ans_wdate;
+		this.medimember_hdto = medimember_hdto;
 	}
-
-
-	
-
-	public String getWhos_name() {
-		return whos_name;
+	public int getAns_seq() {
+		return ans_seq;
 	}
-
-
-
-	public void setWhos_name(String whos_name) {
-		this.whos_name = whos_name;
+	public void setAns_seq(int ans_seq) {
+		this.ans_seq = ans_seq;
 	}
-
-
-
-	public int getSeq() {
-		return seq;
-	}
-
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
-
 	public int getHos_seq() {
 		return hos_seq;
 	}
-
 	public void setHos_seq(int hos_seq) {
 		this.hos_seq = hos_seq;
 	}
-
+	public String getWhos_name() {
+		return whos_name;
+	}
+	public void setWhos_name(String whos_name) {
+		this.whos_name = whos_name;
+	}
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public int getParent() {
 		return parent;
 	}
-
 	public void setParent(int parent) {
 		this.parent = parent;
 	}
-
-	public int getDel() {
-		return del;
+	public int getAns_del() {
+		return ans_del;
 	}
-
-	public void setDel(int del) {
-		this.del = del;
+	public void setAns_del(int ans_del) {
+		this.ans_del = ans_del;
 	}
-
-	public String getWdate() {
-		return wdate;
+	public String getAns_wdate() {
+		return ans_wdate;
 	}
-
-	public void setWdate(String wdate) {
-		this.wdate = wdate;
+	public void setAns_wdate(String ans_wdate) {
+		this.ans_wdate = ans_wdate;
 	}
-
-
-
+	public MediMember_hDto getMedimember_hdto() {
+		return medimember_hdto;
+	}
+	public void setMedimember_hdto(MediMember_hDto medimember_hdto) {
+		this.medimember_hdto = medimember_hdto;
+	}
 	@Override
 	public String toString() {
-		return "MediConsultingAnswerDto [seq=" + seq + ", hos_seq=" + hos_seq + ", whos_name=" + whos_name
-				+ ", content=" + content + ", parent=" + parent + ", del=" + del + ", wdate=" + wdate + "]";
+		return "MediConsultingAnswerDto [ans_seq=" + ans_seq + ", hos_seq=" + hos_seq + ", whos_name=" + whos_name
+				+ ", content=" + content + ", parent=" + parent + ", ans_del=" + ans_del + ", ans_wdate=" + ans_wdate
+				+ ", medimember_hdto=" + medimember_hdto + "]";
 	}
 
+	
+	
+	
 	
 	
 }

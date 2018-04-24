@@ -60,6 +60,13 @@ $(document).ready(function(){
 	}	
 }); 
 </script> 
+<script type="text/javascript"> 
+var message = '${msg}'; 
+var returnUrl = '${url}'; 
+if(message != ""){
+	alert(message);	
+}
+</script>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->

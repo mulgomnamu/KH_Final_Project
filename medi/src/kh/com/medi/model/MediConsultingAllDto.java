@@ -15,9 +15,12 @@ public class MediConsultingAllDto implements Serializable {
 	private int del;
 	private String wdate;
 	
+	private int ans_seq;
 	private int hos_seq;
 	private String whos_name;
 	private int parent;
+	private int ans_del;
+	private String ans_wdate;
 	// -------------------- Search
 	private String s_category;	// 제목, 내용, 작성자
 	private String s_keyword;	// 검색어
@@ -38,16 +41,19 @@ public class MediConsultingAllDto implements Serializable {
 	
 	// -------------------- paging
 	private int recordCountPerPage2 = 10;
-	private int pageNumber2 = 0;
+	private int pageNumber2 = 0; 
 	private int start = 1;
 	private int end = 10;
 	private int tab;
 	public MediConsultingAllDto() {}
+	
+	
 	public MediConsultingAllDto(int seq, int mem_seq, String wid, String title, String content, String category,
-			int readcount, int commentcount, int selectyn, int del, String wdate, int hos_seq, String whos_name,
-			int parent, String s_category, String s_keyword, int recordCountPerPage, int pageNumber, String s_category1,
-			String s_keyword1, int recordCountPerPage1, int pageNumber1, String s_category2, String s_keyword2,
-			int recordCountPerPage2, int pageNumber2, int start, int end) {
+			int readcount, int commentcount, int selectyn, int del, String wdate, int ans_seq, int hos_seq,
+			String whos_name, int parent, int ans_del, String ans_wdate, String s_category, String s_keyword,
+			int recordCountPerPage, int pageNumber, String s_category1, String s_keyword1, int recordCountPerPage1,
+			int pageNumber1, String s_category2, String s_keyword2, int recordCountPerPage2, int pageNumber2, int start,
+			int end, int tab) {
 		super();
 		this.seq = seq;
 		this.mem_seq = mem_seq;
@@ -60,9 +66,12 @@ public class MediConsultingAllDto implements Serializable {
 		this.selectyn = selectyn;
 		this.del = del;
 		this.wdate = wdate;
+		this.ans_seq = ans_seq;
 		this.hos_seq = hos_seq;
 		this.whos_name = whos_name;
 		this.parent = parent;
+		this.ans_del = ans_del;
+		this.ans_wdate = ans_wdate;
 		this.s_category = s_category;
 		this.s_keyword = s_keyword;
 		this.recordCountPerPage = recordCountPerPage;
@@ -77,6 +86,27 @@ public class MediConsultingAllDto implements Serializable {
 		this.pageNumber2 = pageNumber2;
 		this.start = start;
 		this.end = end;
+		this.tab = tab;
+	}
+
+
+	public int getAns_seq() {
+		return ans_seq;
+	}
+	public void setAns_seq(int ans_seq) {
+		this.ans_seq = ans_seq;
+	}
+	public int getAns_del() {
+		return ans_del;
+	}
+	public void setAns_del(int ans_del) {
+		this.ans_del = ans_del;
+	}
+	public String getAns_wdate() {
+		return ans_wdate;
+	}
+	public void setAns_wdate(String ans_wdate) {
+		this.ans_wdate = ans_wdate;
 	}
 	public int getSeq() {
 		return seq;
