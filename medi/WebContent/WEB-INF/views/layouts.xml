@@ -31,37 +31,25 @@
 	
 	<!-- 회원가입(병원) -->
 	<definition name="join_h.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/member_h/join.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/member_h/join_h.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
 	<!-- 회원수정(병원) -->
 	<definition name="update_h.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/member_h/update.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
-	</definition>
-	
-	<!-- 회원탈퇴(병원) -->
-	<definition name="delete_h.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/member_h/delete.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/member_h/update_h.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
 	<!-- 회원수정(의사) -->
 	<definition name="join_d.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/member_h/join_doctor.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/member_h/join_d.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
 	<!-- 회원탈퇴(의사) -->
 	<definition name="update_d.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/member_h/update_doctor.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
-	</definition>
-	
-	<!-- 회원가입(의사) -->
-	<definition name="delete_d.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/member_h/delete_doctor.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/member_h/update_d.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	

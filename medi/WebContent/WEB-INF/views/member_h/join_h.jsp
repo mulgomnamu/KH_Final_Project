@@ -7,35 +7,51 @@
 
 <style type="text/css">
 /* div {
-  margin-bottom: 10px;
-  position: relative;
+	margin-bottom: 10px;
+	position: relative;
 } */
 
 input[type="number"] {
-  width: 100px;
+	width: 100px;
 }
 
 input + span {
-  padding-right: 30px;
+	padding-right: 30px;
 }
 
 input:invalid + span:after {
-  position: absolute;
-  content: "✖";
-  padding-left: 5px;
-  color: #8b0000;
+	position: absolute;
+	content: "✖";
+	padding-left: 5px;
+	color: #8b0000;
 }
 
 input:valid + span:after {
-  position: absolute;
-  content: "✓";
-  padding-left: 5px;
-  color: #009000;
+	position: absolute;
+	content: "✓";
+	padding-left: 5px;
+	color: #009000;
 }
 
-.tableWrap tr{border-bottom:1px solid #d9d9d9;}
-.tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
-.tableWrap th{text-align:left;}
+.tableWrap tr{
+	border-bottom:1px solid #d9d9d9;
+}
+.tableWrap tr:first-child{
+	border-top:3px solid #d9d9d9;
+}
+.tableWrap th{
+	text-align:left;
+	padding: 14px 38px;
+	background-color: rgb(244, 245, 248)
+}
+.tableWrap td{
+	border-left-width: 100px;
+	padding: 14px 14px 38px 20px;
+}
+input{
+	border-width: 100px;
+	padding: 8px 20px;
+}
 
 </style>
 
@@ -48,7 +64,7 @@ input:valid + span:after {
 <!-- sub타이틀 시작 -->
 			<div class="title-type01">
 				<h2>병원 회원가입</h2>
-				<em>병원 회원가입입니다.</em>
+				<em>병원 회원가입입니다!!.</em>
 			</div>
 <!-- content 시작 -->
 			<div class="content"> 
@@ -139,18 +155,18 @@ input:valid + span:after {
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									답변
-								</td>
+								</th>
 								<td>
 									<input type="text" id="answer" onkeyup="answerCheckFunction()" name="answer" placeholder="답변을 입력하세요">
 									<h5 style="color: red;" id="answerCheckMessage" align="left"></h5>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									의료 자격증
-								</td>
+								</th>
 								<td>
 									<input type="file" id="upload" name="upload">
 									<h5 style="color: red;" id="uploadCheckMessage" align="left"></h5>
@@ -162,9 +178,9 @@ input:valid + span:after {
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									진료 분야
-								</td>
+								</th>
 									
 								<td>
 									<table>
@@ -238,9 +254,9 @@ input:valid + span:after {
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									병원 소개
-								</td>
+								</th>
 								<td>
 									<textarea id="info" onkeyup="infoCheckFunction()" name="info"></textarea>
 									<h5 style="color: red;" id="infoCheckMessage" align="left"></h5>
@@ -249,11 +265,11 @@ input:valid + span:after {
 						</table>
 <!-- 					</form>
  					<form action="imgUploads.do" id="img_form" method="post" enctype="multipart/form-data"> 
- -->						<table>
+ -->						<table class="tableWrap">
 							<tr>
-								<td>
+								<th>
 									병원 이미지 업로드
-								</td>
+								</th>
 								<td class="input_fields_wrap">
 <!-- 									<button class="add_image_field">파일 더 올리기</button><br> -->
 									<input type="file" id="_upload" name="_upload" multiple>

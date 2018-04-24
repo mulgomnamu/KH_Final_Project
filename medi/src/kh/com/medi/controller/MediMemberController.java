@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.service.MailService;
 import kh.com.medi.service.MediMemberService;
+import kh.com.medi.service.MediMember_hService;
 import kh.com.medi.util.FUpUtil;
 
 @Controller
@@ -38,15 +40,15 @@ public class MediMemberController {
         this.mailService = mailService;
         
     }
-
 	
 	@Autowired
 	private MediMemberService mediMemberService;
+	@Autowired
+	private MediMember_hService mediMember_hService;
 	
 	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model) throws Exception{
 		logger.info("MediMemberController main " + new Date());
-		
 		
 		return "main.tiles";
 	}
@@ -62,42 +64,66 @@ public class MediMemberController {
 	public String login(Model model, MediMemberDto dto) throws Exception{
 		logger.info("MediMemberController login " + new Date());
 		
-		
 		return "login.tiles";
 	}
 	
 	/*탈퇴회원 사용불가 추가*/
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String loginAf(Model model, MediMemberDto dto, HttpServletRequest req) throws Exception{
+	public String loginAf(Model model, MediMemberDto dto, MediMember_hDto dto_h, HttpServletRequest req) throws Exception{
 		logger.info("MediMemberController loginAf " + new Date());
-		boolean flag = true;
-		MediMemberDto b = mediMemberService.loginAf(dto);
-
-		if(b == null) {
-			flag = false;
-		}else {
-			flag = true;
-		}
-
-		if(flag) {
-			if(b.getAuth() == 0) {
-				System.out.println("3");
-				model.addAttribute("msg", "이메일 인증을 해주세요"); 
-				return "login.tiles";
-			}else if(b != null && !b.getId().equals("") && b.getDel() == 0){
-				req.getSession().setAttribute("login", b);
-				System.out.println("2");
-				return "redirect:/main.do";//그냥 몸만 감
-				//return "forward:/login.do";	//데이터도 가지고 감 
+		
+		String loginType = req.getParameter("rBtnLoginType");
+		System.out.println("loginType : " + loginType);
+// 일반 회원 로그인		
+		if(loginType.equals("2")) {
+			boolean flag = true;
+			MediMemberDto b = mediMemberService.loginAf(dto);
+	
+			if(b == null) {
+				flag = false;
 			}else {
-				System.out.println("1");
+				flag = true;
+			}
+	
+			if(flag) {
+				if(b.getAuth() == 0) {
+					System.out.println("3");
+					model.addAttribute("msg", "이메일 인증을 해주세요"); 
+					return "login.tiles";
+				}else if(b != null && !b.getId().equals("") && b.getDel() == 0){
+					req.getSession().setAttribute("login", b);
+					req.getSession().setAttribute("loginType", "1");
+					System.out.println("2");
+					return "redirect:/main.do";//그냥 몸만 감
+					//return "forward:/login.do";	//데이터도 가지고 감 
+				}else {
+					System.out.println("1");
+					model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
+					return "login.tiles";
+				}
+			}else {
+				System.out.println("4");
 				model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
 				return "login.tiles";
 			}
 		}else {
-			System.out.println("4");
-			model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
-			return "login.tiles";
+// 병원 회원 로그인
+			MediMember_hDto dto_login_h = mediMember_hService.login(dto_h);
+			
+			if(dto_login_h == null) {
+				System.out.println("아이디 비밀번호 틀림");
+				model.addAttribute("msg", "아이디나 비밀번호를 확인하세요");
+				return "login_h.tiles";
+			}else if(dto_login_h.getAuth() == 3) {
+				System.out.println("dto_login_h.getAuth() : " + dto_login_h.getAuth());
+				model.addAttribute("msg", "관리자 가입 승인을 기다려주세요.");
+				return "login_h.tiles";
+			}
+			
+			req.getSession().setAttribute("login_h", dto_login_h);
+			req.getSession().setAttribute("loginType", "4");
+			
+			return "redirect:/main.do";
 		}
 		
 		

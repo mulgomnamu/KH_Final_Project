@@ -1,15 +1,32 @@
+<%@page import="kh.com.medi.model.MediMember_hDto"%>
 <%@page import="kh.com.medi.model.MediMemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 
+	<c:if test="${sessionScope.messageContent ne null }">
+		<c:set var="messageContent" value="${sessionScope.messageCotent }"/>
+	</c:if>
+	<c:if test="${sessionScope.messageType ne null }">
+		<c:set var="messageType" value="${sessionScope.messageType }"/>
+	</c:if>
+
 <%
 		MediMemberDto user = null;
-
+		MediMember_hDto user_h = null;
+//		로그인 구분	-1 : 손님	1 : 일반 회원		4 : 병원 회원 
+		int loginType = -1;
+/* 
 		if((MediMemberDto)request.getAttribute("dto") != null){
 			user = (MediMemberDto)request.getAttribute("dto");
-		}else if((MediMemberDto)session.getAttribute("login") != null){
+		}else
+			 */
+		if((MediMemberDto)session.getAttribute("login") != null){
 			user = (MediMemberDto)session.getAttribute("login");
+			loginType = 1;
+		}else if((MediMember_hDto)session.getAttribute("login_h") != null){
+			user_h = (MediMember_hDto)session.getAttribute("login_h");
+			loginType = 4;
 		}
 
 %>
@@ -40,7 +57,7 @@
 		</ul>
 		<ul class="util_right">
 			<%
-			if(user == null){
+			if(loginType == -1){
 			%>
 			<li>
 				<a href="login.do">
@@ -53,7 +70,26 @@
 				</a>
 			</li>
 			<%
-			}else{
+			}else if(loginType == 1){
+			%>
+			<li>
+				<a href="MyPageLogin.do">
+
+					<em>정보수정</em>
+				</a>
+			</li>
+			<li>
+				<a href="MyPage.do">
+					<em>마이페이지</em>
+				</a>
+			</li>	
+			<li>
+				<a href="logout.do">
+					<em>로그아웃</em>
+				</a>
+			</li>
+			<%
+			}else if(loginType == 4){
 			%>
 			<li>
 				<a href="MyPageLogin.do">
@@ -74,7 +110,6 @@
 			<%
 			}
 			%>
-			
 		</ul>
 	</div>
 </div>

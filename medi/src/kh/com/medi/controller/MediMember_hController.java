@@ -36,7 +36,7 @@ public class MediMember_hController {
     private static final long LIMIT_SIZE = 10 * 1024 * 1024;
     
 	@Autowired
-	MediMember_hService mediMember_hService;
+	private MediMember_hService mediMember_hService;
 	
 	@RequestMapping(value="join_h.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String join_h() {
@@ -89,7 +89,6 @@ public class MediMember_hController {
 		}
 		
 		req.getSession().setAttribute("login", dto_login_h);
-		req.getSession().setAttribute("auth", dto_login_h.getAuth());
 		
 		return "redirect:/main.do";
 	}
