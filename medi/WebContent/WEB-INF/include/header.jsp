@@ -71,6 +71,25 @@
 					</a>
 				</li>
 			</c:if>
+			
+			<c:if test="${loginType eq 2 }">
+				<li>
+					<a href="MyPageLogin.do">
+	
+						<em>정보수정</em>
+					</a>
+				</li>
+				<li>
+					<a href="MyPageList.do">
+						<em>마이페이지</em>
+					</a>
+				</li>	
+				<li>
+					<a href="logout.do">
+						<em>로그아웃</em>
+					</a>
+				</li>
+			</c:if>
 <!-- 병원회원 -->
 			<c:if test="${loginType eq 4 }">
 				<li>
@@ -141,7 +160,7 @@
 							<!-- 메뉴 추가시 여기부터 -->
 							<li>
 								<div class="d_btn_1">
-									<a href="QnAbblist.do" target="_self"><em>QnA</em></a>
+									<a href="QnAbblist.do?loginType=${loginType}" target="_self"><em>QnA</em></a>
 								</div>
 								<!-- <div class="d_2">
 									<ul>

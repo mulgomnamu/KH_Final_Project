@@ -28,7 +28,7 @@ public class MediQnaBbsController {
 	private MediQnaBbsService mediQnaBbsService;
 	
 	@RequestMapping(value="QnAbblist.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String QnAbblist(Model model, MediQnaBbsParamDto dto) throws Exception{
+	public String QnAbblist(Model model, MediQnaBbsParamDto dto, @RequestParam String loginType) throws Exception{
 		logger.info("MediQnaBbsController QnAbblist " + new Date());
 		
 		// paging처리
@@ -38,16 +38,28 @@ public class MediQnaBbsController {
 		
 		dto.setStart(start);
 		dto.setEnd(end);
+		List<MediQnaBbsDto> hbbslist = null;
+		int totalRecordCount=0;
+		if(loginType.equals("1")) {
+			totalRecordCount = mediQnaBbsService.getBbsCount1(dto);
+			hbbslist = mediQnaBbsService.getBbsPagingList1(dto);
+		}else if(loginType.equals("2")){
+			totalRecordCount = mediQnaBbsService.getBbsCount(dto);
+		    hbbslist = mediQnaBbsService.getBbsPagingList(dto);
+		}else if(loginType.equals("4")){
+			totalRecordCount = mediQnaBbsService.getBbsCount4(dto);
+		    hbbslist = mediQnaBbsService.getBbsPagingList4(dto);
+		}else{
+			totalRecordCount = mediQnaBbsService.getBbsCount(dto);
+		    hbbslist = mediQnaBbsService.getBbsPagingList(dto);
+		}
 		
-		int totalRecordCount = mediQnaBbsService.getBbsCount(dto);
-		List<MediQnaBbsDto> hbbslist = mediQnaBbsService.getBbsPagingList(dto);
-		System.out.println("MediQnaBbsController QnAbblist hbbslist :" + hbbslist.toString());
+		model.addAttribute("loginType", loginType);
 		model.addAttribute("hbbslist", hbbslist);
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 10);
 		model.addAttribute("recordCountPerPage", dto.getRecordCountPerPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);
-		
 		model.addAttribute("s_category", dto.getS_category());
 		model.addAttribute("s_keyword", dto.getS_keyword());
 				
@@ -95,6 +107,7 @@ public class MediQnaBbsController {
 			return "Qnabbsdetail.tiles";
 		}else {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다.");
+			
 			return "redirect:/QnAbblist.do";
 		}
 		/*dto.setSeq(Integer.parseInt(seq));
@@ -113,16 +126,22 @@ public class MediQnaBbsController {
 	}
 	
 	@RequestMapping(value="QnabbsWriteAf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String QnabbsWriteAf(Model model, MediQnaBbsDto dto) throws Exception{
+	public String QnabbsWriteAf(Model model, MediQnaBbsDto dto, @RequestParam String loginType) throws Exception{
 		logger.info("MediQnaBbsController QnabbsWriteAf " + new Date());
 		
 		if(dto.getRock() == null) {
 			dto.setRock("no");
 		}
-		
-		boolean flag = mediQnaBbsService.insertBbs(dto);
+		System.out.println("loginType = " + loginType);
+		boolean flag = false;
+		if(loginType.equals("1")) {
+			flag = mediQnaBbsService.insertBbs1(dto);
+		}else {
+			flag = mediQnaBbsService.insertBbs4(dto);
+		}
 		
 		if(flag) {
+			model.addAttribute("loginType", loginType);
 			return "redirect:/QnAbblist.do";
 		}else {
 			model.addAttribute("msg", "글쓰기 실패");
@@ -146,6 +165,8 @@ public class MediQnaBbsController {
 		boolean flag = mediQnaBbsService.updateBbs(dto);
 		
 		if(flag) {
+			String loginType = Integer.toString(dto.getMemchoice());
+			model.addAttribute("loginType", loginType);
 			return "redirect:/QnAbblist.do";
 		}else {
 			model.addAttribute("msg", "글수정 실패");
@@ -158,7 +179,10 @@ public class MediQnaBbsController {
 	public String QnabbsDelete(Model model, MediQnaBbsDto dto) throws Exception{
 		logger.info("MediQnaBbsController QnabbsDelete " + new Date());
 		
+		String loginType = Integer.toString(dto.getMemchoice());
+		
 		mediQnaBbsService.deleteBbs(dto);
+		model.addAttribute("loginType", loginType);
 		return "redirect:/QnAbblist.do";
 	
 	}
@@ -177,7 +201,19 @@ public class MediQnaBbsController {
 		logger.info("MediQnaBbsController QnabbsreplyAf " + new Date());
 		System.out.println("MediQnaBbsController QnabbsreplyAf dto :" + dto.toString());
 
+		if(dto.getRock() == null) {
+			dto.setRock("no");
+		}
+		
+		if(dto.getMemchoice() == 1) {
+			dto.setMemchoice(1);
+		}else {
+			dto.setMemchoice(4);
+		}
+		
 		mediQnaBbsService.answerInsert(dto);
+		
+		model.addAttribute("loginType", "2");
 		return "redirect:/QnAbblist.do";
 	
 	}
@@ -194,10 +230,3 @@ public class MediQnaBbsController {
 	
 	
 }
-
-
-
-
-
-
-
