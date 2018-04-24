@@ -11,11 +11,21 @@ public interface MediQnaBbsService {
 	
 	List<MediQnaBbsDto> getBbsPagingList(MediQnaBbsParamDto param) throws Exception;
 	
+	List<MediQnaBbsDto> getBbsPagingList1(MediQnaBbsParamDto param) throws Exception;
+	
+	List<MediQnaBbsDto> getBbsPagingList4(MediQnaBbsParamDto param) throws Exception;
+	
 	int getBbsCount(MediQnaBbsParamDto param) throws Exception;
+	
+	int getBbsCount1(MediQnaBbsParamDto param) throws Exception;
+	
+	int getBbsCount4(MediQnaBbsParamDto param) throws Exception;
 	
 	public MediQnaBbsDto getBbsDetail(MediQnaBbsDto dto) throws Exception;
 	
-	public boolean insertBbs(MediQnaBbsDto dto) throws Exception;
+	public boolean insertBbs1(MediQnaBbsDto dto) throws Exception;
+	
+	public boolean insertBbs4(MediQnaBbsDto dto) throws Exception;
 	
 	public boolean deleteBbs(MediQnaBbsDto dto) throws Exception;
 	

@@ -75,6 +75,7 @@ public class MediMemberController {
 		String loginType = req.getParameter("rBtnLoginType");
 		System.out.println("loginType : " + loginType);
 // 일반 회원 로그인		
+		
 		if(loginType.equals("2")) {
 			boolean flag = true;
 			MediMemberDto b = mediMemberService.loginAf(dto);
@@ -91,9 +92,15 @@ public class MediMemberController {
 					model.addAttribute("msg", "이메일 인증을 해주세요"); 
 					return "login.tiles";
 				}else if(b != null && !b.getId().equals("") && b.getDel() == 0){
-					req.getSession().setAttribute("login", b);
-					req.getSession().setAttribute("loginType", "1");
-					System.out.println("2");
+					if(b.getId().equals("admin")) {
+						req.getSession().setAttribute("login", b);
+						req.getSession().setAttribute("loginType", "2");
+						System.out.println("2");
+					}else {
+						req.getSession().setAttribute("login", b);
+						req.getSession().setAttribute("loginType", "1");
+						System.out.println("2");
+					}
 					return "redirect:/main.do";//그냥 몸만 감
 					//return "forward:/login.do";	//데이터도 가지고 감 
 				}else {

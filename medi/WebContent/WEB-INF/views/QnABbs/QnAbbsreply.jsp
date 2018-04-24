@@ -22,6 +22,8 @@
 					<form name="frmForm" id="_frmForm" method="post" action="bbsreplyAf.do">
 					<input type="hidden" name="seq" value="${bbs.seq}"/>
 					<input type="hidden" name="question" value="${bbs.question}"/>
+					<input type="hidden" name="rock" value="${bbs.rock}"/>
+					<input type="hidden" name="memchoice" value="${bbs.memchoice}"/>
 					<table class="list_table" style="width:85%;">
 					<colgroup>
 					<col style="width:200px;" />

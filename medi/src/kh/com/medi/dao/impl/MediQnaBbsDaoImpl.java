@@ -23,7 +23,7 @@ public class MediQnaBbsDaoImpl implements MediQnabbsDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public List<MediQnaBbsDto> getBbsPagingList(MediQnaBbsParamDto param) throws Exception {
 		List<MediQnaBbsDto> list = sqlSession.selectList(ns + "getBbsPagingList", param);
@@ -31,9 +31,35 @@ public class MediQnaBbsDaoImpl implements MediQnabbsDao {
 	}
 
 	@Override
+	public List<MediQnaBbsDto> getBbsPagingList1(MediQnaBbsParamDto param) throws Exception {
+		List<MediQnaBbsDto> list = sqlSession.selectList(ns + "getBbsPagingList1", param);
+		return list;
+	}
+	
+	@Override
+	public List<MediQnaBbsDto> getBbsPagingList4(MediQnaBbsParamDto param) throws Exception {
+		List<MediQnaBbsDto> list = sqlSession.selectList(ns + "getBbsPagingList4", param);
+		return list;
+	}
+
+	@Override
 	public int getBbsCount(MediQnaBbsParamDto param) throws Exception {
 		int number = 0;
 		number = sqlSession.selectOne(ns + "getBbsCount", param);
+		return number;
+	}
+	
+	@Override
+	public int getBbsCount1(MediQnaBbsParamDto param) throws Exception {
+		int number = 0;
+		number = sqlSession.selectOne(ns + "getBbsCount1", param);
+		return number;
+	}
+	
+	@Override
+	public int getBbsCount4(MediQnaBbsParamDto param) throws Exception {
+		int number = 0;
+		number = sqlSession.selectOne(ns + "getBbsCount4", param);
 		return number;
 	}
 
@@ -44,8 +70,14 @@ public class MediQnaBbsDaoImpl implements MediQnabbsDao {
 	}
 
 	@Override
-	public boolean insertBbs(MediQnaBbsDto dto) throws Exception {
-		int n = sqlSession.insert(ns+"insertBbs", dto);
+	public boolean insertBbs1(MediQnaBbsDto dto) throws Exception {
+		int n = sqlSession.insert(ns+"insertBbs1", dto);
+		return n>0?true:false;
+	}
+	
+	@Override
+	public boolean insertBbs4(MediQnaBbsDto dto) throws Exception {
+		int n = sqlSession.insert(ns+"insertBbs4", dto);
 		return n>0?true:false;
 	}
 
@@ -78,5 +110,6 @@ public class MediQnaBbsDaoImpl implements MediQnabbsDao {
 		int n = sqlSession.insert(ns+"answerInsert", dto);
 		return n>0?true:false;
 	}
+
 
 }

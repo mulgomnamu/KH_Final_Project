@@ -47,6 +47,17 @@
 								</div>
 							</c:when>
 							
+							<c:when test="${loginType eq 2 }">
+								<font size="5"> ${login.name}님, 오늘도 건강한 하루되세요. </font>
+								<hr color="black" width="350">
+								<div class="btn_area">
+									<span class="login_btn"> <a href="MyPageList.do"
+										class="btn-type02"> <em>마이페이지</em>
+									</a>
+									</span>
+								</div>
+							</c:when>
+							
 							<c:otherwise>
 								<font size="5"> ${login_h.name}님, 오늘도 건강한 하루되세요. </font>
 								<hr color="black" width="350">
