@@ -128,10 +128,11 @@ $(document).ready(function(){
 						</div>
 						
 					</div>
-					
+					<c:if test="${loginType eq 1 }">
 					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
 						<a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
 					</div>
+					</c:if>
 					<div id="alldiv">
 				 <table style="width:85%; align:center; margin-top: 100px;"  align="center">
 				  <colgroup>
@@ -224,10 +225,11 @@ $(document).ready(function(){
 						</div>
 						
 					</div>
-					
+					<c:if test="${loginType eq 1 }">
 					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
 						<a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
 					</div>
+					</c:if>
 					<div id="questiondiv">
 				 <table style="width:85%; align:center; margin-top: 100px;"  align="center">
 				   <colgroup>
@@ -321,10 +323,11 @@ $(document).ready(function(){
 						</div>
 						
 					</div>
-					
+					<c:if test="${loginType eq 1 }">
 					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
 						<a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
 					</div>
+					</c:if>
 					<div id="answerdiv">
 				 <table style="width:85%; align:center; margin-top: 100px;"  align="center">
 				   <colgroup>

@@ -47,8 +47,9 @@ width:140px;
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-					<form name="frmForm" id="_frmForm" method="post" action="bbsupdate.do">
-					<input type="hidden" name="seq" id="seq" value="${bbs.seq}"/>
+					<form name="frmForm" id="_frmForm" method="post">
+					<input type="hidden" name="mem_seq" id="seq" value="${bbs.seq}"/>
+					<input type="hidden" name="seq" id="seq" value="${login_h.seq}"/>
 					<input type="hidden" name="category" id="category" value="${bbs.category}"/>
 					<table class="list_table" style="width:85%;">
 					<tbody>	
@@ -72,7 +73,7 @@ width:140px;
 				    	<a id="_btnDelete" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin-right: 50px;"><em style="padding:0px;">삭제하기</em></a>     		
 						</c:if>
 						<!-- auth 4로바꿔야함 -->
-						<c:if test="${login.auth eq 1}">
+						<c:if test="${login_h.auth eq 4}">
 						<a id="_btnReply" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px;"><em style="padding:0px;">답글달기</em></a>
 						</c:if>
 						</div>
@@ -82,7 +83,7 @@ width:140px;
 					</table>
 					
 					</form>
-				<!-- 이부분에 컨텐츠 끝 -->
+				<!-- 이부분에 답글 시작 -->
 				<c:if test="${not empty answerlist }">
 					<table>
 						<c:forEach items="${answerlist}" var="ansbbs" varStatus="vs">
@@ -91,7 +92,7 @@ width:140px;
 							<div class="titlediv">
 							<span></span>
 							<span>${ansbbs.whos_name}에서 답변한 글</span><br><br>
-							<span style="margin-left: 20px;">${ansbbs.wdate}&nbsp;&nbsp;|&nbsp;&nbsp;채택수&nbsp;<!-- score표시하기 --></span>
+							<span style="margin-left: 20px;">${ansbbs.wdate}&nbsp;&nbsp;|&nbsp;&nbsp;채택수&nbsp;${login_h.score}<!-- score표시하기 --></span>
 							<p class="selectbtn">
 							<c:if test="${bbs.selectyn eq 0}">	<!-- 채택아직안된글 -->
 								<c:if test="${bbs.wid eq login.id}"><!-- 일반사용자가로그인했을때 -->
@@ -111,11 +112,17 @@ width:140px;
 							</div>
 							
 							<td id="hh${ansbbs.seq}" style="padding-top: 125px;">
-							<!-- <c:if test="${whosid eq login.id}"></c:if>병원로그인아이디를보내줘야한다 -->
-							<a href="#none" onclick="answerupdate(${ansbbs.seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">답글수정하기</em></a>
-							<a href="#none" onclick="answerdelete(${ansbbs.seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px;  margin: 20px;"><em style="padding:0px;">답글삭제하기</em></a>
+							<c:if test="${ansbbs.hos_seq eq login_h.seq}"> 
+							<c:if test="${bbs.selectyn eq 0 }">
+						<a href="#none" onclick="answerupdate(${ansbbs.seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">답글수정하기</em></a>
+						<a href="#none" onclick="answerdelete(${ansbbs.seq })" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px;  margin: 20px;"><em style="padding:0px;">답글삭제하기</em></a>
+							</c:if>
+							<c:if test="${bbs.selectyn eq 1 }">
+							<a href="#none" style="width: 140px; margin: 20px;display: block;"></a>
+							</c:if>
+							</c:if>
 							</td> 
-								
+							
 							
 							
 							</tr>

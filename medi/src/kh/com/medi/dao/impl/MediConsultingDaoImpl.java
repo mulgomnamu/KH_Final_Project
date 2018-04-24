@@ -91,9 +91,9 @@ public class MediConsultingDaoImpl implements MediConsultingDao {
 	}
 
 	@Override
-	public MediMember_hDto get() throws Exception {
+	public MediMember_hDto get(MediConsultingAllDto dto) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(ns+"gethospitaldetail");
+		return sqlSession.selectOne(ns+"gethospitaldetail",dto);
 	}
 
 	@Override

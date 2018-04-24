@@ -43,8 +43,8 @@ public interface MediConsultingDao {
 	public boolean selected(MediConsultingAnswerDto dto) throws Exception;
 	
 	
-	//예제병원
-	public MediMember_hDto get() throws Exception;
+	//병원디테일
+	public MediMember_hDto get(MediConsultingAllDto dto) throws Exception;
 	//질문만 페이징리스트
 	List<MediConsultingQuestionDto> getquePagingList(MediConsultingAllDto alldto) throws Exception;
 	//질문만갯수

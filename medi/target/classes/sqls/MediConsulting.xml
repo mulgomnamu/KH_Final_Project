@@ -176,7 +176,7 @@
 	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediMember_hDto">
 		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE  
 		FROM medi_hospital
-		WHERE SEQ=1
+		WHERE SEQ=${seq}
 	</select>
 	
 	<!-- 답변리스트가져오기 -->

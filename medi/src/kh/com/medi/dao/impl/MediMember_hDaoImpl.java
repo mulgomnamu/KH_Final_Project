@@ -69,5 +69,5 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 		int n = sqlSession.update(ns+"changePwd", dto_h);
 		return n > 0;
 	}
-
+	
 }

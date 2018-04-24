@@ -264,9 +264,9 @@ public class MediConsultingController {
 	@RequestMapping(value="answerwrite.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String answerwrite(Model model, MediConsultingAllDto alldto) throws Exception{
 		logger.info("MediConsultingController answerwrite " + new Date());
-		MediMember_hDto hdto=mediConsultingService.get();
+		MediMember_hDto hdto=mediConsultingService.get(alldto);
 		
-		model.addAttribute("parent", alldto.getSeq());
+		model.addAttribute("parent", alldto.getMem_seq());	//부모글
 		model.addAttribute("hdto", hdto);
 		return "answerwrite.tiles";
 	}

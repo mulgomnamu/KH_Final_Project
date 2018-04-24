@@ -87,9 +87,9 @@ public class MediConsultingServiceImpl implements MediConsultingService {
 	}
 
 	@Override
-	public MediMember_hDto get() throws Exception {
+	public MediMember_hDto get(MediConsultingAllDto dto) throws Exception {
 		// TODO Auto-generated method stub
-		return mediConsultingDao.get();
+		return mediConsultingDao.get(dto);
 	}
 
 	@Override
