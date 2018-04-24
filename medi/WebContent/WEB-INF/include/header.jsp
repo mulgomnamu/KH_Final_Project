@@ -2,35 +2,18 @@
 <%@page import="kh.com.medi.model.MediMemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-	<c:if test="${sessionScope.messageContent ne null }">
-		<c:set var="messageContent" value="${sessionScope.messageCotent }"/>
+	<c:if test="${sessionScope.login ne null }">
+		<c:set var="login" value="${sessionScope.login }"/>
+		<c:set var="loginType" value="${sessionScope.loginType }"/>
 	</c:if>
-	<c:if test="${sessionScope.messageType ne null }">
-		<c:set var="messageType" value="${sessionScope.messageType }"/>
+	<c:if test="${sessionScope.login_h ne null }">
+		<c:set var="login_h" value="${sessionScope.login_h }"/>
+		<c:set var="loginType" value="${sessionScope.loginType }"/>
 	</c:if>
-
-<%
-		MediMemberDto user = null;
-		MediMember_hDto user_h = null;
-//		로그인 구분	-1 : 손님	1 : 일반 회원		4 : 병원 회원 
-		int loginType = -1;
-/* 
-		if((MediMemberDto)request.getAttribute("dto") != null){
-			user = (MediMemberDto)request.getAttribute("dto");
-		}else
-			 */
-		if((MediMemberDto)session.getAttribute("login") != null){
-			user = (MediMemberDto)session.getAttribute("login");
-			loginType = 1;
-		}else if((MediMember_hDto)session.getAttribute("login_h") != null){
-			user_h = (MediMember_hDto)session.getAttribute("login_h");
-			loginType = 4;
-		}
-
-%>
-
+	
 <div class="header_util">
 	<div class="inner">
 		<ul class="util_left">
@@ -56,60 +39,57 @@
 			</li>
 		</ul>
 		<ul class="util_right">
-			<%
-			if(loginType == -1){
-			%>
-			<li>
-				<a href="login.do">
-					<em>로그인</em>
-				</a>
-			</li>
-			<li>
-				<a href="selectJoin.do">
-					<em>회원가입</em>
-				</a>
-			</li>
-			<%
-			}else if(loginType == 1){
-			%>
-			<li>
-				<a href="MyPageLogin.do">
-
-					<em>정보수정</em>
-				</a>
-			</li>
-			<li>
-				<a href="MyPageList.do">
-					<em>마이페이지</em>
-				</a>
-			</li>	
-			<li>
-				<a href="logout.do">
-					<em>로그아웃</em>
-				</a>
-			</li>
-			<%
-			}else if(loginType == 4){
-			%>
-			<li>
-				<a href="MyPageLogin.do">
-
-					<em>정보수정</em>
-				</a>
-			</li>
-			<li>
-				<a href="MyPage.do">
-					<em>마이페이지</em>
-				</a>
-			</li>	
-			<li>
-				<a href="logout.do">
-					<em>로그아웃</em>
-				</a>
-			</li>
-			<%
-			}
-			%>
+<!-- 비로그인 -->
+			<c:if test="${loginType eq null }">
+				<li>
+					<a href="login.do">
+						<em>로그인</em>
+					</a>
+				</li>
+				<li>
+					<a href="selectJoin.do">
+						<em>회원가입</em>
+					</a>
+				</li>
+			</c:if>
+<!-- 일반회원 -->
+			<c:if test="${loginType eq 1 }">
+				<li>
+					<a href="MyPageLogin.do">
+	
+						<em>정보수정</em>
+					</a>
+				</li>
+				<li>
+					<a href="MyPageList.do">
+						<em>마이페이지</em>
+					</a>
+				</li>	
+				<li>
+					<a href="logout.do">
+						<em>로그아웃</em>
+					</a>
+				</li>
+			</c:if>
+<!-- 병원회원 -->
+			<c:if test="${loginType eq 4 }">
+				<li>
+					<a href="MyPageLogin.do">
+	
+						<em>정보수정</em>
+					</a>
+				</li>
+				<li>
+					<a href="MyPage.do">
+						<em>마이페이지</em>
+					</a>
+				</li>	
+				<li>
+					<a href="logout.do">
+						<em>로그아웃</em>
+					</a>
+				</li>
+			</c:if>
 		</ul>
 	</div>
 </div>
