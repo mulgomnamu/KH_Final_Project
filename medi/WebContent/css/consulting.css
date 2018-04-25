@@ -1,0 +1,83 @@
+@charset "UTF-8";
+#tab li{
+margin-top:138px;
+margin-left:3px;
+width:33%;
+height:63px;
+float: left;
+background-color: rgb(217,217,217);
+}
+#tab li a{
+display: block;
+padding-top: 14px;
+height:63px;
+color: #fff;
+font-size: 1.3em;
+font-weight: bolder;
+}
+#tab li em{
+font-weight: bolder;
+}
+.h3title{
+	margin-bottom: 30px;
+}
+.selected{
+background-color: #fff;
+border-top: 2px solid #1f4bb4;
+color: #1f4bb4;
+}
+.selected>em{
+color: #1f4bb4;
+font-weight: bolder;
+}
+#alldiv th{
+height: 60px;
+text-align: left;
+}
+#alldiv td{
+height: 50px;
+border-bottom: dashed 1px #ccc;
+text-align: left;
+}
+#alldiv td span{
+	font-size:0.9em;
+	padding-top:2px;
+	margin-right: 7px;
+	color:#fff;
+	background-color: #00c73c;
+	border-radius: 6px;
+}
+#questiondiv th{
+height: 60px;
+text-align: left;
+}
+#questiondiv td{
+height: 50px;
+border-bottom: dashed 1px #ccc;
+text-align: left;
+}
+#questiondiv td span{
+	font-size:0.9em;
+	padding-top:2px;
+	margin-right: 7px;
+	color:#fff;
+	background-color: #00c73c;
+	border-radius: 6px;
+}
+#answerdiv th{
+height: 60px;
+text-align: left;
+}
+#answerdiv td{
+height: 50px;
+border-bottom: dashed 1px #ccc;
+text-align: left;
+}
+#answerdiv td span{
+	font-size:0.9em;
+	padding-top:2px;
+	margin-right: 7px;
+	color:#fff;
+	background-color: #00c73c;
+	border-radius: 6px;
+}

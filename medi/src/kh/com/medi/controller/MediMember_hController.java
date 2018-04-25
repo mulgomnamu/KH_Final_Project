@@ -29,14 +29,11 @@ import kh.com.medi.util.FUpUtil;
 public class MediMember_hController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MediMember_hController.class);
-	
-	private static final int RESULT_EXCEED_SIZE = -2;
-    private static final int RESULT_UNACCEPTED_EXTENSION = -1;
-    private static final int RESULT_SUCCESS = 1;
+
     private static final long LIMIT_SIZE = 10 * 1024 * 1024;
     
 	@Autowired
-	MediMember_hService mediMember_hService;
+	private MediMember_hService mediMember_hService;
 	
 	@RequestMapping(value="join_h.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String join_h() {
@@ -65,6 +62,20 @@ public class MediMember_hController {
 		return "redirect:/main.do";
 	}
 	
+	@RequestMapping(value="myPage_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String myPage_h() {
+		logger.info("MediMember_hController myPage_h " + new Date());
+		
+		return "myPage_h.tiles";
+	}
+	
+	@RequestMapping(value="change_pwd_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String change_pwd_h() {
+		logger.info("MediMember_hController change_pwd_h " + new Date());
+		
+		return "change_pwd_h.tiles";
+	}
+	
 	@RequestMapping(value="login_h.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String login_h() {
 		logger.info("MediMember_hController login_h " + new Date());
@@ -89,7 +100,6 @@ public class MediMember_hController {
 		}
 		
 		req.getSession().setAttribute("login", dto_login_h);
-		req.getSession().setAttribute("auth", dto_login_h.getAuth());
 		
 		return "redirect:/main.do";
 	}
@@ -192,6 +202,21 @@ public class MediMember_hController {
 		logger.info("MediMember_hController checkId_h " + new Date());
 		
 		return (mediMember_hService.checkId(dto_h))+"";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="changePwd_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public int changePwd_h(MediMember_hDto dto_h) {
+		logger.info("MediMember_hController changePwd_h " + new Date());
+		
+		if(mediMember_hService.login(dto_h) == null) {
+// 현재 비밀번호 입력 틀림
+			return 0;
+		}
+// 비번 변경
+		mediMember_hService.changePwd(dto_h);
+		
+		return 1;
 	}
 	
 	private boolean isValidExtension(String originalName) {

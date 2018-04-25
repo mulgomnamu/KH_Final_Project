@@ -20,6 +20,10 @@
 				<div style="height: 300px">
 				<form action="loginAf.do" name="frmForm" id="_frmForm" method="post" style="width: 400px;position: absolute;"> 
 					
+					<span>
+						<input type="radio" name="rBtnLoginType" checked="checked" value="2">일반 회원
+						<input type="radio" name="rBtnLoginType" value="4">병원 회원
+					</span>
 					 <span class="form-text" style="margin-bottom: 20px;">
                         <label class="placeholder" for="id">아이디</label>
                         <input type="text" id="_userid" name="id" value="" size="15" title="아이디" style="border:1px solid #dddddd;">

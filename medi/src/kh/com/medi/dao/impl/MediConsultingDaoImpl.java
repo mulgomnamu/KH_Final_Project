@@ -17,7 +17,7 @@ public class MediConsultingDaoImpl implements MediConsultingDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
-	private String ns = "Consulting.";
+	private String ns = "Consulting."; 
 
 	@Override
 	public List<MediConsultingQuestionDto> getBbsPagingList(MediConsultingAllDto alldto) throws Exception {
@@ -58,12 +58,12 @@ public class MediConsultingDaoImpl implements MediConsultingDao {
 
 	@Override
 	public void readcountBbs(MediConsultingAllDto dto) throws Exception {
-		
+		sqlSession.update(ns+"plusreadcount", dto);
 	}
 
 	@Override
 	public void commentcountBbs(MediConsultingAllDto dto) throws Exception {
-		
+		sqlSession.update(ns+"pluscommentcount", dto);
 	}
 
 	@Override
@@ -91,9 +91,9 @@ public class MediConsultingDaoImpl implements MediConsultingDao {
 	}
 
 	@Override
-	public MediMember_hDto get() throws Exception {
+	public MediConsultingAnswerDto get(MediConsultingAllDto dto) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(ns+"gethospitaldetail");
+		return sqlSession.selectOne(ns+"gethospitaldetail",dto);
 	}
 
 	@Override
@@ -112,5 +112,36 @@ public class MediConsultingDaoImpl implements MediConsultingDao {
 	public boolean selected(MediConsultingAnswerDto dto) throws Exception {
 		int count=sqlSession.update(ns+"selected", dto);
 		return count>0?true:false;
+	}
+
+	@Override
+	public List<MediConsultingQuestionDto> getquePagingList(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns+"getquePagingList", alldto);
+	}
+
+	@Override
+	public int getqueCount(MediConsultingAllDto alldto) throws Exception {
+		int number = 0;
+		number = sqlSession.selectOne(ns + "getqueCount", alldto);
+		return number;
+	}
+
+	@Override
+	public List<MediConsultingQuestionDto> getansweredList(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns+"getansweredList", alldto);
+	}
+
+	@Override
+	public int getanswerCount(MediConsultingAllDto alldto) throws Exception {
+		int number = 0;
+		number = sqlSession.selectOne(ns + "getanswerCount", alldto);
+		return number;
+	}
+
+	@Override
+	public void plusscore(MediConsultingAllDto dto) throws Exception {
+		sqlSession.update(ns+"plusscore", dto);
 	}
 }

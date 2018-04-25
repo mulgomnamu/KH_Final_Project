@@ -64,4 +64,10 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 		return sqlSession.selectOne(ns+"loginCheck", dto_h);
 	}
 
+	@Override
+	public boolean changePwd(MediMember_hDto dto_h) {
+		int n = sqlSession.update(ns+"changePwd", dto_h);
+		return n > 0;
+	}
+	
 }

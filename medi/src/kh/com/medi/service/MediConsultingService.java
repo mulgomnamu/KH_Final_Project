@@ -40,6 +40,16 @@ public interface MediConsultingService {
 	public boolean selected(MediConsultingAnswerDto dto) throws Exception;
 				
 	
-	//예제병원
-	public MediMember_hDto get() throws Exception;
+	//병원디테일
+	public MediConsultingAnswerDto get(MediConsultingAllDto dto) throws Exception;
+	//질문만 페이징리스트
+	List<MediConsultingQuestionDto> getquePagingList(MediConsultingAllDto alldto) throws Exception;
+	//질문만갯수
+	int getqueCount(MediConsultingAllDto alldto) throws Exception;
+	//답변완료 페이징리스트
+	List<MediConsultingQuestionDto> getansweredList(MediConsultingAllDto alldto) throws Exception;
+	//답변완료갯수
+	int getanswerCount(MediConsultingAllDto alldto) throws Exception;
+	//병원스코어올리기
+	public void plusscore(MediConsultingAllDto dto) throws Exception;
 }

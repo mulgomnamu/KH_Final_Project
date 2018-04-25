@@ -19,14 +19,20 @@
 	</select>
 
 	<!-- 맴버 글쓰기 -->
-	<insert id="insertBbs" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
+	<insert id="insertBbs1" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
 	INSERT INTO `MEDI`.`medi_question_bbs`(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK)
 		VALUES(#{id},(SELECT ifnull(MAX(REF), 0)+1 FROM (SELECT * FROM medi_question_bbs)CNT),0,0,#{question},#{title},#{content},NOW(), 1,0,0,0, #{rock}) 
+	</insert>
+	
+	<!-- 맴버 글쓰기 -->
+	<insert id="insertBbs4" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
+	INSERT INTO `MEDI`.`medi_question_bbs`(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK)
+		VALUES(#{id},(SELECT ifnull(MAX(REF), 0)+1 FROM (SELECT * FROM medi_question_bbs)CNT),0,0,#{question},#{title},#{content},NOW(), 4,0,0,0, #{rock}) 
 	</insert>
 
 	<!-- 수정하기 -->
 	<update id="bbsUpdate" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
-	UPDATE `MEDI`.`medi_question_bbs` SET TITLE=#{title}, CONTENT =#{content}, WDATE=NOW(), READCOUNT=0, ROCK=#{rock}
+	UPDATE `MEDI`.`medi_question_bbs` SET QUESTION=#{question}, TITLE=#{title}, CONTENT =#{content}, WDATE=NOW(), READCOUNT=0, ROCK=#{rock}
 	WHERE SEQ =#{seq}
 	</update>
 
@@ -54,7 +60,7 @@
 	INSERT INTO medi_question_bbs(ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK)
 		VALUES(#{id}, (SELECT REF FROM (SELECT * FROM medi_question_bbs)CNT1 WHERE SEQ=#{seq}),
 		(SELECT STEP FROM (SELECT * FROM medi_question_bbs)CNT2 WHERE SEQ=#{seq})+1, (SELECT DEPTH FROM (SELECT * FROM medi_question_bbs)CNT3
-		WHERE SEQ=#{seq})+1, #{question}, #{title}, #{content}, NOW(), 2, #{seq}, 0, 0, #{rock})
+		WHERE SEQ=#{seq})+1, #{question}, #{title}, #{content}, NOW(), #{memchoice}, #{seq}, 0, 0, #{rock})
 	</insert> 
 
 	<select id="getBbsPagingList" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="kh.com.medi.model.MediQnaBbsDto" >
@@ -80,16 +86,109 @@
 					AND content LIKE CONCAT('%',#{s_keyword},'%')
 				</if>		 	
 			 </if>
-			 ORDER BY SEQ ASC
+			 ORDER BY REF DESC, STEP ASC
 			 ) A
 		WHERE
 		    A.ROWNUM BETWEEN ${start} AND ${end}	
+		    
+	</select>
+
+	<select id="getBbsPagingList1" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="kh.com.medi.model.MediQnaBbsDto" >
+		 SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		    FROM
+		        `MEDI`.`medi_question_bbs`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND MEMCHOICE = 1
+			 <if test="s_category != '' and s_category != null 
+			 	and s_keyword != '' and s_keyword != null">		 	
+			 	<if test="s_category == 'question'">
+					AND question LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'title'">
+					AND title LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'content'">
+					AND content LIKE CONCAT('%',#{s_keyword},'%')
+				</if>		 	
+			 </if>
+			 ORDER BY REF DESC, STEP ASC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}	
+		    
+	</select>
+	
+	<select id="getBbsPagingList4" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="kh.com.medi.model.MediQnaBbsDto" >
+		 SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		    FROM
+		        `MEDI`.`medi_question_bbs`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND MEMCHOICE = 4
+			 <if test="s_category != '' and s_category != null 
+			 	and s_keyword != '' and s_keyword != null">		 	
+			 	<if test="s_category == 'question'">
+					AND question LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'title'">
+					AND title LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'content'">
+					AND content LIKE CONCAT('%',#{s_keyword},'%')
+				</if>		 	
+			 </if>
+			 ORDER BY REF DESC, STEP ASC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}	
+		    
 	</select>
 
 	
 	<select id="getBbsCount" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)
 		FROM `MEDI`.`medi_question_bbs` WHERE 1=1 AND DEL=0
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'question'">
+				AND question LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'title'">
+				AND title LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'content'">
+				AND content LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+	
+	<select id="getBbsCount1" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`medi_question_bbs` WHERE 1=1 AND DEL=0 AND MEMCHOICE = 1
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'question'">
+				AND question LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'title'">
+				AND title LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'content'">
+				AND content LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+	
+	<select id="getBbsCount4" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`medi_question_bbs` WHERE 1=1 AND DEL=0 AND MEMCHOICE = 4
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
 			<if test="s_category == 'question'">
 				AND question LIKE CONCAT('%',#{s_keyword},'%')

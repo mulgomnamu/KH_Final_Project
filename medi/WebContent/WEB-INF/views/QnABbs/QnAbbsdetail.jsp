@@ -26,6 +26,8 @@
 					
 					<input type="hidden" name="seq" id="seq" value="${bbs.seq}"/>
 					<input type="hidden" name="question" id="question" value="${bbs.question}"/>
+					<input type="hidden" name="rock" id="rock" value="${bbs.rock}"/>
+					<input type="hidden" name="memchoice" id="memchoice" value="${bbs.memchoice}"/>
 					<colgroup>
 					<col style="width:200px;" />
 					<col style="width:auto;" />
@@ -56,11 +58,11 @@
 						<tr>
 							<td colspan="2" style="height:50px; text-align:center;">
 							<span>
-								<c:if test="${bbs.id eq login.id}">
+								<c:if test="${(bbs.id eq login.id) || (bbs.id eq login_h.id)}">
 									<a href="#none" id="_btnUpdate" title="글수정하기"><img src="images/Qnabbs/bupdate.png" alt="수정하기" /></a>
 									<a href="#none" id="_btnDelete" title="글삭제하기"><img src="images/Qnabbs/del.png" alt="삭제하기" /></a>
 								</c:if>
-								<c:if test="${login.auth eq 1}">
+								<c:if test="${login.auth eq 2}">
 									<a href="#none" id="_btnReply" title="답글달기"><img src="images/Qnabbs/breply.png" alt="답글달기" /></a>
 								</c:if>
 							</span>
@@ -93,8 +95,12 @@ $("#_btnDelete").click(function() {
 });
 $("#_btnReply").click(function() {	
 	/* alert('답글달기');	 */
-	$("#_frmForm").attr({ "target":"_self", "action":"Qnabbsreply.do" }).submit();
+	$("#_frmForm").attr({ "target":"_self", "action":"Qnabbsreply.do?rock=${bbs.rock}" }).submit();
 });
 
 </script>
+
+
+
+
 

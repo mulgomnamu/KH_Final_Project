@@ -42,6 +42,12 @@ color: #1f4bb4;
 font-weight: bolder;
 }
 </style>
+<c:if test="${loginType eq 4 }">
+	<script type="text/javascript">
+	alert("일반회원만 가능한 공간입니다");
+	location.href='main.do';
+	</script>
+</c:if>
 <c:if test="${empty login }">
 	<script type="text/javascript">
 	alert("로그인후이용가능합니다");

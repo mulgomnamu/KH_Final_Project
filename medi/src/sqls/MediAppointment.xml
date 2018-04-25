@@ -4,12 +4,12 @@
 
 <mapper namespace="Appointment">
 	<select id="getserchhospitalList" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
-		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE 
+		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,SCORE,DEL,REGDATE 
 		FROM medi_hospital
 		WHERE NAME LIKE CONCAT('%',#{name},'%')
 	</select>
 	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
-		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE  
+		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,SCORE,DEL,REGDATE  
 		FROM medi_hospital
 		WHERE SEQ=#{hos_seq}
 	</select>
@@ -52,6 +52,7 @@
 		INSERT INTO medi_reservation (MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE) 
 		VALUES (#{mem_seq}, #{hos_seq}, #{doc_seq},#{content}, #{day}, #{time}, now(),#{type})
 	</insert>
+	
 	<resultMap type="kh.com.medi.model.MediMember_hDto" id="hDto">
     <result column="SEQ" property="seq"/>
     <result column="ID" property="id"/>
@@ -67,6 +68,7 @@
     <result column="ANSWER" property="answer"/>
     <result column="CONFIRM_IMG" property="confirm_img"/>
 	<result column="INFO" property="info"/>
+	<result column="SCORE" property="score"/>
     <result column="DEL" property="del"/>
     <result column="REGDATE" property="regdate"/>
 	</resultMap>
@@ -80,7 +82,7 @@
 	<select id="byspecialty" parameterType="kh.com.medi.model.MediSpecialtyDto" resultMap="SpecialtyDto">
 	    SELECT
 	        h.SEQ,h.ID,h.PWD,h.NAME,h.TEL,h.POST,h.ADDRESS,h.LATITUDE,h.LONGTITUDE,
-	        h.EMAIL,h.QUESTION,h.ANSWER,h.CONFIRM_IMG,h.INFO,h.DEL,h.REGDATE,
+	        h.EMAIL,h.QUESTION,h.ANSWER,h.CONFIRM_IMG,h.INFO,h.SCORE,h.DEL,h.REGDATE,
 	        S.HOS_SEQ,S.SPECIALTY
 	    FROM
 	     	medi_hospital h

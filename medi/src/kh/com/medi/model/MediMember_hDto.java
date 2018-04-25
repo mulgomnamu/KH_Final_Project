@@ -18,16 +18,19 @@ public class MediMember_hDto implements Serializable {
 	private String answer;
 	private String confirm_img;
 	private String info;
+	private int score;
 	private int del;
 	private String regdate;
 	private int auth;
+	
+	private String pwd1;
 	
 	public MediMember_hDto() {
 	}
 
 	public MediMember_hDto(int seq, String id, String pwd, String name, String tel, String post, String address,
 			String latitude, String longtitude, String email, String question, String answer, String confirm_img,
-			String info, int del, String regdate, int auth) {
+			String info, int score, int del, String regdate, int auth, String pwd1) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -43,9 +46,11 @@ public class MediMember_hDto implements Serializable {
 		this.answer = answer;
 		this.confirm_img = confirm_img;
 		this.info = info;
+		this.score = score;
 		this.del = del;
 		this.regdate = regdate;
 		this.auth = auth;
+		this.pwd1 = pwd1;
 	}
 
 	public int getSeq() {
@@ -160,6 +165,14 @@ public class MediMember_hDto implements Serializable {
 		this.info = info;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 	public int getDel() {
 		return del;
 	}
@@ -184,12 +197,21 @@ public class MediMember_hDto implements Serializable {
 		this.auth = auth;
 	}
 
+	public String getPwd1() {
+		return pwd1;
+	}
+
+	public void setPwd1(String pwd1) {
+		this.pwd1 = pwd1;
+	}
+
 	@Override
 	public String toString() {
 		return "MediMember_hDto [seq=" + seq + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", tel=" + tel
 				+ ", post=" + post + ", address=" + address + ", latitude=" + latitude + ", longtitude=" + longtitude
 				+ ", email=" + email + ", question=" + question + ", answer=" + answer + ", confirm_img=" + confirm_img
-				+ ", info=" + info + ", del=" + del + ", regdate=" + regdate + ", auth=" + auth + "]";
+				+ ", info=" + info + ", score=" + score + ", del=" + del + ", regdate=" + regdate + ", auth=" + auth
+				+ ", pwd1=" + pwd1 + "]";
 	}
 	
 }
