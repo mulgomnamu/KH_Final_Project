@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediMyPageDao;
+import kh.com.medi.model.MediConsultingAllDto;
+import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
-import kh.com.medi.model.MediMyListPagingDto;
+import kh.com.medi.model.MediQnaBbsDto;
+import kh.com.medi.model.MediQnaBbsParamDto;
 
 
 @Repository
@@ -51,16 +54,29 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 	}
 	
 	@Override
-	public int getBbsCount(MediMyListPagingDto mylist) throws Exception {
+	public int getBbsCount(MediQnaBbsParamDto mylist) throws Exception {
 		int number = 0;
 		number = sqlSession.selectOne(ns+"getBbsCount", mylist);
 		return number;
 	}
 
 	@Override
-	public List<MediMemberDto> getBbsPagingList(MediMyListPagingDto mylist) throws Exception {
-		List<MediMemberDto>list = sqlSession.selectList(ns+"getBbsPagingList", mylist);
+	public List<MediQnaBbsDto> getBbsPagingList(MediQnaBbsParamDto mylist) throws Exception {
+		List<MediQnaBbsDto> list = sqlSession.selectList(ns+"getBbsPagingList", mylist);
 		return list;
+	}
+	
+	@Override
+	public List<MediConsultingQuestionDto> getBbsPagingList(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns+"ConsultingPagingList", alldto);
+	}
+
+	@Override
+	public int getBbsCount(MediConsultingAllDto alldto) throws Exception {
+		int number = 0;
+		number = sqlSession.selectOne(ns + "getcomCount", alldto);
+		return number;
 	}
 	
 }

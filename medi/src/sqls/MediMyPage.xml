@@ -39,51 +39,93 @@ WHERE PWD=#{pwd}
 </update>
 
 <!-- 데이터 전체갯수 취득 -->
-	<select id="getBbsCount" parameterType="kh.com.medi.model.MediMyListPagingDto" resultType="java.lang.Integer">
+	<select id="getBbsCount" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)
-		FROM `MEDI`.medi_member WHERE 1=1 AND DEL=0
+		FROM `MEDI`.`medi_question_bbs` WHERE 1=1 AND DEL=0 AND ID=#{id}
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'">
+				AND TITLE LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
 			<if test="s_category == 'id'">
 				AND ID LIKE CONCAT('%',#{s_keyword},'%')
-			</if>
-			<if test="s_category == 'name'">
-				AND NAME LIKE CONCAT('%',#{s_keyword},'%')
 			</if>
 		</if> 
 	</select>
 
-<!--MyPageList페이징  -->
+<!--MyPageList페이징  QnA -->
 <select id="getBbsPagingList" 
-	parameterType="kh.com.medi.model.MediMyListPagingDto"
-	resultType="kh.com.medi.model.MediMemberDto">
-	 SELECT  SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
-      FROM
-      (
-          SELECT
-              @ROWNUM := @ROWNUM + 1 AS ROWNUM,
-              SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
-          FROM
-              `MEDI`.medi_member,
-             (SELECT @ROWNUM := 0) R
-          WHERE 1=1 AND DEL=0
-          <if test="s_category != '' and s_category != null 
-             and s_keyword != '' and s_keyword != null">          
-             <if test="s_category == 'id'">
-               AND ID LIKE CONCAT('%',#{s_keyword},'%')
-            </if>
-            <if test="s_category == 'name'">
-               AND NAME LIKE CONCAT('%',#{s_keyword},'%')
-            </if>      
-          </if>
-          ORDER BY SEQ DESC
-          ) A
-      WHERE
-          A.ROWNUM BETWEEN ${start} AND ${end}   
+	parameterType="kh.com.medi.model.MediQnaBbsParamDto"
+	resultType="kh.com.medi.model.MediQnaBbsDto">
+	 SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		    FROM
+		        `MEDI`.`medi_question_bbs`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND DEL=0 AND ID=#{id} 
+			 <if test="s_category != '' and s_category != null 
+			 	and s_keyword != '' and s_keyword != null">		 	
+			 	<if test="s_category == 'title'">
+					AND TITLE LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'id'">
+					AND ID LIKE CONCAT('%',#{s_keyword},'%')
+				</if> 	
+			 </if>
+			 ORDER BY SEQ ASC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}
 </select>
 
+<!--커뮤니티 불러오기  -->
+<select id="ConsultingPagingList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
+		 SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE 
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
+		    FROM
+		        `MEDI`.`medi_consulting_question`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND DEL=0 AND MEM_SEQ=#{seq}
+			 <if test="s_category != '' and s_category != null 
+			 	and s_keyword != '' and s_keyword != null">		 	
+			 	<if test="s_category == 'category'">
+					AND category LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'title'">
+					AND title LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'content'">
+					AND content LIKE CONCAT('%',#{s_keyword},'%')
+				</if>		 	
+			 </if>
+			 ORDER BY SEQ DESC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}	
+	</select>
 
-
- 
+ 	<select id="getcomCount" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0 AND MEM_SEQ=#{seq}
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'category'">
+				AND category LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'title'">
+				AND title LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'content'">
+				AND content LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
 
 
 

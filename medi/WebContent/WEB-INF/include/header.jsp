@@ -62,7 +62,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="MyPageList.do">
+				<a href="MyPageList.do?id=${login.id }">
 					<em>마이페이지</em>
 				</a>
 			</li>	
