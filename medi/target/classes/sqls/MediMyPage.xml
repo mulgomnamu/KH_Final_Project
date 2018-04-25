@@ -15,9 +15,23 @@ resultType="kh.com.medi.model.MediMemberDto">
 <!--내정보수정  -->
 <update id="myupdate" parameterType="hashmap">
 UPDATE medi_member SET 
-EMAIL=#{email},POST=#{post},ADDRESS=#{address}
+EMAIL=#{email},POST=#{post},ADDRESS=#{address},PHONE=#{phone}
 WHERE ID=#{id}
 </update>
+
+	
+<select id="checkPhone" parameterType="kh.com.medi.model.MediMyPageDto" resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*), 0)
+	FROM `MEDI`.`MEDI_MEMBER`
+	WHERE phone=#{phone}
+</select>
+	
+<select id="checkEmail" parameterType="kh.com.medi.model.MediMyPageDto" resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*), 0)
+	FROM `MEDI`.`MEDI_MEMBER`
+	WHERE email=#{email}
+</select>
+
 <!--회원탈퇴  -->
 <update id="Mydelete" parameterType="hashmap">
 	UPDATE medi_member

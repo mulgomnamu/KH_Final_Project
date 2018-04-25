@@ -28,7 +28,6 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 		return mediMyPageDao.myUpate(mep);
 	}
 
-
 	@Override
 	public MediMemberDto myup(MediMemberDto my) throws Exception {
 		return mediMyPageDao.myup(my);
@@ -53,6 +52,16 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	@Override
 	public List<MediMemberDto> getBbsPagingList(MediMyListPagingDto mylist) throws Exception {
 	    return mediMyPageDao.getBbsPagingList(mylist);
+	}
+
+	@Override
+	public boolean checkPhone(MediMemberDto my) throws Exception {
+		return mediMyPageDao.checkPhone(my);
+	}
+
+	@Override
+	public boolean checkEmail(MediMemberDto my) throws Exception {
+		return mediMyPageDao.checkEmail(my);
 	}
 
 	

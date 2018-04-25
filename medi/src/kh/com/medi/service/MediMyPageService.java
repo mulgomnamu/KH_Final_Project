@@ -22,4 +22,7 @@ public MediMemberDto Mydetail(MediMemberDto my) throws Exception;
 	public int getBbsCount(MediMyListPagingDto mylist) throws Exception;
 	
 	public List<MediMemberDto> getBbsPagingList(MediMyListPagingDto mylist) throws Exception;
+	
+	public boolean checkPhone(MediMemberDto my) throws Exception;
+	public boolean checkEmail(MediMemberDto my) throws Exception;
 }

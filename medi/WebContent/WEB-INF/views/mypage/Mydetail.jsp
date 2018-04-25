@@ -69,6 +69,8 @@ input:valid+span:after {
 	<th>email</th>
 <td>		
 	<input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="이메일을 입력하세요" value="${my.email }">
+	<input type="text" id="oriEmail" value="${my.email }">
+	<h5 style="color: red;" id="emailCheckMessage" align="left"></h5>
 	<!-- <input name="email" type="email" class="form-control" id="email"
 	placeholder="email" required=""> --> <br>
 </td>	
@@ -84,6 +86,8 @@ input:valid+span:after {
 			placeholder="000-0000-0000"
 			pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
 			required=""> --> <br>
+				<input type="hidden" id="oriPhone" value="${my.phone }">
+				<h5 style="color: red;" id="telCheckMessage" align="left"></h5>
 			<td>		
 </tr>
 <br>
@@ -93,7 +97,7 @@ input:valid+span:after {
 	<input type="text" id="sample4_postcode" name="post" placeholder="우편번호" required="" value="${my.post }">
 				<input type="button"
 					onclick="sample4_execDaumPostcode()" value="주소검색" required=""><br>
-				<input type="text" id="sample4_roadAddress" name="addr1"
+				<input type="text" id="sample4_roadAddress" name="address"
 					placeholder="도로명주소" size="40" required="" value="${my.address }"><br>
 				<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"><br>
 				<span id="guide" style="color:#999"></span>
@@ -113,10 +117,62 @@ input:valid+span:after {
 </form>
 				
 <script type="text/javascript">
-$("#_btnUpdate").click(function() {	
-	alert('수정완료');	
-//	submitContents($("#_frmForm"));
-	$("#_frmForm").attr({ "target":"_self", "action":" mysupdateAf.do" }).submit();
+$("#_btnUpdate").click(function() {
+	var phone = $("#phone").val();
+	var oriPhone = $("#oriPhone").val();
+	var email = $("#email").val();
+	var oriEmail = $("#oriEmail").val();
+	var okPhone = 0;
+	var okEmail = 0;
+	if(phone != oriPhone){
+		if(phone != ""){
+			$.ajax({
+				type: 'post',
+				url: 'checkPhone.do',
+				data: {phone: phone},
+				success: function(result) {
+					if(result == "true"){
+						$("#telCheckMessage").html("이미 사용중인 전화번호입니다.");
+						alert("tel" + result);
+						okPhone = 1;
+					}else{
+						$("#telCheckMessage").html("");
+						okPhone = 2;
+					}
+				}
+			});
+		}
+	}else{
+		okPhone = 2;
+	}
+	if(email != oriEmail){
+		if(email != ""){
+			$.ajax({
+				type: 'post',
+				url: 'checkEmail.do',
+				data: {email: email},
+				success: function(result) {
+					if(result == "true"){
+						$("#emailCheckMessage").html("이미 사용중인 이메일입니다.");
+						alert("email" + result);
+						okEmail = 1;
+					}else{
+						$("#emailCheckMessage").html("");
+						okEmail = 2;
+					}
+				}
+			});
+		}
+	}else{
+		okEmail = 2;
+	}
+	//	submitContents($("#_frmForm"));
+	alert("okPhone : "+okPhone);
+	alert("okEmail : "+okEmail);
+	if(okPhone == 2 && okEmail == 2){
+		$("#_frmForm").attr({ "target":"_self", "action":" mysupdateAf.do" }).submit();
+	}
+	
 });
 </script>
 

@@ -22,5 +22,8 @@ public interface MediMyPageDao {
 	int getBbsCount(MediMyListPagingDto mylist) throws Exception;
 	
 	List<MediMemberDto> getBbsPagingList(MediMyListPagingDto mylist) throws Exception;
+	
+	boolean checkPhone(MediMemberDto my) throws Exception;
+	boolean checkEmail(MediMemberDto my) throws Exception;
 
 }

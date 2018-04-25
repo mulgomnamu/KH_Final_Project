@@ -8,6 +8,12 @@
 		INSERT INTO `medi`.`medi_hospital` (`id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `score`, `del`, `regdate`, `auth`) 
 		VALUES (#{id}, #{pwd}, #{name}, #{tel}, #{post}, #{address}, 'latitude', 'longtitude', #{email}, #{question}, #{answer}, #{confirm_img}, #{info}, 0, 1, now(), 3)
 	</insert>
+	
+	<update id="updateMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
+		UPDATE `medi`.`medi_hospital`
+		SET `name`=#{name}, `tel`=#{tel}, `address`=#{address}, `email`=#{email}, `info`=#{info}
+		WHERE `seq`=#{seq}
+	</update>
 
 	<insert id="addImage" parameterType="kh.com.medi.model.MediHospital_imageDto">
 		INSERT INTO `medi`.`medi_image` (`hos_seq`, `image`)
@@ -19,10 +25,21 @@
 		VALUES (#{hos_seq}, #{subject})
 	</insert>
 	
+	<delete id="deleteSubject" parameterType="kh.com.medi.model.MediHospital_subject">
+		DELETE FROM `medi`.`medi_subject`
+		WHERE hos_seq=#{hos_seq}
+	</delete>
+	
 	<select id="getHospitalColumn" parameterType="java.lang.String" resultType="kh.com.medi.model.MediMember_hDto">
 		SELECT `seq`, `id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `del`, `regdate`, `auth`
 		FROM `MEDI`.`MEDI_HOSPITAL`
 		WHERE `id`=#{id}
+	</select>
+	
+	<select id="getHospitalSubjectColumns" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediHospital_subject">
+		SELECT `hos_seq`, `subject`
+		FROM `MEDI`.`MEDI_SUBJECT`
+		WHERE `hos_seq`=#{seq}
 	</select>
 	
 	<select id="checkId_h" parameterType="kh.com.medi.model.MediMember_hDto" resultType="java.lang.Integer">
@@ -31,11 +48,23 @@
 		WHERE ID=#{id}
 	</select>
 	
-	<update id="updateMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
-		UPDATE `medi`.`medi_hospital`
-		SET `pwd`=#{pwd} AND `name`=#{name} AND `tel`=#{tel} AND `address`=#{address} AND email=#{email} AND `info`=${info}
-		WHERE `seq`=#{seq}
-	</update>
+	<select id="checkTel_h" parameterType="kh.com.medi.model.MediMember_hDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`MEDI_HOSPITAL`
+		WHERE tel=#{tel}
+	</select>
+	
+	<select id="checkAddress_h" parameterType="kh.com.medi.model.MediMember_hDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`MEDI_HOSPITAL`
+		WHERE address=#{address}
+	</select>
+	
+	<select id="checkEmail_h" parameterType="kh.com.medi.model.MediMember_hDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`MEDI_HOSPITAL`
+		WHERE email=#{email}
+	</select>
 	
 	<update id="deleteMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
 		UPDATE `medi`.`medi_hospital`

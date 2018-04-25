@@ -62,5 +62,17 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 		List<MediMemberDto>list = sqlSession.selectList(ns+"getBbsPagingList", mylist);
 		return list;
 	}
+
+	@Override
+	public boolean checkPhone(MediMemberDto my) throws Exception {
+		int n = sqlSession.selectOne(ns+"checkPhone", my);
+		return n > 0;
+	}
+
+	@Override
+	public boolean checkEmail(MediMemberDto my) throws Exception {
+		int n = sqlSession.selectOne(ns+"checkEmail", my);
+		return n > 0;
+	}
 	
 }

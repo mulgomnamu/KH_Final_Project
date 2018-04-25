@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.com.medi.model.MediHospital_imageDto;
 import kh.com.medi.model.MediHospital_subject;
 import kh.com.medi.model.MediMember_hDto;
+import kh.com.medi.model.MediSubjectDto;
 import kh.com.medi.service.MediMember_hService;
 import kh.com.medi.util.FUpUtil;
 
@@ -47,10 +48,37 @@ public class MediMember_hController {
 		logger.info("MediMember_hController update_h " + new Date());
 		
 		mediMember_hService.getHospitalColumn(dto_h.getId());
+		List<MediSubjectDto> list_hs = mediMember_hService.getHospitalSubjectColumns(dto_h);
 		
 		model.addAttribute("dto_h", dto_h);
+		model.addAttribute("list_hs", list_hs);
 		
 		return "update_h.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="updateAf_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public int updateAf_h(Model model, MediMember_hDto dto_h, MediHospital_subject dto_s) {
+		logger.info("MediMember_hController updateAf_h " + new Date());
+		
+//		hospital 수정
+		mediMember_hService.updateMember_h(dto_h);
+		
+//		subject 삭제
+		dto_s.setHos_seq(dto_h.getSeq());
+		mediMember_hService.deleteHospitalSubject(dto_s);
+		
+//		subject 저장
+		
+		String splits[] = dto_s.getCl_sjt_list().split(",");
+		
+		for(String split : splits) {
+			dto_s.setSubject(split);
+			
+			mediMember_hService.addHospitalSubject(dto_s);
+		}
+		
+		return 1;
 	}
 	
 	@RequestMapping(value="delete_h.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -187,21 +215,35 @@ public class MediMember_hController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="update_hAf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public int update_hAf(MediMember_hDto dto_h, HttpServletRequest req) {
-		logger.info("MediMember_hController update_hAf " + new Date());
-		
-		mediMember_hService.updateMember_h(dto_h);
-
-		return 1;
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="checkId_h.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String checkId_h(MediMember_hDto dto_h) {
 		logger.info("MediMember_hController checkId_h " + new Date());
 		
 		return (mediMember_hService.checkId(dto_h))+"";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="checkTel_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String checkTel_h(MediMember_hDto dto_h) {
+		logger.info("MediMember_hController checkTel_h " + new Date());
+		
+		return (mediMember_hService.checkTel(dto_h))+"";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="checkAddress_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String checkAddress_h(MediMember_hDto dto_h) {
+		logger.info("MediMember_hController checkAddress_h " + new Date());
+		
+		return (mediMember_hService.checkAddress(dto_h))+"";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="checkEmail_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String checkEmail_h(MediMember_hDto dto_h) {
+		logger.info("MediMember_hController checkEmail_h " + new Date());
+		
+		return (mediMember_hService.checkEmail(dto_h))+"";
 	}
 	
 	@ResponseBody

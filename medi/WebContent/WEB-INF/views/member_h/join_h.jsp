@@ -123,9 +123,9 @@ input{
 									주소
 								</th>
 								<td>
-									<input type="text" id="post" name="post" placeholder="우편번호">
+									<input type="text" id="post" name="post" placeholder="우편번호" readonly="readonly">
 									<input type="button" onclick="btnPost()" value="우편번호 찾기"><br>
-									<input type="text" id="address1" placeholder="주소">
+									<input type="text" id="address1" placeholder="주소" readonly="readonly">
 									<input type="text" id="address2" onkeyup="addressCheckFunction()" placeholder="상세주소">
 									<input type="hidden" name="address" id="address" value="">
 									<h5 style="color: red;" id="addressCheckMessage" align="left"></h5>
@@ -298,7 +298,7 @@ input{
 	var infoCheck = 0;
 
 /* 아이디 중복 확인 */
-	function idCheckFunction() {
+	function idCheckFunction1() {
 		var id = $("#id").val();
 		if(id != ""){
 			$.ajax({
@@ -312,6 +312,77 @@ input{
 					}else{
 						idCheck = 9;
 						$("#idCheckMessage").html("");
+					}
+				}
+			});
+		}
+	}
+	
+/* 전화번호 중복 확인 */
+	function telCheckFunction() {
+		var tel = $("#tel").val();
+		if(tel != ""){
+			$.ajax({
+				type: 'post',
+				url: 'checkTel_h.do',
+				data: {tel: tel},
+				success: function(result) {
+					if(result == "true"){
+						telCheck = 0;
+						$("#telCheckMessage").html("이미 사용중인 전화번호입니다.");
+					}else{
+						telCheck = 9;
+						$("#telCheckMessage").html("");
+					}
+				}
+			});
+		}
+	}
+    
+/* address1 address2 합치기 */
+	function addressCheckFunction() {
+		var address1 = $("#address1").val();
+		var address2 = $("#address2").val();
+		$("#address").val(address1+"+"+address2);
+		addressCheckFunction1();
+	}
+	
+/* 주소 중복 확인 */
+	function addressCheckFunction1() {
+		var address = $("#address").val();
+		if(address != ""){
+			$.ajax({
+				type: 'post',
+				url: 'checkAddress_h.do',
+				data: {address: address},
+				success: function(result) {
+					if(result == "true"){
+						addressCheck = 0;
+						$("#addressCheckMessage").html("이미 사용중인 주소입니다.");
+					}else{
+						addressCheck = 9;
+						$("#addressCheckMessage").html("");
+					}
+				}
+			});
+		}
+	}
+	
+/* 이메일 중복 확인 */
+	function emailCheckFunction1() {
+		var email = $("#email").val();
+		if(email != ""){
+			$.ajax({
+				type: 'post',
+				url: 'checkEmail_h.do',
+				data: {email: email},
+				success: function(result) {
+					if(result == "true"){
+						emailCheck = 0;
+						$("#emailCheckMessage").html("이미 사용중인 이메일입니다.");
+					}else{
+						emailCheck = 9;
+						$("#emailCheckMessage").html("");
 					}
 				}
 			});
@@ -409,15 +480,6 @@ input{
             }
         }).open();
     }
-    
-/* address1 address2 합치기 */
-	$(function() {
-		$("#address2").blur(function() {
-			var address1 = $("#address1").val();
-			var address2 = $("#address2").val();
-			$("#address").val(address1+"+"+address2);
-		});
-	});
 	
 /* 이메일 유효성 확인 */
 	function emailCheckFunction() {
@@ -426,6 +488,7 @@ input{
 		if(!re.test(email)) {
 			$("#emailCheckMessage").html("이메일 형식에 맞춰주세요");
 		}else{
+			emailCheckFunction1();
 			$("#emailCheckMessage").html("");
 		}
 	}
@@ -519,7 +582,7 @@ input{
 				email: $("#email").val(),
 				answer: $("#answer").val(),
 				info: $("#info").val(),
-		}
+		};
 
   		if(idCheck == 0 || data.id == ""){
 			$("#idCheckMessage").html("아이디를 확인해주세요.");
@@ -579,18 +642,6 @@ input{
 		var name = $("#name").val();
 		if(name != ""){
 			$("#nameCheckMessage").html("");
-		}
-	}
-	function telCheckFunction() {
-		var tel = $("#tel").val();
-		if(tel != ""){
-			$("#telCheckMessage").html("");
-		}
-	}
-	function addressCheckFunction() {
-		var address = $("#address2").val();
-		if(address != ""){
-			$("#addressCheckMessage").html("");
 		}
 	}
 	function answerCheckFunction() {
