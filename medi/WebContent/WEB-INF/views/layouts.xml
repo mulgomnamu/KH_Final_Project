@@ -139,6 +139,12 @@
 		<put-attribute name="content" value="/WEB-INF/views/mypage/Myconsulting.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<!--커뮤니티 디테일  -->
+	<definition name="Myconsultingdetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/Myconsultingdetail.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	
 	
 	

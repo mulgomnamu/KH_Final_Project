@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kh.com.medi.model.MediConsultingAllDto;
+import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMyListPagingDto;
@@ -34,7 +36,7 @@ public class MediMyPageController {
 	
 
 	
-	/*내예약현황*/
+	/*Qna게시판*/
 	@RequestMapping(value="MyPageList.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String MyPageList(Model model, MediQnaBbsParamDto ddt) throws Exception{
 		logger.info("MediMyPageController MyPageList " + new Date());
@@ -263,6 +265,18 @@ public class MediMyPageController {
 		
 		}
 		
+		
+		@RequestMapping(value="Myconsultingdetail.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String Myconsultingdetail(Model model, MediConsultingAllDto alldto) throws Exception{
+			logger.info("MediConsultingController consultingdetail " + new Date());
+			medimyPageservice.readcountBbs(alldto);
+			MediConsultingQuestionDto dto=medimyPageservice.getBbsDetail(alldto);	//질문의 seq로 그디테일뿌려주고
+			List<MediConsultingAnswerDto> answerlist=medimyPageservice.answerlist(alldto);//질문의seq로 parent검색해서뿌려주는리스트
+			
+			model.addAttribute("answerlist", answerlist);
+			model.addAttribute("bbs", dto);
+			return "Myconsultingdetail.tiles";
+		}
 		
 		
 }

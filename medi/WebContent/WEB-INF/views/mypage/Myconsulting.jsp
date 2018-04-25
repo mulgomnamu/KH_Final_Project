@@ -91,7 +91,7 @@
 					   <tr class="_hover_tr">
 							    <td style="text-align: center;">[${bbs.category}]</td>
 								<td style="text-align: left">
-									<a href='consultingdetail.do?seq=${bbs.seq}'>
+									<a href='Myconsultingdetail.do?seq=${bbs.seq}'>
 								    	${bbs.title}
 								    </a>
 								</td>

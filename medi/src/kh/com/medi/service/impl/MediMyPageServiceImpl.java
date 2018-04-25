@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediMyPageDao;
 import kh.com.medi.model.MediConsultingAllDto;
+import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediQnaBbsDto;
@@ -67,5 +68,23 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	public int getBbsCount(MediConsultingAllDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return mediMyPageDao.getBbsCount(alldto);
+	}
+
+	@Override
+	public MediConsultingQuestionDto getBbsDetail(MediConsultingAllDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.getBbsDetail(dto);
+	}
+
+	@Override
+	public List<MediConsultingAnswerDto> answerlist(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.answerlist(alldto);
+	}
+
+	@Override
+	public void readcountBbs(MediConsultingAllDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		mediMyPageDao.readcountBbs(dto);
 	}
 }

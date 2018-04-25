@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediMyPageDao;
 import kh.com.medi.model.MediConsultingAllDto;
+import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediQnaBbsDto;
@@ -78,5 +79,22 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 		number = sqlSession.selectOne(ns + "getcomCount", alldto);
 		return number;
 	}
+
+	@Override
+	public MediConsultingQuestionDto getBbsDetail(MediConsultingAllDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"getBbsDetail", dto);
+	}
+
+	@Override
+	public List<MediConsultingAnswerDto> answerlist(MediConsultingAllDto alldto) throws Exception {
+		
+		return sqlSession.selectList(ns+"answerlist", alldto);
+	}
 	
+	@Override
+	public void readcountBbs(MediConsultingAllDto dto) throws Exception {
+		sqlSession.update(ns+"plusreadcount", dto);
+	}
+
 }
