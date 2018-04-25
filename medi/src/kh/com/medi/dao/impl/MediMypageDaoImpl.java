@@ -12,6 +12,7 @@ import kh.com.medi.model.MediConsultingAllDto;
 import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.model.MediQnaBbsDto;
 import kh.com.medi.model.MediQnaBbsParamDto;
 
@@ -80,7 +81,7 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 	}
 	
 	@Override
-	public List<MediConsultingQuestionDto> getBbsPagingList(MediConsultingAllDto alldto) throws Exception {
+	public List<MediConsultingQuestionDto> getconPagingList(MediConsultingAllDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(ns+"ConsultingPagingList", alldto);
 	}
@@ -108,5 +109,7 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 	public void readcountBbs(MediConsultingAllDto dto) throws Exception {
 		sqlSession.update(ns+"plusreadcount", dto);
 	}
+
+	
 
 }

@@ -13,11 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-<<<<<<< HEAD
+
 import org.springframework.web.bind.annotation.RequestParam;
-=======
+
 import org.springframework.web.bind.annotation.ResponseBody;
->>>>>>> branch 'master' of https://github.com/mulgomnamu/KH_Final_Project.git
+
 
 import kh.com.medi.model.MediConsultingAllDto;
 import kh.com.medi.model.MediConsultingAnswerDto;
@@ -256,7 +256,7 @@ public class MediMyPageController {
 			alldto.setEnd(end);
 			
 			int totalRecordCount = medimyPageservice.getBbsCount(alldto);
-			List<MediConsultingQuestionDto> questionlist = medimyPageservice.getBbsPagingList(alldto);
+			List<MediConsultingQuestionDto> questionlist = medimyPageservice.getconPagingList(alldto);
 			model.addAttribute("questionlist", questionlist);
 			model.addAttribute("pageNumber", sn);
 			model.addAttribute("pageCountPerScreen", 10);

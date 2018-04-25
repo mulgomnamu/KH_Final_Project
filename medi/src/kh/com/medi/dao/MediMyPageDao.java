@@ -7,6 +7,7 @@ import kh.com.medi.model.MediConsultingAllDto;
 import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.model.MediQnaBbsDto;
 import kh.com.medi.model.MediQnaBbsParamDto;
 
@@ -26,11 +27,11 @@ public interface MediMyPageDao {
 	/*QnA*/
 	int getBbsCount(MediQnaBbsParamDto mylist) throws Exception;
 	
-<<<<<<< HEAD
+
 	List<MediQnaBbsDto> getBbsPagingList(MediQnaBbsParamDto mylist) throws Exception;
 	
 	/*커뮤니티*/
-	List<MediConsultingQuestionDto> getBbsPagingList(MediConsultingAllDto alldto) throws Exception;
+	List<MediConsultingQuestionDto> getconPagingList(MediConsultingAllDto alldto) throws Exception;
 	
 	int getBbsCount(MediConsultingAllDto alldto) throws Exception;
 	
@@ -40,11 +41,11 @@ public interface MediMyPageDao {
 	List<MediConsultingAnswerDto> answerlist(MediConsultingAllDto alldto) throws Exception;
 	//조횟수
 	public void readcountBbs(MediConsultingAllDto dto) throws Exception;
-=======
-	List<MediMemberDto> getBbsPagingList(MediMyListPagingDto mylist) throws Exception;
+
+	
 	
 	boolean checkPhone(MediMemberDto my) throws Exception;
 	boolean checkEmail(MediMemberDto my) throws Exception;
 
->>>>>>> branch 'master' of https://github.com/mulgomnamu/KH_Final_Project.git
+
 }

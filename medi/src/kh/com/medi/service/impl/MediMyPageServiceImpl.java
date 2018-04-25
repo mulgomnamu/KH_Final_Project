@@ -11,6 +11,7 @@ import kh.com.medi.model.MediConsultingAllDto;
 import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.model.MediQnaBbsDto;
 import kh.com.medi.model.MediQnaBbsParamDto;
 import kh.com.medi.service.MediMyPageService;
@@ -58,10 +59,10 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public List<MediConsultingQuestionDto> getBbsPagingList(MediConsultingAllDto alldto) throws Exception {
+
+	public List<MediConsultingQuestionDto> getconPagingList(MediConsultingAllDto alldto) throws Exception {
 		// TODO Auto-generated method stub
-		return mediMyPageDao.getBbsPagingList(alldto);
+		return mediMyPageDao.getconPagingList(alldto);
 	}
 
 	@Override
@@ -87,7 +88,7 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 		// TODO Auto-generated method stub
 		mediMyPageDao.readcountBbs(dto);
 	}
-=======
+
 	public boolean checkPhone(MediMemberDto my) throws Exception {
 		return mediMyPageDao.checkPhone(my);
 	}
@@ -98,5 +99,7 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	}
 
 	
->>>>>>> branch 'master' of https://github.com/mulgomnamu/KH_Final_Project.git
+	
+	
+
 }
