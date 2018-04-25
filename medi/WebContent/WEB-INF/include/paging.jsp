@@ -68,9 +68,9 @@
 <div style="float:left; width:100%; text-align:center; margin:30px 0 60px 0;"> 
 	<a href="#none" title="처음페이지" onclick="goPage('0');" class="prevAll"><<</a>&nbsp;		
 		<%
-		if (screenStartPageIndex > 1){
+		if (screenStartPageIndex >= 1){
 			%>
-			<a href="#none" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1%>');"><img src="image/arrow_prev.gif" alt="이전페이지" style="width:9px; height:9px;"/></a>&nbsp;	
+			<a href="#none" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1%>');" class="prevAll"><</a>&nbsp;	
 			<%
 		}
 		    	
@@ -88,7 +88,7 @@
 		    	
 		if (screenEndPageIndex < totalPageCount){
 		    %>	
-			<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>);"><img src="image/arrow_next.gif" alt="다음페이지" style="width:9px; height:9px;"/></a>&nbsp;
+			<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>);" class="nextAll">></a>&nbsp;
 		    <%
 		} // end if
 		    

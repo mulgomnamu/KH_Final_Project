@@ -122,7 +122,7 @@ List<MediMember_hDto> list = (List<MediMember_hDto>)request.getAttribute("hoslis
 		 function initMap() {
 
 	        var map = new google.maps.Map(document.getElementById('fullmap'), {
-	          zoom: 3,
+	          zoom: 10,
 	          center: {lat: 37.498214, lng: 127.027589}
 	        });
 
@@ -312,7 +312,7 @@ List<MediMember_hDto> list = (List<MediMember_hDto>)request.getAttribute("hoslis
     	<ul class="mapbbsboxwrap">
     		<c:forEach items="${hoslist}" var="hbbs" varStatus="i">
 	    		<li class="mapbbsbox">
-	    			<a href="#;">
+	    			<a href="hbbsdetail.do?seq=${hbbs.seq }">
 	    				<div class="mapimgbox"><img src="images/sub/${hbbs.confirm_img }" alt=""></div>
 	    				<div class="mapbbsinfo">
 	    					<ul>

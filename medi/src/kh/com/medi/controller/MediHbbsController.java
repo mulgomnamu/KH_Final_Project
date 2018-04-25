@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediHbbsParamDto;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.service.MediHbbsService;
@@ -40,7 +41,7 @@ public class MediHbbsController {
 		
 		model.addAttribute("hbbslist", hbbslist);
 		model.addAttribute("pageNumber", sn);
-		model.addAttribute("pageCountPerScreen", 4);
+		model.addAttribute("pageCountPerScreen", 8);
 		model.addAttribute("recordCountPerPage", hbbs.getRecordCounterPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		
@@ -58,10 +59,13 @@ public class MediHbbsController {
 		System.out.println("controller seq : " + seq);
 
 		MediMember_hDto hdto = mediHbbsService.getBbsDetail(seq);
+		List<MediDoctorDto> doctorlist = mediHbbsService.getDoctorDetail(seq);
 		
 		model.addAttribute("hbbs", hdto);
+		model.addAttribute("doctorlist", doctorlist);
 		
 		return "hbbsdetail.tiles";
+		
 	}
 	
 	

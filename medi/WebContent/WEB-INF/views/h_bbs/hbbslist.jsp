@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
 
 <%!
@@ -64,8 +65,15 @@ public String dot3(String msg){
 									<p class="subinfo">${hbbs.info }</p>
 								</div>
 								<div class="hbbsbottom">
-									<img src="images/sub/location.png" alt="">
-									<p>${hbbs.address }</p>
+									<img src="images/sub/location.png" alt="location Icon">
+									<c:choose>
+										<c:when test="${fn:length(hbbs.address) > 28}">
+											<p>${fn:substring(hbbs.address, 0, 25) }...</p>
+										</c:when>
+										<c:otherwise>
+											<p>${hbbs.address }</p>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</a>
 						</div>
