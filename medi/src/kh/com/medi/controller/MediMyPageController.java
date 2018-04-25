@@ -13,12 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+import org.springframework.web.bind.annotation.ResponseBody;
+>>>>>>> branch 'master' of https://github.com/mulgomnamu/KH_Final_Project.git
 
 import kh.com.medi.model.MediConsultingAllDto;
 import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.model.MediMyPageDto;
 import kh.com.medi.model.MediQnaBbsDto;
@@ -278,5 +283,21 @@ public class MediMyPageController {
 			return "Myconsultingdetail.tiles";
 		}
 		
+		
+		@ResponseBody
+		@RequestMapping(value="checkPhone.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String checkPhone(MediMemberDto my) throws Exception {
+			logger.info("MediMyPageController checkPhone " + new Date());
+			
+			return medimyPageservice.checkPhone(my) + "";
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="checkEmail.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String checkEmail(MediMemberDto my) throws Exception {
+			logger.info("MediMyPageController checkEmail " + new Date());
+			
+			return medimyPageservice.checkEmail(my) + "";
+		}
 		
 }

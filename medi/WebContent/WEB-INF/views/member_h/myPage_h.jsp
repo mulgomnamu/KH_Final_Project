@@ -20,7 +20,7 @@
 					<div>
 						<a href="change_pwd_h.do">비밀번호 변경</a>
 						<br>
-						<a href="joinMember.do">병원 회원 정보 변경</a>
+						<a href="update_h.do?seq=${login_h.seq }">병원 회원 정보 변경</a>
 						<br>
 						<a href="joinMember.do">의사 회원 추가</a>
 						<br>

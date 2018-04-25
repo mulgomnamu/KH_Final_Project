@@ -31,7 +31,6 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 		return mediMyPageDao.myUpate(mep);
 	}
 
-
 	@Override
 	public MediMemberDto myup(MediMemberDto my) throws Exception {
 		return mediMyPageDao.myup(my);
@@ -59,6 +58,7 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<MediConsultingQuestionDto> getBbsPagingList(MediConsultingAllDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return mediMyPageDao.getBbsPagingList(alldto);
@@ -87,4 +87,16 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 		// TODO Auto-generated method stub
 		mediMyPageDao.readcountBbs(dto);
 	}
+=======
+	public boolean checkPhone(MediMemberDto my) throws Exception {
+		return mediMyPageDao.checkPhone(my);
+	}
+
+	@Override
+	public boolean checkEmail(MediMemberDto my) throws Exception {
+		return mediMyPageDao.checkEmail(my);
+	}
+
+	
+>>>>>>> branch 'master' of https://github.com/mulgomnamu/KH_Final_Project.git
 }

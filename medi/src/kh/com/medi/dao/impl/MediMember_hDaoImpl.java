@@ -1,5 +1,7 @@
 package kh.com.medi.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -8,6 +10,7 @@ import kh.com.medi.dao.MediMember_hDao;
 import kh.com.medi.model.MediHospital_imageDto;
 import kh.com.medi.model.MediHospital_subject;
 import kh.com.medi.model.MediMember_hDto;
+import kh.com.medi.model.MediSubjectDto;
 import oracle.net.aso.i;
 
 @Repository
@@ -37,8 +40,32 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 	}
 
 	@Override
+	public boolean deleteHospitalSubject(MediHospital_subject dto_s) {
+		int n = sqlSession.delete(ns+"deleteSubject", dto_s);
+		return n > 0;
+	}
+
+	@Override
 	public boolean checkId(MediMember_hDto dto_h) {
 		int n = sqlSession.selectOne(ns+"checkId_h", dto_h);
+		return n > 0;
+	}
+
+	@Override
+	public boolean checkTel(MediMember_hDto dto_h) {
+		int n = sqlSession.selectOne(ns+"checkTel_h", dto_h);
+		return n > 0;
+	}
+
+	@Override
+	public boolean checkAddress(MediMember_hDto dto_h) {
+		int n = sqlSession.selectOne(ns+"checkAddress_h", dto_h);
+		return n > 0;
+	}
+
+	@Override
+	public boolean checkEmail(MediMember_hDto dto_h) {
+		int n = sqlSession.selectOne(ns+"checkEmail_h", dto_h);
 		return n > 0;
 	}
 
@@ -70,4 +97,8 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 		return n > 0;
 	}
 	
+	@Override
+	public List<MediSubjectDto> getHospitalSubjectColumns(MediMember_hDto dto_h) {
+		return sqlSession.selectList(ns+"getHospitalSubjectColumns", dto_h);
+	}
 }

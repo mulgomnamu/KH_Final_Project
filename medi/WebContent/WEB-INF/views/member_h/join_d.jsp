@@ -4,6 +4,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style>
+.tableWrap tr{
+	border-bottom:1px solid #d9d9d9;
+}
+.tableWrap tr:first-child{
+	border-top:3px solid #d9d9d9;
+}
+.tableWrap th{
+	text-align:left;
+	padding: 14px 38px;
+	background-color: rgb(244, 245, 248)
+}
+.tableWrap td{
+	border-left-width: 100px;
+	padding: 14px 14px 38px 20px;
+}
+
+.tableWrap tr{border-bottom:1px solid #d9d9d9;}
+.tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
+.tableWrap th{text-align:left;}
+</style>
+
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -20,20 +42,20 @@
 					<form action="join_dAf" id="form_d" name="form_d" method="post" enctype="multipart/form-data">
 					
 						<input type="hidden" name="hos_seq" value="${hos_seq }">
-						<table>
+						<table class="tableWrap">
 							<tr>
-								<td>
+								<th>
 									의사 이름
-								</td>
+								</th>
 								<td>
 									<input type="text" id="name" name="name">
 									<h5 style="color: red;" id="nameCheckMessage" align="left"></h5>
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									진료 분야
-								</td>
+								</th>
 									
 								<td>
 									<table>
@@ -142,9 +164,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									진료 시간
-								</td>
+								</th>
 								<td>
 									<table>
 										<tr>
@@ -522,9 +544,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									의사 프로필 사진
-								</td>
+								</th>
 								<td>
 									<input type="file" id="profile" name="profile">
 									<h5 style="color: red;" id="profileCheckMessage" align="left"></h5>
@@ -536,9 +558,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									의사 소개
-								</td>
+								</th>
 								<td>
 									<textarea rows="10" cols="10" id="doc_content" name="doc_content"></textarea>
 									<h5 style="color: red;" id="infoCheckMessage" align="left"></h5>

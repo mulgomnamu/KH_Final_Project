@@ -17,13 +17,16 @@
 			 <if test="s_category != '' and s_category != null 
 			 	and s_keyword != '' and s_keyword != null">		 	
 			 	<if test="s_category == 'category'">
-					AND category LIKE CONCAT('%',#{s_keyword},'%')
+					AND category=#{s_keyword}
 				</if>
 				<if test="s_category == 'title'">
 					AND title LIKE CONCAT('%',#{s_keyword},'%')
 				</if>
 				<if test="s_category == 'content'">
 					AND content LIKE CONCAT('%',#{s_keyword},'%')
+				</if>	
+				<if test="s_category == 'id'">
+					AND wid =#{s_keyword}
 				</if>		 	
 			 </if>
 			 ORDER BY SEQ DESC
@@ -36,7 +39,7 @@
 		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
 			<if test="s_category == 'category'">
-				AND category LIKE CONCAT('%',#{s_keyword},'%')
+				AND category=#{s_keyword}
 			</if>
 			<if test="s_category == 'title'">
 				AND title LIKE CONCAT('%',#{s_keyword},'%')
@@ -44,6 +47,9 @@
 			<if test="s_category == 'content'">
 				AND content LIKE CONCAT('%',#{s_keyword},'%')
 			</if>
+			<if test="s_category == 'id'">
+				AND wid =#{s_keyword}
+			</if>	
 		</if> 
 	</select>
 	<select id="getquePagingList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
@@ -60,13 +66,16 @@
 			 <if test="s_category1 != '' and s_category1 != null 
 			 	and s_keyword1 != '' and s_keyword1 != null">		 	
 			 	<if test="s_category1 == 'category'">
-					AND category LIKE CONCAT('%',#{s_keyword1},'%')
+					AND category=#{s_keyword1}
 				</if>
 				<if test="s_category1 == 'title'">
 					AND title LIKE CONCAT('%',#{s_keyword1},'%')
 				</if>
 				<if test="s_category1 == 'content'">
 					AND content LIKE CONCAT('%',#{s_keyword1},'%')
+				</if>	
+				<if test="s_category1 == 'id'">
+					AND wid =#{s_keyword}
 				</if>		 	
 			 </if>
 			 ORDER BY SEQ DESC
@@ -79,7 +88,7 @@
 		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0 AND SELECTYN=0
 		<if test="s_category1 != '' and s_category1 != null and s_keyword1 != '' and s_keyword1 != null">
 			<if test="s_category1 == 'category'">
-				AND category LIKE CONCAT('%',#{s_keyword1},'%')
+				AND category=#{s_keyword1}
 			</if>
 			<if test="s_category1 == 'title'">
 				AND title LIKE CONCAT('%',#{s_keyword1},'%')
@@ -87,6 +96,9 @@
 			<if test="s_category1 == 'content'">
 				AND content LIKE CONCAT('%',#{s_keyword1},'%')
 			</if>
+			<if test="s_category1 == 'id'">
+				AND wid =#{s_keyword1}
+			</if>	
 		</if> 
 	</select>
 	<select id="getansweredList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
@@ -103,13 +115,16 @@
 			 <if test="s_category2 != '' and s_category2 != null 
 			 	and s_keyword2 != '' and s_keyword2 != null">		 	
 			 	<if test="s_category2 == 'category'">
-					AND category LIKE CONCAT('%',#{s_keyword2},'%')
+					AND category=#{s_keyword2}
 				</if>
 				<if test="s_category2 == 'title'">
 					AND title LIKE CONCAT('%',#{s_keyword2},'%')
 				</if>
 				<if test="s_category2 == 'content'">
 					AND content LIKE CONCAT('%',#{s_keyword2},'%')
+				</if>	
+				<if test="s_category2 == 'id'">
+					AND wid =#{s_keyword2}
 				</if>		 	
 			 </if>
 			 ORDER BY SEQ DESC
@@ -122,7 +137,7 @@
 		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0 AND SELECTYN=1
 		<if test="s_category2 != '' and s_category2 != null and s_keyword2 != '' and s_keyword2 != null">
 			<if test="s_category2 == 'category'">
-				AND category LIKE CONCAT('%',#{s_keyword2},'%')
+				AND category=#{s_keyword2}
 			</if>
 			<if test="s_category2 == 'title'">
 				AND title LIKE CONCAT('%',#{s_keyword2},'%')
@@ -130,6 +145,9 @@
 			<if test="s_category2 == 'content'">
 				AND content LIKE CONCAT('%',#{s_keyword2},'%')
 			</if>
+			<if test="s_category2 == 'id'">
+				AND wid =#{s_keyword2}
+			</if>	
 		</if> 
 	</select>
 	<!-- 디테일가져오기 -->
