@@ -6,7 +6,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
-
+<style>
+.refresh_btn1 em:before {content:'';display:inline-block;position:absolute;top:50%; height:16px;margin-top:-8px;background:url('../images/main/icon_refresh.png') no-repeat;vertical-align:top;}
+.list_table{
+border-top: 1px solid black;
+}
+.list_table th {
+background-color:#f4f5f8;
+padding:22px 38px;
+text-align: left;
+border-bottom:1px solid #d9d9d9;
+}
+.list_table td {
+padding-left:20px;
+border-bottom:1px solid #d9d9d9;
+height: 60px;
+}
+</style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -14,7 +30,6 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>질문 수정하기</h2>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -39,6 +54,11 @@
 							<th>진료과목 선택</th>
 							
 							<td style="text-align: left">
+								<span class="form-text" style="width: 310px;">
+							<label for="category" class="placeholder">카테고리</label>
+							<span class="form-select">
+								<span class="virtual_select">선택
+								</span>
 								<select id="category" name="category">
 									<option value="choicehe">선택해주세요</option>
 									<option value="가정의학과">가정의학과</option>
@@ -74,26 +94,30 @@
 									<option value="한방">한의원</option>	
 									<option value="기타">기타</option>	
 								 </select>
+							</span>
+							</span>
 							</td>
 						</tr>
 						<tr>
 							<th>제목</th>
 								<td style="text-align: left">
-									<input type="text" name="title" size="60"/>
+								<span class="form-text">
+								<input type="text" id="board_title" name="title" value="${bbs.title }" size="60"/>
+								</span>
 								</td>
 						</tr>
 						<tr>
 							<th>내용</th>
 							<td style="text-align: left">
-								<textarea rows="10" cols="50" name='content' id="_content">${bbs.content }</textarea>
+								<textarea style="margin: 10px 0 10px 0;" rows="10" cols="50" name='content' id="_content">${bbs.content }</textarea>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="height:50px; text-align:center;">
 								<span>					
-						 			<a href="#none" id="_btnLogin" title="글쓰기">		
-										<img src="images/Qnabbs/bwrite.png" alt="로그인" />
-									</a>
+						 			<span>					
+								<a href="#none" id="_btnLogin" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">수정완료</em></a>
+								</span>
 								</span>
 							</td>
 						</tr>

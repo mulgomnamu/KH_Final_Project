@@ -27,7 +27,7 @@ width: 972.4px;
 margin:30px 0 0 30px;
 }
 .selectbtn{
-text-align: right;
+float: right;
 }
 #selected{
 width:140px;
@@ -53,6 +53,7 @@ width:140px;
 					<input type="hidden" name="seq" id="seq1" value="${login_h.seq}"/><!-- 로그인한병원seq -->
 					</c:if>
 					<input type="hidden" name="category" id="category" value="${bbs.category}"/>
+					<input type="hidden" name="title" value="${bbs.title}">
 					<table class="list_table" style="width:85%;">
 					<tbody>	
 					 <c:set var="wid" value="${bbs.wid}"/>
@@ -61,7 +62,7 @@ width:140px;
 						<div class="titlediv">
 						<span>[${bbs.category}]</span>
 						<span>${bbs.title}</span><br><br>
-						<span>작성자&nbsp;&nbsp;${fn:substring(wid,0,1) }*****&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+						<span>작성자&nbsp;&nbsp;${bbs.wid}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 						<span>${bbs.wdate}&nbsp;&nbsp;|&nbsp;&nbsp;조회수&nbsp;${bbs.readcount}</span>
 						<hr style="margin-top: 20px;"><br>
 						</div>
@@ -86,6 +87,9 @@ width:140px;
 					
 					</form>
 				<!-- 이부분에 답글 시작 -->
+				<c:if test="${empty answerlist }">
+				<div style="height: 30px;"></div>
+				</c:if>
 				<c:if test="${not empty answerlist }">
 					<table>
 						<c:forEach items="${answerlist}" var="ansbbs" varStatus="vs">
@@ -96,7 +100,7 @@ width:140px;
 							<span>${ansbbs.whos_name}에서 답변한 글</span><br><br>
 							<span style="margin-left: 20px;">${ansbbs.ans_wdate}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 							<span>채택수&nbsp;${ansbbs.medimember_hdto.score}</span>
-							<p class="selectbtn">
+							<span class="selectbtn">
 							<c:if test="${bbs.selectyn eq 0}">	<!-- 채택아직안된글 -->
 								<c:if test="${bbs.wid eq login.id}"><!-- 일반사용자가로그인했을때 -->
 								<input type="hidden" id="ans_seqid" value="${ansbbs.ans_seq}">
@@ -111,8 +115,8 @@ width:140px;
 									<span class="btn-type02" style="width: 140px;background-color:#1f4bb4; margin-right: 50px;"><em style="padding:0px;">채택된글입니다</em></span>
 								</c:if>
 							</c:if>
-							</p>
-							<hr style="margin-top: 20px;"><br>
+							</span>
+							<hr style="margin-top: 30px;"><br>
 							</div>
 							<div class="contentdiv">
 							<textarea id='${ansbbs.ans_seq}' readonly="readonly" rows="10" cols="50"  style="resize: none;">${ansbbs.content}</textarea>
@@ -136,7 +140,7 @@ width:140px;
 						</c:forEach>
 						
 					</table>
-					
+					<div style="height: 30px;"></div>
 				</c:if>
 				</div>
 			</div>
@@ -220,7 +224,7 @@ function updateAf(answerseq) {
 function answerdelete(answerseq) {
 	$.ajax({
 		url : "answerdelete.do",
-		data:"seq="+answerseq,
+		data:"ans_seq="+answerseq,
 		dataType : "json",
 		cache : false,
 		success : function(data) {
