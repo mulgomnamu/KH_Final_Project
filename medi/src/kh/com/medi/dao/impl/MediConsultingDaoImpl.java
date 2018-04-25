@@ -17,7 +17,7 @@ public class MediConsultingDaoImpl implements MediConsultingDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
-	private String ns = "Consulting.";
+	private String ns = "Consulting."; 
 
 	@Override
 	public List<MediConsultingQuestionDto> getBbsPagingList(MediConsultingAllDto alldto) throws Exception {
@@ -91,9 +91,9 @@ public class MediConsultingDaoImpl implements MediConsultingDao {
 	}
 
 	@Override
-	public MediMember_hDto get() throws Exception {
+	public MediConsultingAnswerDto get(MediConsultingAllDto dto) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(ns+"gethospitaldetail");
+		return sqlSession.selectOne(ns+"gethospitaldetail",dto);
 	}
 
 	@Override
@@ -138,5 +138,10 @@ public class MediConsultingDaoImpl implements MediConsultingDao {
 		int number = 0;
 		number = sqlSession.selectOne(ns + "getanswerCount", alldto);
 		return number;
+	}
+
+	@Override
+	public void plusscore(MediConsultingAllDto dto) throws Exception {
+		sqlSession.update(ns+"plusscore", dto);
 	}
 }

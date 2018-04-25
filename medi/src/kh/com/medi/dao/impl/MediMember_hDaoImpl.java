@@ -96,10 +96,9 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 		int n = sqlSession.update(ns+"changePwd", dto_h);
 		return n > 0;
 	}
-
+	
 	@Override
 	public List<MediSubjectDto> getHospitalSubjectColumns(MediMember_hDto dto_h) {
 		return sqlSession.selectList(ns+"getHospitalSubjectColumns", dto_h);
 	}
-
 }

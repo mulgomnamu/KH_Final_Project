@@ -21,7 +21,7 @@ public class MediQnaBbsServiceImpl implements MediQnaBbsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public List<MediQnaBbsDto> getBbsPagingList(MediQnaBbsParamDto param) throws Exception {
 		// TODO Auto-generated method stub
@@ -29,9 +29,33 @@ public class MediQnaBbsServiceImpl implements MediQnaBbsService {
 	}
 
 	@Override
+	public List<MediQnaBbsDto> getBbsPagingList1(MediQnaBbsParamDto param) throws Exception {
+		// TODO Auto-generated method stub
+		return mediQnaDao.getBbsPagingList1(param);
+	}
+	
+	@Override
+	public List<MediQnaBbsDto> getBbsPagingList4(MediQnaBbsParamDto param) throws Exception {
+		// TODO Auto-generated method stub
+		return mediQnaDao.getBbsPagingList4(param);
+	}
+
+	@Override
 	public int getBbsCount(MediQnaBbsParamDto param) throws Exception {
 		// TODO Auto-generated method stub
 		return mediQnaDao.getBbsCount(param);
+	}
+	
+	@Override
+	public int getBbsCount1(MediQnaBbsParamDto param) throws Exception {
+		// TODO Auto-generated method stub
+		return mediQnaDao.getBbsCount1(param);
+	}
+	
+	@Override
+	public int getBbsCount4(MediQnaBbsParamDto param) throws Exception {
+		// TODO Auto-generated method stub
+		return mediQnaDao.getBbsCount4(param);
 	}
 
 	@Override
@@ -40,9 +64,15 @@ public class MediQnaBbsServiceImpl implements MediQnaBbsService {
 	}
 
 	@Override
-	public boolean insertBbs(MediQnaBbsDto dto) throws Exception {
+	public boolean insertBbs1(MediQnaBbsDto dto) throws Exception {
 		// TODO Auto-generated method stub
-		return mediQnaDao.insertBbs(dto);
+		return mediQnaDao.insertBbs1(dto);
+	}
+	
+	@Override
+	public boolean insertBbs4(MediQnaBbsDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediQnaDao.insertBbs4(dto);
 	}
 
 	@Override

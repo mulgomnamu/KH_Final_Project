@@ -60,6 +60,13 @@ $(document).ready(function(){
 	}	
 }); 
 </script> 
+<script type="text/javascript"> 
+var message = '${msg}'; 
+var returnUrl = '${url}'; 
+if(message != ""){
+	alert(message);	
+}
+</script>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -114,7 +121,8 @@ $(document).ready(function(){
 												<option value="" selected="selected">선택</option>
 												<option value="category">진료분야</option>
 												<option value="title">제목</option>
-												<option value="content">내용</option>								
+												<option value="content">내용</option>	
+												<option value="id">작성자</option>									
 											</select>
 										</td>
 										<td style="padding-left:5px;"><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
@@ -128,10 +136,11 @@ $(document).ready(function(){
 						</div>
 						
 					</div>
-					
+					<c:if test="${loginType eq 1 }">
 					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
-						<a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
+						<a href="#none" onclick="btnwrite()" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
 					</div>
+					</c:if>
 					<div id="alldiv">
 				 <table style="width:85%; align:center; margin-top: 100px;"  align="center">
 				  <colgroup>
@@ -178,8 +187,9 @@ $(document).ready(function(){
 								<td>${bbs.commentcount}</td>
 								<td>${bbs.readcount}</td>
 							    <td>
-							    <c:set var="wid" value="${bbs.wid}"/>
-								${fn:substring(wid,0,1) }*****
+							    ${bbs.wid}
+							   <%--  <c:set var="wid" value="${bbs.wid}"/>
+								${fn:substring(wid,0,1) }***** --%>
 							    </td>
 					   </tr>
 					   
@@ -211,7 +221,8 @@ $(document).ready(function(){
 												<option value="" selected="selected">선택</option>
 												<option value="category">진료분야</option>
 												<option value="title">제목</option>
-												<option value="content">내용</option>								
+												<option value="content">내용</option>		
+												<option value="id">작성자</option>									
 											</select>
 										</td>
 										<td style="padding-left:5px;"><input type="text" id="_s_keyword1" name="s_keyword1" value="${s_keyword1}"/></td>
@@ -224,10 +235,11 @@ $(document).ready(function(){
 						</div>
 						
 					</div>
-					
+					<c:if test="${loginType eq 1 }">
 					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
-						<a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
+						<a href="#none" onclick="btnwrite()" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
 					</div>
+					</c:if>
 					<div id="questiondiv">
 				 <table style="width:85%; align:center; margin-top: 100px;"  align="center">
 				   <colgroup>
@@ -273,8 +285,9 @@ $(document).ready(function(){
 								<td>${bbs1.commentcount}</td>
 								<td>${bbs1.readcount}</td>
 							    <td>
-							    <c:set var="wid1" value="${bbs1.wid}"/>
-								${fn:substring(wid1,0,1) }*****
+							    ${bbs1.wid}
+							  <%--   <c:set var="wid1" value="${bbs1.wid}"/>
+								${fn:substring(wid1,0,1) }***** --%>
 							    </td>
 					   </tr>
 					   
@@ -308,7 +321,8 @@ $(document).ready(function(){
 												<option value="" selected="selected">선택</option>
 												<option value="category">진료분야</option>
 												<option value="title">제목</option>
-												<option value="content">내용</option>								
+												<option value="content">내용</option>		
+												<option value="id">작성자</option>							
 											</select>
 										</td>
 										<td style="padding-left:5px;"><input type="text" id="_s_keyword2" name="s_keyword2" value="${s_keyword2}"/></td>
@@ -321,10 +335,11 @@ $(document).ready(function(){
 						</div>
 						
 					</div>
-					
+					<c:if test="${loginType eq 1 }">
 					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
-						<a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
+						<a href="#none" onclick="btnwrite()" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
 					</div>
+					</c:if>
 					<div id="answerdiv">
 				 <table style="width:85%; align:center; margin-top: 100px;"  align="center">
 				   <colgroup>
@@ -357,8 +372,9 @@ $(document).ready(function(){
 								    </a>
 								</td>
 							    <td>
-							    <c:set var="wid2" value="${bbs2.wid}"/>
-								${fn:substring(wid2,0,1) }*****
+							    ${bbs2.wid}
+							<%--     <c:set var="wid2" value="${bbs2.wid}"/>
+								${fn:substring(wid2,0,1) }***** --%>
 							    </td>
 					   </tr>
 					   
@@ -460,7 +476,7 @@ function goPage(pageNumber,elem) {
 					}
 					items.push("<td>" + questionlist.commentcount+"</td>");
 					items.push("<td>" + questionlist.readcount+"</td>");
-					items.push("<td>" + (questionlist.wid).substring(0,1)+"******</td>");
+					items.push("<td>" + questionlist.wid+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table1"); // 그리고 그 tr을 테이블에 붙임
@@ -507,7 +523,8 @@ function goPage1(pageNumber1,elem) {
 					}
 					items.push("<td>" + onlyquestionlist.commentcount+"</td>");
 					items.push("<td>" + onlyquestionlist.readcount+"</td>");
-					items.push("<td>" + (onlyquestionlist.wid).substring(0,1)+"******</td>");
+					items.push("<td>" + onlyquestionlist.wid+"</td>");
+				/* 	items.push("<td>" + (onlyquestionlist.wid).substring(0,1)+"******</td>"); */
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table2"); // 그리고 그 tr을 테이블에 붙임
@@ -553,7 +570,7 @@ function goPage2(pageNumber2,elem) {
 					}
 					items.push("<td>" + answeredlist.commentcount+"</td>");
 					items.push("<td>" + answeredlist.readcount+"</td>");
-					items.push("<td>" + (answeredlist.wid).substring(0,1)+"******</td>");
+					items.push("<td>" + answeredlist.wid+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table3"); // 그리고 그 tr을 테이블에 붙임
@@ -617,7 +634,7 @@ function alllist(ca,key,pa,re) {
 				}
 				items.push("<td>" + questionlist.commentcount+"</td>");
 				items.push("<td>" + questionlist.readcount+"</td>");
-				items.push("<td>" + (questionlist.wid).substring(0,1)+"******</td>");
+				items.push("<td>" + questionlist.wid+"</td>");
 				$("<tr/>", {
 					html : items // 티알에 붙임,
 				}).appendTo("#table1"); // 그리고 그 tr을 테이블에 붙임
@@ -676,7 +693,7 @@ function queli(ca,key,pa,re) {
 					}
 					items.push("<td>" + onlyquestionlist.commentcount+"</td>");
 					items.push("<td>" + onlyquestionlist.readcount+"</td>");
-					items.push("<td>" + (onlyquestionlist.wid).substring(0,1)+"******</td>");
+					items.push("<td>" + onlyquestionlist.wid+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table2"); // 그리고 그 tr을 테이블에 붙임
@@ -733,7 +750,7 @@ function ansli(ca,key,pa,re) {
 					}
 					items.push("<td>" + answeredlist.commentcount+"</td>");
 					items.push("<td>" + answeredlist.readcount+"</td>");
-					items.push("<td>" + (answeredlist.wid).substring(0,1)+"******</td>");
+					items.push("<td>" + answeredlist.wid+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table3"); // 그리고 그 tr을 테이블에 붙임
@@ -745,14 +762,13 @@ function ansli(ca,key,pa,re) {
 
 //id체크해서 글쓰기못누르게
 var id = $("#id").val();
-$("#_btnWrite").click(function() {	
+function btnwrite() {
 	if(id == null){
 		alert("로그인을 해주세요.");
 	}else{
 		location.href="consultingwrite.do";
 	}
-});
-
+}
 //엔터키 서브밋막기
 $('input[type="text"]').keydown(function() {
     if (event.keyCode === 13) {

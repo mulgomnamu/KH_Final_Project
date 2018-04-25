@@ -229,7 +229,7 @@ public class MediConsultingController {
 	@RequestMapping(value="consultingupdate.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String QnabbsUpdate(Model model, MediConsultingAllDto dto) throws Exception{
 		logger.info("MediConsultingController consultingupdate " + new Date());
-		
+		System.out.println(dto.toString());
 		model.addAttribute("bbs", dto);
 		return "consultingupdate.tiles";
 	}
@@ -241,6 +241,7 @@ public class MediConsultingController {
 		boolean flag = mediConsultingService.updateBbs(dto);
 		
 		if(flag) {
+			model.addAttribute("msg", "글수정 성공했습니다");
 			return "redirect:/consultinglist.do";
 		}else {
 			model.addAttribute("msg", "글수정 실패");
@@ -264,9 +265,8 @@ public class MediConsultingController {
 	@RequestMapping(value="answerwrite.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String answerwrite(Model model, MediConsultingAllDto alldto) throws Exception{
 		logger.info("MediConsultingController answerwrite " + new Date());
-		MediMember_hDto hdto=mediConsultingService.get();
-		
-		model.addAttribute("parent", alldto.getSeq());
+		MediConsultingAnswerDto hdto=mediConsultingService.get(alldto);//seq->병원의seq
+		model.addAttribute("parent", alldto.getMem_seq());	//부모글
 		model.addAttribute("hdto", hdto);
 		return "answerwrite.tiles";
 	}
@@ -291,6 +291,7 @@ public class MediConsultingController {
 		mediConsultingService.readcountBbs(alldto);
 		MediConsultingQuestionDto dto=mediConsultingService.getBbsDetail(alldto);	//질문의 seq로 그디테일뿌려주고
 		List<MediConsultingAnswerDto> answerlist=mediConsultingService.answerlist(alldto);//질문의seq로 parent검색해서뿌려주는리스트
+		
 		model.addAttribute("answerlist", answerlist);
 		model.addAttribute("bbs", dto);
 		return "consultingdetail.tiles";
@@ -312,6 +313,7 @@ public class MediConsultingController {
 		}
 		if (isS1) {
 			yn="yesyes";
+			mediConsultingService.plusscore(alldto);
 		}else {
 			yn="no";
 		}

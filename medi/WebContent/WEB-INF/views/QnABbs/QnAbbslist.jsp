@@ -1,3 +1,4 @@
+<%@page import="kh.com.medi.model.MediMember_hDto"%>
 <%@page import="kh.com.medi.model.MediMemberDto"%>
 <%@page import="kh.com.medi.model.MediQnaBbsDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -22,6 +23,7 @@ public String dot3(String msg){
 <%
 
 MediMemberDto dto = (MediMemberDto)session.getAttribute("login");
+MediMember_hDto hdto = (MediMember_hDto)session.getAttribute("login_h");
 %>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
@@ -31,7 +33,7 @@ MediMemberDto dto = (MediMemberDto)session.getAttribute("login");
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
 				<h2>QnA 공간입니다.</h2>
-				<em>불편사항이 있으면 관리자에게 문의를 해보세요.<br/>문제를 속시원히 해결해드립니다.</em>
+				<em>불편사항이 있으면 관리자에게 문의를 해보세요.<br/>문제를 속시원히 해결해드립니다.<br><br>답글의 비밀번호는 질문글의 비밀번호와 같습니다.</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -84,12 +86,19 @@ MediMemberDto dto = (MediMemberDto)session.getAttribute("login");
 						  <%
 						  	if(dto != null){
 						  %>
-								<input type="hidden" name="id" id="id" value="<%=dto.getId() %>">
+								<input type="hidden" name="id" id="id" value="<%=dto.getAuth() %>">
 						  <%
+						  	}
+						  	else if(hdto != null){
+						  %>
+						  		<input type="hidden" name="id" id="id" value="<%=hdto.getAuth() %>">
+						  		
+						  <%
+						  		
 						  	}
 						  %>
 					   <c:forEach items="${hbbslist}" var="bbs" varStatus="vs">
-					<jsp:setProperty property="depth" name="ubbs" value="${bbs.depth}"/>
+					   <jsp:setProperty property="depth" name="ubbs" value="${bbs.depth}"/>
 					  <%--  <tr class="_hover_tr">
 						    <td style="text-align: center">
 						    	${vs.count}
@@ -107,47 +116,82 @@ MediMemberDto dto = (MediMemberDto)session.getAttribute("login");
 						    </td> 
 					   </tr> --%>
 					   
-					   <tr class="_hover_tr">
-					   <!-- Db에서 가져온 rock 비밀번호 -->
-					   <input type="hidden" name="rock" id="rock" value="${bbs.rock}">
-					   
-					   <c:choose>
-						    <c:when test="${bbs.del eq 0}">
-							    <td>${vs.count}</td> 
-							    <td>${bbs.question}</td>
-								<td style="text-align: left">
-							    <jsp:getProperty property="arrow" name="ubbs"/>
-								    <c:if test="${bbs.rock ne 'no'}">
-								    	<%-- <c:if test="${}"></c:if> --%>
-								    	<a href='QnabbsdetailRock.do?seq=${bbs.seq}&rock=${bbs.rock}'>
-								    		${bbs.title}
-								   		</a>
-								    	<img alt="" src="images/Qnabbs/rock.jpg">
-								    </c:if>
-								    <c:if test="${bbs.rock eq 'no'}">
-								    	<a href='Qnabbsdetail.do?seq=${bbs.seq}'>
-								    	${bbs.title}
-								   		</a>
-								    </c:if>
-								    
-								    
-								</td>
-							    <td>
-							    	${bbs.id}
-							    </td>
-						    	
-						    </c:when>
-						    <c:otherwise>
-							    <td colspan="4" style="text-align: center">게시글은 삭제되었습니다</td>
-						    </c:otherwise>
-					   </c:choose>
-					   </tr>
+						   	<tr class="_hover_tr">
+						   <!-- Db에서 가져온 rock 비밀번호 -->
+						   <input type="hidden" name="rock" id="rock" value="${bbs.rock}">
+						   
+						   <c:choose>
+							    <c:when test="${bbs.del eq 0}">
+								    <td>${vs.count}</td> 
+								    <td>${bbs.question}</td>
+									<td style="text-align: left">
+								    <jsp:getProperty property="arrow" name="ubbs"/>
+									    
+									    <c:if test="${bbs.rock ne 'no'}">
+										    	<%
+										    	if(dto != null){
+											    	if(dto.getAuth() == 2){
+											    	%>
+												    	<a href='Qnabbsdetail.do?seq=${bbs.seq}'>
+												    		${bbs.title}
+												   		</a>
+												    	<img alt="" src="images/Qnabbs/rock.jpg">
+											    	<%
+											    	}else{
+												    %>
+												 	   <a href='QnabbsdetailRock.do?seq=${bbs.seq}&rock=${bbs.rock}'>
+												    		${bbs.title}
+												   		</a>
+												    	<img alt="" src="images/Qnabbs/rock.jpg">
+												    <%
+												    }
+										    	}
+										    	else if(hdto != null){
+										    		
+											    %>
+												    <a href='QnabbsdetailRock.do?seq=${bbs.seq}&rock=${bbs.rock}'>
+											    		${bbs.title}
+											   		</a>
+											    	<img alt="" src="images/Qnabbs/rock.jpg">
+											    <%
+										    		
+										    	}else{
+											    %>
+											    	<a href='QnabbsdetailRock.do?seq=${bbs.seq}&rock=${bbs.rock}'>
+											    		${bbs.title}
+											   		</a>
+											    	<img alt="" src="images/Qnabbs/rock.jpg">
+											    <%
+										    	}
+											    %>
+										    
+									    </c:if>
+									    
+									    <c:if test="${bbs.rock eq 'no'}">
+									    	<a href='Qnabbsdetail.do?seq=${bbs.seq}'>
+									    	${bbs.title}
+									   		</a>
+									    </c:if>
+									    
+									    
+									</td>
+								    <td>
+								    	${bbs.id}
+								    </td>
+							    	
+							    </c:when>
+							    <c:otherwise>
+								    <td colspan="4" style="text-align: center">게시글은 삭제되었습니다</td>
+							    </c:otherwise>
+						   </c:choose>
+						   </tr>
 					   
 					   </c:forEach>
 					</tbody>
 					</table> 
 					<br>
 					<div align="right">
+						<%-- <input type="hidden" name="loginType" id="loginType" value='${loginType}'> --%>
 						<a href="#none" id="_btnWrite" title="글쓰기"><img src="images/Qnabbs/bwrite.png" alt="글쓰기" /></a>
 					</div>
 					<div id="paging_wrap">
@@ -166,17 +210,29 @@ MediMemberDto dto = (MediMemberDto)session.getAttribute("login");
 			</div>
 		</section>
 	</div>
-			<!-- // #LOCATION -->
-	<!-- phone_num 끝 -->
 </div>
 
+<%-- <script type="text/javascript"> 
+
+var message1 = <%=msg%>; 
+var returnUrl = '${url}'; 
+if(msg != ""){
+	alert(msg);	
+	document.location.href = returnUrl;
+}
+</script> --%>
+
 <script>
+
 var id = $("#id").val();
+/* alert( id); */
 $("#_btnWrite").click(function() {	
+	
 	if(id == null){
 		alert("로그인을 해주세요.");
 	}else{
 		location.href="QnabbsWrite.do";
+		
 	}
 });
 
@@ -194,7 +250,7 @@ $(document).ready(function() {
 });
 function goPage(pageNumber) {	
 	$("#_pageNumber").val(pageNumber) ;
-	$("#_frmFormSearch").attr("target","_self").attr("action","QnAbblist.do?keyWord=${s_category}&selectWord=${s_keyword}").submit();
+	$("#_frmFormSearch").attr("target","_self").attr("action","QnAbblist.do?keyWord=${s_category}&selectWord=${s_keyword}&loginType=${loginType}").submit();
 }
 $("#_btnSearch").click(function() {
 	//alert('search');						

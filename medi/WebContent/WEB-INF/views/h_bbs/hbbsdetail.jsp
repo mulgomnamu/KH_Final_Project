@@ -49,6 +49,11 @@
 							</div>
 						</div>
 						
+						<div class="bookBtnWrap">
+							<a href="#;" data-hover="예약하러가기" class="bookBtn1">방문진료에약</a>
+							<a href="#;" data-hover="예약하러가기" class="bookBtn2">화상진료예약</a>
+						</div>
+						
 						<span class="middleline"></span>
 						
 						<div class="detailBottom">
@@ -57,26 +62,57 @@
 								<h4>의료진 소개</h4>
 							</div>
 							<!-- 의사 인원만큼 for문 시작 -->
-							<div class="doctorInfo">
-								<div class="doctorInfoImgBox">
-									<img src="images/sub/info_doctor.png" alt="">
-								</div>
-								<div class="doctorInfoCon">
-									<ul>
-										<li class="doctorName">홍길동 <span class="doctorCharge">병원장, 전문의</span></li>
-										<li class="doctorInfoSchedule">월, 수, 목, 금 진료</li>
-										<li class="doctorInfoSubTiny">
-											서울성모병원 병원장<br/>
-											한양대학교 의과대학 수련의 및 점임의<br/>
-											분당 서울대병원 자문교수<br/>
-											북미 방사선의학회 정회원
-										</li>
-									</ul>
-								</div>
+							<div class="doctorlistWrap">
+								<c:forEach items="${doctorlist}" var="doctordto" varStatus="i">
+									<div class="doctorInfo">
+										<div class="doctorInfoImgBox">
+											<img src="images/sub/${doctordto.doc_profile }" alt="">
+										</div>
+										<div style="clear:both;">
+											<div class="doctorInfoCon">
+												<ul>
+													<li class="doctorName">${doctordto.name } <span class="doctorCharge">병원장, 전문의</span></li>
+													<li class="doctorInfoSchedule">${doctordto.day_tostring }</li>
+													<li class="doctorInfoSubTiny">${doctordto.doc_content }</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+								<div style="clear:both;"></div>
 							</div>
 							<!-- 의사 인원만큼 for문 끝 -->
 						</div>
 						
+						<div class="reviewsWrap">
+							<table class="reviewsTable">
+								<col width="8%"><col width="60%"><col width="15%"><col width="17%">
+								<tr>
+									<th>글번호</th>
+									<th>이용후기</th>
+									<th>글쓴이</th>
+									<th>게시일</th>
+								</tr>
+								<!-- for문 시작 -->
+								<tr>
+									<td align="center">1</td>
+									<td align="left" style="padding-left:15px;">정말 좋아요</td>
+									<td align="center">김근영</td>
+									<td align="center">2018.04.24</td>
+								</tr>
+								<!-- for문 끝 -->
+							</table>
+							<a href="#;" data-hover="이용후기 작성" class="reviewsWriteBtn" id="reviewsWriteBtn">이용후기 작성</a>
+							<div style="clear:both;"></div>
+						</div>
+					</div>
+					
+					<div>
+						<div>
+							<span>X</span>
+							<h4>이용후기를 남겨주세요</h4>
+							<span></span>
+						</div>
 					</div>
 				
 					

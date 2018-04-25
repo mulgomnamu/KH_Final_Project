@@ -87,9 +87,9 @@ public class MediConsultingServiceImpl implements MediConsultingService {
 	}
 
 	@Override
-	public MediMember_hDto get() throws Exception {
+	public MediConsultingAnswerDto get(MediConsultingAllDto dto) throws Exception {
 		// TODO Auto-generated method stub
-		return mediConsultingDao.get();
+		return mediConsultingDao.get(dto);
 	}
 
 	@Override
@@ -132,6 +132,11 @@ public class MediConsultingServiceImpl implements MediConsultingService {
 	public int getanswerCount(MediConsultingAllDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return mediConsultingDao.getanswerCount(alldto);
+	}
+
+	@Override
+	public void plusscore(MediConsultingAllDto dto) throws Exception {
+		mediConsultingDao.plusscore(dto);
 	}
 
 

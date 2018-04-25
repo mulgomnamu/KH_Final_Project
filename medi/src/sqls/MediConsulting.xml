@@ -17,13 +17,16 @@
 			 <if test="s_category != '' and s_category != null 
 			 	and s_keyword != '' and s_keyword != null">		 	
 			 	<if test="s_category == 'category'">
-					AND category LIKE CONCAT('%',#{s_keyword},'%')
+					AND category=#{s_keyword}
 				</if>
 				<if test="s_category == 'title'">
 					AND title LIKE CONCAT('%',#{s_keyword},'%')
 				</if>
 				<if test="s_category == 'content'">
 					AND content LIKE CONCAT('%',#{s_keyword},'%')
+				</if>	
+				<if test="s_category == 'id'">
+					AND wid =#{s_keyword}
 				</if>		 	
 			 </if>
 			 ORDER BY SEQ DESC
@@ -36,7 +39,7 @@
 		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
 			<if test="s_category == 'category'">
-				AND category LIKE CONCAT('%',#{s_keyword},'%')
+				AND category=#{s_keyword}
 			</if>
 			<if test="s_category == 'title'">
 				AND title LIKE CONCAT('%',#{s_keyword},'%')
@@ -44,6 +47,9 @@
 			<if test="s_category == 'content'">
 				AND content LIKE CONCAT('%',#{s_keyword},'%')
 			</if>
+			<if test="s_category == 'id'">
+				AND wid =#{s_keyword}
+			</if>	
 		</if> 
 	</select>
 	<select id="getquePagingList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
@@ -60,13 +66,16 @@
 			 <if test="s_category1 != '' and s_category1 != null 
 			 	and s_keyword1 != '' and s_keyword1 != null">		 	
 			 	<if test="s_category1 == 'category'">
-					AND category LIKE CONCAT('%',#{s_keyword1},'%')
+					AND category=#{s_keyword1}
 				</if>
 				<if test="s_category1 == 'title'">
 					AND title LIKE CONCAT('%',#{s_keyword1},'%')
 				</if>
 				<if test="s_category1 == 'content'">
 					AND content LIKE CONCAT('%',#{s_keyword1},'%')
+				</if>	
+				<if test="s_category1 == 'id'">
+					AND wid =#{s_keyword}
 				</if>		 	
 			 </if>
 			 ORDER BY SEQ DESC
@@ -79,7 +88,7 @@
 		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0 AND SELECTYN=0
 		<if test="s_category1 != '' and s_category1 != null and s_keyword1 != '' and s_keyword1 != null">
 			<if test="s_category1 == 'category'">
-				AND category LIKE CONCAT('%',#{s_keyword1},'%')
+				AND category=#{s_keyword1}
 			</if>
 			<if test="s_category1 == 'title'">
 				AND title LIKE CONCAT('%',#{s_keyword1},'%')
@@ -87,6 +96,9 @@
 			<if test="s_category1 == 'content'">
 				AND content LIKE CONCAT('%',#{s_keyword1},'%')
 			</if>
+			<if test="s_category1 == 'id'">
+				AND wid =#{s_keyword1}
+			</if>	
 		</if> 
 	</select>
 	<select id="getansweredList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
@@ -103,13 +115,16 @@
 			 <if test="s_category2 != '' and s_category2 != null 
 			 	and s_keyword2 != '' and s_keyword2 != null">		 	
 			 	<if test="s_category2 == 'category'">
-					AND category LIKE CONCAT('%',#{s_keyword2},'%')
+					AND category=#{s_keyword2}
 				</if>
 				<if test="s_category2 == 'title'">
 					AND title LIKE CONCAT('%',#{s_keyword2},'%')
 				</if>
 				<if test="s_category2 == 'content'">
 					AND content LIKE CONCAT('%',#{s_keyword2},'%')
+				</if>	
+				<if test="s_category2 == 'id'">
+					AND wid =#{s_keyword2}
 				</if>		 	
 			 </if>
 			 ORDER BY SEQ DESC
@@ -122,7 +137,7 @@
 		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0 AND SELECTYN=1
 		<if test="s_category2 != '' and s_category2 != null and s_keyword2 != '' and s_keyword2 != null">
 			<if test="s_category2 == 'category'">
-				AND category LIKE CONCAT('%',#{s_keyword2},'%')
+				AND category=#{s_keyword2}
 			</if>
 			<if test="s_category2 == 'title'">
 				AND title LIKE CONCAT('%',#{s_keyword2},'%')
@@ -130,6 +145,9 @@
 			<if test="s_category2 == 'content'">
 				AND content LIKE CONCAT('%',#{s_keyword2},'%')
 			</if>
+			<if test="s_category2 == 'id'">
+				AND wid =#{s_keyword2}
+			</if>	
 		</if> 
 	</select>
 	<!-- 디테일가져오기 -->
@@ -154,7 +172,7 @@
 	<!-- 글 삭제 -->
 	<update id="bbsDelete" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
 	UPDATE `MEDI`.`medi_consulting_question` SET DEL = 1
-		WHERE SEQ=#{seq} 
+		WHERE SEQ=#{mem_seq} 
 	</update>
 	<!-- 조회수업데이트 -->
 	<update id="plusreadcount" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
@@ -168,35 +186,76 @@
 	</update>
 	<!-- 의사답글쓰기 -->
 	<insert id="answerinsert" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
-	INSERT INTO `MEDI`.`medi_consulting_answer`(HOS_SEQ,WHOS_NAME, CONTENT, PARENT, DEL, WDATE)
+	INSERT INTO `MEDI`.`medi_consulting_answer`(HOS_SEQ,WHOS_NAME, CONTENT, PARENT, ANS_DEL, ANS_WDATE)
 		VALUES(#{hos_seq},#{whos_name},#{content},#{parent},0,NOW()) 
 	</insert>
 	
 	<!-- 병원디테일가져오기 -->
-	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediMember_hDto">
-		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,DEL,REGDATE  
-		FROM medi_hospital
-		WHERE SEQ=1
+	<resultMap type="kh.com.medi.model.MediMember_hDto" id="hDto">
+    <result column="SEQ" property="seq"/>
+    <result column="ID" property="id"/>
+    <result column="PWD" property="pwd"/>
+    <result column="NAME" property="name"/>
+    <result column="TEL" property="tel"/>
+    <result column="POST" property="post"/>
+    <result column="ADDRESS" property="address"/>
+    <result column="LATITUDE" property="latitude"/>
+    <result column="LONGTITUDE" property="longtitude"/>
+    <result column="EMAIL" property="email"/>
+    <result column="QUESTION" property="question"/>
+    <result column="ANSWER" property="answer"/>
+    <result column="CONFIRM_IMG" property="confirm_img"/>
+	<result column="INFO" property="info"/>
+	<result column="SCORE" property="score"/>
+    <result column="DEL" property="del"/>
+    <result column="REGDATE" property="regdate"/>
+	</resultMap>
+ 
+	<resultMap type="kh.com.medi.model.MediConsultingAnswerDto" id="ConsultingAnswerDto">
+	   <result column="ANS_SEQ" property="ans_seq"/>
+	    <result column="HOS_SEQ" property="hos_seq"/>
+	    <result column="WHOS_NAME" property="whos_name"/>
+	    <result column="CONTENT" property="content"/>
+	    <result column="PARENT" property="parent"/>
+	    <result column="ANS_DEL" property="ans_del"/>
+	    <result column="ANS_WDATE" property="ans_wdate"/>
+	    <collection property="medimember_hdto" resultMap="hDto"/>
+	</resultMap>
+	 
+	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediConsultingAllDto" resultMap="ConsultingAnswerDto">
+	    SELECT
+	       SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,
+	        EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,SCORE,DEL,REGDATE
+	    FROM medi_hospital 
+	    WHERE SEQ=#{seq}
 	</select>
 	
 	<!-- 답변리스트가져오기 -->
-	<select id="answerlist" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingAnswerDto">
-		SELECT SEQ,HOS_SEQ,WHOS_NAME, CONTENT, PARENT, DEL, WDATE
-		FROM medi_consulting_answer
-		WHERE PARENT=#{seq} AND DEL!=1
-		ORDER BY DEL DESC
+	<select id="answerlist" parameterType="kh.com.medi.model.MediConsultingAllDto" resultMap="ConsultingAnswerDto">
+	    SELECT
+	        h.SEQ,h.ID,h.PWD,h.NAME,h.TEL,h.POST,h.ADDRESS,h.LATITUDE,h.LONGTITUDE,
+	        h.EMAIL,h.QUESTION,h.ANSWER,h.CONFIRM_IMG,h.INFO,h.SCORE,h.DEL,h.REGDATE,
+	        a.ANS_SEQ,a.HOS_SEQ,a.WHOS_NAME,a.CONTENT,a.PARENT,a.ANS_DEL,a.ANS_WDATE
+	    FROM
+	     	medi_hospital h
+	    INNER JOIN
+	        medi_consulting_answer a
+	    ON
+	        a.HOS_SEQ=h.SEQ
+	    WHERE
+	       a.PARENT=#{seq} AND a.ANS_DEL!=1
+	    ORDER BY a.ANS_DEL DESC
 	</select>
 	<!-- 답변가져오기 -->
 	<select id="answerdetail" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingAnswerDto">
-		SELECT SEQ,HOS_SEQ,WHOS_NAME, CONTENT, PARENT, DEL, WDATE
+		SELECT ANS_SEQ,HOS_SEQ,WHOS_NAME, CONTENT, PARENT, ANS_DEL, ANS_WDATE
 		FROM medi_consulting_answer
-		WHERE SEQ=#{seq} AND DEL!=1
+		WHERE ANS_SEQ=#{ans_seq} AND ANS_DEL!=1
 	</select>
-	<!-- 병원스코어상승 
+	<!-- 병원스코어상승 -->
 	<update id="plusscore" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
-	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 1
-		WHERE SEQ=#{seq} 
-	</update>-->
+	UPDATE `MEDI`.`medi_hospital` SET SCORE=SCORE+1 WHERE SEQ=#{hos_seq} 
+	</update>
 	<!-- 질문글채택완료 -->
 	<update id="selectyn" parameterType="kh.com.medi.model.MediConsultingAnswerDto"> 
 	UPDATE `MEDI`.`medi_consulting_question` SET SELECTYN = 1
@@ -204,18 +263,18 @@
 	</update>
 	<!-- del=3으로해줌으로서 채택된걸표시 -->
 	<update id="selected" parameterType="kh.com.medi.model.MediConsultingAnswerDto"> 
-	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 3
-		WHERE SEQ=#{seq} 
+	UPDATE `MEDI`.`medi_consulting_answer` SET ANS_DEL = 3
+		WHERE ANS_SEQ=#{ans_seq} 
 	</update>
 	<!-- 병원답글수정하기 -->
 	<update id="answerupdate" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
-	UPDATE `MEDI`.`medi_consulting_answer` SET CONTENT=#{content}, WDATE=NOW()
-	WHERE SEQ=#{seq}
+	UPDATE `MEDI`.`medi_consulting_answer` SET CONTENT=#{content}, ANS_WDATE=NOW()
+	WHERE ANS_SEQ=#{ans_seq}
 	</update>
 
 	<!-- 의사답글삭제 -->
 	<update id="answerdelete" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
-	UPDATE `MEDI`.`medi_consulting_answer` SET DEL = 1
-	WHERE SEQ=#{seq} 
+	UPDATE `MEDI`.`medi_consulting_answer` SET ANS_DEL = 1
+	WHERE ANS_SEQ=#{ans_seq} 
 	</update>
 </mapper>
