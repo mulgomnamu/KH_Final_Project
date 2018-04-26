@@ -2,7 +2,43 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<style>
+.findselect{
+  border-collapse: collapse;
+  width:100%; margin: 50px 0;
+}
+.findselect th{
+  text-align: left;
+}
+.findselect th,td{
+height:50px;
+width:50%;
+padding-left: 4%;
+}
+.findselect th:first-child,td:first-child{
+border-right:1px solid #d9d9d9;
+padding-left: 18%;
+}
+.findselect a,#_btnRegi1{
+  color: #1f4bb4;
+}
+#_frmForm{
+ width: 400px;position: absolute;
+ margin-left: 10%;
+ margin-top: 5%;
 
+}
+.btn_login{
+ width: 200px;height:200px; position: absolute;margin-left:38%;margin-top: 5%;
+  
+}
+.accountro{
+border-left:1px solid #d9d9d9;
+padding-left:5%;
+width: 250px;height:150px;
+position: absolute;margin-left: 53%;margin-top: 5%;
+}
+</style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login" style="background-color: #f4f5f9;"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -18,78 +54,68 @@
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
 				<div style="height: 300px">
-				<form action="loginAf.do" name="frmForm" id="_frmForm" method="post" style="width: 400px;position: absolute;"> 
-					
-					<span>
-						<input type="radio" name="rBtnLoginType" checked="checked" value="2">일반 회원
-						<input type="radio" name="rBtnLoginType" value="4">병원 회원
-					</span>
-					 <span class="form-text" style="margin-bottom: 20px;">
+				<form action="loginAf.do" name="frmForm" id="_frmForm" method="post"> 
+					 <span class="form-text" style="margin-bottom: 28px;">
                         <label class="placeholder" for="id">아이디</label>
                         <input type="text" id="_userid" name="id" value="" size="15" title="아이디" style="border:1px solid #dddddd;">
                 	 </span>
-					<span class="form-text"style="margin-bottom:40px;">
+					<span class="form-text"style="margin-bottom:20px;">
                      	<label class="placeholder" for="id">비밀번호</label>
                         <input type="text" id="_pwd" name="pwd" value="" size="15" title="비밀번호" style="border:1px solid #dddddd;">
                	 	</span>
-               	 	
-					
+               	 	<span>
+						<input type="radio" name="rBtnLoginType" checked="checked" value="2">
+						<span style="margin-right: 5%;">일반 회원</span>
+						<input type="radio" name="rBtnLoginType" value="4">병원 회원
+					</span>
 				</form>
-				<div class="btn_login" style="width: 400px; position: absolute;left: 650px;">
+				<div class="btn_login">
 					<a href="#none" id="_btnLogin" title="로그인" class="btn-type01" style="display: block; width: 130px;height: 107px;">
 						<em style="margin-top: 20px;">로그인</em>
 					</a>
-				</div>	
+				</div>
+				<div class="accountro">
+				<strong>아직 회원이 아니신가요?</strong><br><br>
+				회원이 되시면 홈페이지에서 제공하는 <br>온라인 서비스를 이용하실 수 있습니다.<br><br>
+				<a href="#none" id="_btnRegi1" title="회원가입">>>회원가입</a>
+				</div>
+				</div>
 				
-					<table  style="width:75%;position: absolute;bottom: 150px;">
-							
-							<tbody>
-								<tr>
-									<th style="background: #eeeeee; color: #3e5fba;">아직 회원이 아니신가요?</th>
-									<th style="background: #eeeeee; color: #3e5fba;">사용자의 아이디와 비밀번호가 기억나지 않으세요?</th>
-									<th style="background: #eeeeee; color: #3e5fba;">관계자의 아이디와 비밀번호가 기억나지 않으세요?</th>
-									
-									
-								</tr>
-								
-								<tr>
-									<td>&nbsp;
-										회원이 되시면 홈페이지에서 제공하는 <br>온라인 서비스를 이용하실 수 있습니다.
-									</td>
-									<td>&nbsp;
-										간단한 인증 및 질문답변으로<br>아이디를 확인하실 수 있습니다.
-									</td>
-									<td>&nbsp;
-										휴대폰, 아이핀, 이메일 인증을 통해<br>신규비밀번호로 사이트를 이용하실 수 있습니다.
-									</td>
-									
-								</tr>
-								
-								<tr>
-									<td>
-									<a href="#none" id="_btnRegi1" title="회원가입">
-												>>회원가입
-									</a>
-									</td>
-									<td>
-									<a href="memberIdPwFind.do" id="_btnRegi1" title="ID찾기">
-												>>ID/PW찾기
-									</a>
-									</td>
-									<td>
-									<a href="#" id="_btnRegi1" title="ID찾기">
-												>>ID/PW찾기
-									</a>
-									</td>
-								</tr>
-							</tbody>
-						
-						</table>
-						</div>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>
 			</div>
 		</section>
+		<div class="inner_flogin" style="background-color: #f4f5f9;">
+		<div class="findarea">
+			<table class="findselect">	
+			<tbody>
+				<tr>
+					<th><strong>사용자의 아이디와 비밀번호가 기억나지 않으세요?</strong></th>
+					<th><strong>관계자의 아이디와 비밀번호가 기억나지 않으세요?</strong></th>
+				</tr>
+				<tr>
+					<td>간단한 인증 및 질문답변으로<br>아이디를 확인하실 수 있습니다.
+					</td>
+					<td>휴대폰, 아이핀, 이메일 인증을 통해<br>신규비밀번호로 사이트를 이용하실 수 있습니다.
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<a href="memberIdPwFind.do" id="_btnRegi1" title="ID찾기">
+								>>ID/PW찾기
+					</a>
+					</td>
+					<td>
+					<a href="#" id="_btnRegi1" title="ID찾기">
+								>>ID/PW찾기
+					</a>
+					</td>
+				</tr>
+			</tbody>
+		
+		</table>
+		</div>
+	</div>
 	</div>
 			<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
