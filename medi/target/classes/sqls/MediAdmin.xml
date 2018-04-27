@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MediAdmin">
-	
-	
+
+	<select id="getMemberList" parameterType="kh.com.medi.model.MediMyListPagingDto" resultType="kh.com.medi.model.MediMyListPagingDto">
+		SELECT `seq`, `id`, `name`, `email`, `question`, `answer`, `phone`, `post`, `address`, `auth`, `del`, `myimg`, `blacklist`, `regdate`
+		FROM `medi`.`medi_member`
+	</select>
 	
 </mapper>
