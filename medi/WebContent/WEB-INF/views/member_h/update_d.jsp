@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <style>
 .tableWrap tr{
@@ -40,14 +43,14 @@
 				
 					<form action="join_dAf" id="form_d" name="form_d" method="post" enctype="multipart/form-data">
 					
-						<input type="hidden" name="hos_seq" value="${hos_seq }">
+						<input type="text" name="hos_seq" value="${login_h.seq }">
 						<table class="tableWrap">
 							<tr>
 								<th>
 									의사 이름
 								</th>
 								<td>
-									<input type="text" id="name" name="name">
+									<input type="text" id="name" name="name" onkeyup="nameCheckFunction()" value="${login_d.name }" placeholder="병원 이름을 입력하세요">
 									<h5 style="color: red;" id="nameCheckMessage" align="left"></h5>
 								</td>
 							</tr>
@@ -129,6 +132,9 @@
 													선택한 진료과목
 													<div>
 														<select name="cl_sjt" id="cl_sjt" multiple="multiple" size="14" style="width:200px" onclick="click_select('cl_sjt');" ondblclick="remove_cl();">
+															<c:forEach var="spe_option" items="${list_dSpe }">
+																<option value="${spe_option.specialty }">${spe_option.specialty }</option>
+															</c:forEach>
 														</select>
 														<input type="hidden" name="specialty" id="cl_sjt_list">
 													</div>
@@ -544,30 +550,16 @@
 							</tr>
 							<tr>
 								<th>
-									의사 프로필 사진
-								</th>
-								<td>
-									<input type="file" id="profile" name="profile">
-									<h5 style="color: red;" id="profileCheckMessage" align="left"></h5>
-								</td>
-								<td>
-									<div>
-										<img id="preview" style="width: 130px; height: 200px;">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th>
 									의사 소개
 								</th>
 								<td>
-									<textarea rows="10" cols="10" id="doc_content" name="doc_content"></textarea>
+									<textarea rows="10" cols="10" id="doc_content" name="doc_content">${login_d.doc_content }</textarea>
 									<h5 style="color: red;" id="infoCheckMessage" align="left"></h5>
 								</td>
 							</tr>
 						</table>
 					</form>
-					<input type="button" id="join_dBtn" value="회원가입">
+					<input type="button" id="update_dBtn" value="회원가입">
 				
 				</div>
 			</div>
@@ -578,92 +570,112 @@
 </div>
 
 <script>
-/*진료과목 추가*/
-function append_cl() {
-	var box = document.getElementById("cl_sjt");
-	var oribox;
-	oribox = document.getElementById("all_cl_sjt");
+	/* submit */
+	$("#update_dBtn").click(function() {
+		var _form = new FormData(document.getElementById('form_d'));
+		$.ajax({
+			url: 'updateAf_d.do',
+			data: _form,
+			dataType: 'text',
+			processData: false,
+			contentType: false,
+			type: 'post',
+			success: function(response) {
+				alert('회원수정 성공');
+				location.href ="myPage_h.do";
+			},
+			error: function() {
+				alert('error');
+			},
+		});
+	});
 
-	for (i = oribox.length - 1; i >= 0 ; i--) {
-		if (oribox.options[i].selected) {
-			// 중복 체크
-			for (j = 0; j < box.length; j++) {
-				if (box.options[j].value == oribox.options[i].value) {
-					alert("\""+oribox.options[i].text+"\"은 이미 추가되었습니다.");
-					break;
+	/*진료과목 추가*/
+	function append_cl() {
+		var box = document.getElementById("cl_sjt");
+		var oribox;
+		oribox = document.getElementById("all_cl_sjt");
+	
+		for (i = oribox.length - 1; i >= 0 ; i--) {
+			if (oribox.options[i].selected) {
+				// 중복 체크
+				for (j = 0; j < box.length; j++) {
+					if (box.options[j].value == oribox.options[i].value) {
+						alert("\""+oribox.options[i].text+"\"은 이미 추가되었습니다.");
+						break;
+					}
+				}
+				// 옵션 추가
+				if (j == box.length) {
+					box.options[box.length] = new Option(oribox.options[i].text, oribox.options[i].value);
 				}
 			}
-			// 옵션 추가
-			if (j == box.length) {
-				box.options[box.length] = new Option(oribox.options[i].text, oribox.options[i].value);
+		}
+	}
+	
+	/*다른 쪽에 포커스가 갔을때 선택이 되어져있으면 해지 시킨다.*/
+	function click_select(select_name) {
+		if (select_name != "cl_sjt") {
+			document.getElementById("cl_sjt").selectedIndex = -1;
+		}
+	
+		if (select_name != "all_cl_sjt") {
+			document.getElementById("all_cl_sjt").selectedIndex = -1;
+		}
+	}
+	
+	/*진료과목 빼기*/
+	function remove_cl() {
+		var box = document.getElementById("cl_sjt"); 
+		var oribox;
+		oribox = document.getElementById("all_cl_sjt");
+		
+		for (i = box.length - 1; i >= 0 ; i--) {
+			if (box.options[i].selected) {
+					box.options[i] = null;
 			}
 		}
 	}
-}
-
-/*다른 쪽에 포커스가 갔을때 선택이 되어져있으면 해지 시킨다.*/
-function click_select(select_name) {
-	if (select_name != "cl_sjt") {
-		document.getElementById("cl_sjt").selectedIndex = -1;
-	}
-
-	if (select_name != "all_cl_sjt") {
-		document.getElementById("all_cl_sjt").selectedIndex = -1;
-	}
-}
-
-/*진료과목 빼기*/
-function remove_cl() {
-	var box = document.getElementById("cl_sjt"); 
-	var oribox;
-	oribox = document.getElementById("all_cl_sjt");
 	
-	for (i = box.length - 1; i >= 0 ; i--) {
-		if (box.options[i].selected) {
-				box.options[i] = null;
+	/*삭제진료과목 체크 (진료과목을 선택한 의사가 있을때 오류 메시지를 낸다.*/
+	function remove_cl_final_notok(arg) {
+		document.getElementById("cl_sjt").options[arg].selected = false;
+		remove_cl();
+	}
+	
+	/*삭제진료과목 체크(진료과목을 선택한 의사가 없을때 해당 과목을 삭제한다.)*/
+	function remove_cl_final_ok(arg) {
+		var box = document.getElementById("cl_sjt");
+		box.options[arg] = null;
+		remove_cl();
+	}
+	
+	/*진료과목 순서올리기*/
+	function move_up() {
+		var box = document.getElementById("cl_sjt");
+		for (i = 0; i < box.length ; i++) {
+			if(i == 0) continue;
+			if (box.options[i].selected && !box.options[i-1].selected) {
+				swap_option(box, i, i-1);
+			}
 		}
 	}
-}
-
-/*삭제진료과목 체크 (진료과목을 선택한 의사가 있을때 오류 메시지를 낸다.*/
-function remove_cl_final_notok(arg) {
-	document.getElementById("cl_sjt").options[arg].selected = false;
-	remove_cl();
-}
-
-/*삭제진료과목 체크(진료과목을 선택한 의사가 없을때 해당 과목을 삭제한다.)*/
-function remove_cl_final_ok(arg) {
-	var box = document.getElementById("cl_sjt");
-	box.options[arg] = null;
-	remove_cl();
-}
-
-/*진료과목 순서올리기*/
-function move_up() {
-	var box = document.getElementById("cl_sjt");
-	for (i = 0; i < box.length ; i++) {
-		if(i == 0) continue;
-		if (box.options[i].selected && !box.options[i-1].selected) {
-			swap_option(box, i, i-1);
+	
+	/*진료과목 순서내리기*/
+	function move_down() {
+		var box = document.getElementById("cl_sjt");
+		for (i = box.length - 1; i >= 0 ; i--) {
+			if(i == box.length - 1) continue;
+			if (box.options[i].selected && !box.options[i+1].selected) {
+				swap_option(box, i, i+1);
+			}
 		}
 	}
-}
-
-/*진료과목 순서내리기*/
-function move_down() {
-	var box = document.getElementById("cl_sjt");
-	for (i = box.length - 1; i >= 0 ; i--) {
-		if(i == box.length - 1) continue;
-		if (box.options[i].selected && !box.options[i+1].selected) {
-			swap_option(box, i, i+1);
-		}
+	
+	/*진료과목 순서정렬*/
+	function swap_option(target, swap_a, swap_b) {
+		var temp_option = new Option(target.options[swap_a].text,target.options[swap_a].value,false,true);
+		target[swap_a] = new Option(target.options[swap_b].text,target.options[swap_b].value);
+		target[swap_b] = temp_option;
 	}
-}
-
-/*진료과목 순서정렬*/
-function swap_option(target, swap_a, swap_b) {
-	var temp_option = new Option(target.options[swap_a].text,target.options[swap_a].value,false,true);
-	target[swap_a] = new Option(target.options[swap_b].text,target.options[swap_b].value);
-	target[swap_b] = temp_option;
-}
 </script>

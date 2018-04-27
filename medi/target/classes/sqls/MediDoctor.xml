@@ -20,6 +20,24 @@
 					#{day}, #{start_time}, #{end_time}, #{lunch_time})
 	</insert>
 	
+	<select id="getDoctorColumn" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT `seq`, `hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`
+		FROM `MEDI`.`MEDI_DOCTOR`
+		WHERE `hos_seq`=#{seq}
+	</select>
+	
+	<select id="getHospitalSpecialtyColumns" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediDoctor_specialtyDto">
+		SELECT `hos_seq`, `specialty`
+		FROM `medi`.`medi_specialty`
+		WHERE `hos_seq`=#{seq}
+	</select>
+	
+	<select id="getHospitalSchedulColumns" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediDoctorSchedulDto">
+		SELECT `seq`, `doc_seq`, `day`, `start_time`, `end_time`, `lunch_time`
+		FROM `medi`.`medi_schedul`
+		WHERE `doc_seq`=#{seq}
+	</select>
+	
 	<update id="updateDoctor" parameterType="kh.com.medi.model.MediDoctorDto">
 		UPDATE `medi`.`medi_doctor`
 		SET `name`=#{name} AND `specialty`=#{specialty} AND `addrdoc_profileess`=#{doc_profile} AND doc_content=#{doc_content} AND `day_tostring`=${day_tostring}

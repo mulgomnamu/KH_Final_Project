@@ -11,7 +11,6 @@ import kh.com.medi.model.MediHospital_imageDto;
 import kh.com.medi.model.MediHospital_subject;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediSubjectDto;
-import oracle.net.aso.i;
 
 @Repository
 public class MediMember_hDaoImpl implements MediMember_hDao {

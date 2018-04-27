@@ -113,7 +113,7 @@ input{
 									대표 전화번호
 								</th>
 								<td>
-									<input type="tel" id="tel" name="tel" onkeyup="telCheckFunction()" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}">
+									<input type="tel" id="tel" name="tel" onkeyup="telCheckFunction()" required pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" placeholder="00-000-0000">
 									<span class="validity"></span>
 									<h5 style="color: red;" id="telCheckMessage" align="left"></h5>
 								</td>
@@ -298,7 +298,7 @@ input{
 	var infoCheck = 0;
 
 /* 아이디 중복 확인 */
-	function idCheckFunction1() {
+	function idCheckFunction() {
 		var id = $("#id").val();
 		if(id != ""){
 			$.ajax({

@@ -81,7 +81,7 @@ input:valid + span:after {
 					<c:set var="address2" value="${addr[1] }"/>
 					
 					<form action="join_hAf" id="_form" name="_form" method="post">
-						<input type="text" class="tableWrap" name="seq" value="${login_h.seq }">
+						<input type="hidden" class="tableWrap" name="seq" value="${login_h.seq }">
 						<table class="tableWrap">
 							<col width="200px"><col width="">
 							<tr>
@@ -121,7 +121,7 @@ input:valid + span:after {
 									<input type="button" onclick="btnPost()" value="우편번호 찾기"><br>
 									<input type="text" id="address1" value="${address1 }" placeholder="주소">
 									<input type="text" id="address2" value="${address2 }" onkeyup="addressCheckFunction()" placeholder="상세주소">
-									<input type="text" name="address" id="address" value="${login_h.address }">
+									<input type="hidden" name="address" id="address" value="${login_h.address }">
 									<input type="hidden" id="oriAddress" value="{login_h.address }">
 									<h5 style="color: red;" id="addressCheckMessage" align="left"></h5>
 								</td>
@@ -228,7 +228,7 @@ input:valid + span:after {
 							</tr>
 						</table>
 					</form>
-					<input type="button" id="join_hBtn" value="회원가입">
+					<input type="button" id="update_hBtn" value="수정하기">
 				
 				</div>
 			</div>
@@ -375,7 +375,7 @@ function emailCheckFunction() {
 }
 
 /* submit */
-$("#join_hBtn").click(function() {
+$("#update_hBtn").click(function() {
 	var data = {
 			seq: $("#seq").val(),
 			name: $("#name").val(),

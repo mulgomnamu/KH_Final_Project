@@ -3,6 +3,7 @@ package kh.com.medi.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediDoctor_specialtyDto;
+import kh.com.medi.model.MediMember_hDto;
+import kh.com.medi.model.MediSpecialtyDto;
 import kh.com.medi.service.MediDoctorService;
 import kh.com.medi.util.FUpUtil;
 
@@ -42,8 +45,14 @@ public class MediDoctorController {
 	}
 	
 	@RequestMapping(value="update_d.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String update_d(MediDoctorDto dto_d, Model model) {
+	public String update_d(MediMember_hDto dto_h, MediDoctorDto dto_d, Model model) {
 		logger.info("MediDoctorController update_d " + new Date());
+		
+		List<MediSpecialtyDto> list_spe = mediDoctorService.getHospitalSpecialtyColumns(dto_h);
+		
+		model.addAttribute("login_d", mediDoctorService.getDoctorColumn(dto_h));
+		model.addAttribute("list_dSpe", list_spe);
+		model.addAttribute("list_dSch", mediDoctorService.getHospitalSchedulColumns(dto_h));
 		
 		return "update_d.tiles";
 	}
