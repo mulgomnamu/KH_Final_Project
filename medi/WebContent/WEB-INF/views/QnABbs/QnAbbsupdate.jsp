@@ -3,7 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css?ver=1.02"/>
+<style>
+.refresh_btn1 em:before {content:'';display:inline-block;position:absolute;top:50%; height:16px;margin-top:-8px;background:url('../images/main/icon_refresh.png') no-repeat;vertical-align:top;}
 
+</style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -12,7 +16,6 @@
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
 				<h2>글 수정하기</h2>
-				<em>글 수정을 해보세요</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -59,21 +62,21 @@
 						<tr>
 							<th>제목</th>
 								<td style="text-align: left">
+								<span class="form-text">
 									<input type="text" id="title" name="title" size="60"/>
+									</span>
 								</td>
 						</tr>
 						<tr>
 							<th>내용</th>
 							<td style="text-align: left">
-								<textarea rows="10" cols="50" name='content' id="content"></textarea>
+								<textarea style="margin: 10px 0;" rows="10" cols="50" name='content' id="content"></textarea>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="height:50px; text-align:center;">
-								<span>					
-						 			<a href="#none" id="_btnLogin" title="글쓰기">		
-										<img src="images/Qnabbs/bwrite.png" alt="로그인" />
-									</a>
+								<span>		
+								<a href="#none" id="_btnLogin" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">작성완료</em></a>			
 								</span>
 							</td>
 						</tr>

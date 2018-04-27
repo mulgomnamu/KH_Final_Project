@@ -5,9 +5,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <fmt:requestEncoding value="utf-8"/><%-- 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/consulting.js"></script> --%>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css?ver=1.02"/>
 <!-- 검색 카테고리를 유지 start -->
 <%
 String category = (String)request.getAttribute("s_category");
