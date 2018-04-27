@@ -13,12 +13,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+import kh.com.medi.model.MediConsultingAllDto;
+import kh.com.medi.model.MediConsultingAnswerDto;
+import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.model.MediMyPageDto;
+import kh.com.medi.model.MediQnaBbsDto;
+import kh.com.medi.model.MediQnaBbsParamDto;
 import kh.com.medi.service.MediMemberService;
 import kh.com.medi.service.MediMyPageService;
 
@@ -30,32 +39,34 @@ public class MediMyPageController {
 	@Autowired
 	private MediMyPageService medimyPageservice;
 	
-	private MediMemberService mediMemberService;
+
 	
-	/*내예약현황*/
+	/*Qna게시판*/
 	@RequestMapping(value="MyPageList.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String MyPageList(Model model, MediMyListPagingDto paging) throws Exception{
+	public String MyPageList(Model model, MediQnaBbsParamDto ddt) throws Exception{
 		logger.info("MediMyPageController MyPageList " + new Date());
-		System.out.println("++++++++++++++++++++++++++++++++++++++"+paging.toString());
+		System.out.println("++++++++++++++++++++++++++++++++++++++"+ddt.toString());
 		// paging처리
-				int sn = paging.getPageNumber();
-				int start = (sn) * paging.getRecordCountPerPage() + 1;
-				int end = (sn + 1) * paging.getRecordCountPerPage();
+				int sn = ddt.getPageNumber();
+				int start = (sn) * ddt.getRecordCountPerPage() + 1;
+				int end = (sn + 1) * ddt.getRecordCountPerPage();
 				
-				paging.setStart(start);
-				paging.setEnd(end);
 				
-				int totalRecordCount = medimyPageservice.getBbsCount(paging);
-				List<MediMemberDto> Mylisy = medimyPageservice.getBbsPagingList(paging);
+				ddt.setStart(start);
+				ddt.setEnd(end);
+				
+				int totalRecordCount = medimyPageservice.getBbsCount(ddt);
+				
+				List<MediQnaBbsDto> Mylisy = medimyPageservice.getBbsPagingList(ddt);
 				
 				model.addAttribute("Mylisy", Mylisy);
 				model.addAttribute("pageNumber", sn);
 				model.addAttribute("pageCountPerScreen", 4);
-				model.addAttribute("recordCountPerPage", paging.getRecordCountPerPage());
+				model.addAttribute("recordCountPerPage", ddt.getRecordCountPerPage());
 				model.addAttribute("totalRecordCount", totalRecordCount);
 				
-				model.addAttribute("s_category", paging.getS_category());
-				model.addAttribute("s_keyword", paging.getS_keyword());
+				model.addAttribute("s_category", ddt.getS_category());
+				model.addAttribute("s_keyword", ddt.getS_keyword());
 				
 				
 				return "MyPageList.tiles";
@@ -231,6 +242,47 @@ public class MediMyPageController {
 			}
 				
 		}
+		/*내가 쓴 커뮤니티*/
+		@RequestMapping(value="Myconsulting.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String Myconsulting(Model model, MediConsultingAllDto alldto) throws Exception{
+			logger.info("MediMyPageController Myconsulting " + new Date());
+			
+			// paging처리
+			int sn = alldto.getPageNumber();
+			int start = (sn) * alldto.getRecordCountPerPage() + 1;
+			int end = (sn + 1) * alldto.getRecordCountPerPage();
+			
+			alldto.setStart(start);
+			alldto.setEnd(end);
+			
+			int totalRecordCount = medimyPageservice.getBbsCount(alldto);
+			List<MediConsultingQuestionDto> questionlist = medimyPageservice.getconPagingList(alldto);
+			model.addAttribute("questionlist", questionlist);
+			model.addAttribute("pageNumber", sn);
+			model.addAttribute("pageCountPerScreen", 10);
+			model.addAttribute("recordCountPerPage", alldto.getRecordCountPerPage());
+			model.addAttribute("totalRecordCount", totalRecordCount);
+			
+			model.addAttribute("s_category", alldto.getS_category());
+			model.addAttribute("s_keyword", alldto.getS_keyword());
+					
+			return "Myconsulting.tiles";
+		
+		}
+		
+		
+		@RequestMapping(value="Myconsultingdetail.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String Myconsultingdetail(Model model, MediConsultingAllDto alldto) throws Exception{
+			logger.info("MediConsultingController consultingdetail " + new Date());
+			medimyPageservice.readcountBbs(alldto);
+			MediConsultingQuestionDto dto=medimyPageservice.getBbsDetail(alldto);	//질문의 seq로 그디테일뿌려주고
+			List<MediConsultingAnswerDto> answerlist=medimyPageservice.answerlist(alldto);//질문의seq로 parent검색해서뿌려주는리스트
+			
+			model.addAttribute("answerlist", answerlist);
+			model.addAttribute("bbs", dto);
+			return "Myconsultingdetail.tiles";
+		}
+		
 		
 		@ResponseBody
 		@RequestMapping(value="checkPhone.do", method={RequestMethod.GET, RequestMethod.POST})

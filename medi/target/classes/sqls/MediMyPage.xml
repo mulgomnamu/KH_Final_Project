@@ -39,7 +39,7 @@ WHERE ID=#{id}
 	WHERE ID=#{id} AND PWD=#{pwd}
 </update>
 
-<!--중요하네-->
+<!--내정보수정 전 로그인-->
 <select parameterType="kh.com.medi.model.MediMemberDto" id="myup" resultType="kh.com.medi.model.MediMemberDto">
 		SELECT SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
 		FROM medi_member 
@@ -53,52 +53,157 @@ WHERE PWD=#{pwd}
 </update>
 
 <!-- 데이터 전체갯수 취득 -->
-	<select id="getBbsCount" parameterType="kh.com.medi.model.MediMyListPagingDto" resultType="java.lang.Integer">
+	<select id="getBbsCount" parameterType="kh.com.medi.model.MediQnaBbsParamDto" resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)
-		FROM `MEDI`.medi_member WHERE 1=1 AND DEL=0
+		FROM `MEDI`.`medi_question_bbs` WHERE 1=1 AND DEL=0 AND ID=#{id}
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'">
+				AND TITLE LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
 			<if test="s_category == 'id'">
 				AND ID LIKE CONCAT('%',#{s_keyword},'%')
-			</if>
-			<if test="s_category == 'name'">
-				AND NAME LIKE CONCAT('%',#{s_keyword},'%')
 			</if>
 		</if> 
 	</select>
 
-<!--MyPageList페이징  -->
+<!--MyPageList페이징  QnA -->
 <select id="getBbsPagingList" 
-	parameterType="kh.com.medi.model.MediMyListPagingDto"
-	resultType="kh.com.medi.model.MediMemberDto">
-	 SELECT  SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
-      FROM
-      (
-          SELECT
-              @ROWNUM := @ROWNUM + 1 AS ROWNUM,
-              SEQ, ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE
-          FROM
-              `MEDI`.medi_member,
-             (SELECT @ROWNUM := 0) R
-          WHERE 1=1 AND DEL=0
-          <if test="s_category != '' and s_category != null 
-             and s_keyword != '' and s_keyword != null">          
-             <if test="s_category == 'id'">
-               AND ID LIKE CONCAT('%',#{s_keyword},'%')
-            </if>
-            <if test="s_category == 'name'">
-               AND NAME LIKE CONCAT('%',#{s_keyword},'%')
-            </if>      
-          </if>
-          ORDER BY SEQ DESC
-          ) A
-      WHERE
-          A.ROWNUM BETWEEN ${start} AND ${end}   
+	parameterType="kh.com.medi.model.MediQnaBbsParamDto"
+	resultType="kh.com.medi.model.MediQnaBbsDto">
+	 SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		    FROM
+		        `MEDI`.`medi_question_bbs`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND DEL=0 AND ID=#{id} 
+			 <if test="s_category != '' and s_category != null 
+			 	and s_keyword != '' and s_keyword != null">		 	
+			 	<if test="s_category == 'title'">
+					AND TITLE LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'id'">
+					AND ID LIKE CONCAT('%',#{s_keyword},'%')
+				</if> 	
+			 </if>
+			 ORDER BY SEQ ASC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}
 </select>
 
+<!--커뮤니티 불러오기  -->
+<select id="ConsultingPagingList" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingQuestionDto" >
+		 SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE 
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
+		    FROM
+		        `MEDI`.`medi_consulting_question`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND DEL=0 AND MEM_SEQ=#{seq}
+			 <if test="s_category != '' and s_category != null 
+			 	and s_keyword != '' and s_keyword != null">		 	
+			 	<if test="s_category == 'category'">
+					AND category LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'title'">
+					AND title LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'content'">
+					AND content LIKE CONCAT('%',#{s_keyword},'%')
+				</if>		 	
+			 </if>
+			 ORDER BY SEQ DESC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN ${start} AND ${end}	
+	</select> 
 
-
+ 	<select id="getcomCount" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`medi_consulting_question` WHERE 1=1 AND DEL=0 AND MEM_SEQ=#{seq}
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'category'">
+				AND category LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'title'">
+				AND title LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'content'">
+				AND content LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+	
+	<!-- 병원디테일가져오기 -->
+	<resultMap type="kh.com.medi.model.MediMember_hDto" id="hDto">
+    <result column="SEQ" property="seq"/>
+    <result column="ID" property="id"/>
+    <result column="PWD" property="pwd"/>
+    <result column="NAME" property="name"/>
+    <result column="TEL" property="tel"/>
+    <result column="POST" property="post"/>
+    <result column="ADDRESS" property="address"/>
+    <result column="LATITUDE" property="latitude"/>
+    <result column="LONGTITUDE" property="longtitude"/>
+    <result column="EMAIL" property="email"/>
+    <result column="QUESTION" property="question"/>
+    <result column="ANSWER" property="answer"/>
+    <result column="CONFIRM_IMG" property="confirm_img"/>
+	<result column="INFO" property="info"/>
+	<result column="SCORE" property="score"/>
+    <result column="DEL" property="del"/>
+    <result column="REGDATE" property="regdate"/>
+	</resultMap>  
+	
+	 
+	<resultMap type="kh.com.medi.model.MediConsultingAnswerDto" id="ConsultingAnswerDto">
+	   <result column="ANS_SEQ" property="ans_seq"/>
+	    <result column="HOS_SEQ" property="hos_seq"/>
+	    <result column="WHOS_NAME" property="whos_name"/>
+	    <result column="CONTENT" property="content"/>
+	    <result column="PARENT" property="parent"/>
+	    <result column="ANS_DEL" property="ans_del"/>
+	    <result column="ANS_WDATE" property="ans_wdate"/>
+	    <collection property="medimember_hdto" resultMap="hDto"/>
+	</resultMap>
+	
+	
+	<!-- 디테일가져오기 -->
+	<select resultType="kh.com.medi.model.MediConsultingQuestionDto" id="getBbsDetail" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+		SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
+		FROM `MEDI`.`medi_consulting_question` 
+		WHERE SEQ=#{seq} 
+	</select>
+	
+	<!-- 답변리스트가져오기 -->
+	 <select id="answerlist" parameterType="kh.com.medi.model.MediConsultingAllDto" resultMap="ConsultingAnswerDto">
+	    SELECT
+	        h.SEQ,h.ID,h.PWD,h.NAME,h.TEL,h.POST,h.ADDRESS,h.LATITUDE,h.LONGTITUDE,
+	        h.EMAIL,h.QUESTION,h.ANSWER,h.CONFIRM_IMG,h.INFO,h.SCORE,h.DEL,h.REGDATE,
+	        a.ANS_SEQ,a.HOS_SEQ,a.WHOS_NAME,a.CONTENT,a.PARENT,a.ANS_DEL,a.ANS_WDATE
+	    FROM
+	     	medi_hospital h
+	    INNER JOIN
+	        medi_consulting_answer a
+	    ON
+	        a.HOS_SEQ=h.SEQ
+	    WHERE
+	       a.PARENT=#{seq} AND a.ANS_DEL!=1
+	    ORDER BY a.ANS_DEL DESC
+	</select> 
+	
+	<!-- 조회수업데이트 -->
+ 	<update id="plusreadcount" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE medi_consulting_question SET
+	READCOUNT=READCOUNT+1 WHERE SEQ=#{seq} 
+	</update>
  
-
-
 
 </mapper>

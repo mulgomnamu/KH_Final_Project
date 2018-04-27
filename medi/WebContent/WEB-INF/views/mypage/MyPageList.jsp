@@ -27,14 +27,14 @@ $(document).ready(function(){
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>mylist</h2>
-				
+				<h2>내가 쓴글</h2>
+				<a href="Myconsulting.do?seq=${login.seq }"><h2>커뮤니티</h2></a>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-					  <div class="searchwrap">
+				<div class="searchwrap">
                   <div class="searchbox" style="display: inline-block;position: relative;left: 300px;top: -1.8px;">
                      <form name="frmForm1" id="_frmFormSearch" method="post" action="">
                         <table>
@@ -43,8 +43,8 @@ $(document).ready(function(){
                               <td style="padding-left:5px;">
                                  <select id="_s_category" name="s_category">
                                     <option value="" selected="selected">선택</option>
-                                    <option value="id">아이디</option>
-                                    <option value="name">이름</option>                        
+                                    <option value="title">제목</option>
+                                    <option value="id">아이디</option>                        
                                  </select>
                               </td>
                               <td style="padding-left:5px;"><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
@@ -69,8 +69,8 @@ $(document).ready(function(){
                </colgroup>
       
                <thead>
-                  <tr>
-                     <th>순서</th><th>이름</th><th>아이디</th> 
+                  <tr> 
+                     <th>순서</th><th>아이디</th><th>제목</th><th>말머리</th> 
                   </tr>
                </thead>
       
@@ -84,11 +84,12 @@ $(document).ready(function(){
                   <c:forEach items="${Mylisy}" var="bbs" varStatus="vs">
                   
                     <tr class="_hover_tr">
-                        <td>${vs.count}</td> 
+                        <td>${vs.count}</td>
+                        <td>${bbs.id }</td> 
                         <td>
                            <a href='consultingdetail.do?seq=${bbs.seq}'>
-                               ${bbs.name}</a></td>
-                           <td>${bbs.id}</td>
+                               ${bbs.title}</a></td>
+                           <td>${bbs.content}</td>
                         </tr>
                         </c:forEach>
                </tbody>
@@ -106,13 +107,23 @@ $(document).ready(function(){
                </div>
                
                <script type="text/javascript">
+               $(document).ready(function() {
+            		if ("${s_category}" == "title") {
+            			$("#_s_category option:eq(1)").attr("selected", "selected");
+            		} else if("${s_category}" == "id"){
+            			$("#_s_category option:eq(2)").attr("selected", "selected");
+            		} else{
+            			$("#_s_category option:eq(0)").attr("selected", "selected");
+            		}
+            	});
+               
                $("#_btnSearch").click(function() {
             		//alert('search');						
-            		$("#_frmFormSearch").attr({ "target":"_self", "action":"bbslist.do" }).submit();
+            		$("#_frmFormSearch").attr({ "target":"_self", "action":"MyPageList.do?id=${login.id}" }).submit();
             	});
             	function goPage(pageNumber) {	
             		$("#_pageNumber").val(pageNumber) ;
-            		$("#_frmFormSearch").attr("target","_self").attr("action","bbslist.do").submit();
+            		$("#_frmFormSearch").attr("target","_self").attr("action","MyPageList.do").submit();
             	}
                </script>
 					

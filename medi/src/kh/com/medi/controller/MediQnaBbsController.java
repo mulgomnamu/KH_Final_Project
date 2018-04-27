@@ -3,6 +3,8 @@ package kh.com.medi.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,15 @@ public class MediQnaBbsController {
 	private MediQnaBbsService mediQnaBbsService;
 	
 	@RequestMapping(value="QnAbblist.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String QnAbblist(Model model, MediQnaBbsParamDto dto, @RequestParam String loginType) throws Exception{
+	public String QnAbblist(Model model, MediQnaBbsParamDto dto, HttpServletRequest req) throws Exception{
 		logger.info("MediQnaBbsController QnAbblist " + new Date());
+		
+		String loginType = "";
+		if((String)req.getSession().getAttribute("loginType") == null) {
+			loginType = "111";
+		}else {
+			loginType = (String)req.getSession().getAttribute("loginType");
+		}
 		
 		// paging처리
 		int sn = dto.getPageNumber();
@@ -39,6 +48,7 @@ public class MediQnaBbsController {
 		dto.setStart(start);
 		dto.setEnd(end);
 		List<MediQnaBbsDto> hbbslist = null;
+		System.out.println("!!!!!!!!!!!!!!!loginType : " + loginType);
 		int totalRecordCount=0;
 		if(loginType.equals("1")) {
 			totalRecordCount = mediQnaBbsService.getBbsCount1(dto);

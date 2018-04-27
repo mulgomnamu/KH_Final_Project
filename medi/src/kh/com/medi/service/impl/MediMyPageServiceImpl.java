@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediMyPageDao;
+import kh.com.medi.model.MediConsultingAllDto;
+import kh.com.medi.model.MediConsultingAnswerDto;
+import kh.com.medi.model.MediConsultingQuestionDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMyListPagingDto;
-import kh.com.medi.model.MediMyPageDto;
+import kh.com.medi.model.MediQnaBbsDto;
+import kh.com.medi.model.MediQnaBbsParamDto;
 import kh.com.medi.service.MediMyPageService;
 
 @Service
@@ -45,16 +49,46 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	}
 	
 	@Override
-	public int getBbsCount(MediMyListPagingDto mylist) throws Exception {
+	public int getBbsCount(MediQnaBbsParamDto mylist) throws Exception {
 		return mediMyPageDao.getBbsCount(mylist);
 	}
 
 	@Override
-	public List<MediMemberDto> getBbsPagingList(MediMyListPagingDto mylist) throws Exception {
+	public List<MediQnaBbsDto> getBbsPagingList(MediQnaBbsParamDto mylist) throws Exception {
 	    return mediMyPageDao.getBbsPagingList(mylist);
 	}
 
 	@Override
+
+	public List<MediConsultingQuestionDto> getconPagingList(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.getconPagingList(alldto);
+	}
+
+	@Override
+	public int getBbsCount(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.getBbsCount(alldto);
+	}
+
+	@Override
+	public MediConsultingQuestionDto getBbsDetail(MediConsultingAllDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.getBbsDetail(dto);
+	}
+
+	@Override
+	public List<MediConsultingAnswerDto> answerlist(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.answerlist(alldto);
+	}
+
+	@Override
+	public void readcountBbs(MediConsultingAllDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		mediMyPageDao.readcountBbs(dto);
+	}
+
 	public boolean checkPhone(MediMemberDto my) throws Exception {
 		return mediMyPageDao.checkPhone(my);
 	}
@@ -65,4 +99,7 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	}
 
 	
+	
+	
+
 }

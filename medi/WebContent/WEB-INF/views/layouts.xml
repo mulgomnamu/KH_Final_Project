@@ -135,11 +135,22 @@
 		<put-attribute name="content" value="/WEB-INF/views/mypage/Mybye.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	<!-- 마이페이지리스트 -->
+	<!-- 마이페이지QnA리스트 -->
 	<definition name="MyPageList.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/mypage/MyPageList.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	<!--마이페이지커뮤니티리스트  -->
+	<definition name="Myconsulting.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/Myconsulting.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!--커뮤니티 디테일  -->
+	<definition name="Myconsultingdetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/Myconsultingdetail.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	
 	
 	
