@@ -6,23 +6,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css"/>
 <style>
 .refresh_btn1 em:before {content:'';display:inline-block;position:absolute;top:50%; height:16px;margin-top:-8px;background:url('../images/main/icon_refresh.png') no-repeat;vertical-align:top;}
-.list_table{
-border-top: 1px solid black;
-}
-.list_table th {
-background-color:#f4f5f8;
-padding:22px 38px;
-text-align: left;
-border-bottom:1px solid #d9d9d9;
-}
-.list_table td {
-padding-left:20px;
-border-bottom:1px solid #d9d9d9;
-height: 60px;
-}
+
 </style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
@@ -136,7 +123,7 @@ height: 60px;
 						<tr>
 							<th>내용</th>
 							<td style="text-align: left">
-								<textarea style="margin: 10px 0 10px 0;" rows="10" cols="50" name='content' id="_content"></textarea>
+								<textarea style="margin: 10px 0;" rows="10" cols="50" name='content' id="_content"></textarea>
 							</td>
 						</tr>
 						<tr>
