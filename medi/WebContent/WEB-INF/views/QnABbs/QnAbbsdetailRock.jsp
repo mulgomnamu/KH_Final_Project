@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-
+<style>
+.submitbtn:hover{
+color: #fff;
+ background-color: #0b2d85;=
+}
+</style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -20,9 +24,11 @@
 				<form action="QnabbsdetailRockAf.do">
 				<input type="hidden" id="seq" name="seq" value="${bbs.seq}">
 				<input type="hidden" id="rock" name="rock" value="${bbs.rock}">
-					비밀번호 입력<input type="text" id="pwd" name="pwd">
+				<span class="form-text" style="display: inline;">
+					비밀번호 입력<input type="text" id="pwd" name="pwd" style="width: 260px;margin:0 20px;">
+				</span>	
+					<input type="submit" value="확인" class="submitbtn" style="width: 60px;height: 40px;">
 					
-					<input type="submit" value="확인">
 				</form>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>

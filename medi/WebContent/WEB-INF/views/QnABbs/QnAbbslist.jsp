@@ -3,11 +3,10 @@
 <%@page import="kh.com.medi.model.MediQnaBbsDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css"/>
 <%!
 public String dot3(String msg){
 	String s="";
@@ -31,8 +30,9 @@ MediMember_hDto hdto = (MediMember_hDto)session.getAttribute("login_h");
 		<section id="sub_section">
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
-			<div class="title-type01">
-				<h2>QnA 공간입니다.</h2>
+			<div class="subpagetitle" style="margin-bottom: 50px;">
+				<h1 style="padding-top: 60px;">QnA 공간입니다.</h1>
+				<br/>
 				<em>불편사항이 있으면 관리자에게 문의를 해보세요.<br/>문제를 속시원히 해결해드립니다.<br><br>답글의 비밀번호는 질문글의 비밀번호와 같습니다.</em>
 			</div>
 			<!-- content 시작 -->
@@ -41,7 +41,7 @@ MediMember_hDto hdto = (MediMember_hDto)session.getAttribute("login_h");
 				<!-- 이부분에 컨텐츠 시작 -->
 					<div class="searchwrap">
 						<div class="searchbox">
-							<form name="frmForm1" id="_frmFormSearch" method="post" action="">
+							<form name="frmForm1" id="_frmFormSearch" method="post" action="" >
 								<table>
 									<col width="15%"><col width="70%"><col width="15%">
 									<tr>
@@ -63,7 +63,12 @@ MediMember_hDto hdto = (MediMember_hDto)session.getAttribute("login_h");
 						</div>
 					</div>
 					<jsp:useBean id="ubbs" class="kh.com.medi.util.BbsArrow"/>
-				 <table style="width:85%; align:center;"  align="center">
+					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
+						<%-- <input type="hidden" name="loginType" id="loginType" value='${loginType}'> --%>
+						<a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">글쓰기</em></a>
+					</div>
+					<div id="alldiv">
+				 <table style="width:85%; align:center;  margin-top: 100px;"  align="center">
 				   <colgroup>
 					  <col style="width:40px;" />
 				      <col style="width:80px;" />
@@ -132,17 +137,19 @@ MediMember_hDto hdto = (MediMember_hDto)session.getAttribute("login_h");
 										    	if(dto != null){
 											    	if(dto.getAuth() == 2){
 											    	%>
+											    	<img alt="" src="images/Qnabbs/rock.jpg">
 												    	<a href='Qnabbsdetail.do?seq=${bbs.seq}'>
 												    		${bbs.title}
 												   		</a>
-												    	<img alt="" src="images/Qnabbs/rock.jpg">
+												    	
 											    	<%
 											    	}else{
 												    %>
+												    <img alt="" src="images/Qnabbs/rock.jpg">
 												 	   <a href='QnabbsdetailRock.do?seq=${bbs.seq}&rock=${bbs.rock}'>
 												    		${bbs.title}
 												   		</a>
-												    	<img alt="" src="images/Qnabbs/rock.jpg">
+												    	
 												    <%
 												    }
 										    	}
@@ -190,10 +197,7 @@ MediMember_hDto hdto = (MediMember_hDto)session.getAttribute("login_h");
 					</tbody>
 					</table> 
 					<br>
-					<div align="right">
-						<%-- <input type="hidden" name="loginType" id="loginType" value='${loginType}'> --%>
-						<a href="#none" id="_btnWrite" title="글쓰기"><img src="images/Qnabbs/bwrite.png" alt="글쓰기" /></a>
-					</div>
+					
 					<div id="paging_wrap">
 						<jsp:include page="/WEB-INF/include/paging.jsp" flush="false">
 							<jsp:param value="${pageNumber }" name="pageNumber"/>
@@ -204,7 +208,7 @@ MediMember_hDto hdto = (MediMember_hDto)session.getAttribute("login_h");
 						
 						
 					</div>
-					
+					</div>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>
 			</div>

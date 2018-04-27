@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css?ver=1.02"/>
+<style>
+.refresh_btn1 em:before {content:'';display:inline-block;position:absolute;top:50%; height:16px;margin-top:-8px;background:url('../images/main/icon_refresh.png') no-repeat;vertical-align:top;}
+</style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -14,7 +14,6 @@
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
 				<h2>글 확인 </h2>
-				<em>불편사항이 있으면 관리자에게 문의를 해보세요.<br/>문제를 속시원히 해결해드립니다.</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -52,18 +51,20 @@
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td style="text-align: left"><textarea readonly="readonly" rows="10" cols="50" 
-							name='content' id="_content">${bbs.content}</textarea></td>
+							<td style="text-align: left">
+							<textarea readonly="readonly" style="resize: none; margin: 10px 0;" rows="10" cols="50" 
+							name='content' id="_content">${bbs.content}</textarea>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2" style="height:50px; text-align:center;">
 							<span>
 								<c:if test="${(bbs.id eq login.id) || (bbs.id eq login_h.id)}">
-									<a href="#none" id="_btnUpdate" title="글수정하기"><img src="images/Qnabbs/bupdate.png" alt="수정하기" /></a>
-									<a href="#none" id="_btnDelete" title="글삭제하기"><img src="images/Qnabbs/del.png" alt="삭제하기" /></a>
+								<a href="#none" id="_btnUpdate" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">수정하기</em></a>
+								<a href="#none" id="_btnDelete" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px;  margin: 20px;"><em style="padding:0px;">삭제하기</em></a>
 								</c:if>
 								<c:if test="${login.auth eq 2}">
-									<a href="#none" id="_btnReply" title="답글달기"><img src="images/Qnabbs/breply.png" alt="답글달기" /></a>
+								<a href="#none" id="_btnReply"  class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">답글달기</em></a>
 								</c:if>
 							</span>
 							</td>

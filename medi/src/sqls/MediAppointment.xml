@@ -6,7 +6,7 @@
 	<select id="getserchhospitalList" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
 		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,SCORE,DEL,REGDATE 
 		FROM medi_hospital
-		WHERE NAME LIKE CONCAT('%',#{name},'%')
+		WHERE NAME LIKE CONCAT('%',#{name},'%') AND DEL=1
 	</select>
 	<select id="gethospitaldetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
 		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,SCORE,DEL,REGDATE  

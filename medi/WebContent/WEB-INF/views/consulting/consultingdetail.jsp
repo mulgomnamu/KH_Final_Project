@@ -6,36 +6,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:requestEncoding value="utf-8"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css?ver=1.04"/>
 <style>
 .refresh_btn1 em:before {content:'';display:inline-block;position:absolute;top:50%; height:16px;margin-top:-8px;background:url('../images/main/icon_refresh.png') no-repeat;vertical-align:top;}
-.titlediv{
-margin: 80px 0 20px 30px;
-font-size: 10px;
-}
-.titlediv span:nth-child(1) {
-font-size: 2em;font-weight: bold; margin-right: 15px;
-}
-.titlediv span:nth-child(2) {
-font-size: 2.5em;font-weight: bold;
-}
-.contentdiv{
-width: 972.4px;
-margin-left: 30px;
-}
-.buttondiv{
-width: 972.4px;
-margin:30px 0 0 30px;
-}
-.selectbtn{
-float: right;
-}
-#selected{
-width:140px;
-	padding:10px;
-	margin:20px;
-	color:#fff;
-	background-color: #1f4bb4;
-	}
 </style>
 
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
@@ -58,7 +31,7 @@ width:140px;
 					<tbody>	
 					 <c:set var="wid" value="${bbs.wid}"/>
 						<tr>
-						<td style="text-align: left">
+						<td style="text-align: left; border-bottom: 0px;">
 						<div class="titlediv">
 						<span>[${bbs.category}]</span>
 						<span>${bbs.title}</span><br><br>
