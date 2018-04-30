@@ -14,22 +14,22 @@ CONSTRAINT `FK_medi_specialty_hos_seq`
 
  * */
 public class MediSpecialtyDto implements Serializable {
-	private int hos_seq;		//병원번호
+	private int doc_seq;		//병원번호
 	private String specialty;	//병원디테일에뿌릴진료분야 -> 의사가입하면서 선택되는것들이저장될것이다
 	private MediMember_hDto medimember_hdto;
 	
 	public MediSpecialtyDto() {
 	}
 	
-	public MediSpecialtyDto(int hos_seq, String specialty) {
+	public MediSpecialtyDto(int doc_seq, String specialty) {
 		super();
-		this.hos_seq = hos_seq;
+		this.doc_seq = doc_seq;
 		this.specialty = specialty;
 	}
 	
-	public MediSpecialtyDto(int hos_seq, String specialty, MediMember_hDto medimember_hdto) {
+	public MediSpecialtyDto(int doc_seq, String specialty, MediMember_hDto medimember_hdto) {
 		super();
-		this.hos_seq = hos_seq;
+		this.doc_seq = doc_seq;
 		this.specialty = specialty;
 		this.medimember_hdto = medimember_hdto;
 	}
@@ -42,12 +42,12 @@ public class MediSpecialtyDto implements Serializable {
 		this.medimember_hdto = medimember_hdto;
 	}
 
-	public int getHos_seq() {
-		return hos_seq;
+	public int getDoc_seq() {
+		return doc_seq;
 	}
 
-	public void setHos_seq(int hos_seq) {
-		this.hos_seq = hos_seq;
+	public void setDoc_seq(int doc_seq) {
+		this.doc_seq = doc_seq;
 	}
 
 	public String getSpecialty() {
@@ -60,7 +60,7 @@ public class MediSpecialtyDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MediSpecialtyDto [hos_seq=" + hos_seq + ", specialty=" + specialty + "]";
+		return "MediSpecialtyDto [doc_seq=" + doc_seq + ", specialty=" + specialty + "]";
 	}
 	
 	

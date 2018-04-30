@@ -930,10 +930,10 @@ function revto2() {
 }
 
 function byspecialty(elem) {
-	//병원검색해서리스트불러오기
+	//진료과목검색해서리스트불러오기
 		$.ajax({
 			url : "byspecialty.do", // a.jsp 의 제이슨오브젝트값을 가져옴
-			data:"specialty="+$(elem).text(),
+			data:"subject="+$(elem).text(),
 			dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
 			cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
 			success : function(data) {

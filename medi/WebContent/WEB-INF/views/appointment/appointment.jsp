@@ -7,7 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.25"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.25"/> 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/appointment.js"></script>
 <style>
 #tab li{
@@ -42,6 +42,7 @@ color: #1f4bb4;
 font-weight: bolder;
 }
 </style>
+
 <c:if test="${loginType eq 4 }">
 	<script type="text/javascript">
 	alert("일반회원만 가능한 공간입니다");

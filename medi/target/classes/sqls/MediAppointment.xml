@@ -73,25 +73,25 @@
     <result column="REGDATE" property="regdate"/>
 	</resultMap>
  
-	<resultMap type="kh.com.medi.model.MediSpecialtyDto" id="SpecialtyDto">
+	<resultMap type="kh.com.medi.model.MediSubjectDto" id="SubjectDto">
 	    <result column="HOS_SEQ" property="hos_seq"/>
-	    <result column="SPECIALTY" property="specialty"/>
+	    <result column="SUBJECT" property="subject"/>
 	    <collection property="medimember_hdto" resultMap="hDto"/>
 	</resultMap>
 	 
-	<select id="byspecialty" parameterType="kh.com.medi.model.MediSpecialtyDto" resultMap="SpecialtyDto">
+	<select id="byspecialty" parameterType="kh.com.medi.model.MediSubjectDto" resultMap="SubjectDto">
 	    SELECT
 	        h.SEQ,h.ID,h.PWD,h.NAME,h.TEL,h.POST,h.ADDRESS,h.LATITUDE,h.LONGTITUDE,
 	        h.EMAIL,h.QUESTION,h.ANSWER,h.CONFIRM_IMG,h.INFO,h.SCORE,h.DEL,h.REGDATE,
-	        S.HOS_SEQ,S.SPECIALTY
+	        S.HOS_SEQ,S.SUBJECT
 	    FROM
 	     	medi_hospital h
 	    INNER JOIN
-	        medi_specialty s
+	        medi_subject s
 	    ON
 	        s.HOS_SEQ=h.SEQ
 	    WHERE
-	        s.SPECIALTY=#{specialty}
+	        s.SUBJECT=#{subject}
 	</select>
 	<select id="doclist" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorDto">
 		SELECT SEQ,HOS_SEQ,NAME,SPECIALTY,REGDATE,DOC_PROFILE,DOC_CONTENT
