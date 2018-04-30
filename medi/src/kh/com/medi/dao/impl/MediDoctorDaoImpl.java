@@ -40,6 +40,12 @@ public class MediDoctorDaoImpl implements MediDoctorDao {
 	}
 
 	@Override
+	public boolean updateSchedul(MediDoctorSchedulDto dto_dsc) {
+		int n = sqlSession.insert(ns+"updateSchedul", dto_dsc);
+		return n > 0;
+	}
+
+	@Override
 	public boolean updateDoctor(MediDoctorDto dto_d) {
 		int n = sqlSession.update(ns+"updateDoctor", dto_d);
 		return n > 0;
@@ -52,18 +58,40 @@ public class MediDoctorDaoImpl implements MediDoctorDao {
 	}
 
 	@Override
-	public MediDoctorDto getDoctorColumn(MediMember_hDto dto_h) {
-		return sqlSession.selectOne(ns+"getDoctorColumn", dto_h);
+	public MediDoctorDto getDoctorcolumnBySeq(MediDoctorDto dto_d) {
+		return sqlSession.selectOne(ns+"getDoctorcolumnBySeq", dto_d);
 	}
 
 	@Override
-	public List<MediSpecialtyDto> getHospitalSpecialtyColumns(MediMember_hDto dto_h) {
-		return sqlSession.selectList(ns+"getHospitalSpecialtyColumns", dto_h);
+	public MediDoctorDto getDoctorcolumnByMaxSeq() {
+		return sqlSession.selectOne(ns+"getDoctorcolumnByMaxSeq");
 	}
 
 	@Override
-	public List<MediDoctorSchedulDto> getHospitalSchedulColumns(MediMember_hDto dto_h) {
-		return sqlSession.selectList(ns+"getHospitalSchedulColumns", dto_h);
+	public List<MediDoctorDto> getDoctorColumnByHos_seq(MediMember_hDto dto_h) {
+		return sqlSession.selectList(ns+"getDoctorColumnByHos_seq", dto_h);
+	}
+
+	@Override
+	public List<MediSpecialtyDto> getHospitalSpecialtyColumns(MediDoctorDto dto_d) {
+		return sqlSession.selectList(ns+"getHospitalSpecialtyColumns", dto_d);
+	}
+
+	@Override
+	public List<MediDoctorSchedulDto> getHospitalSchedulColumns(MediDoctorDto dto_d) {
+		return sqlSession.selectList(ns+"getHospitalSchedulColumns", dto_d);
+	}
+
+	@Override
+	public boolean delHospitalSpecialtyColumns(MediDoctorDto dto_d) {
+		int n = sqlSession.update(ns+"delHospitalSpecialtyColumns", dto_d);
+		return n > 0;
+	}
+
+	@Override
+	public boolean delHospitalSchedulColumns(MediDoctorDto dto_d) {
+		int n = sqlSession.update(ns+"delHospitalSchedulColumns", dto_d);
+		return n > 0;
 	}
 
 }

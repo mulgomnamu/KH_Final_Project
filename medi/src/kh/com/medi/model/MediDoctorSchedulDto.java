@@ -33,21 +33,19 @@ public class MediDoctorSchedulDto implements Serializable {
 	private String[] e_time;
 	private String[] l_time;
 	
+	private String start_hour;
+	private String start_min;
+	private String end_hour;
+	private String end_min;
+	private String lunch_hour;
+	private String lunch_min;
+	
 	
 	public MediDoctorSchedulDto() {
 	}
-	public MediDoctorSchedulDto(int seq, int doc_seq, String day, String start_time, String end_time,
-			String lunch_time) {
-		super();
-		this.seq = seq;
-		this.doc_seq = doc_seq;
-		this.day = day;
-		this.start_time = start_time;
-		this.end_time = end_time;
-		this.lunch_time = lunch_time;
-	}
 	public MediDoctorSchedulDto(int seq, int doc_seq, String day, String start_time, String end_time, String lunch_time,
-			String[] list_day, String[] s_time, String[] e_time, String[] l_time) {
+			String[] list_day, String[] s_time, String[] e_time, String[] l_time, String start_hour, String start_min,
+			String end_hour, String end_min, String lunch_hour, String lunch_min) {
 		super();
 		this.seq = seq;
 		this.doc_seq = doc_seq;
@@ -59,6 +57,12 @@ public class MediDoctorSchedulDto implements Serializable {
 		this.s_time = s_time;
 		this.e_time = e_time;
 		this.l_time = l_time;
+		this.start_hour = start_hour;
+		this.start_min = start_min;
+		this.end_hour = end_hour;
+		this.end_min = end_min;
+		this.lunch_hour = lunch_hour;
+		this.lunch_min = lunch_min;
 	}
 	public int getSeq() {
 		return seq;
@@ -120,12 +124,50 @@ public class MediDoctorSchedulDto implements Serializable {
 	public void setL_time(String[] l_time) {
 		this.l_time = l_time;
 	}
+	public String getStart_hour() {
+		return start_hour;
+	}
+	public void setStart_hour(String start_hour) {
+		this.start_hour = start_hour;
+	}
+	public String getStart_min() {
+		return start_min;
+	}
+	public void setStart_min(String start_min) {
+		this.start_min = start_min;
+	}
+	public String getEnd_hour() {
+		return end_hour;
+	}
+	public void setEnd_hour(String end_hour) {
+		this.end_hour = end_hour;
+	}
+	public String getEnd_min() {
+		return end_min;
+	}
+	public void setEnd_min(String end_min) {
+		this.end_min = end_min;
+	}
+	public String getLunch_hour() {
+		return lunch_hour;
+	}
+	public void setLunch_hour(String lunch_hour) {
+		this.lunch_hour = lunch_hour;
+	}
+	public String getLunch_min() {
+		return lunch_min;
+	}
+	public void setLunch_min(String lunch_min) {
+		this.lunch_min = lunch_min;
+	}
 	@Override
 	public String toString() {
 		return "MediDoctorSchedulDto [seq=" + seq + ", doc_seq=" + doc_seq + ", day=" + day + ", start_time="
 				+ start_time + ", end_time=" + end_time + ", lunch_time=" + lunch_time + ", list_day="
 				+ Arrays.toString(list_day) + ", s_time=" + Arrays.toString(s_time) + ", e_time="
-				+ Arrays.toString(e_time) + ", l_time=" + Arrays.toString(l_time) + "]";
+				+ Arrays.toString(e_time) + ", l_time=" + Arrays.toString(l_time) + ", start_hour=" + start_hour
+				+ ", start_min=" + start_min + ", end_hour=" + end_hour + ", end_min=" + end_min + ", lunch_hour="
+				+ lunch_hour + ", lunch_min=" + lunch_min + "]";
 	}
 	
 	

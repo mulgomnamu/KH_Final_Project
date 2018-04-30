@@ -14,9 +14,9 @@ public interface MediMember_hDao {
 	boolean addHospitalSubject(MediHospital_subject dto_s);
 	boolean deleteHospitalSubject(MediHospital_subject dto_s);
 	boolean checkId(MediMember_hDto dto_h);
-	boolean checkTel(MediMember_hDto dto_h);
-	boolean checkAddress(MediMember_hDto dto_h);
-	boolean checkEmail(MediMember_hDto dto_h);
+	int checkTel(MediMember_hDto dto_h);
+	int checkAddress(MediMember_hDto dto_h);
+	int checkEmail(MediMember_hDto dto_h);
 	MediMember_hDto getHospitalColumn(String id);
 	boolean updateMember_h(MediMember_hDto dto_h);
 	boolean deleteMember_h(MediMember_hDto dto_h);

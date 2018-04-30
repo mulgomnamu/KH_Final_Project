@@ -25,12 +25,14 @@ public class MediMember_hDto implements Serializable {
 	
 	private String pwd1;
 	
+	private int index;
+	
 	public MediMember_hDto() {
 	}
 
 	public MediMember_hDto(int seq, String id, String pwd, String name, String tel, String post, String address,
 			String latitude, String longtitude, String email, String question, String answer, String confirm_img,
-			String info, int score, int del, String regdate, int auth, String pwd1) {
+			String info, int score, int del, String regdate, int auth, String pwd1, int index) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -51,6 +53,7 @@ public class MediMember_hDto implements Serializable {
 		this.regdate = regdate;
 		this.auth = auth;
 		this.pwd1 = pwd1;
+		this.index = index;
 	}
 
 	public int getSeq() {
@@ -205,13 +208,21 @@ public class MediMember_hDto implements Serializable {
 		this.pwd1 = pwd1;
 	}
 
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
 	@Override
 	public String toString() {
 		return "MediMember_hDto [seq=" + seq + ", id=" + id + ", pwd=" + pwd + ", name=" + name + ", tel=" + tel
 				+ ", post=" + post + ", address=" + address + ", latitude=" + latitude + ", longtitude=" + longtitude
 				+ ", email=" + email + ", question=" + question + ", answer=" + answer + ", confirm_img=" + confirm_img
 				+ ", info=" + info + ", score=" + score + ", del=" + del + ", regdate=" + regdate + ", auth=" + auth
-				+ ", pwd1=" + pwd1 + "]";
+				+ ", pwd1=" + pwd1 + ", index=" + index + "]";
 	}
 	
 }

@@ -117,9 +117,9 @@ input:valid + span:after {
 									주소
 								</th>
 								<td>
-									<input type="text" id="post" name="post" value="${login_h.post }" placeholder="우편번호">
+									<input type="text" id="post" name="post" value="${login_h.post }" placeholder="우편번호" readonly="readonly">
 									<input type="button" onclick="btnPost()" value="우편번호 찾기"><br>
-									<input type="text" id="address1" value="${address1 }" placeholder="주소">
+									<input type="text" id="address1" value="${address1 }" placeholder="주소" readonly="readonly">
 									<input type="text" id="address2" value="${address2 }" onkeyup="addressCheckFunction()" placeholder="상세주소">
 									<input type="hidden" name="address" id="address" value="${login_h.address }">
 									<input type="hidden" id="oriAddress" value="{login_h.address }">
@@ -239,11 +239,11 @@ input:valid + span:after {
 </div>
 
 <script>
-	var telCheck = 0;
-	var addressCheck = 0;
-	var emailCheck = 0;
+	var telCheck = 9;
+	var addressCheck = 9;
+	var emailCheck = 9;
 	var pwdCheck = 0;
-	var infoCheck = 0;
+	var infoCheck = 9;
 
 /* 우편번호 */
 function btnPost() {
@@ -287,7 +287,7 @@ function btnPost() {
 					url: 'checkTel_h.do',
 					data: {tel: tel},
 					success: function(result) {
-						if(result == "true"){
+						if(result == "2"){
 							telCheck = 0;
 							$("#telCheckMessage").html("이미 사용중인 전화번호입니다.");
 						}else{
@@ -321,7 +321,7 @@ function btnPost() {
 					url: 'checkAddress_h.do',
 					data: {address: address},
 					success: function(result) {
-						if(result == "true"){
+						if(result == "2"){
 							addressCheck = 0;
 							$("#addressCheckMessage").html("이미 사용중인 주소입니다.");
 						}else{
@@ -347,7 +347,7 @@ function btnPost() {
 					url: 'checkEmail_h.do',
 					data: {email: email},
 					success: function(result) {
-						if(result == "true"){
+						if(result == "2"){
 							emailCheck = 0;
 							$("#emailCheckMessage").html("이미 사용중인 이메일입니다.");
 						}else{

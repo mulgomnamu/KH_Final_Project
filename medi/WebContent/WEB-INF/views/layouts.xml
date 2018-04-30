@@ -248,8 +248,8 @@
 	
 	
 	<!-- 관리자-->
-	<definition name="adminMain.tiles" extends="main.tiles">
-		<put-attribute name="content" value="/WEB-INF/views/admin/adminMain.jsp"/>
+	<definition name="adminMemberList.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/admin/adminMemberList.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 </tiles-definitions>

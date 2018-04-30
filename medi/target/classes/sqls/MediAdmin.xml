@@ -3,9 +3,66 @@
 
 <mapper namespace="MediAdmin">
 
-	<select id="getMemberList" parameterType="kh.com.medi.model.MediMyListPagingDto" resultType="kh.com.medi.model.MediMyListPagingDto">
+	<select id="getMemberList" resultType="kh.com.medi.model.MediMyListPagingDto">
 		SELECT `seq`, `id`, `name`, `email`, `question`, `answer`, `phone`, `post`, `address`, `auth`, `del`, `myimg`, `blacklist`, `regdate`
 		FROM `medi`.`medi_member`
 	</select>
+	
+	<select id="getMemberPagingListCount" parameterType="kh.com.medi.model.MediMyListPagingDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `medi`.`medi_member`
+		WHERE 1=1
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'id'">
+				AND id LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'name'">
+				AND name LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+
+	<select id="getMemberPagingList" parameterType="kh.com.medi.model.MediMyListPagingDto" resultType="kh.com.medi.model.MediMyListPagingDto">
+		SELECT `seq`, `id`, `name`, `email`, `question`, `answer`, `phone`, `post`, `address`, `auth`, `del`, `myimg`, `blacklist`, `regdate`
+		FROM 
+			(SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+				`seq`, `id`, `name`, `email`, `question`, `answer`, `phone`, `post`, `address`, `auth`, `del`, `myimg`, `blacklist`, `regdate`
+			 FROM `medi`.`medi_member`, (SELECT @ROWNUM := 0) R
+			 WHERE 1=1
+			 <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			 	<if test="s_category == 'id'">
+			 		AND id LIKE CONCAT('%',#{s_keyword},'%')
+			 	</if>
+			 	<if test="s_category == 'name'">
+			 		AND name LIKE CONCAT('%',#{s_keyword},'%')
+			 	</if>
+			 </if>) A
+		WHERE A.ROWNUM BETWEEN ${start} AND ${end}
+		ORDER BY SEQ ASC
+	</select>
+	
+	<select id="getMemberListatSeq" parameterType="kh.com.medi.model.MediMyListPagingDto" resultType="kh.com.medi.model.MediMyListPagingDto">
+		SELECT `seq`, `id`, `name`, `email`, `question`, `answer`, `phone`, `post`, `address`, `auth`, `del`, `myimg`, `blacklist`, `regdate`
+		FROM `medi`.`medi_member`
+		WHERE `seq`=#{seq}
+	</select>
+	
+	<update id="addYellowCard" parameterType="kh.com.medi.model.MediMyListPagingDto">
+		UPDATE `medi`.`medi_member`
+		SET `blacklist`=`blacklist`+1
+		WHERE `seq`=#{seq}
+	</update>
+	
+	<update id="delYellowCard" parameterType="kh.com.medi.model.MediMyListPagingDto">
+		UPDATE `medi`.`medi_member`
+		SET `blacklist`=`blacklist`-1
+		WHERE `seq`=#{seq}
+	</update>
+	
+	<update id="updateMemberByAdmin" parameterType="kh.com.medi.model.MediMemberDto"> 
+		UPDATE `medi`.`medi_member`
+		SET `name`=#{name}, `email`=#{email}, `phone`=#{phone}, `post`=#{post}, `address`=#{address}, `auth`=#{auth}, `del`=#{del}
+		WHERE `seq`=#{seq}
+	</update>
 	
 </mapper>

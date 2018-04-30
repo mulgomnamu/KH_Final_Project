@@ -51,21 +51,18 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 	}
 
 	@Override
-	public boolean checkTel(MediMember_hDto dto_h) {
-		int n = sqlSession.selectOne(ns+"checkTel_h", dto_h);
-		return n > 0;
+	public int checkTel(MediMember_hDto dto_h) {
+		return sqlSession.selectOne(ns+"checkTel_h", dto_h);
 	}
 
 	@Override
-	public boolean checkAddress(MediMember_hDto dto_h) {
-		int n = sqlSession.selectOne(ns+"checkAddress_h", dto_h);
-		return n > 0;
+	public int checkAddress(MediMember_hDto dto_h) {
+		return sqlSession.selectOne(ns+"checkAddress_h", dto_h);
 	}
 
 	@Override
-	public boolean checkEmail(MediMember_hDto dto_h) {
-		int n = sqlSession.selectOne(ns+"checkEmail_h", dto_h);
-		return n > 0;
+	public int checkEmail(MediMember_hDto dto_h) {
+		return sqlSession.selectOne(ns+"checkEmail_h", dto_h);
 	}
 
 	@Override

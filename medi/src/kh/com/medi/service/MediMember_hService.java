@@ -14,9 +14,9 @@ public interface MediMember_hService {
 	public boolean addHospitalSubject(MediHospital_subject dto_s);
 	public boolean deleteHospitalSubject(MediHospital_subject dto_s);
 	public boolean checkId(MediMember_hDto dto_h);
-	public boolean checkTel(MediMember_hDto dto_h);
-	public boolean checkAddress(MediMember_hDto dto_h);
-	public boolean checkEmail(MediMember_hDto dto_h);
+	public int checkTel(MediMember_hDto dto_h);
+	public int checkAddress(MediMember_hDto dto_h);
+	public int checkEmail(MediMember_hDto dto_h);
 	public MediMember_hDto getHospitalColumn(String id);
 	public boolean updateMember_h(MediMember_hDto dto_h);
 	public boolean deleteMember_h(MediMember_hDto dto_h);

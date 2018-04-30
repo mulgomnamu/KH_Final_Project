@@ -40,10 +40,16 @@
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
+					<div>
+						<c:forEach var="doc_name" items="${login_alld }" varStatus="status">
+							<input type="radio" name="doc_name" <c:if test="${status.index == doc_index }">checked</c:if> id="${doc_name.seq }" onclick="changeDoctor(${status.index }, ${login_h.seq });">${doc_name.name },${status.index }, ${doc_index }
+						</c:forEach>
+					</div>
 				
 					<form action="join_dAf" id="form_d" name="form_d" method="post" enctype="multipart/form-data">
 					
-						<input type="text" name="hos_seq" value="${login_h.seq }">
+						<input type="hidden" name="seq" value="${login_d.seq }">
+						<input type="hidden" name="hos_seq" value="${login_h.seq }">
 						<table class="tableWrap">
 							<tr>
 								<th>
@@ -176,7 +182,7 @@
 									<table>
 										<tr>
 											<td>
-												
+												<input type="checkbox" id="allCheckBox">
 											</td>
 											<td>
 												진료 시작 시간
@@ -191,7 +197,7 @@
 <!-- 일요일 -->
 										<tr>
 											<td>
-												<input type="checkbox" id="sunCheckbox" name="list_day" value="일">일요일
+												<input type="checkbox" id="sunCheckbox" name="list_day" value="일" <c:if test="${sun_sch.day eq '일' }">checked</c:if>>일요일
 												<input type="hidden" id="sun_s_time" name="">
 												<input type="hidden" id="sun_e_time" name="">
 												<input type="hidden" id="sun_l_time" name="">
@@ -199,50 +205,50 @@
 											<td>
 				 								<select id="sun_sh" name="sun_sh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${sun_sch.start_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="sun_sm" name="sun_sm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${sun_sch.start_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${sun_sch.start_min eq '30' }">selected</c:if>>30</option>
 												</select> 
 											</td>
 											<td>
 				 								<select id="sun_eh" name="sun_eh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${sun_sch.end_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="sun_em" name="sun_em">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${sun_sch.end_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${sun_sch.end_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="sun_lh" name="sun_lh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${sun_sch.lunch_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="sun_lm" name="sun_lm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${sun_sch.lunch_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${sun_sch.lunch_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 										</tr>
 <!-- 월요일 -->
 										<tr>
 											<td>
-												<input type="checkbox" id="monCheckbox" name="list_day" value="월">월요일
+												<input type="checkbox" id="monCheckbox" name="list_day" value="월" <c:if test="${mon_sch.day eq '월' }">checked</c:if>>월요일
 												<input type="hidden" id="mon_s_time" name="">
 												<input type="hidden" id="mon_e_time" name="">
 												<input type="hidden" id="mon_l_time" name="">
@@ -250,50 +256,50 @@
 											<td>
 				 								<select id="mon_sh" name="mon_sh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${mon_sch.start_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="mon_sm" name="mon_sm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${mon_sch.start_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${mon_sch.start_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="mon_eh" name="mon_eh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${mon_sch.end_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="mon_em" name="mon_em">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${mon_sch.end_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${mon_sch.end_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="mon_lh" name="mon_lh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${mon_sch.lunch_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="mon_lm" name="mon_lm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${mon_sch.lunch_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${mon_sch.lunch_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 										</tr>
 <!-- 화요일 -->
 										<tr>
 											<td>
-												<input type="checkbox" id="tueCheckbox" name="list_day" value="화">화요일
+												<input type="checkbox" id="tueCheckbox" name="list_day" value="화" <c:if test="${tue_sch.day eq '화' }">checked</c:if>>화요일
 												<input type="hidden" id="tue_s_time" name="">
 												<input type="hidden" id="tue_e_time" name="">
 												<input type="hidden" id="tue_l_time" name="">
@@ -301,50 +307,50 @@
 											<td>
 				 								<select id="tue_sh" name="tue_sh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${tue_sch.start_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="tue_sm" name="tue_sm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${tue_sch.start_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${tue_sch.start_min eq '00' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="tue_eh" name="tue_eh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${tue_sch.end_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="tue_em" name="tue_em">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${tue_sch.end_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${tue_sch.end_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="tue_lh" name="tue_lh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${tue_sch.lunch_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="tue_lm" name="tue_lm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${tue_sch.lunch_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${tue_sch.lunch_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 										</tr>
 <!-- 수요일 -->
 										<tr>
 											<td>
-												<input type="checkbox" id="wenCheckbox" name="list_day" value="수">수요일
+												<input type="checkbox" id="wenCheckbox" name="list_day" value="수" <c:if test="${wen_sch.day eq '수' }">checked</c:if>>수요일
 												<input type="hidden" id="wen_s_time" name="">
 												<input type="hidden" id="wen_e_time" name="">
 												<input type="hidden" id="wen_l_time" name="">
@@ -352,50 +358,50 @@
 											<td>
 				 								<select id="wen_sh" name="wen_sh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${wen_sch.start_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="wen_sm" name="wen_sm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${wen_sch.start_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${wen_sch.start_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="wen_eh" name="wen_eh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${sun_sch.end_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="wen_em" name="wen_em">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${wen_sch.end_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${wen_sch.end_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="wen_lh" name="wen_lh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${wen_sch.lunch_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="wen_lm" name="wen_lm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${wen_sch.lunch_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${wen_sch.lunch_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 										</tr>
 <!-- 목요일 -->
 										<tr>
 											<td>
-												<input type="checkbox" id="thurCheckbox" name="list_day" value="목">목요일
+												<input type="checkbox" id="thurCheckbox" name="list_day" value="목" <c:if test="${thur_sch.day eq '목' }">checked</c:if>>목요일
 												<input type="hidden" id="thur_s_time" name="">
 												<input type="hidden" id="thur_e_time" name="">
 												<input type="hidden" id="thur_l_time" name="">
@@ -403,50 +409,50 @@
 											<td>
 				 								<select id="thur_sh" name="thur_sh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${thur_sch.start_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="thur_sm" name="thur_sm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${thur_sch.start_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${thur_sch.start_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="thur_eh" name="thur_eh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${thur_sch.end_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="thur_em" name="thur_em">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${thur_sch.end_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${thur_sch.end_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="thur_lh" name="thur_lh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${thur_sch.lunch_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="thur_lm" name="thur_lm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${thur_sch.lunch_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${thur_sch.lunch_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 										</tr>
 <!-- 금요일 -->
 										<tr>
 											<td>
-												<input type="checkbox" id="friCheckbox" name="list_day" value="금">금요일
+												<input type="checkbox" id="friCheckbox" name="list_day" value="금" <c:if test="${fri_sch.day eq '금' }">checked</c:if>>금요일
 												<input type="hidden" id="fri_s_time" name="">
 												<input type="hidden" id="fri_e_time" name="">
 												<input type="hidden" id="fri_l_time" name="">
@@ -454,50 +460,50 @@
 											<td>
 				 								<select id="fri_sh" name="fri_sh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${fri_sch.start_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="fri_sm" name="fri_sm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${fri_sch.start_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${fri_sch.start_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="fri_eh" name="fri_eh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${fri_sch.end_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="fri_em" name="fri_em">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${fri_sch.end_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${fri_sch.end_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="fri_lh" name="fri_lh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${fri_sch.lunch_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="fri_lm" name="fri_lm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${fri_sch.lunch_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${fri_sch.lunch_min eq '00' }">selected</c:if>>30</option>
 												</select>
 											</td>
 										</tr>
 <!-- 토요일 -->
 										<tr>
 											<td>
-												<input type="checkbox" id="satCheckbox" name="list_day" value="토">토요일
+												<input type="checkbox" id="satCheckbox" name="list_day" value="토" <c:if test="${sat_sch.day eq '토' }">checked</c:if>>토요일
 												<input type="hidden" id="sat_s_time" name="">
 												<input type="hidden" id="sat_e_time" name="">
 												<input type="hidden" id="sat_l_time" name="">
@@ -505,43 +511,43 @@
 											<td>
 				 								<select id="sat_sh" name="sat_sh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${sat_sch.start_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="sat_sm" name="sat_sm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${sat_sch.start_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${sat_sch.start_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="sat_eh" name="sat_eh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${sat_sch.end_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="sat_em" name="sat_em">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${sat_sch.end_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${sat_sch.end_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 											<td>
 				 								<select id="sat_lh" name="sat_lh">
 													<c:forEach begin="0" end="23" var="item">
-														<option value="${item}">
+														<option value="${item}" <c:if test="${sun_sch.lunch_hour eq item }">selected</c:if>>
 															<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
 														</option>
 													</c:forEach>
 												</select>
 												:
 												<select id="sat_lm" name="sat_lm">
-													<option value="00">00</option>
-													<option value="30">30</option>
+													<option value="00" <c:if test="${sat_sch.lunch_min eq '00' }">selected</c:if>>00</option>
+													<option value="30" <c:if test="${sat_sch.lunch_min eq '30' }">selected</c:if>>30</option>
 												</select>
 											</td>
 										</tr>
@@ -559,7 +565,7 @@
 							</tr>
 						</table>
 					</form>
-					<input type="button" id="update_dBtn" value="회원가입">
+					<input type="button" id="update_dBtn" value="수정하기">
 				
 				</div>
 			</div>
@@ -570,25 +576,164 @@
 </div>
 
 <script>
-	/* submit */
-	$("#update_dBtn").click(function() {
-		var _form = new FormData(document.getElementById('form_d'));
-		$.ajax({
-			url: 'updateAf_d.do',
-			data: _form,
-			dataType: 'text',
-			processData: false,
-			contentType: false,
-			type: 'post',
-			success: function(response) {
-				alert('회원수정 성공');
-				location.href ="myPage_h.do";
-			},
-			error: function() {
-				alert('error');
-			},
+	//체크박스
+	$(function() {
+		$("#allCheckBox").click(function() {
+			if($("#allCheckBox").prop("checked")){
+				$("input[name=list_day]").prop("checked", true);
+			} else {
+				$("input[name=list_day]").prop("checked", false);
+			}
 		});
 	});
+
+	/* submit */
+	$("#update_dBtn").click(function() {
+		var data = {
+				name: $("#name").val(),
+				info: $("#doc_content").val(),
+		}
+		
+		if(data.name == ""){
+			$("#nameCheckMessage").html("이름를 확인해주세요.");
+			$("#name").focus();
+		}else if(data.info == ""){
+			$("#infoCheckMessage").html("의사 소개를 확인해주세요.");
+			$("#doc_content").focus();
+		}else{
+			// 진료과목
+			var cl_list_str = "";
+			var box = document.getElementById("cl_sjt");
+			for(var i = 0; i < box.options.length; i++){
+				if(i == cl_sjt.length - 1)
+					cl_list_str=cl_list_str + box.options[i].value ;
+				else
+					cl_list_str=cl_list_str + box.options[i].value +",";
+			}
+			$("#cl_sjt_list").val(cl_list_str);
+
+			// 진료시간
+					if($('input:checkbox[id="sunCheckbox"]').is(":checked") == true){
+						var sun_sh = $("#sun_sh option:selected").val();
+						var sun_sm = $("#sun_sm option:selected").val();
+						var sun_eh = $("#sun_eh option:selected").val();
+						var sun_em = $("#sun_em option:selected").val();
+						var sun_lh = $("#sun_lh option:selected").val();
+						var sun_lm = $("#sun_lm option:selected").val();
+						$("#sun_s_time").val(sun_sh + ":" + sun_sm + ":00");
+						$("#sun_s_time").attr("name", "s_time");
+						$("#sun_e_time").val(sun_eh + ":" + sun_em + ":00");
+						$("#sun_e_time").attr("name", "e_time");
+						$("#sun_l_time").val(sun_lh + ":" + sun_lm + ":00");
+						$("#sun_l_time").attr("name", "l_time");
+					}
+					if($('input:checkbox[id="monCheckbox"]').is(":checked") == true){
+						var mon_sh = $("#mon_sh option:selected").val();
+						var mon_sm = $("#mon_sm option:selected").val();
+						var mon_eh = $("#mon_eh option:selected").val();
+						var mon_em = $("#mon_em option:selected").val();
+						var mon_lh = $("#mon_lh option:selected").val();
+						var mon_lm = $("#mon_lm option:selected").val();
+						$("#mon_s_time").val(mon_sh + ":" + mon_sm + ":00");
+						$("#mon_s_time").attr("name", "s_time");
+						$("#mon_e_time").val(mon_eh + ":" + mon_em + ":00");
+						$("#mon_e_time").attr("name", "e_time");
+						$("#mon_l_time").val(mon_lh + ":" + mon_lm + ":00");
+						$("#mon_l_time").attr("name", "l_time");
+					}
+					if($('input:checkbox[id="tueCheckbox"]').is(":checked") == true){
+						var tue_sh = $("#tue_sh option:selected").val();
+						var tue_sm = $("#tue_sm option:selected").val();
+						var tue_eh = $("#tue_eh option:selected").val();
+						var tue_em = $("#tue_em option:selected").val();
+						var tue_lh = $("#tue_lh option:selected").val();
+						var tue_lm = $("#tue_lm option:selected").val();
+						$("#tue_s_time").val(tue_sh + ":" + tue_sm + ":00");
+						$("#tue_s_time").attr("name", "s_time");
+						$("#tue_e_time").val(tue_eh + ":" + tue_em + ":00");
+						$("#tue_e_time").attr("name", "e_time");
+						$("#tue_l_time").val(tue_lh + ":" + tue_lm + ":00");
+						$("#tue_l_time").attr("name", "l_time");
+					}
+					if($('input:checkbox[id="wenCheckbox"]').is(":checked") == true){
+						var wen_sh = $("#wen_sh option:selected").val();
+						var wen_sm = $("#wen_sm option:selected").val();
+						var wen_eh = $("#wen_eh option:selected").val();
+						var wen_em = $("#wen_em option:selected").val();
+						var wen_lh = $("#wen_lh option:selected").val();
+						var wen_lm = $("#wen_lm option:selected").val();
+						$("#wen_s_time").val(wen_sh + ":" + wen_sm + ":00");
+						$("#wen_s_time").attr("name", "s_time");
+						$("#wen_e_time").val(wen_eh + ":" + wen_em + ":00");
+						$("#wen_e_time").attr("name", "e_time");
+						$("#wen_l_time").val(wen_lh + ":" + wen_lm + ":00");
+						$("#wen_l_time").attr("name", "l_time");
+					}
+					if($('input:checkbox[id="thurCheckbox"]').is(":checked") == true){
+						var thur_sh = $("#thur_sh option:selected").val();
+						var thur_sm = $("#thur_sm option:selected").val();
+						var thur_eh = $("#thur_eh option:selected").val();
+						var thur_em = $("#thur_em option:selected").val();
+						var thur_lh = $("#thur_lh option:selected").val();
+						var thur_lm = $("#thur_lm option:selected").val();
+						$("#thur_s_time").val(thur_sh + ":" + thur_sm + ":00");
+						$("#thur_s_time").attr("name", "s_time");
+						$("#thur_e_time").val(thur_eh + ":" + thur_em + ":00");
+						$("#thur_e_time").attr("name", "e_time");
+						$("#thur_l_time").val(thur_lh + ":" + thur_lm + ":00");
+						$("#thur_l_time").attr("name", "l_time");
+					}
+					if($('input:checkbox[id="friCheckbox"]').is(":checked") == true){
+						var fri_sh = $("#fri_sh option:selected").val();
+						var fri_sm = $("#fri_sm option:selected").val();
+						var fri_eh = $("#fri_eh option:selected").val();
+						var fri_em = $("#fri_em option:selected").val();
+						var fri_lh = $("#fri_lh option:selected").val();
+						var fri_lm = $("#fri_lm option:selected").val();
+						$("#fri_s_time").val(fri_sh + ":" + fri_sm + ":00");
+						$("#fri_s_time").attr("name", "s_time");
+						$("#fri_e_time").val(fri_eh + ":" + fri_em + ":00");
+						$("#fri_e_time").attr("name", "e_time");
+						$("#fri_l_time").val(fri_lh + ":" + fri_lm + ":00");
+						$("#fri_l_time").attr("name", "l_time");
+					}
+					if($('input:checkbox[id="satCheckbox"]').is(":checked") == true){
+						var sat_sh = $("#sat_sh option:selected").val();
+						var sat_sm = $("#sat_sm option:selected").val();
+						var sat_eh = $("#sat_eh option:selected").val();
+						var sat_em = $("#sat_em option:selected").val();
+						var sat_lh = $("#sat_lh option:selected").val();
+						var sat_lm = $("#sat_lm option:selected").val();
+						$("#sat_s_time").val(sat_sh + ":" + sat_sm + ":00");
+						$("#sat_s_time").attr("name", "s_time");
+						$("#sat_e_time").val(sat_eh + ":" + sat_em + ":00");
+						$("#sat_e_time").attr("name", "e_time");
+						$("#sat_l_time").val(sat_lh + ":" + sat_lm + ":00");
+						$("#sat_l_time").attr("name", "l_time");
+					}
+					
+			var _form = new FormData(document.getElementById('form_d'));
+			$.ajax({
+				url: 'updateAf_d.do',
+				data: _form,
+				dataType: 'text',
+				processData: false,
+				contentType: false,
+				type: 'post',
+				success: function(response) {
+					location.href = "myPage_h.do";
+				},
+				error: function() {
+					alert('error');
+				},
+			});
+		}
+	});
+	
+	/* 의사 변경 */
+	function changeDoctor(index, seq) {
+		location.href = "update_d.do?seq="+seq+"&index="+index;
+	}
 
 	/*진료과목 추가*/
 	function append_cl() {

@@ -41,7 +41,7 @@
 				<div class="inner_flogin">
 					<form action="join_dAf" id="form_d" name="form_d" method="post" enctype="multipart/form-data">
 					
-						<input type="hidden" name="hos_seq" value="${hos_seq }">
+						<input type="text" name="hos_seq" value="${login_h.seq }">
 						<table class="tableWrap">
 							<tr>
 								<th>
@@ -171,7 +171,7 @@
 									<table>
 										<tr>
 											<td>
-												
+												<input type="checkbox" id="allCheckBox">
 											</td>
 											<td>
 												진료 시작 시간
@@ -712,6 +712,16 @@ function fileCheck() {
 		}
 	}
 }
+//체크박스
+$(function() {
+	$("#allCheckBox").click(function() {
+		if($("#allCheckBox").prop("checked")){
+			$("input[name=list_day]").prop("checked", true);
+		} else {
+			$("input[name=list_day]").prop("checked", false);
+		}
+	});
+});
 
 // submit
 $("#join_dBtn").click(function() {
@@ -741,7 +751,7 @@ $("#join_dBtn").click(function() {
 		}
 		$("#cl_sjt_list").val(cl_list_str);
 		
-// 
+// 진료시간
 		if($('input:checkbox[id="sunCheckbox"]').is(":checked") == true){
 			var sun_sh = $("#sun_sh option:selected").val();
 			var sun_sm = $("#sun_sm option:selected").val();
@@ -784,19 +794,19 @@ $("#join_dBtn").click(function() {
 			$("#tue_l_time").val(tue_lh + ":" + tue_lm + ":00");
 			$("#tue_l_time").attr("name", "l_time");
 		}
-		if($('input:checkbox[id="cCheckbox"]').is(":checked") == true){
-			var tue_sh = $("#tue_sh option:selected").val();
-			var tue_sm = $("#tue_sm option:selected").val();
-			var tue_eh = $("#tue_eh option:selected").val();
-			var tue_em = $("#tue_em option:selected").val();
-			var tue_lh = $("#tue_lh option:selected").val();
-			var tue_lm = $("#tue_lm option:selected").val();
-			$("#tue_s_time").val(tue_sh + ":" + tue_sm + ":00");
-			$("#tue_s_time").attr("name", "s_time");
-			$("#tue_e_time").val(tue_eh + ":" + tue_em + ":00");
-			$("#tue_e_time").attr("name", "e_time");
-			$("#tue_l_time").val(tue_lh + ":" + tue_lm + ":00");
-			$("#tue_l_time").attr("name", "l_time");
+		if($('input:checkbox[id="wenCheckbox"]').is(":checked") == true){
+			var wen_sh = $("#wen_sh option:selected").val();
+			var wen_sm = $("#wen_sm option:selected").val();
+			var wen_eh = $("#wen_eh option:selected").val();
+			var wen_em = $("#wen_em option:selected").val();
+			var wen_lh = $("#wen_lh option:selected").val();
+			var wen_lm = $("#wen_lm option:selected").val();
+			$("#wen_s_time").val(wen_sh + ":" + wen_sm + ":00");
+			$("#wen_s_time").attr("name", "s_time");
+			$("#wen_e_time").val(wen_eh + ":" + wen_em + ":00");
+			$("#wen_e_time").attr("name", "e_time");
+			$("#wen_l_time").val(wen_lh + ":" + wen_lm + ":00");
+			$("#wen_l_time").attr("name", "l_time");
 		}
 		if($('input:checkbox[id="thurCheckbox"]').is(":checked") == true){
 			var thur_sh = $("#thur_sh option:selected").val();

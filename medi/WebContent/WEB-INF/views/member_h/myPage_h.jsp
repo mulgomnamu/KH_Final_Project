@@ -22,9 +22,9 @@
 						<br>
 						<a href="update_h.do?seq=${login_h.seq }">병원 회원 정보 변경</a>
 						<br>
-						<a href="joinMember.do">의사 회원 추가</a>
+						<a href="join_d.do">의사 회원 추가</a>
 						<br>
-						<a href="update_d.do?seq=${login_h.seq }">의사 회원 정보 변경</a>
+						<a href="update_d.do?seq=${login_h.seq }&index=0">의사 회원 정보 변경</a>
 						<br>
 						<a href="update_h_img.do">병원 이미지 변경</a>
 						<br>

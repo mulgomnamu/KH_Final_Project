@@ -35,6 +35,11 @@ public class MediDoctorServiceImpl implements MediDoctorService {
 	}
 
 	@Override
+	public boolean updateSchedul(MediDoctorSchedulDto dto_dsc) {
+		return mediDoctorDao.updateSchedul(dto_dsc);
+	}
+
+	@Override
 	public boolean updateDoctor(MediDoctorDto dto_d) {
 		return mediDoctorDao.updateDoctor(dto_d);
 	}
@@ -45,18 +50,38 @@ public class MediDoctorServiceImpl implements MediDoctorService {
 	}
 
 	@Override
-	public MediDoctorDto getDoctorColumn(MediMember_hDto dto_h) {
-		return mediDoctorDao.getDoctorColumn(dto_h);
+	public MediDoctorDto getDoctorcolumnBySeq(MediDoctorDto dto_d) {
+		return mediDoctorDao.getDoctorcolumnBySeq(dto_d);
 	}
 
 	@Override
-	public List<MediSpecialtyDto> getHospitalSpecialtyColumns(MediMember_hDto dto_h) {
-		return mediDoctorDao.getHospitalSpecialtyColumns(dto_h);
+	public MediDoctorDto getDoctorcolumnByMaxSeq() {
+		return mediDoctorDao.getDoctorcolumnByMaxSeq();
 	}
 
 	@Override
-	public List<MediDoctorSchedulDto> getHospitalSchedulColumns(MediMember_hDto dto_h) {
-		return mediDoctorDao.getHospitalSchedulColumns(dto_h);
+	public List<MediDoctorDto> getDoctorColumnByHos_seq(MediMember_hDto dto_h) {
+		return mediDoctorDao.getDoctorColumnByHos_seq(dto_h);
+	}
+
+	@Override
+	public List<MediSpecialtyDto> getHospitalSpecialtyColumns(MediDoctorDto dto_d) {
+		return mediDoctorDao.getHospitalSpecialtyColumns(dto_d);
+	}
+
+	@Override
+	public List<MediDoctorSchedulDto> getHospitalSchedulColumns(MediDoctorDto dto_d) {
+		return mediDoctorDao.getHospitalSchedulColumns(dto_d);
+	}
+
+	@Override
+	public boolean delHospitalSpecialtyColumns(MediDoctorDto dto_d) {
+		return mediDoctorDao.delHospitalSpecialtyColumns(dto_d);
+	}
+
+	@Override
+	public boolean delHospitalSchedulColumns(MediDoctorDto dto_d) {
+		return mediDoctorDao.delHospitalSchedulColumns(dto_d);
 	}
 
 }

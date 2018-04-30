@@ -29,17 +29,17 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 	}
 
 	@Override
-	public boolean checkTel(MediMember_hDto dto_h) {
+	public int checkTel(MediMember_hDto dto_h) {
 		return mediMember_hDao.checkTel(dto_h);
 	}
 
 	@Override
-	public boolean checkAddress(MediMember_hDto dto_h) {
+	public int checkAddress(MediMember_hDto dto_h) {
 		return mediMember_hDao.checkAddress(dto_h);
 	}
 
 	@Override
-	public boolean checkEmail(MediMember_hDto dto_h) {
+	public int checkEmail(MediMember_hDto dto_h) {
 		return mediMember_hDao.checkEmail(dto_h);
 	}
 

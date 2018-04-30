@@ -13,10 +13,15 @@ public interface MediDoctorService {
 	public boolean addDoctor(MediDoctorDto dto_d);
 	public boolean addSpecialty(MediDoctor_specialtyDto dto_ds);
 	public boolean addSchedul(MediDoctorSchedulDto dto_dsc);
+	public boolean updateSchedul(MediDoctorSchedulDto dto_dsc);
 	public boolean updateDoctor(MediDoctorDto dto_d);
 	public boolean deleteDoctor(MediDoctorDto dto_d);
-	public MediDoctorDto getDoctorColumn(MediMember_hDto dto_h);
-	public List<MediSpecialtyDto> getHospitalSpecialtyColumns(MediMember_hDto dto_h);
-	public List<MediDoctorSchedulDto> getHospitalSchedulColumns(MediMember_hDto dto_h);
+	public MediDoctorDto getDoctorcolumnBySeq(MediDoctorDto dto_d);
+	public MediDoctorDto getDoctorcolumnByMaxSeq();
+	public List<MediDoctorDto> getDoctorColumnByHos_seq(MediMember_hDto dto_h);
+	public List<MediSpecialtyDto> getHospitalSpecialtyColumns(MediDoctorDto dto_d);
+	public boolean delHospitalSpecialtyColumns(MediDoctorDto dto_d);
+	public List<MediDoctorSchedulDto> getHospitalSchedulColumns(MediDoctorDto dto_d);
+	public boolean delHospitalSchedulColumns(MediDoctorDto dto_d);
 
 }

@@ -10,8 +10,8 @@
 	</insert>
 	
 	<insert id="addSpecialty" parameterType="kh.com.medi.model.MediDoctor_specialtyDto">
-		INSERT INTO `medi`.`medi_specialty` (`hos_seq`, `specialty`)
-		VALUES (#{hos_seq}, #{specialty})
+		INSERT INTO `medi`.`medi_specialty` (`doc_seq`, `specialty`)
+		VALUES (#{doc_seq}, #{specialty})
 	</insert>
 	
 	<insert id="addSchedul" parameterType="kh.com.medi.model.MediDoctorSchedulDto">
@@ -20,27 +20,54 @@
 					#{day}, #{start_time}, #{end_time}, #{lunch_time})
 	</insert>
 	
-	<select id="getDoctorColumn" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediDoctorDto">
+	<insert id="updateSchedul" parameterType="kh.com.medi.model.MediDoctorSchedulDto">
+		INSERT INTO `medi`.`medi_schedul` (`doc_seq`, `day`, `start_time`, `end_time`, `lunch_time`)
+		VALUES (#{seq}, #{day}, #{start_time}, #{end_time}, #{lunch_time})
+	</insert>
+	
+	<select id="getDoctorcolumnByMaxSeq" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT `seq`, `hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`
+		FROM `MEDI`.`MEDI_DOCTOR`
+		WHERE `seq`=(SELECT MAX(`seq`) FROM `MEDI`.`MEDI_DOCTOR`)
+	</select>
+	
+	<select id="getDoctorcolumnBySeq" parameterType="kh.com.medi.model.MediDoctorDto" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT `seq`, `hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`
+		FROM `MEDI`.`MEDI_DOCTOR`
+		WHERE `seq`=#{seq}
+	</select>
+	
+	<select id="getDoctorColumnByHos_seq" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediDoctorDto">
 		SELECT `seq`, `hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`
 		FROM `MEDI`.`MEDI_DOCTOR`
 		WHERE `hos_seq`=#{seq}
 	</select>
 	
-	<select id="getHospitalSpecialtyColumns" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediDoctor_specialtyDto">
-		SELECT `hos_seq`, `specialty`
+	<select id="getHospitalSpecialtyColumns" parameterType="kh.com.medi.model.MediDoctorDto" resultType="kh.com.medi.model.MediDoctor_specialtyDto">
+		SELECT `doc_seq`, `specialty`
 		FROM `medi`.`medi_specialty`
-		WHERE `hos_seq`=#{seq}
+		WHERE `doc_seq`=#{seq}
 	</select>
 	
-	<select id="getHospitalSchedulColumns" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediDoctorSchedulDto">
+	<delete id="delHospitalSpecialtyColumns"  parameterType="kh.com.medi.model.MediDoctorDto">
+		DELETE FROM `medi`.`medi_specialty`
+		WHERE `doc_seq`=#{seq}
+	</delete>
+	
+	<select id="getHospitalSchedulColumns" parameterType="kh.com.medi.model.MediDoctorDto" resultType="kh.com.medi.model.MediDoctorSchedulDto">
 		SELECT `seq`, `doc_seq`, `day`, `start_time`, `end_time`, `lunch_time`
 		FROM `medi`.`medi_schedul`
 		WHERE `doc_seq`=#{seq}
 	</select>
 	
+	<delete id="delHospitalSchedulColumns"  parameterType="kh.com.medi.model.MediDoctorDto">
+		DELETE FROM `medi`.`medi_schedul`
+		WHERE `doc_seq`=#{seq}
+	</delete>
+	
 	<update id="updateDoctor" parameterType="kh.com.medi.model.MediDoctorDto">
 		UPDATE `medi`.`medi_doctor`
-		SET `name`=#{name} AND `specialty`=#{specialty} AND `addrdoc_profileess`=#{doc_profile} AND doc_content=#{doc_content} AND `day_tostring`=${day_tostring}
+		SET `name`=#{name}, `specialty`=#{specialty}, `doc_content`=#{doc_content}, `day_tostring`=#{day_tostring}
 		WHERE `seq`=#{seq}
 	</update>
 	
