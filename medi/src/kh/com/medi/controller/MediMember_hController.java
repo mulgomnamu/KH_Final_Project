@@ -153,9 +153,10 @@ public class MediMember_hController {
 		
 		dto_h.setConfirm_img(newFile);
 
-		System.out.println(dto_h.getAddress());
+		System.out.println("==================" + dto_h.getAddress());
 		String location = dto_h.getAddress().split("\\+")[0];
 		Float[] coords = geoCoding.geoCoding(location);
+		System.out.println(location + "============================================");
 		System.out.println(location + ":" + coords[0] +", " + coords[1]);
 		dto_h.setLatitude(coords[0]+"");
 		dto_h.setLongtitude(coords[1]+"");
