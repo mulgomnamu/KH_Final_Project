@@ -22,7 +22,7 @@
 					<div class="detailWrap">
 						<div class="detailTop">
 							<div class="detailImgBox">
-								<img src="images/sub/${hbbs.confirm_img }" alt="">
+								<img src="upload/${hbbs.confirm_img }" alt="">
 							</div>
 							<div class="detailInfoBox">
 								<table>
@@ -68,7 +68,7 @@
 								<c:forEach items="${doctorlist}" var="doctordto" varStatus="i">
 									<div class="doctorInfo">
 										<div class="doctorInfoImgBox">
-											<img src="images/sub/${doctordto.doc_profile }" alt="">
+											<img src="upload/${doctordto.doc_profile }" alt="">
 										</div>
 										<div style="clear:both;">
 											<div class="doctorInfoCon">

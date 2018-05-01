@@ -6,7 +6,7 @@
 
 	<insert id="addMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
 		INSERT INTO `medi`.`medi_hospital` (`id`, `pwd`, `name`, `tel`, `post`, `address`, `latitude`, `longtitude`, `email`, `question`, `answer`, `confirm_img`, `info`, `score`, `del`, `regdate`, `auth`) 
-		VALUES (#{id}, #{pwd}, #{name}, #{tel}, #{post}, #{address}, 'latitude', 'longtitude', #{email}, #{question}, #{answer}, #{confirm_img}, #{info}, 0, 1, now(), 3)
+		VALUES (#{id}, #{pwd}, #{name}, #{tel}, #{post}, #{address}, #{latitude}, #{longtitude}, #{email}, #{question}, #{answer}, #{confirm_img}, #{info}, 0, 1, now(), 3)
 	</insert>
 	
 	<update id="updateMember_h" parameterType="kh.com.medi.model.MediMember_hDto">
