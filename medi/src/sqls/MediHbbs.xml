@@ -6,7 +6,7 @@
 	<!-- 데이터 전체갯수 취득 -->
 	<select id="getBbsCount" parameterType="kh.com.medi.model.MediHbbsParamDto" resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)
-		FROM `MEDI`.`MEDI_HOSPITAL` WHERE 1=1 AND DEL=0
+		FROM `MEDI`.`MEDI_HOSPITAL` WHERE 1=1 AND DEL=1
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
 			<if test="s_category == 'name'">
 				AND NAME LIKE CONCAT('%',#{s_keyword},'%')
@@ -29,7 +29,7 @@
 		    FROM
 		        `MEDI`.`MEDI_HOSPITAL`,
 		       (SELECT @ROWNUM := 0) R
-			 WHERE 1=1 AND DEL=0
+			 WHERE 1=1 AND DEL=1
 			 <if test="s_category != '' and s_category != null 
 			 	and s_keyword != '' and s_keyword != null">		 	
 			 	<if test="s_category == 'name'"> 
@@ -69,6 +69,34 @@
 		 <if test="s_keyword != '' and s_keyword != null">	
 		 	AND ADDRESS LIKE CONCAT('%',#{s_keyword},'%') 	
 		 </if>
+	</select>
+	
+	<!-- 리뷰 시작 -->
+	<insert id="writeReviews" parameterType="kh.com.medi.model.MediHbbsReviews">
+		INSERT INTO `medi`.`medi_reviews` (`seq`, `hos_seq`, `id`, `content`, `del`, `rdate`, `stars`)
+		VALUES (#{seq}, #{hos_seq}, #{id}, #{content}, 0, now(), #{stars})
+	</insert>
+	
+	<select id="getReviews" parameterType="kh.com.medi.model.MediHbbsParamDto" resultType="kh.com.medi.model.MediHbbsReviews">
+		SELECT SEQ, HOS_SEQ, ID, CONTENT, DEL, RDATE, STARS
+		FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, HOS_SEQ, ID, CONTENT, DEL, RDATE, STARS
+		    FROM
+		        `MEDI`.`MEDI_REVIEWS`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND HOS_SEQ=${seq}
+			 ORDER BY SEQ ASC
+		) A
+		WHERE
+			 A.ROWNUM BETWEEN ${start} AND ${end}	
+	</select>
+	
+	<select id="getReviewsCount" parameterType="kh.com.medi.model.MediHbbsParamDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`MEDI_REVIEWS` WHERE 1=1 AND HOS_SEQ=${seq}
 	</select>
 	
 	
