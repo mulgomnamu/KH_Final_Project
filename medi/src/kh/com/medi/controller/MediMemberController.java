@@ -288,10 +288,18 @@ public class MediMemberController {
 	@ResponseBody
 	@RequestMapping(value="idFind.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String idFind(Model model, MediMemberDto dto) throws Exception{
+		boolean flag = true;
 		logger.info("MediMemberController idFind " + new Date());
 		dto = mediMemberService.idFind(dto);
-		System.out.println("getId " + dto.getId());
+/*		System.out.println("getId " + dto.getId());*/
+		
 		if(dto == null) {
+			flag = true;
+		}else {
+			flag = false;
+		}
+		
+		if(flag) {
 			String str = "no";
 			return str;
 		}else{
