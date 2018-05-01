@@ -120,18 +120,18 @@
 						</p>
 					</div>
 					<div class="util_wrap">
-						<form action="" method="get">
+						<form id="mainSearch" action="" method="post">
 							<span class="form-text name"> <!-- <label class="placeholder" for="quick_name">이름</label> -->
-								<input type="text" id="quick_name" name="quick_name"
+								<input type="text" id="quick_name" name="s_keyword"
 								autocomplete="off" placeholder="지역명 ex)강남구">
+								<input type="hidden" name="s_category" value="address">
 							</span>
 							<!-- <span class="form-text mobile">
 										<label class="placeholder" for="quick_hp_no">전화번호</label>
 										<input type="text" id="quick_hp_no" name="quick_hp_no" autocomplete="off" minlength="12" maxlength="13">
 									</span> -->
 							<span class="requ_call_btn"> <a href="#;"
-								id="quick_appointment_btn" class="btn-type02"
-								onClick="fnOpenQuickAppointmentPopup(event.target);"> <em>검색</em>
+								id="quick_appointment_btn" class="btn-type02"> <em>검색</em>
 							</a>
 							</span>
 						</form>
@@ -154,7 +154,7 @@
 						</span>
 					</div>
 				</div>
-				<form name="searchForm" id="searchForm" method="get" action="#;">
+				<form name="searchForm" id="searchForm" method="post" action="">
 					<div class="main_util-search">
 						<div class="info_txt">
 							<strong>빠른 병원 검색</strong>
@@ -164,13 +164,11 @@
 						</div>
 						<div class="util_wrap">
 							<span class="form-text"> <!-- <label class="placeholder" for="select_text_1">진료과명/의료진명 입력</label> -->
-								<input type="text" id="select_text_1" name="kwd"
-								autocomplete="off" placeholder="병원명  입력">
+								<input type="text" id="select_text_1" name="s_keyword" placeholder="병원명  입력">
+								<input type="hidden" name="s_category" value="name">
 								<button type="button" class="main_btn-search">
 									<em class="blind">검색</em>
-								</button> <input type="hidden" id="instNo" name="instNo" value="2">
-								<input type="hidden" id="medicalSearch" name="medicalSearch"
-								value="Y">
+								</button>
 							</span>
 						</div>
 					</div>
@@ -654,4 +652,17 @@
 					+ window.location.search;
 		}
 	}
+	
+	// 메인 검색 (병원 지역)
+	$("#quick_appointment_btn").click(function(){
+		$("#mainSearch").attr({ "target":"_self", "action":"hbbslist.do"}).submit();	
+	});
+	
+	// 메인 빠른검색 (병원이름)
+	$(".main_btn-search").click(function(){
+		$("#searchForm").attr({ "target":"_self", "action":"hbbslist.do"}).submit();	
+	});
+	
+	
+	
 </script>

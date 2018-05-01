@@ -10,6 +10,7 @@ import kh.com.medi.dao.MediHbbsDao;
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediHbbsParamDto;
+import kh.com.medi.model.MediHbbsReviews;
 import kh.com.medi.model.MediMember_hDto;
 
 @Repository
@@ -49,6 +50,26 @@ public class MediHbbsDaoImpl implements MediHbbsDao {
 	public List<MediMember_hDto> getHospitalList(MediHbbsParamDto hbbs) throws Exception {
 		List<MediMember_hDto> hlist = sqlSession.selectList(ns + "getHospitalList", hbbs);
 		return hlist;
+	}
+
+	@Override
+	public boolean writeReviews(MediHbbsReviews redto) throws Exception {
+		System.out.println(redto.toString());
+		int b = sqlSession.insert(ns + "writeReviews", redto);
+		return b>0?true:false;
+	}
+
+	@Override
+	public List<MediHbbsReviews> getReviews(MediHbbsParamDto hbbsp) throws Exception {
+		List<MediHbbsReviews> list = sqlSession.selectList(ns + "getReviews", hbbsp);
+		return list;
+	}
+	
+	@Override
+	public int getReviewsCount(MediHbbsParamDto hbbsp) throws Exception {
+		int number = 0;
+		number = sqlSession.selectOne(ns + "getReviewsCount", hbbsp);
+		return number;
 	}
 	
 }
