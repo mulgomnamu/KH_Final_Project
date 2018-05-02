@@ -5,15 +5,15 @@
 <mapper namespace="MediHealthBook">
 
 <select id="getHealthBook" parameterType="java.lang.Integer" resultType="kh.com.medi.model.MediHealthBookDto">
-	SELECT SEQ, BIRTH, GENDER, HEIGHT, WEIGHT, BLOODTYPE, ALLERGY
+	SELECT SEQ, MEM_SEQ, BIRTH, GENDER, HEIGHT, WEIGHT, BLOODTYPE, ALLERGY
 	FROM medi_health_book
 	
 </select>
 
 <insert id="healthBookWrite" parameterType="kh.com.medi.model.MediHealthBookDto">
 	INSERT INTO medi_health_book
-	(seq, birth, gender, height, weight, bloodtype, allergy) 
-	VALUES(#{seq},#{birth},#{gender},#{height},#{weight},#{bloodtype},#{allergy})
+	(seq, mem_seq, birth, gender, height, weight, bloodtype, allergy) 
+	VALUES(#{seq}, #{mem_seq},#{birth},#{gender},#{height},#{weight},#{bloodtype},#{allergy})
 </insert>
 
 </mapper>

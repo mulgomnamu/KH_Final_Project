@@ -13,37 +13,42 @@ CONSTRAINT `FK_medi_specialty_doc_seq`
   ON UPDATE NO ACTION);
  * */
 public class MediSubjectDto implements Serializable {
-	private int doc_seq;		//의사번호
+	private int hos_seq;		//의사번호
 	private String subject;		//병원진료과목
-	
+	private MediMember_hDto medimember_hdto;
 	public MediSubjectDto() {
 	}
-
-	public MediSubjectDto(int doc_seq, String subject) {
+	public MediSubjectDto(int hos_seq, String subject, MediMember_hDto medimember_hdto) {
 		super();
-		this.doc_seq = doc_seq;
+		this.hos_seq = hos_seq;
 		this.subject = subject;
+		this.medimember_hdto = medimember_hdto;
 	}
-
-	public int getDoc_seq() {
-		return doc_seq;
+	public int getHos_seq() {
+		return hos_seq;
 	}
-
-	public void setDoc_seq(int doc_seq) {
-		this.doc_seq = doc_seq;
+	public void setHos_seq(int hos_seq) {
+		this.hos_seq = hos_seq;
 	}
-
 	public String getSubject() {
 		return subject;
 	}
-
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-
+	public MediMember_hDto getMedimember_hdto() {
+		return medimember_hdto;
+	}
+	public void setMedimember_hdto(MediMember_hDto medimember_hdto) {
+		this.medimember_hdto = medimember_hdto;
+	}
 	@Override
 	public String toString() {
-		return "MediSubjectDto [doc_seq=" + doc_seq + ", subject=" + subject + "]";
+		return "MediSubjectDto [hos_seq=" + hos_seq + ", subject=" + subject + ", medimember_hdto=" + medimember_hdto
+				+ "]";
 	}
+	
+	
+	
 	
 }

@@ -152,7 +152,7 @@ body.main_layout .main_top_banner{display: block;}
 #total_search .total_search_wrap .input_wrap .form-text label.placeholder{padding:11px 20px; font-size:24px;}
 #total_search .total_search_wrap .input_wrap .form-text input{height:59px; border:0; border-bottom:1px solid #ccc; font-size:24px;}
 #total_search .total_search_wrap .input_wrap button.search_btn{position:absolute; top:8px; right:41px; padding:10px; background-color:transparent;}
-#total_search .total_search_wrap .input_wrap button.search_btn:after{content:''; display:block; width:24px; height:24px; background:url('../images/main/icon_header_search.png') no-repeat; background-position-y:bottom;}
+#total_search .total_search_wrap .input_wrap button.search_btn:after{content:''; display:block; width:24px; height:24px; background:url('../images/common/icon_header_search.png') no-repeat; background-position-y:bottom;}
 #total_search .total_search_wrap .input_wrap button.del_txt{position:absolute; top:8px; right:80px; /* display:none; */ padding:10px; background-color:transparent;}
 #total_search .total_search_wrap .input_wrap button.del_txt:after{content:''; display:block; width:24px; height:24px; background:url('../images/main/icon_search_del.png') no-repeat;
     transform:scale(0);

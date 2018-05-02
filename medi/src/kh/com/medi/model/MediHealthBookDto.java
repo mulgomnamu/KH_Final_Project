@@ -1,6 +1,30 @@
 package kh.com.medi.model;
 
 import java.io.Serializable;
+/*
+CREATE TABLE `medi`.`medi_health_book` (
+`seq` INT(8) NOT NULL AUTO_INCREMENT,
+`mem_seq` INT(8) NOT NULL,
+`birth` VARCHAR(20) NOT NULL,
+`gender` VARCHAR(10) NOT NULL,
+`height` INT(20) NOT NULL,
+`weight` INT(20) NOT NULL,
+`bloodtype` VARCHAR(10) NOT NULL,
+`allergy` VARCHAR(2000) NOT NULL,
+PRIMARY KEY (`seq`),
+INDEX `FK_medi_health_book_mem_seq_idx` (`mem_seq` ASC),
+CONSTRAINT `FK_medi_health_book_mem_seq`
+  FOREIGN KEY (`mem_seq`)
+  REFERENCES `medi`.`medi_member` (`seq`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION);
+ */
+
+/*INSERT INTO `medi`.`medi_health_book` 
+(`seq`, `mem_seq`, `birth`, `gender`, `height`, `weight`, `bloodtype`, `allergy`) 
+VALUES (null,1, '1983-05-13', 'm', '170', '55','A','복숭아 알러지');
+*/
+
 
 public class MediHealthBookDto implements Serializable {
 	

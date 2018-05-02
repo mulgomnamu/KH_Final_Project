@@ -143,26 +143,26 @@
                         <div class="d_btn_1">
                            <a href="QnAbblist.do" target="_self"><em>QnA</em></a>
                         </div>
-                        <!-- <div class="d_2">
+                        <div class="d_2">
                            <ul>
                               <li>
-                                 <a href="maplist.do" target="_self"><em>QnA</em></a>
+                                 <a href="QnAbblist.do" target="_self"><em>QnA</em></a>
                               </li>
                            </ul>
-                        </div> -->
+                        </div>
                      </li>
                      <!-- 여기 까지 -->
                      <li>
                         <div class="d_btn_1">
                            <a href="consultinglist.do" target="_self"><em>건강상담</em></a>
                         </div>
-                        <!-- <div class="d_2">
+                        <div class="d_2">
                            <ul>
                               <li>
-                                 <a href="maplist.do" target="_self"><em>QnA</em></a>
+                                 <a href="consultinglist.do" target="_self"><em>건강상담</em></a>
                               </li>
                            </ul>
-                        </div> -->
+                        </div>
                      </li>
                      <!-- 여기 까지 -->
                   </ul>
@@ -181,10 +181,11 @@
                        <div class="inner">
                            <div class="total_searh_area">
                                <div class="input_wrap">
-                                   <form name="searchForm" id="AKCFrm" method="get" action="#;">
+                                   <form name="searchForm" id="AKCFrm" method="post" action="">
                                  <span class="form-text">
-                                    <label class="placeholder" for="kwd">검색어를 입력하세요.</label>
-                                    <input type="text" id="kwd" name="kwd" autocomplete="off" value="">
+                                    <label class="placeholder" for="kwd">병원검색</label>
+                                    <input type="hidden" name="s_category" value="name">
+                                    <input type="text" id="kwd" name="s_keyword" value="">
                                           <input type="hidden" id="instNo" name="instNo" value="2">
                                       </span>
                                       <button class="search_btn" onclick="submit()">
@@ -250,6 +251,34 @@
                                       </li>
                                    </ul>
                               </div>
+                              <div>
+                                 <span  class="tit">
+                                     <a href="QnAbblist.do" target="_self">
+                                         <strong>QnA</strong>
+                                     </a>
+                                 </span>
+                                 <ul>
+                                      <li>
+                                           <a href="QnAbblist.do" target="_self">
+                                               <em>QnA</em>
+                                           </a>
+                                      </li>
+                                   </ul>
+                              </div>
+                              <div>
+                                 <span  class="tit">
+                                     <a href="consultinglist.do" target="_self">
+                                         <strong>건강 상담</strong>
+                                     </a>
+                                 </span>
+                                 <ul>
+                                      <li>
+                                           <a href="consultinglist.do" target="_self">
+                                               <em>건강 상담</em>
+                                           </a>
+                                      </li>
+                                   </ul>
+                              </div>
                               
                            </div>
                        <div class="close_btn">
@@ -288,3 +317,17 @@
    </div>
 </header>
 <!--// HEADER -->
+<script>
+
+$(".search_btn").click(function(){
+	$("#AKCFrm").attr({ "target":"_self", "action":"hbbslist.do"}).submit();	
+});
+
+</script>
+
+
+
+
+
+
+

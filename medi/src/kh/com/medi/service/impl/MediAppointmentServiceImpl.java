@@ -16,6 +16,7 @@ import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediSpecialtyDto;
+import kh.com.medi.model.MediSubjectDto;
 import kh.com.medi.service.MediAppointmentService;
 
 
@@ -200,7 +201,7 @@ public class MediAppointmentServiceImpl implements MediAppointmentService {
 	}
 
 	@Override
-	public List<MediSpecialtyDto> byspecialty(MediSpecialtyDto alldto) throws Exception {
+	public List<MediSubjectDto> byspecialty(MediSubjectDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return mediAppointmentDao.byspecialty(alldto);
 	}

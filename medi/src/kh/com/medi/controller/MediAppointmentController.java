@@ -26,6 +26,7 @@ import kh.com.medi.model.MediDoctorSchedulDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediSpecialtyDto;
+import kh.com.medi.model.MediSubjectDto;
 import kh.com.medi.service.MediAppointmentService;
 import kh.com.medi.service.MediMemberService;
 
@@ -208,10 +209,11 @@ public class MediAppointmentController {
 	//진료과목으로병원리스트검색하는곳
 	@ResponseBody
 	@RequestMapping(value="byspecialty.do", method={RequestMethod.GET, RequestMethod.POST})
-	public Map<String, Object> byspecialty(MediSpecialtyDto spedto,Model model) throws Exception{
+	public Map<String, Object> byspecialty(MediSubjectDto spedto,Model model) throws Exception{
 		logger.info("MediAppointmentController byspecialty " + new Date());
 		Map<String, Object> map=new HashMap<String, Object>();
-		List<MediSpecialtyDto> hospitallist=mediAppointmentService.byspecialty(spedto);
+		System.out.println(spedto.toString());
+		List<MediSubjectDto> hospitallist=mediAppointmentService.byspecialty(spedto);
 		for (int i = 0; i < hospitallist.size(); i++) {
 		System.out.println(hospitallist.get(i).getMedimember_hdto().toString());	
 		}

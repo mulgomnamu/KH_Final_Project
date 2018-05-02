@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediHbbsParamDto;
+import kh.com.medi.model.MediHbbsReviews;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.service.MediHbbsService;
 
@@ -52,20 +53,55 @@ public class MediHbbsController {
 	}
 	
 	@RequestMapping(value="hbbsdetail.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String hbbsdetail(int seq, Model model)throws Exception{
+	public String hbbsdetail(MediHbbsParamDto hbbs, Model model)throws Exception{
 		
 		logger.info("KhBbsController hbbsdetail " + new Date());
 
-		System.out.println("controller seq : " + seq);
+		System.out.println("controller seq : " + hbbs.getSeq());
 
-		MediMember_hDto hdto = mediHbbsService.getBbsDetail(seq);
-		List<MediDoctorDto> doctorlist = mediHbbsService.getDoctorDetail(seq);
+		MediMember_hDto hdto = mediHbbsService.getBbsDetail(hbbs.getSeq());
+		List<MediDoctorDto> doctorlist = mediHbbsService.getDoctorDetail(hbbs.getSeq());
+		
+		// paging처리
+		int sn = hbbs.getPageNumber();
+		int start = (sn) * hbbs.getRecordCounterPage() + 1;
+		int end = (sn + 1) * hbbs.getRecordCounterPage();
+		
+		hbbs.setStart(start);
+		hbbs.setEnd(end);
+		
+		int totalRecordCount = mediHbbsService.getReviewsCount(hbbs);
+		List<MediHbbsReviews> reviewslist = mediHbbsService.getReviews(hbbs);
+		
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", hbbs.getRecordCounterPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
 		
 		model.addAttribute("hbbs", hdto);
 		model.addAttribute("doctorlist", doctorlist);
+		model.addAttribute("reviewslist", reviewslist);
 		
 		return "hbbsdetail.tiles";
 		
+	}
+	
+	@RequestMapping(value="reWrite.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String reWrite(Model model, MediHbbsReviews redto)throws Exception{
+		
+		logger.info("KhBbsController reWrite " + new Date());
+
+		boolean b = mediHbbsService.writeReviews(redto);
+
+		model.addAttribute("seq", redto.getHos_seq());
+		
+		if (b) {
+			System.out.println("등록 성공");
+			return "redirect:/hbbsdetail.do?seq=" + redto.getHos_seq();
+		}else {
+			System.out.println("등록 실패");
+			return "redirect:/hbbsdetail.do";
+		}
 	}
 	
 	

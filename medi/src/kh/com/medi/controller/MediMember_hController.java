@@ -25,6 +25,7 @@ import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediSubjectDto;
 import kh.com.medi.service.MediMember_hService;
 import kh.com.medi.util.FUpUtil;
+import kh.com.medi.util.geoCoding;
 
 @Controller
 public class MediMember_hController {
@@ -151,7 +152,15 @@ public class MediMember_hController {
 		logger.info("파일 이름 : " + newFile);
 		
 		dto_h.setConfirm_img(newFile);
-		
+
+		System.out.println("==================" + dto_h.getAddress());
+		String location = dto_h.getAddress().split("\\+")[0];
+		Float[] coords = geoCoding.geoCoding(location);
+		System.out.println(location + "============================================");
+		System.out.println(location + ":" + coords[0] +", " + coords[1]);
+		dto_h.setLatitude(coords[0]+"");
+		dto_h.setLongtitude(coords[1]+"");
+
 		try {
 			File file = new File(fupload + "/" + newFile);
 			

@@ -56,28 +56,30 @@ public String dot3(String msg){
 						</div>
 					</div>
 					
+					<div>
 					<c:forEach items="${hbbslist}" var="hbbs" varStatus="i">
-						<div class="hbbsbox">
-							<a href="hbbsdetail.do?seq=${hbbs.seq}">
-								<div class="hbbssum"><img src="images/sub/${hbbs.confirm_img }" alt=""></div>
-								<div class="hbbscontent">
-									<h4>${hbbs.name }</h4>
-									<p class="subinfo">${hbbs.info }</p>
-								</div>
-								<div class="hbbsbottom">
-									<img src="images/sub/location.png" alt="location Icon">
-									<c:choose>
-										<c:when test="${fn:length(hbbs.address) > 28}">
-											<p>${fn:substring(hbbs.address, 0, 25) }...</p>
-										</c:when>
-										<c:otherwise>
-											<p>${hbbs.address }</p>
-										</c:otherwise>
-									</c:choose>
-								</div>
-							</a>
-						</div>
+							<div class="hbbsbox">
+								<a href="hbbsdetail.do?seq=${hbbs.seq}">
+									<div class="hbbssum"><img src="upload/${hbbs.confirm_img }" alt=""></div>
+									<div class="hbbscontent">
+										<h4>${hbbs.name }</h4>
+										<p class="subinfo">${hbbs.info }</p>
+									</div>
+									<div class="hbbsbottom">
+										<img src="images/sub/location.png" alt="location Icon">
+										<c:choose>
+											<c:when test="${fn:length(hbbs.address) > 28}">
+												<p>${fn:substring(hbbs.address, 0, 25) }...</p>
+											</c:when>
+											<c:otherwise>
+												<p>${hbbs.address }</p>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</a>
+							</div>
 					</c:forEach>
+					</div>
 					
 					<div id="paging_wrap">
 						<jsp:include page="/WEB-INF/include/paging.jsp" flush="false">

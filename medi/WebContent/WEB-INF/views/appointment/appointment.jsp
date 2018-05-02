@@ -7,7 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.25"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/appointment.css?ver=1.25"/> 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/appointment.js"></script>
 <style>
 #tab li{
@@ -42,6 +42,39 @@ color: #1f4bb4;
 font-weight: bolder;
 }
 </style>
+<script type="text/javascript">
+function byspecialty(elem) {
+	//진료과목검색해서리스트불러오기
+		$.ajax({
+			url : "byspecialty.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+			data:"subject="+$(elem).text(),
+			dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
+			cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
+			success : function(data) {
+				if (data.yn=="no") {
+					alert("해당 진료과목의 병원이 없습니다.");
+					return
+				}
+				$("#step2_tableinit").hide();
+				$("#changetitle2").html("<h3>병원 선택</h3>");
+				$("<table class='ser' id='table2_1'/>").css({
+				}).appendTo("#specialtydiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
+				var key = Object.keys(data["hospitallist"][0]); // seq,name,info,address,tel의 키값을 가져옴
+				$.each(data.hospitallist, function(index, hospitallist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+					var items = [];
+					items.push("<td class='ser'><a href='javascript:void(0);' onclick='getdoctor2("+hospitallist.medimember_hdto.seq+")'>" 
+					+ hospitallist.medimember_hdto.name + "</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
+					items.push("<td class='ser'>" + hospitallist.medimember_hdto.info + "</td>");
+					items.push("<td class='ser'>" + hospitallist.medimember_hdto.address + "</td>");
+					items.push("<td class='ser'>" + hospitallist.medimember_hdto.tel + "</td>");
+					$("<tr/>", {
+						html : items // 티알에 붙임,
+					}).appendTo("#table2_1"); // 그리고 그 tr을 테이블에 붙임
+				});//each끝 
+			}
+		});
+}
+</script>
 <c:if test="${loginType eq 4 }">
 	<script type="text/javascript">
 	alert("일반회원만 가능한 공간입니다");

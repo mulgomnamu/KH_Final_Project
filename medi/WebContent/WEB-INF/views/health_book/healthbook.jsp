@@ -22,7 +22,7 @@
    
 <form name="mainfrm" action="healthbookAf.do" method="post">
 <%-- <input type="hidden" name='id' value='${login.id}'> --%>
-<input type="hidden" name="seq" value="${login.seq}"/>
+<input type="hidden" name="mem_seq" value="${login.seq}"/>
 <input type="hidden" name="modbirth" value="">
 <input type="hidden" name="changeYn" value="N">
 <input type="hidden" name="anotherCnt" value="0">
