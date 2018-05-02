@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MediAdmin">
+
+	<resultMap type="kh.com.medi.model.MediHospitalPagingDto" id="adminHospital">
+		<result column="HMEM_SEQ" property="seq"/>
+		<result column="ID" property="id"/>
+		<result column="PWD" property="pwd"/>
+		<result column="HMEM_NAME" property="name"/>
+		<result column="TEL" property="tel"/>
+		<result column="POST" property="post"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="LATITUDE" property="latitude"/>
+		<result column="LONGTITUDE" property="longtitude"/>
+		<result column="EMAIL" property="email"/>
+		<result column="QUESTION" property="question"/>
+		<result column="ANSWER" property="answer"/>
+		<result column="CONFIRM_IMG" property="confirm_img"/>
+		<result column="INFO" property="info"/>
+		<result column="SCORE" property="score"/>
+		<result column="HMEM_DEL" property="del"/>
+		<result column="HMEM_REGDATE" property="regdate"/>
+		<result column="AUTH" property="auth"/>
+	</resultMap>
+	
+	<resultMap type="kh.com.medi.model.MediDoctorDto" id="docDto">
+		<result column="D_SEQ" property="seq"/>
+		<result column="D_HOS_SEQ" property="hos_seq"/>
+		<result column="D_NAME" property="name"/>
+		<result column="SPECIALTY" property="specialty"/>
+		<result column="D_REGDATE" property="regdate"/>
+		<result column="DOC_PROFILE" property="doc_profile"/>
+		<result column="DOC_CONTENT" property="doc_content"/>
+		<result column="DOC_TOSTRING" property="day_tostring"/>   
+	</resultMap>
+
+	<select id="getHospitalPagingListCount">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `medi`.`medi_hospital`
+		WHERE 1=1
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'id'">
+				AND id LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'name'">
+				AND name LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+
+</mapper>

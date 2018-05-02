@@ -734,6 +734,16 @@
 	function changeDoctor(index, seq) {
 		location.href = "update_d.do?seq="+seq+"&index="+index;
 	}
+	
+	/* 없는 진료분야 추가 */
+	function add_cl() {
+		var _text = document.getElementById("textAddsp").value;
+		var box = document.getElementById("all_cl_sjt");
+		
+		box.options[box.length] = new Option(_text, _text);
+		
+		document.getElementById("textAddsp").value = "";
+	}
 
 	/*진료과목 추가*/
 	function append_cl() {

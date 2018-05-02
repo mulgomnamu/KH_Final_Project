@@ -22,7 +22,7 @@ import kh.com.medi.service.MediAdminService;
 @Controller
 public class MediAdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MediDoctorController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MediAdminController.class);
 	
 	@Autowired
 	private MediAdminService mediAdminService;

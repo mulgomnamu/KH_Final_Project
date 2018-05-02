@@ -41,7 +41,7 @@
 				<div class="inner_flogin">
 					<form action="join_dAf" id="form_d" name="form_d" method="post" enctype="multipart/form-data">
 					
-						<input type="text" name="hos_seq" value="${login_h.seq }">
+						<input type="text" name="hos_seq" <c:if test="${login_h ne null }">value="${login_h.seq }"</c:if><c:if test="${login_h eq null }">value="${hos_seq }"</c:if>>
 						<table class="tableWrap">
 							<tr>
 								<th>
