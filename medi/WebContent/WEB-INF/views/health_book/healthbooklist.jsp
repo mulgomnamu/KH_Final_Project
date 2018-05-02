@@ -9,17 +9,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel="stylesheet" type="text/css" href="./css/slick-theme.css">
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css'>
+<link rel='stylesheet prefetch' href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css">
 <link href="./css/healthbook.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="./js/healthbook.js"></script>
 
-<script src="http://code.highcharts.com/highcharts.js"></script>
+
+<script type="text/javascript" src="./ui_common/js/highcharts.js"></script>
 <script src="http://code.highcharts.com/highcharts-3d.js"></script>
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <script src="./ui_common/js/slick.min.js"></script>
+<script type="text/javascript" src="./js/healthbook.js"></script>
 </head>
 
 <style type="text/css">
@@ -228,7 +229,7 @@ padding-bottom:5px;}
                         <p>목표 처방 없음</p>
                 </div>
                 <div class="bh_4u_m">
-                    <span class="ico_middle"><img src="../images/sub/ico_middle_1.gif" alt=""></span>
+                    <span class="ico_middle"><img src="./images/healthbook/ico_middle_1.gif" alt=""></span>
                             <p><span style="width: 50%;"></span></p>
                         <strong>${health.weight}</strong><em>Kg</em>
                 </div>
@@ -244,7 +245,7 @@ padding-bottom:5px;}
                         <p>목표 처방 없음</p>
                 </div>
                 <div class="bh_4u_m">
-                    <span class="ico_middle"><img src="../images/sub/ico_middle_2.gif" alt=""></span>
+                    <span class="ico_middle"><img src="./images/healthbook/ico_middle_2.gif" alt=""></span>
                             <p class="another_p"><span style="width: 50%;"></span></p>
                         <strong>
                         <fmt:formatNumber value=" ${(health.weight /((health.height/100) * (health.height/100)))}" pattern="0.00"/>
@@ -278,7 +279,7 @@ padding-bottom:5px;}
     <ul class="vitalList">
         <li class="vitalList1">
             <div>
-                <strong class="vitalTit">체중/체질량 기간 추이</strong>
+                <strong class="vitalTit" onclick="goToClickedPage(4)">체중/체질량 기간 추이</strong>
 
                 <div class="yearBtn1">
                     <ul>
@@ -288,13 +289,12 @@ padding-bottom:5px;}
                     </ul>
                 </div>
 
-               <div id="container_weight">
+                <div id="weight_container" class="weightGraph" data-highcharts-chart="7"><div class="highcharts-container" id="highcharts-25" style="position: relative; overflow: hidden; width: 516px; height: 300px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="516" height="300"><desc>Created with Highcharts 4.2.3</desc><defs><clipPath id="highcharts-26"><rect x="0" y="0" width="451" height="220"></rect></clipPath></defs><rect x="0" y="0" width="516" height="300" fill="#FFFFFF" class=" highcharts-background"></rect><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-grid" zIndex="1"><path fill="none" d="M 55 47.5 L 506 47.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 230.5 L 506 230.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 193.5 L 506 193.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 157.5 L 506 157.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 120.5 L 506 120.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 83.5 L 506 83.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 9.5 L 506 9.5" stroke="#D8D8D8" stroke-width="1" zIndex="1" opacity="1"></path></g><g class="highcharts-axis" zIndex="2"><path fill="none" d="M 280.5 230 L 280.5 240" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 55 230.5 L 506 230.5" stroke="#C0D0E0" stroke-width="1" zIndex="7"></path></g><g class="highcharts-axis" zIndex="2"></g><g class="highcharts-series-group" zIndex="3"><g class="highcharts-series highcharts-series-0" zIndex="0.1" transform="translate(55,10) scale(1 1)" clip-path="url(#highcharts-26)"><path fill="none" d="M 225.5 36.666666666666686" stroke="#12bc8a" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path><path fill="none" d="M 215.5 36.666666666666686 L 225.5 36.666666666666686 L 235.5 36.666666666666686" stroke-linejoin="round" visibility="visible" stroke="rgba(192,192,192,0.0001)" stroke-width="22" zIndex="2" class=" highcharts-tracker" style=""></path></g><g class="highcharts-markers highcharts-series-0 highcharts-tracker" zIndex="0.1" transform="translate(55,10) scale(1 1)" clip-path="url(#highcharts-27)" style=""><path fill="#12bc8a" d="M 225 32.666666666666686 C 230.328 32.666666666666686 230.328 40.666666666666686 225 40.666666666666686 C 219.672 40.666666666666686 219.672 32.666666666666686 225 32.666666666666686 Z"></path></g><g class="highcharts-series highcharts-series-1" zIndex="0.1" transform="translate(55,10) scale(1 1)" clip-path="url(#highcharts-26)"><path fill="none" d="M 225.5 179.66666666666669" stroke="#96ca2f" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path><path fill="none" d="M 215.5 179.66666666666669 L 225.5 179.66666666666669 L 235.5 179.66666666666669" stroke-linejoin="round" visibility="visible" stroke="rgba(192,192,192,0.0001)" stroke-width="22" zIndex="2" class=" highcharts-tracker" style=""></path></g><g class="highcharts-markers highcharts-series-1 highcharts-tracker" zIndex="0.1" transform="translate(55,10) scale(1 1)" clip-path="url(#highcharts-27)" style=""><path fill="#96ca2f" d="M 225 175.66666666666669 L 229 179.66666666666669 225 183.66666666666669 221 179.66666666666669 Z"></path></g></g><g class="highcharts-legend" zIndex="7" transform="translate(400,255)"><g zIndex="1"><g><g class="highcharts-legend-item" zIndex="1" transform="translate(8,3)"><path fill="none" d="M 0 11 L 8 11" stroke="#12bc8a" stroke-width="2"></path><path fill="#12bc8a" d="M 4 7 C 9.328 7 9.328 15 4 15 C -1.328 15 -1.328 7 4 7 Z"></path><text x="13" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2" y="15">체중</text></g><g class="highcharts-legend-item" zIndex="1" transform="translate(49.75,3)"><path fill="none" d="M 0 11 L 8 11" stroke="#96ca2f" stroke-width="2"></path><path fill="#96ca2f" d="M 4 7 L 8 11 4 15 0 11 Z"></path><text x="13" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2">체질량</text></g></g></g></g><g class="highcharts-axis-labels highcharts-xaxis-labels" zIndex="7"><text x="280.5" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:Infinitypx;text-overflow:clip;" text-anchor="middle" transform="translate(0,0)" y="249" opacity="1">05/02</text></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"><text x="40" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:160px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="49" opacity="1"><tspan>60 kg</tspan></text><text x="40" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:160px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="233" opacity="1"><tspan>10 kg</tspan></text><text x="40" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:160px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="196" opacity="1"><tspan>20 kg</tspan></text><text x="40" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:160px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="159" opacity="1"><tspan>30 kg</tspan></text><text x="40" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:160px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="123" opacity="1"><tspan>40 kg</tspan></text><text x="40" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:160px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="86" opacity="1"><tspan>50 kg</tspan></text><text x="40" style="color:#606060;cursor:default;font-size:11px;fill:#606060;width:160px;text-overflow:clip;" text-anchor="end" transform="translate(0,0)" y="13" opacity="1"><tspan>70 kg</tspan></text></g><g class="highcharts-tooltip" zIndex="8" style="cursor:default;padding:0;pointer-events:none;white-space:nowrap;" transform="translate(0,-9999)"><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.049999999999999996" stroke-width="5" transform="translate(1, 1)"></path><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.09999999999999999" stroke-width="3" transform="translate(1, 1)"></path><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.15" stroke-width="1" transform="translate(1, 1)"></path><path fill="rgba(249, 249, 249, .85)" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5"></path><text x="8" zIndex="1" style="font-size:12px;color:#333333;fill:#333333;" y="20"></text></g></svg></div></div>
             </div>
-        </li>
-
-        <li class="vitalList2">
+		
+		<li class="vitalList2">
             <div>
-                <strong class="vitalTit">걸음 기간 추이</strong>
+                <strong class="vitalTit" onclick="goToClickedPage(3)">걸음 기간 추이</strong>
 
                 <div class="tabWrap">
                     <ul>
@@ -305,7 +305,7 @@ padding-bottom:5px;}
                     </ul>
                 </div>
 
-                <div id="exercise_container" class="healthGraph" data-highcharts-chart="6"><div class="highcharts-container" id="highcharts-20" style="position: relative; overflow: hidden; width: 357px; height: 300px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="357" height="300"><desc>Created with Highcharts 4.2.3</desc><defs><clipPath id="highcharts-21"><rect x="0" y="0" width="337" height="246"></rect></clipPath></defs><rect x="0" y="0" width="357" height="300" fill="#FFFFFF" class=" highcharts-background"></rect><g class="highcharts-no-data" style="" transform="translate(176,130)"><image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./images/healthbook/img_data_none.png" x="-178.5" y="-170" height="300px" width="100%"></image><text x="3" zindex="1" style="font-size:12px;font-weight:bold;color:#60606a;fill:#60606a;" y="15"><tspan y="23%" x="-67.5">입력된 정보가 없습니다.</tspan></text></g><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-axis" zIndex="2"><path fill="none" d="M 10 256.5 L 347 256.5" stroke="#C0D0E0" stroke-width="1" zIndex="7"></path></g><g class="highcharts-axis" zIndex="2"></g><g class="highcharts-series-group" zIndex="3"><g class="highcharts-series highcharts-series-0 highcharts-tracker" zIndex="0.1" transform="translate(10,10) scale(1 1)" style="" clip-path="url(#highcharts-21)"></g><g class="highcharts-markers highcharts-series-0" zIndex="0.1" transform="translate(10,10) scale(1 1)" clip-path="none"></g><g class="highcharts-series highcharts-series-1 highcharts-tracker" zIndex="0.1" transform="translate(10,10) scale(1 1)" style="" clip-path="url(#highcharts-21)"></g><g class="highcharts-markers highcharts-series-1" zIndex="0.1" transform="translate(10,10) scale(1 1)" clip-path="none"></g><g class="highcharts-series highcharts-series-2 highcharts-tracker" zIndex="0.1" transform="translate(10,10) scale(1 1)" style="" clip-path="url(#highcharts-21)"></g><g class="highcharts-markers highcharts-series-2" zIndex="0.1" transform="translate(10,10) scale(1 1)" clip-path="none"></g></g><g class="highcharts-legend" zIndex="7" transform="translate(118,256)"><g zIndex="1"><g><g class="highcharts-legend-item" zIndex="1" transform="translate(8,3)"><text x="13" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2" y="15">Health4U</text><rect x="0" y="8" width="8" height="8" rx="4" ry="4" zIndex="3" fill="#3331fe"></rect></g><g class="highcharts-legend-item" zIndex="1" transform="translate(80.046875,3)"><text x="13" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2">S-Health</text><rect x="0" y="8" width="8" height="8" rx="4" ry="4" zIndex="3" fill="#3aa1fe"></rect></g><g class="highcharts-legend-item" zIndex="1" transform="translate(149.46875,3)"><text x="13" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2">Apple건강</text><rect x="0" y="8" width="8" height="8" rx="4" ry="4" zIndex="3" fill="#3881fe"></rect></g></g></g></g><g class="highcharts-axis-labels highcharts-xaxis-labels" zIndex="7"></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"></g><g class="highcharts-tooltip" zIndex="8" style="cursor:default;padding:0;pointer-events:none;white-space:nowrap;" transform="translate(0,-9999)"><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.049999999999999996" stroke-width="5" transform="translate(1, 1)"></path><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.09999999999999999" stroke-width="3" transform="translate(1, 1)"></path><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.15" stroke-width="1" transform="translate(1, 1)"></path><path fill="rgba(249, 249, 249, .85)" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5"></path><text x="8" zIndex="1" style="font-size:12px;color:#333333;fill:#333333;" y="20"></text></g></svg></div></div>
+                <div id="exercise_container" class="healthGraph" data-highcharts-chart="6"><div class="highcharts-container" id="highcharts-23" style="position: relative; overflow: hidden; width: 520px; height: 300px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="520" height="300"><desc>Created with Highcharts 4.2.3</desc><defs><clipPath id="highcharts-24"><rect x="0" y="0" width="500" height="245"></rect></clipPath></defs><rect x="0" y="0" width="520" height="300" fill="#FFFFFF" class=" highcharts-background"></rect><g class="highcharts-no-data" style="" transform="translate(257,130)"><image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="./images/healthbook/img_data_none.png" x="-260" y="-170" height="300px" width="100%"></image><text x="3" zindex="1" style="font-size:12px;font-weight:bold;color:#60606a;fill:#60606a;" y="15"><tspan y="23%" x="-30">입력된 정보가 없습니다.</tspan></text></g><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-axis" zIndex="2"><path fill="none" d="M 10 255.5 L 510 255.5" stroke="#C0D0E0" stroke-width="1" zIndex="7"></path></g><g class="highcharts-axis" zIndex="2"></g><g class="highcharts-series-group" zIndex="3"><g class="highcharts-series highcharts-series-0 highcharts-tracker" zIndex="0.1" transform="translate(10,10) scale(1 1)" style="" clip-path="url(#highcharts-24)"></g><g class="highcharts-markers highcharts-series-0" zIndex="0.1" transform="translate(10,10) scale(1 1)" clip-path="none"></g><g class="highcharts-series highcharts-series-1 highcharts-tracker" zIndex="0.1" transform="translate(10,10) scale(1 1)" style="" clip-path="url(#highcharts-24)"></g><g class="highcharts-markers highcharts-series-1" zIndex="0.1" transform="translate(10,10) scale(1 1)" clip-path="none"></g><g class="highcharts-series highcharts-series-2 highcharts-tracker" zIndex="0.1" transform="translate(10,10) scale(1 1)" style="" clip-path="url(#highcharts-24)"></g><g class="highcharts-markers highcharts-series-2" zIndex="0.1" transform="translate(10,10) scale(1 1)" clip-path="none"></g></g><g class="highcharts-legend" zIndex="7" transform="translate(283,255)"><g zIndex="1"><g><g class="highcharts-legend-item" zIndex="1" transform="translate(8,3)"><text x="13" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2" y="15">Health4U</text><rect x="0" y="8" width="8" height="8" rx="4" ry="4" zIndex="3" fill="#3331fe"></rect></g><g class="highcharts-legend-item" zIndex="1" transform="translate(79.609375,3)"><text x="13" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2">S-Health</text><rect x="0" y="8" width="8" height="8" rx="4" ry="4" zIndex="3" fill="#3aa1fe"></rect></g><g class="highcharts-legend-item" zIndex="1" transform="translate(148.71875,3)"><text x="13" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2">Apple건강</text><rect x="0" y="8" width="8" height="8" rx="4" ry="4" zIndex="3" fill="#3881fe"></rect></g></g></g></g><g class="highcharts-axis-labels highcharts-xaxis-labels" zIndex="7"></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"></g><g class="highcharts-tooltip" zIndex="8" style="cursor:default;padding:0;pointer-events:none;white-space:nowrap;" transform="translate(0,-9999)"><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.049999999999999996" stroke-width="5" transform="translate(1, 1)"></path><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.09999999999999999" stroke-width="3" transform="translate(1, 1)"></path><path fill="none" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5" isShadow="true" stroke="black" stroke-opacity="0.15" stroke-width="1" transform="translate(1, 1)"></path><path fill="rgba(249, 249, 249, .85)" d="M 3.5 0.5 L 13.5 0.5 C 16.5 0.5 16.5 0.5 16.5 3.5 L 16.5 13.5 C 16.5 16.5 16.5 16.5 13.5 16.5 L 3.5 16.5 C 0.5 16.5 0.5 16.5 0.5 13.5 L 0.5 3.5 C 0.5 0.5 0.5 0.5 3.5 0.5"></path><text x="8" zIndex="1" style="font-size:12px;color:#333333;fill:#333333;" y="20"></text></g></svg></div></div>
             </div>
         </li>
     </ul>
@@ -434,6 +434,277 @@ ${login.name } 님의 건강수첩입니다
         </div>
 
         <div class="tableFixWrap">
+        
+        	<div class="tableFixCnt childFix">
+                <div class="tableOver">
+                    <div>
+                        <table>
+                            <caption>소아</caption>
+
+                            <thead>
+                                <tr>
+                                    <th style="width: 176px;">대상감염병</th>
+                                    <th>1차</th>
+                                    <th>2차</th>
+                                    <th>3차</th>
+                                    <th>4차</th>
+                                    <th>5차</th>
+                                    <th>6차</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+결핵(피내용)                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>출생~1개월이내</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+B형간염                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>출생~1개월이내</div></td>
+                                                    <td><div class="vac_none">2차<br>1개월</div></td>
+                                                    <td><div class="vac_none">3차<br>6개월</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+디프테리아                                                                    <br>
+파상풍                                                                    <br>
+백일해                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>2개월</div></td>
+                                                    <td><div class="vac_none">2차<br>4개월</div></td>
+                                                    <td><div class="vac_none">3차<br>6개월</div></td>
+                                                    <td><div class="vac_none">4차<br>15~18개월</div></td>
+                                                    <td><div class="vac_none">5차<br>만4세~만6세</div></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+폴리오                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>2개월</div></td>
+                                                    <td><div class="vac_none">2차<br>4개월</div></td>
+                                                    <td><div class="vac_none">3차<br>6개월</div></td>
+                                                    <td><div class="vac_none">4차<br>만4세~만6세</div></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+B형 헤모필루스                                                                    <br>
+인플루엔자                                                                    <br>
+뇌수막염                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>2개월</div></td>
+                                                    <td><div class="vac_none">2차<br>2개월</div></td>
+                                                    <td><div class="vac_none">3차<br>2개월</div></td>
+                                                    <td><div class="vac_none">4차<br>12개월</div></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+홍역                                                                    <br>
+유행성이하선염                                                                    <br>
+풍진                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>12~15개월</div></td>
+                                                    <td><div class="vac_none">2차<br>만4세~만6세</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+수두                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>12~15개월</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+일본뇌염(사백신)                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>12~24개월</div></td>
+                                                    <td><div class="vac_none">2차<br>12~24개월</div></td>
+                                                    <td><div class="vac_none">3차<br>36개월</div></td>
+                                                    <td><div class="vac_none">4차<br>만6세</div></td>
+                                                    <td><div class="vac_none">5차<br>만12세</div></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+인플루엔자                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                <td><div class="vac_none vac_no_period">1차</div></td>
+                                                <td><div class="vac_none vac_no_period">2차</div></td>
+                                                <td><div class="vac_none vac_no_period">3차</div></td>
+                                                <td><div class="vac_none vac_no_period">4차</div></td>
+                                                <td><div class="vac_none vac_no_period">5차</div></td>
+                                                <td><div class="vac_none vac_no_period">6차</div></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+장티푸스                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>만6세~만12세</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgOrange">필수</span>
+신증후군출혈열                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>12개월~만12세</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgGray">기타</span>
+결핵(경피용)                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>출생~1개월이내</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgGray">기타</span>
+일본뇌염(생백신)                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>12~24개월</div></td>
+                                                    <td><div class="vac_none">2차<br>36개월</div></td>
+                                                    <td><div class="vac_none">3차<br>만6세</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgGray">기타</span>
+A형간염                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>12~36개월</div></td>
+                                                    <td><div class="vac_none">2차<br>12~36개월</div></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 160px;">
+                                                <div class="vac_row" style="height: 57px;">
+                                                    <div class="vac_row_inner">
+                                                        <span class="itemBox bgGray">기타</span>
+폐렴구균                                                    </div>
+                                                </div>
+                                        </th>
+
+                                                    <td><div class="vac_none">1차<br>2개월</div></td>
+                                                    <td><div class="vac_none">2차<br>4개월</div></td>
+                                                    <td><div class="vac_none">3차<br>6개월</div></td>
+                                                    <td><div class="vac_none">4차<br>12~15개월</div></td>
+                                                <td></td>
+                                                <td></td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="tableFixCnt adultFix">
                 <div class="tableOver">
                     <div>
@@ -815,7 +1086,7 @@ ${login.name } 님의 건강수첩입니다
 
 	 --%>
 	 
-<%-- 	 
+	 
 <c:if test="${login.seq ne health.seq}">
 	<a href='healthbook.do'>건강수첩 입력하기</a>
  	<!-- <script type="text/javascript">
@@ -824,7 +1095,6 @@ ${login.name } 님의 건강수첩입니다
 	</script> --> 
 </c:if>
 
- --%>
  
 </div>
 </section>
@@ -834,9 +1104,11 @@ ${login.name } 님의 건강수첩입니다
 
  
 <!-- slick js -->
-<!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
+<!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.js'></script> -->
 <script src="./ui_common/js/slick.min.js"></script>
+
+
 
   <script type="text/javascript">
   $(document).ready(function(){
@@ -864,7 +1136,7 @@ ${login.name } 님의 건강수첩입니다
   });
   
   
-  
+/*  
   	$(function () {
 	    var chart = new Highcharts.Chart({
 	        chart: {
@@ -876,6 +1148,10 @@ ${login.name } 님의 건강수첩입니다
 	        }]
 	    });
 	});
+*/	
+
+
+  	
 /*   	Morris.Bar({
   	  element: 'bar-example',
   	  data: [
@@ -923,7 +1199,7 @@ ${login.name } 님의 건강수첩입니다
   	}); */
   	
 /* 하이차트 */
- 	 function weightChart(chartData) {
+ 	function weightChart(chartData) {
          var chart = null;
          var chartOpt = {
              chart: { renderTo: 'weight_container', type: 'line' },
@@ -992,8 +1268,18 @@ ${login.name } 님의 건강수첩입니다
          resizeNodataChart("weight_container", "기간 내 체중", 0, 0);
      } 
   	
-</script>
+  	function change_tab(childYN) {
+        if (childYN == "N") {
+            $(".bh_4u_depth_ul_n4 li:eq(1)").addClass("on");
+        }
+        else if (childYN == "Y") {
+            $(".bh_4u_depth_ul_n4 li:eq(0)").addClass("on");
+        }
+        loadVaccinationView(childYN);
+    }
 
+  	
+</script>
 
  </body>
 </html>
