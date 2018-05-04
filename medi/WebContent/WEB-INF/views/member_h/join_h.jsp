@@ -34,10 +34,8 @@ input:valid + span:after {
 }
 
 .tableWrap tr{
+	border-top:1px solid #d9d9d9;
 	border-bottom:1px solid #d9d9d9;
-}
-.tableWrap tr:first-child{
-	border-top:3px solid #d9d9d9;
 }
 .tableWrap th{
 	text-align:left;
@@ -46,9 +44,9 @@ input:valid + span:after {
 }
 .tableWrap td{
 	border-left-width: 100px;
-	padding: 14px 14px 38px 20px;
+	padding: 14px 14px 14px 20px;
 }
-input{
+input select{
 	border-width: 100px;
 	padding: 8px 20px;
 }
@@ -64,7 +62,7 @@ input{
 <!-- sub타이틀 시작 -->
 			<div class="title-type01">
 				<h2>병원 회원가입</h2>
-				<em>병원 회원가입입니다!!.</em>
+				<em>모든 항목을 자세히 적어주세요</em>
 			</div>
 <!-- content 시작 -->
 			<div class="content"> 
@@ -186,9 +184,9 @@ input{
 									<table>
 										<tr>
 											<td>
-												<div>				
-													전체 진료과목
-													<div>
+												<div align="center">				
+													<b>전체 진료과목</b>
+													<div style="margin-top: 10px">
 														<select name="all_cl_sjt" id="all_cl_sjt" multiple="multiple" size="14" style="width:200px" onclick="click_select('all_cl_sjt');" ondblclick="append_cl();">
 															<option value="내과">내과</option>
 															<option value="치과">치과</option>
@@ -233,9 +231,9 @@ input{
 												</div>
 											</td>
 											<td>
-												<div>		
-													선택한 진료과목
-													<div>
+												<div align="center">		
+													<b>선택한 진료과목</b>
+													<div style="margin-top: 10px">
 														<select name="cl_sjt" id="cl_sjt" multiple="multiple" size="14" style="width:200px" onclick="click_select('cl_sjt');" ondblclick="remove_cl();">
 														</select>
 														<input type="hidden" name="cl_sjt_list" id="cl_sjt_list">		
@@ -258,7 +256,7 @@ input{
 									병원 소개
 								</th>
 								<td>
-									<textarea id="info" onkeyup="infoCheckFunction()" name="info"></textarea>
+									<textarea id="info" onkeyup="infoCheckFunction()" name="info" rows="8"></textarea>
 									<h5 style="color: red;" id="infoCheckMessage" align="left"></h5>
 								</td>
 							</tr>

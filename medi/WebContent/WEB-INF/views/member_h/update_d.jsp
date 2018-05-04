@@ -34,8 +34,8 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>Big hjh</h2>
-				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
+				<h2>의사 회원 수정</h2>
+				<em>수정할 회원 정보를 입력해주세요</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
