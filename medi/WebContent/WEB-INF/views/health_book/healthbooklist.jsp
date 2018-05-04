@@ -215,7 +215,7 @@ padding-bottom:5px;}
 <div class="main2">
   <div class="slider slider-for">
 <c:forEach items="${hlist}" var="health">
-<c:if test="${login.seq eq health.seq}">
+<c:if test="${login.seq eq health.mem_seq}">
 	
 	
 	<!-- 전체보기 페이지 -->
@@ -373,7 +373,7 @@ ${login.name } 님의 건강수첩입니다
 			<tr>
 				<th scope="row"><label for="inp1">알러지&nbsp; 및 특이사항&nbsp;:</label></th>
 						<td style="text-align: left">
-						<textarea  name='allergy' id='allergy' rows="5" cols="1">${health.allergy}
+						<textarea name='allergy' id='allergy' rows="5" cols="1">${health.allergy}
 					</textarea>
 				</td>
 			</tr>
