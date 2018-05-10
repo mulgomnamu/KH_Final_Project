@@ -88,4 +88,9 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 		return mediMember_hDao.getHospitalSubjectColumns(dto_h);
 	}
 
+	@Override
+	public List<MediHospital_imageDto> getImageList(MediMember_hDto dto_h) {
+		return mediMember_hDao.getImageList(dto_h);
+	}
+
 }

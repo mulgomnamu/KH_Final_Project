@@ -42,7 +42,7 @@
 				<div class="inner_flogin">
 					<div>
 						<c:forEach var="doc_name" items="${login_alld }" varStatus="status">
-							<input type="radio" name="doc_name" <c:if test="${status.index == doc_index }">checked</c:if> id="${doc_name.seq }" onclick="changeDoctor(${status.index }, ${login_h.seq });">${doc_name.name },${status.index }, ${doc_index }
+							<input type="radio" name="doc_name" <c:if test="${status.index == doc_index }">checked</c:if> id="${doc_name.seq }" onclick="changeDoctor(${status.index }, ${login_h.seq });">${doc_name.name }
 						</c:forEach>
 					</div>
 				

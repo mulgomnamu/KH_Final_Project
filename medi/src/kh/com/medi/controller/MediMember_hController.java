@@ -82,6 +82,17 @@ public class MediMember_hController {
 		return 1;
 	}
 	
+	@RequestMapping(value="update_imgs_h.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String update_imgs_h(MediMember_hDto dto_h, Model model) {
+		logger.info("MediMember_hController update_imgs_h " + new Date());
+		
+		List<MediHospital_imageDto> list_imgs = mediMember_hService.getImageList(dto_h);
+		
+		model.addAttribute("list_imgs", list_imgs);
+		
+		return "update_imgs_h.tiles";
+	}
+	
 	@RequestMapping(value="delete_h.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String delete_h(MediMember_hDto dto_h) {
 		logger.info("MediMember_hController delete_h " + new Date());
