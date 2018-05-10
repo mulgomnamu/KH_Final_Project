@@ -50,6 +50,7 @@ input select{
 	border-width: 100px;
 	padding: 8px 20px;
 }
+.bg_blue{padding:0 !important; font-size:12px;}
 
 </style>
 
