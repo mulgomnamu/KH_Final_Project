@@ -84,10 +84,9 @@
 			</tr>
 			
 			<tr>
-				<th scope="row"><label for="inp1">알러지&nbsp; 및 특이사항&nbsp;:</label></th>
-						<td style="text-align: left">
-						<textarea  name='allergy' id='allergy' rows="5" cols="1">
-					</textarea>
+				<th scope="row">알러지&nbsp; 및 특이사항&nbsp;:</th>
+						<td style="text-align: right;">
+						<textarea name='allergy' id='allergy' rows="5" cols="1"></textarea>
 				</td>
 			</tr>
 			

@@ -18,7 +18,8 @@
 }
 .tableWrap td{
 	border-left-width: 100px;
-	padding: 14px 14px 38px 20px;
+	padding: 14px 14px 14px 20px;
+	vertical-align: center;
 }
 
 .tableWrap tr{border-bottom:1px solid #d9d9d9;}
@@ -33,15 +34,15 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>Big hjh</h2>
-				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
+				<h2>의사 회원가입</h2>
+				<em>모든 항목을 자세히 적어주세요</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
 					<form action="join_dAf" id="form_d" name="form_d" method="post" enctype="multipart/form-data">
 					
-						<input type="text" name="hos_seq" value="${login_h.seq }">
+						<input type="text" name="hos_seq" <c:if test="${login_h ne null }">value="${login_h.seq }"</c:if><c:if test="${login_h eq null }">value="${hos_seq }"</c:if>>
 						<table class="tableWrap">
 							<tr>
 								<th>

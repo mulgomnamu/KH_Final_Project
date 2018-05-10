@@ -23,18 +23,16 @@
   });
   */
   
-  
-  	$(function () {
-	    var chart = new Highcharts.Chart({
-	        chart: {
-	            renderTo: 'container_weight'
-	        },
-	        
-	        series: [{
-	            data: [66,72]
-	        }]
-	    });
-	});
-	
+/* 
+$(document).ready(function(){
+  		var chart = new Highcharts.Chart({
+  		                chart: {
+  		                    renderTo: 'container_weight'
+  		                },
+  		              series: [{
+  			            data: [66,72]
+  			        }]
+  		 });
+  		});
   	
-  	
+  	*/

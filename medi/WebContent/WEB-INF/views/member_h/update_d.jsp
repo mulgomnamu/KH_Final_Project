@@ -34,8 +34,8 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>Big hjh</h2>
-				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
+				<h2>의사 회원 수정</h2>
+				<em>수정할 회원 정보를 입력해주세요</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -733,6 +733,16 @@
 	/* 의사 변경 */
 	function changeDoctor(index, seq) {
 		location.href = "update_d.do?seq="+seq+"&index="+index;
+	}
+	
+	/* 없는 진료분야 추가 */
+	function add_cl() {
+		var _text = document.getElementById("textAddsp").value;
+		var box = document.getElementById("all_cl_sjt");
+		
+		box.options[box.length] = new Option(_text, _text);
+		
+		document.getElementById("textAddsp").value = "";
 	}
 
 	/*진료과목 추가*/

@@ -1,30 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
-<style>
-.list_table1{
-border-top: 1px solid black;
-}
-.list_table1 th {
-background-color:#f4f5f8;
-text-align: left;
-border-bottom:1px solid #d9d9d9;
-}
-.list_table1 td {
-border-bottom:1px solid #d9d9d9;
-height: 60px;
-}
-
-
-
-</style>
 
 
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
@@ -35,13 +11,12 @@ height: 60px;
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
 				<h2>관리자 페이지</h2>
-				<em>일반 회원 목록</em>
+				<em>병원 회원 목록</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
-				<!-- 이부분에 컨텐츠 시작 -->
-					
+				
 
 					<div>
 						<div>
@@ -78,16 +53,15 @@ height: 60px;
 								<th><input type="checkbox" id="allCheckBox"></th>
 								<th>아이디</th>
 								<th>이름</th>
-								<th>이메일</th>
 								<th>전화번호</th>
 								<th>우편번호</th>
 								<th>주소</th>
-								<th>회원구분</th>
+								<th>이메일</th>
+								<th>병원소개</th>
+								<th>채택점수</th>
 								<th>탈퇴여부</th>
-								<th>프로필 사진</th>
-								<th>Black List</th>
-								<th>가입 날짜</th>
-								<th>수정</th>
+								<th>가입날짜</th>
+								<th>회원구분</th>
 							</tr>
 							<c:forEach var="memberList" items="${loginList }">
 								<tr>
@@ -146,9 +120,7 @@ height: 60px;
 						</jsp:include>
 					</div>
 
-
-
-				<!-- 이부분에 컨텐츠 끝 -->
+				
 				</div>
 			</div>
 		</section>
@@ -156,93 +128,3 @@ height: 60px;
 			<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
 </div>
-
-<script>
-// 검색
-$("#searchBtn").click(function() {
-	$("#searchForm").attr({ "target":"_self", "action":"adminMemberList.do" }).submit();
-});
-
-// 페이징
-function goPage(pageNumber) {
-	$("#_pageNumber").val(pageNumber) ;
-	$("#searchForm").attr("target","_self").attr("action","adminMemberList.do").submit();
-}
-
-// 체크박스
-$(function() {
-	$("#allCheckBox").click(function() {
-		if($("#allCheckBox").prop("checked")){
-			$("input[name=selectCheckBox]").prop("checked", true);
-		} else {
-			$("input[name=selectCheckBox]").prop("checked", false);
-		}
-	});
-});
-
-// 경고 먹이기
-	$("#addYellowCard").click(function() {
-		var count = 0;
-		$("input[name=selectCheckBox]:checked").each(function() {
-			var checkedVal = {
-				seq: $(this).val(),
-			};
-			var _seq = parseInt(checkedVal.seq);
-			$.ajax({
-				url: 'addYellowCard.do',
-				dataType: 'json',
-				data: checkedVal,
-				type: 'post',
-				success: function(result) {
-					$("span[id=blacklist"+_seq+"]").text(result);
-				}
-			});
-			count++;
-		});
-		alert(count+'명의 회원에게 경고+1');
-	});
-
-// 경고 줄이기
-	$("#delYellowCard").click(function() {
-		var count = 0;
-		$("input[name=selectCheckBox]:checked").each(function() {
-			var checkedVal = {
-					seq: $(this).val(),
-			};
-			var _seq = parseInt(checkedVal.seq);
-			$.ajax({
-				url: 'delYellowCard.do',
-				data: checkedVal,
-				type: 'post',
-				success: function(result) {
-					$("span[id=blacklist"+_seq+"]").text(result);
-				}
-			});
-			count++;
-		});
-		alert(count+'명의 회원에게 경고-1');
-	});
-
-// 회원 정보 수정
-	function updateBtn(seq) {
-		var _updateForm = new FormData(document.getElementById("updateForm"+seq));
-		$.ajax({
-			url: 'updateMemberByAdmin.do',
-			data: _updateForm,
-			processData: false,
-			contentType: false,
-			type: 'post',
-			success: function(result) {
-				$.modal.close();
-				$("span[id=name"+seq+"]").text(result.name);
-				$("span[id=email"+seq+"]").text(result.email);
-				$("span[id=phone"+seq+"]").text(result.phone);
-				$("span[id=post"+seq+"]").text(result.post);
-				$("span[id=address"+seq+"]").text(result.address);
-				$("span[id=auth"+seq+"]").text(result.auth);
-				$("span[id=del"+seq+"]").text(result.del);
-				$("span[id=blacklist"+seq+"]").text(result.blacklist);
-			}
-		});
-	}
-</script>
