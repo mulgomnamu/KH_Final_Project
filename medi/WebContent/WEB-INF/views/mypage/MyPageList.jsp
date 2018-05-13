@@ -28,8 +28,11 @@ $(document).ready(function(){
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
 				<h2>내가 쓴글</h2>
-				<a href="Myconsulting.do?seq=${login.seq }"><h2>커뮤니티</h2></a>
+				<a href="Myconsulting.do?seq=${login.seq }"><h2>건강상담</h2></a>
+				<br>
+				<a href="Myreserve.do?seq=${login.seq }"><h2>내 예약현황</h2></a>
 			</div>
+				
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
@@ -87,7 +90,7 @@ $(document).ready(function(){
                         <td>${vs.count}</td>
                         <td>${bbs.id }</td> 
                         <td>
-                           <a href='consultingdetail.do?seq=${bbs.seq}'>
+                           <a href='Qnabbsdetail.do?seq=${bbs.seq}&mypage=mypage'>
                                ${bbs.title}</a></td>
                            <td>${bbs.content}</td>
                         </tr>

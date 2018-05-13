@@ -34,7 +34,6 @@ input:valid+span:after {
 </style>
 
 
-
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -42,7 +41,7 @@ input:valid+span:after {
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>Big hjh</h2>
+				<h2>내정보</h2>
 				<em>내정보를<br/>한눈에 보여드립니다</em>
 			</div>
 			<!-- content 시작 -->
@@ -51,26 +50,28 @@ input:valid+span:after {
 				<!-- 이부분에 컨텐츠 시작 -->
 <form action="mysupdateAf.do" method="post" name="frmForm" id="_frmForm">
 <input type="hidden" name="id" value="${my.id }"/>
-<table class="list_table" style="width:85%;">
-					
-					
-<tbody>	
+<table class="list_table" style="width:85%">
+			
+<tbody>
+<tr>
+<th>회원사진</th>
+<td><img alt="없음" src="upload/${my.myimg }"width="150" height="190"></td>
+</tr>	
 <tr>
 	<th>아이디</th>
-	<td style="text-align: left">${my.id}</td>
+	<td>${my.id}</td>
 </tr>
 <br>
 <tr>
 	<th>이름</th>
-	<td style="text-align: left">${my.name}</td>
+	<td>${my.name}</td>
 </tr>
 <br>
 <tr>
 	<th>email</th>
 <td>		
 	<input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="이메일을 입력하세요" value="${my.email }">
-	<input type="text" id="oriEmail" value="${my.email }">
-	<h5 style="color: red;" id="emailCheckMessage" align="left"></h5>
+	<h5 style="color: red;" id="emailCheckMessage" align="center"></h5>
 	<!-- <input name="email" type="email" class="form-control" id="email"
 	placeholder="email" required=""> --> <br>
 </td>	
@@ -87,7 +88,7 @@ input:valid+span:after {
 			pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
 			required=""> --> <br>
 				<input type="hidden" id="oriPhone" value="${my.phone }">
-				<h5 style="color: red;" id="telCheckMessage" align="left"></h5>
+				<h5 style="color: red;" id="telCheckMessage" align="center"></h5>
 			<td>		
 </tr>
 <br>

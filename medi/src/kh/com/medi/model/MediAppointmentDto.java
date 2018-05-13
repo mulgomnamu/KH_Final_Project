@@ -43,7 +43,42 @@ public class MediAppointmentDto implements Serializable {
 	private String time;		//09:00
 	private String wdate;	
 	private int type;			//기본진료(0) 화상진료(1)
+	private MediMember_hDto mediMember_hDto;
+	private MediDoctorDto mediDoctorDto;
+	 
 	
+	public MediMember_hDto getMediMember_hDto() {
+		return mediMember_hDto;
+	}
+
+	public void setMediMember_hDto(MediMember_hDto mediMember_hDto) {
+		this.mediMember_hDto = mediMember_hDto;
+	}
+
+	public MediDoctorDto getMediDoctorDto() {
+		return mediDoctorDto;
+	}
+
+	public void setMediDoctorDto(MediDoctorDto mediDoctorDto) {
+		this.mediDoctorDto = mediDoctorDto;
+	}
+
+	public MediAppointmentDto(int seq, int mem_seq, int hos_seq, int doc_seq, String content, String day, String time,
+			String wdate, int type, MediMember_hDto mediMember_hDto, MediDoctorDto mediDoctorDto) {
+		super();
+		this.seq = seq;
+		this.mem_seq = mem_seq;
+		this.hos_seq = hos_seq;
+		this.doc_seq = doc_seq;
+		this.content = content;
+		this.day = day;
+		this.time = time;
+		this.wdate = wdate;
+		this.type = type;
+		this.mediMember_hDto = mediMember_hDto;
+		this.mediDoctorDto = mediDoctorDto;
+	}
+
 	public MediAppointmentDto() {
 	}
 
