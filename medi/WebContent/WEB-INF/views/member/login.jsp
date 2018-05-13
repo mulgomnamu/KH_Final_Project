@@ -1,44 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/login.css"/> 
 
-<style>
-.findselect{
-  border-collapse: collapse;
-  width:100%; margin: 50px 0;
-}
-.findselect th{
-  text-align: left;
-}
-.findselect th,td{
-height:50px;
-width:50%;
-padding-left: 4%;
-}
-.findselect th:first-child,td:first-child{
-border-right:1px solid #d9d9d9;
-padding-left: 18%;
-}
-.findselect a,#_btnRegi1{
-  color: #1f4bb4;
-}
-#_frmForm{
- width: 400px;position: absolute;
- margin-left: 10%;
- margin-top: 5%;
-
-}
-.btn_login{
- width: 200px;height:200px; position: absolute;margin-left:38%;margin-top: 5%;
-  
-}
-.accountro{
-border-left:1px solid #d9d9d9;
-padding-left:5%;
-width: 250px;height:150px;
-position: absolute;margin-left: 53%;margin-top: 5%;
-}
-</style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login" style="background-color: #f4f5f9;"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->

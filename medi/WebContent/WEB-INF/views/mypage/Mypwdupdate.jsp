@@ -4,9 +4,10 @@
 <script type="text/javascript"
 	src="<c:url value='/js/jquery.1.9.1.min.js'/>"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css"/>
 <style>
+.refresh_btn1 em:before {content:'';display:inline-block;position:absolute;top:50%; height:16px;margin-top:-8px;background:url('../images/main/icon_refresh.png') no-repeat;vertical-align:top;}
 div {
-	margin-bottom: 10px;
 	position: relative;
 }
 
@@ -41,8 +42,6 @@ input:valid+span:after {
 		<section id="sub_section"> <!-- #LOCATION --> <!-- sub타이틀 시작 -->
 		<div class="title-type01">
 			<h2>비밀번호수정</h2>
-			<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br />한눈에 보여드립니다
-			</em>
 		</div>
 		<!-- content 시작 -->
 		<div class="content">
@@ -79,9 +78,9 @@ input:valid+span:after {
 		</tr>
 		<tr>
 			<td colspan="2" style="height:50px; text-align:center;">
-			<span>
-			<a href="#none" id="_btnUpdate" title="비밀번호 수정" >비밀번호 수정</a>
-			</span>
+			<span>					
+		<a href="#none" id="_btnUpdate" class="btn-type02 btn-search refresh_btn1" title="비밀번호 수정하기" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">내정보 수정하기</em></a>
+	</span>
 			</td>
 		</tr>
 		

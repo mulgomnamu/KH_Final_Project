@@ -4,9 +4,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery.1.9.1.min.js'/>"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css"/>
+
 <style>
+.refresh_btn1 em:before {content:'';display:inline-block;position:absolute;top:50%; height:16px;margin-top:-8px;background:url('../images/main/icon_refresh.png') no-repeat;vertical-align:top;}
 div {
-  margin-bottom: 10px;
   position: relative;
 }
 
@@ -41,8 +43,7 @@ input:valid+span:after {
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>내정보</h2>
-				<em>내정보를<br/>한눈에 보여드립니다</em>
+		<h2>Mypage</h2>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -59,19 +60,20 @@ input:valid+span:after {
 </tr>	
 <tr>
 	<th>아이디</th>
-	<td>${my.id}</td>
+	<td style="text-align: left">${my.id}</td>
 </tr>
 <br>
 <tr>
 	<th>이름</th>
-	<td>${my.name}</td>
+	<td style="text-align: left">${my.name}</td>
 </tr>
 <br>
 <tr>
 	<th>email</th>
 <td>		
 	<input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="이메일을 입력하세요" value="${my.email }">
-	<h5 style="color: red;" id="emailCheckMessage" align="center"></h5>
+	<input type="text" id="oriEmail" value="${my.email }">
+	<h5 style="color: red;" id="emailCheckMessage" align="left"></h5>
 	<!-- <input name="email" type="email" class="form-control" id="email"
 	placeholder="email" required=""> --> <br>
 </td>	
@@ -88,10 +90,9 @@ input:valid+span:after {
 			pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
 			required=""> --> <br>
 				<input type="hidden" id="oriPhone" value="${my.phone }">
-				<h5 style="color: red;" id="telCheckMessage" align="center"></h5>
+				<h5 style="color: red;" id="telCheckMessage" align="left"></h5>
 			<td>		
 </tr>
-<br>
 <tr>
 	<th>post</th>
 	<td>
@@ -108,7 +109,7 @@ input:valid+span:after {
 <tr>
 	<td colspan="2" style="height:50px; text-align:center;">
 		<span>
-			<a href="#none" id="_btnUpdate" title="내정보 수정하기">내정보 수정하기</a>
+			<a href="#none" id="_btnUpdate" class="btn-type02 btn-search refresh_btn1" title="내정보 수정하기">내정보 수정하기</a>
 		</span>
 	</td>
 </tr>
