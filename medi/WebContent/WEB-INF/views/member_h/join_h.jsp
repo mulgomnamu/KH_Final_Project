@@ -528,18 +528,9 @@ input select{
 		}
 	}
 	
-/* 병원 이미지 추가 버튼(다중 파일 제어) */
+/* 다중 파일 제어 */
 	$(document).ready(function() {
-		$("#image-holder").on('click','.thumb-image',function(){
-			$(this).toggleClass("selectedItem");
-		});
-
-		$("#btnDelete").on("click",function(){
-			$(".selectedItem").remove();
-		});
-
         $("#_upload").on('change', function() {
-          //Get count of selected files
           var countFiles = $(this)[0].files.length;
           var imgPath = $(this)[0].value;
           var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
@@ -547,7 +538,6 @@ input select{
           image_holder.empty();
           if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
             if (typeof(FileReader) != "undefined") {
-              //loop for each file selected for uploaded.
               for (var i = 0; i < countFiles; i++) 
               {
                 var reader = new FileReader();

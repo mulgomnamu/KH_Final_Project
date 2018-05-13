@@ -83,5 +83,11 @@
 		SET `pwd`=#{pwd1}
 		WHERE `id`=#{id}
 	</update>
+	
+	<select id="getImageList" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediHospital_imageDto">
+		SELECT `hos_seq`, `image`
+		FROM `medi`.`medi_image`
+		WHERE `hos_seq`=#{seq}
+	</select>
 
 </mapper>

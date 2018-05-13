@@ -35,7 +35,7 @@
 		<result column="DOC_TOSTRING" property="day_tostring"/>   
 	</resultMap>
 
-	<select id="getHospitalPagingListCount">
+	<select id="getHospitalPagingListCount" parameterType="kh.com.medi.model.MediHospitalPagingDto" resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)
 		FROM `medi`.`medi_hospital`
 		WHERE 1=1
@@ -47,6 +47,44 @@
 				AND name LIKE CONCAT('%',#{s_keyword},'%')
 			</if>
 		</if> 
+	</select>
+
+	<select id="getHospitalPagingList" parameterType="kh.com.medi.model.MediHospitalPagingDto" resultType="kh.com.medi.model.MediHospitalPagingDto">
+		SELECT `seq`, `id`, `name`, `tel`, `post`, `address`, `email`, `info`, `score`, `del`, `regdate`, `auth`
+		FROM 
+			(SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+				`seq`, `id`, `name`, `tel`, `post`, `address`, `email`, `info`, `score`, `del`, `regdate`, `auth`
+			 FROM `medi`.`medi_hospital`, (SELECT @ROWNUM := 0) R
+			 WHERE 1=1
+			 <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			 	<if test="s_category == 'id'">
+			 		AND id LIKE CONCAT('%',#{s_keyword},'%')
+			 	</if>
+			 	<if test="s_category == 'name'">
+			 		AND name LIKE CONCAT('%',#{s_keyword},'%')
+			 	</if>
+			 </if>) A
+		WHERE A.ROWNUM BETWEEN ${start} AND ${end}
+		ORDER BY SEQ ASC
+	</select>
+	
+	<update id="updateHospitalByAdmin" parameterType="kh.com.medi.model.MediHospitalPagingDto">
+		UPDATE `medi`.`medi_hospital`
+		SET `name`=#{name}, `tel`=#{tel}, `post`=#{post}, `address`=#{address}, `email`=#{email}, `info`=#{info},
+		 `score`=#{score}, `del`=#{del}, `regdate`=#{regdate}, `auth`=#{auth}
+		WHERE `seq`=#{seq}
+	</update>
+	
+	<select id="getHospitalListatSeq" parameterType="kh.com.medi.model.MediHospitalPagingDto" resultType="kh.com.medi.model.MediHospitalPagingDto">
+		SELECT `seq`, `id`, `name`, `tel`, `post`, `address`, `email`, `info`, `score`, `del`, `regdate`, `auth`
+		FROM `medi`.`medi_hospital`
+		WHERE `seq`=#{seq}
+	</select>
+	
+	<select id="getDoctorColumnsByAdmin" parameterType="kh.com.medi.model.MediMember_hDto" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT `seq`, `hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`
+		FROM `MEDI`.`MEDI_DOCTOR`
+		WHERE `hos_seq`=#{seq}
 	</select>
 
 </mapper>

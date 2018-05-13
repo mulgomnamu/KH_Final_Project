@@ -53,6 +53,12 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
+	<!-- 다중이미지수정(병원) -->
+	<definition name="update_imgs_h.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/update_imgs_h.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	<!-- 회원수정(의사) -->
 	<definition name="join_d.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member_h/join_d.jsp"/>

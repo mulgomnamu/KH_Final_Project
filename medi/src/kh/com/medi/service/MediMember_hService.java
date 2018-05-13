@@ -23,5 +23,6 @@ public interface MediMember_hService {
 	public MediMember_hDto login(MediMember_hDto dto_h);
 	public boolean changePwd(MediMember_hDto dto_h);
 	public List<MediSubjectDto> getHospitalSubjectColumns(MediMember_hDto dto_h);
+	public List<MediHospital_imageDto> getImageList(MediMember_hDto dto_h);
 
 }

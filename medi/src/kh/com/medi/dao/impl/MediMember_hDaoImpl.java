@@ -97,4 +97,9 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 	public List<MediSubjectDto> getHospitalSubjectColumns(MediMember_hDto dto_h) {
 		return sqlSession.selectList(ns+"getHospitalSubjectColumns", dto_h);
 	}
+
+	@Override
+	public List<MediHospital_imageDto> getImageList(MediMember_hDto dto_h) {
+		return sqlSession.selectList(ns+"getImageList", dto_h);
+	}
 }
