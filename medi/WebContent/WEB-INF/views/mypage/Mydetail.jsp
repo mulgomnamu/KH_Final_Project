@@ -4,9 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery.1.9.1.min.js'/>"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css"/>
+
+
 <style>
+.refresh_btn1 em:before {content:'';display:inline-block;position:absolute;top:50%; height:16px;margin-top:-8px;background:url('../images/main/icon_refresh.png') no-repeat;vertical-align:top;}
 div {
-  margin-bottom: 10px;
   position: relative;
 }
 
@@ -42,8 +45,7 @@ input:valid+span:after {
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>Big hjh</h2>
-				<em>내정보를<br/>한눈에 보여드립니다</em>
+				<h2>Mypage</h2>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -59,12 +61,10 @@ input:valid+span:after {
 	<th>아이디</th>
 	<td style="text-align: left">${my.id}</td>
 </tr>
-<br>
 <tr>
 	<th>이름</th>
 	<td style="text-align: left">${my.name}</td>
 </tr>
-<br>
 <tr>
 	<th>email</th>
 <td>		
@@ -90,7 +90,6 @@ input:valid+span:after {
 				<h5 style="color: red;" id="telCheckMessage" align="left"></h5>
 			<td>		
 </tr>
-<br>
 <tr>
 	<th>post</th>
 	<td>
@@ -103,12 +102,11 @@ input:valid+span:after {
 				<span id="guide" style="color:#999"></span>
 	<td>
 </tr>
-<br>
 <tr>
 	<td colspan="2" style="height:50px; text-align:center;">
-		<span>
-			<a href="#none" id="_btnUpdate" title="내정보 수정하기">내정보 수정하기</a>
-		</span>
+	<span>					
+		<a href="#none" id="_btnUpdate" class="btn-type02 btn-search refresh_btn1" title="내정보 수정하기" style="cursor: pointer; width: 140px; margin: 20px;"><em style="padding:0px;">내정보 수정하기</em></a>
+	</span>
 	</td>
 </tr>
 

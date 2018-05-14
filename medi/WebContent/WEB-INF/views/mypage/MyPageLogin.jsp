@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/login.css"/> 
 
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
@@ -10,88 +10,31 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>비밀번호 입력</h2>
-				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
+				<h2>비밀번호 확인</h2>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
+				<div style="height: 300px">
 					<form action="MyPageLoginAf.do" name="frmForm" id="_frmForm" method="post">
-						<table class="content_table" style="width:75%">
-							<colgroup>
-								<col style="width:30%">
-								<col style="width:70%">
-							</colgroup>
-							<tbody>
-								<tr>
-									<th style="background: #eeeeee; color: #3e5fba;">아이디</th>
-									<td>&nbsp;
-										<input type="text" id="_userid" name="id" value="${login.id }" data-msg="ID를" size="15" title="아이디" style="border:1px solid #dddddd;">
-
-									</td>
-								</tr>
-								
-								<tr>
-									<th style="background: #eeeeee; color: #3e5fba;">비밀번호</th>
-									<td>&nbsp;
-										<input type="password" id="_pwd" name="pwd" value="" data-msg="PWD를" size="15" title="비밀번호" style="border:1px solid #dddddd;">
-									</td>
-								</tr>
-								
-								<tr>
-									<td colspan="2" style="height:50px; text-align:center;">
-										<span>
-											 <a href="#none" id="_btnLogin" title="로그인">
-												<img alt="로그인" src="image/login_btn.jpg">
-											</a>
-										</span>
-									</td>
-								</tr>
-							</tbody>
-						
-						</table>
-					</form>
+				 	<span class="form-text" style="margin-bottom: 28px;">
+                        <label class="placeholder" for="id">아이디</label>
+                        <input type="text" id="_userid" name="id" value="${login.id }" readonly="readonly" size="15" title="아이디" style="border:1px solid #dddddd;">
+                	 </span>
+                	 <span class="form-text"style="margin-bottom:20px;">
+                     	<label class="placeholder" for="id">비밀번호</label>
+                        <input type="text" id="_pwd" name="pwd" value="" size="15" title="비밀번호" style="border:1px solid #dddddd;">
+               	 	</span>
+               	 	</form>
+					<div class="btn_login">
+					<a href="#none" id="_btnLogin" title="로그인" class="btn-type01" style="display: block; width: 130px;height: 107px;">
+						<em style="margin-top: 20px;">로그인</em>
+					</a>
+					</div>
 					
-					<table  style="width:75%">
-							
-							<tbody>
-								<tr>
-									<th style="background: #eeeeee; color: #3e5fba;">아직 회원이 아니신가요?</th>
-									<th style="background: #eeeeee; color: #3e5fba;">아이디가 기억나지 않으세요?</th>
-									<th style="background: #eeeeee; color: #3e5fba;">비밀번호가 기억나지 않으세요?</th>
-									
-									
-								</tr>
-								
-								<tr>
-									<td>&nbsp;
-										회원이 되시면 홈페이지에서 제공하는 <br>온라인 서비스를 이용하실 수 있습니다.
-									</td>
-									<td>&nbsp;
-										휴대폰, 아이핀, 이메일 인증을 통해<br>아이디를 확인하실 수 있습니다.
-									</td>
-									<td>&nbsp;
-										휴대폰, 아이핀, 이메일 인증을 통해<br>신규비밀번호로 사이트를 이용하실 수 있습니다.
-									</td>
-									
-								</tr>
-								
-								<tr>
-
-									<td>
-									<a href="memberIdPwFind.do" id="_btnRegi1" title="ID찾기">
-												>>ID찾기
-									</a>
-									</td>
-									<td>
-									>>PW찾기
-									</td>
-								</tr>
-							</tbody>
-						
-						</table>
-		
+					
+					</div>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>
 			</div>
