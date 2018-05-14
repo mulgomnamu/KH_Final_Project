@@ -160,6 +160,7 @@ height: 60px;
 <script>
 // 검색
 $("#searchBtn").click(function() {
+	$("#_pageNumber").val("0");
 	$("#searchForm").attr({ "target":"_self", "action":"adminMemberList.do" }).submit();
 });
 

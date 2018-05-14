@@ -73,4 +73,44 @@ public class MediAdminHospitalController {
 		return mediAdminHospitalService.getDoctorColumnsByAdmin(dto_h);
 	}
 
+	
+	@RequestMapping(value="adminHospitalConfirm.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String adminHospitalConfirm(Model model, MediHospitalPagingDto dto_h) {
+		logger.info("MediAdminHospitalController adminHospitalConfirm " + new Date());
+
+		// paging처리
+		int sn = dto_h.getPageNumber();
+		int start = (sn) * dto_h.getRecordCountPerPage() + 1;
+		int end = (sn + 1) * dto_h.getRecordCountPerPage();
+		
+		dto_h.setStart(start);
+		dto_h.setEnd(end);
+		
+		int totalRecordCount = mediAdminHospitalService.getHospitalConfirmImgListCount(dto_h);
+		List<MediHospitalPagingDto> loginList = mediAdminHospitalService.getHospitalConfirmImgList(dto_h);
+		
+		model.addAttribute("loginList", loginList);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", dto_h.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+
+		model.addAttribute("s_category", dto_h.getS_category());
+		model.addAttribute("s_keyword", dto_h.getS_keyword());
+		
+		return "adminHospitalConfirm.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="updateHospitalAuth.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String updateHospitalAuth(MediHospitalPagingDto dto_h) {
+		logger.info("MediAdminHospitalController updateHospitalAuth " + new Date());
+		
+			if(mediAdminHospitalService.updateHospitalAuth(dto_h)) {
+				return "true";
+			}else {
+				return"false";
+			}
+	}
+
 }

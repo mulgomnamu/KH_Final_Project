@@ -14,5 +14,9 @@ public interface MediAdminHospitalService {
 	public boolean updateMemberByAdmin(MediHospitalPagingDto dto_h);
 	public MediHospitalPagingDto getHospitalListatSeq(MediHospitalPagingDto dto_h);
 	public List<MediDoctorDto> getDoctorColumnsByAdmin(MediMember_hDto dto_h);
+	
+	public int getHospitalConfirmImgListCount(MediHospitalPagingDto dto_h);
+	public List<MediHospitalPagingDto> getHospitalConfirmImgList(MediHospitalPagingDto dto_h);
+	public boolean updateHospitalAuth(MediHospitalPagingDto dto_h);
 
 }

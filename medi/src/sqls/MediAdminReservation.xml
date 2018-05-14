@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MediAdminReservation">
+
+	<resultMap type="kh.com.medi.model.MediAdminReservationDto" id="adminReservation">
+		<result column="RESER_SEQ" property="seq"/>
+		<result column="RESER_MEM_SEQ" property="mem_seq"/>
+		<result column="RESER_HOS_SEQ" property="hos_seq"/>
+		<result column="RESER_DOC_SEQ" property="doc_seq"/>
+		<result column="RESER_CONTENT" property="content"/>
+		<result column="RESER_DAY" property="day"/>
+		<result column="RESER_TIME" property="time"/>
+		<result column="RESER_WDATE" property="wdate"/>
+		<result column="RESER_TYPE" property="type"/>
+		<collection property="adminMember" resultMap="adminMember"/>
+		<collection property="adminHospital" resultMap="adminHospital"/>
+		<collection property="adminDoctor" resultMap="adminDoctor"/>
+	</resultMap>
+	
+	<resultMap type="kh.com.medi.model.MediMemberDto" id="adminMember">
+		<result column="MEM_SEQ" property="seq"/>
+		<result column="MEM_ID" property="id"/>
+		<result column="MEM_PWD" property="pwd"/>
+		<result column="MEM_NAME" property="name"/>
+		<result column="MEM_EMAIL" property="email"/>
+		<result column="MEM_QUESTION" property="question"/>
+		<result column="MEM_ANSWER" property="answer"/>
+		<result column="MEM_PHONE" property="phone"/>
+		<result column="MEM_POST" property="post"/>
+		<result column="MEM_ADDRESS" property="address"/>
+		<result column="MEM_AUTH" property="auth"/>
+		<result column="MEM_DEL" property="del"/>
+		<result column="MEM_MYIMG" property="myimg"/>
+		<result column="MEM_BLACKLIST" property="blacklist"/>
+		<result column="MEM_REGDATE" property="regdate"/>
+	</resultMap>
+
+	<resultMap type="kh.com.medi.model.MediMember_hDto" id="adminHospital">
+		<result column="HOS_SEQ" property="seq"/>
+		<result column="HOS_ID" property="id"/>
+		<result column="HOS_PWD" property="pwd"/>
+		<result column="HOS_NAME" property="name"/>
+		<result column="HOS_TEL" property="tel"/>
+		<result column="HOS_POST" property="post"/>
+		<result column="HOS_ADDRESS" property="address"/>
+		<result column="HOS_LATITUDE" property="latitude"/>
+		<result column="HOS_LONGTITUDE" property="longtitude"/>
+		<result column="HOS_EMAIL" property="email"/>
+		<result column="HOS_QUESTION" property="question"/>
+		<result column="HOS_ANSWER" property="answer"/>
+		<result column="HOS_CONFIRM_IMG" property="confirm_img"/>
+		<result column="HOS_INFO" property="info"/>
+		<result column="HOS_SCORE" property="score"/>
+		<result column="HOS_DEL" property="del"/>
+		<result column="HOS_REGDATE" property="regdate"/>
+		<result column="HOS_AUTH" property="auth"/>
+	</resultMap>
+	
+	<resultMap type="kh.com.medi.model.MediDoctorDto" id="adminDoctor">
+		<result column="DOC_SEQ" property="seq"/>
+		<result column="DOC_HOS_SEQ" property="hos_seq"/>
+		<result column="DOC_NAME" property="name"/>
+		<result column="DOC_SPECIALTY" property="specialty"/>
+		<result column="DOC_REGDATE" property="regdate"/>
+		<result column="DOC_DOC_PROFILE" property="doc_profile"/>
+		<result column="DOC_DOC_CONTENT" property="doc_content"/>
+		<result column="DOC_DAY_TOSTRING" property="day_tostring"/>   
+	</resultMap>
+
+	<select id="getAdminReservationListCount" parameterType="kh.com.medi.model.MediAdminReservationDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+			FROM `medi`.`medi_reservation` r
+			INNER JOIN
+				`medi`.`medi_hospital` h
+			ON
+				r.hos_seq = h.seq
+			INNER JOIN
+				`medi`.`medi_member` m
+			ON
+				r.mem_seq = m.seq
+			INNER JOIN
+				`medi`.`medi_doctor` d
+			ON
+				r.doc_seq = d.seq
+			WHERE 1=1
+			<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+				<if test="s_category == 'hos_name'">
+					AND h.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'mem_name'">
+					AND m.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'doc_name'">
+					AND d.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+			</if> 
+	</select>
+	
+	<select id="getAdminReservationList" parameterType="kh.com.medi.model.MediAdminReservationDto" resultMap="adminReservation">
+		SELECT RESER_SEQ, RESER_MEM_SEQ, RESER_HOS_SEQ, RESER_DOC_SEQ, RESER_CONTENT, RESER_DAY, RESER_TIME, RESER_WDATE, RESER_TYPE, 
+			HOS_NAME, MEM_NAME, DOC_NAME
+		FROM 
+			(SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+				r.seq as RESER_SEQ, r.mem_seq as RESER_MEM_SEQ, r.hos_seq as RESER_HOS_SEQ, 
+				r.doc_seq as RESER_DOC_SEQ, r.content as RESER_CONTENT, r.day as RESER_DAY,
+				r.time as RESER_TIME, r.wdate as RESER_WDATE, r.type as RESER_TYPE,
+				h.name as HOS_NAME, m.name as MEM_NAME, d.name as DOC_NAME
+			FROM (SELECT @ROWNUM := 0) R, `medi`.`medi_reservation` r
+			INNER JOIN
+				`medi`.`medi_hospital` h
+			ON
+				r.hos_seq = h.seq
+			INNER JOIN
+				`medi`.`medi_member` m
+			ON
+				r.mem_seq = m.seq
+			INNER JOIN
+				`medi`.`medi_doctor` d
+			ON
+				r.doc_seq = d.seq
+			WHERE 1=1
+			<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+				<if test="s_category == 'hos_name'">
+					AND h.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'mem_name'">
+					AND m.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'doc_name'">
+					AND d.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+			</if>) A
+		WHERE A.ROWNUM BETWEEN ${start} AND ${end}
+		ORDER BY RESER_SEQ ASC
+	</select>
+	
+	<delete id="deleteAdminReservation" parameterType="kh.com.medi.model.MediAdminReservationDto">
+		DELETE FROM `medi`.`medi_reservation`
+		WHERE `seq`=#{seq}
+	</delete>
+
+</mapper>

@@ -43,4 +43,19 @@ public class MediAdminHospitalServiceImpl implements MediAdminHospitalService {
 		return mediAdminHospitalDao.getDoctorColumnsByAdmin(dto_h);
 	}
 
+	@Override
+	public int getHospitalConfirmImgListCount(MediHospitalPagingDto dto_h) {
+		return mediAdminHospitalDao.getHospitalConfirmImgListCount(dto_h);
+	}
+
+	@Override
+	public List<MediHospitalPagingDto> getHospitalConfirmImgList(MediHospitalPagingDto dto_h) {
+		return mediAdminHospitalDao.getHospitalConfirmImgList(dto_h);
+	}
+
+	@Override
+	public boolean updateHospitalAuth(MediHospitalPagingDto dto_h) {
+		return mediAdminHospitalDao.updateHospitalAuth(dto_h);
+	}
+
 }
