@@ -242,7 +242,7 @@ if( !patt.test( $("#phone").val()) ){
         }).open();
     }
 </script>				
-				
+
 					
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>

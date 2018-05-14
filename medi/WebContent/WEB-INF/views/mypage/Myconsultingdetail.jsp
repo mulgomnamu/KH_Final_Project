@@ -165,7 +165,7 @@
     	}); 
 	}
 
-function answerupdate(answerseq) {
+function myanswerupdate(answerseq) {
 	$("#"+answerseq).removeAttr("readonly");
 	$("#hh"+answerseq).html("");
 	$("<a onclick='myupdateAf("+answerseq+")' class='btn-type02 btn-search refresh_btn1' style='cursor: pointer; width: 140px; margin: 20px;'><em style='padding:0px;'>수정완료</em></a>").css({
@@ -193,7 +193,7 @@ function updateAf(answerseq) {
 	}
 }); 
 }
-function answerdelete(answerseq) {
+function myanswerdelete(answerseq) {
 	$.ajax({
 		url : "myanswerdelete.do",
 		data:"ans_seq="+answerseq,
