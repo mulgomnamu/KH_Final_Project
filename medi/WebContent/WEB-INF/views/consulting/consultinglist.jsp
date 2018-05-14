@@ -8,7 +8,7 @@
 
 <fmt:requestEncoding value="utf-8"/><%-- 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/consulting.js"></script> --%>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css?ver=1.02"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css?ver=1.03"/>
 <!-- 검색 카테고리를 유지 start -->
 <%
 String category = (String)request.getAttribute("s_category");
@@ -75,7 +75,7 @@ if(message != ""){
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="subpagetitle" style="margin-bottom: 50px;">
-				  <h2>건강상담</h2>
+				  <h2 style="padding-top: 62px; font-size: 32px; color: #111; font-family: nanum">건강상담</h2>
 				<em>전문의에게 건강에 대한 질문이 있으면 문의를 해보세요.<br/>문제를 속시원히 해결해드립니다.</em>
        			  <div class="sub_tap">
        			  <div class="inner_flogin" style="background: transparent">
