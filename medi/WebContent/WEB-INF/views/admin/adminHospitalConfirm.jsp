@@ -52,26 +52,18 @@
 								<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
 							</form>
 						</div>
+						<div>
+							<input type="button" id="upAuth" value="일괄 회원승인">
+						</div>
 						<table class="list_table1">
-							<col width="20px"><col width="100px"><col width="80px">
-							<col width="180px"><col width="140px"><col width="70px">
-							<col width="350px"><col width="100px"><col width="100px">
-							<col width="150px"><col width="100px"><col width="100px">
-							<col width="50px">
 							<tr>
 								<th><input type="checkbox" id="allCheckBox"></th>
 								<th>아이디</th>
 								<th>이름</th>
-								<th>전화번호</th>
-								<th>우편번호</th>
-								<th>주소</th>
-								<th>이메일</th>
-								<th>병원소개</th>
-								<th>채택점수</th>
-								<th>탈퇴여부</th>
+								<th>승인 이미지</th>
 								<th>가입날짜</th>
 								<th>회원구분</th>
-								<th>수정</th>
+								<th>승인</th>
 							</tr>
 							<c:forEach var="memberList" items="${loginList }">
 								<tr>
@@ -80,40 +72,10 @@
 									</td>
 									<td><span id="id${memberList.seq }">${memberList.id }</span></td>
 									<td><span id="name${memberList.seq }">${memberList.name }</span></td>
-									<td><span id="tel${memberList.seq }">${memberList.tel }</span></td>
-									<td><span id="post${memberList.seq }">${memberList.post }</span></td>
-									<td><span id="address${memberList.seq }">${memberList.address }</span></td>
-									<td><span id="email${memberList.seq }">${memberList.email }</span></td>
-									<td><span id="info${memberList.seq }">${memberList.info }</span></td>
-									<td><span id="score${memberList.seq }">${memberList.score }</span></td>
-									<td><span id="del${memberList.seq }">${memberList.del }</span></td>
+									<td><span id="confirm_img${memberList.confirm_img }"><img src="upload/${memberList.confirm_img }" onclick="resizeImg(this.src)" style="width:100px;position:relative;padding:5px;"></span></td>
 									<td><span id="regdate${memberList.seq }">${memberList.regdate }</span></td>
 									<td><span id="auth${memberList.seq }">${memberList.auth }</span></td>
-									<td>
-<!-- 병원 정보 수정 Modal -->
-										<div id="updateModal${memberList.seq }" class="modal">
-											<span><h3>${memberList.name }님 회원 정보</h3></span>
-											<form action="#none" id="updateForm${memberList.seq }" method="post">
-												<table class="list_table1">
-													<col width="100px"><col width="50px">
-													<tr><th>이름</th><td><input type="text" name="name" value="${memberList.name }"><input type="hidden" name="seq" value="${memberList.seq }"></td></tr>
-													<tr><th>전화번호</th><td><input type="text" name="tel" value="${memberList.tel }"></td></tr>
-													<tr><th>우편번호</th><td><input type="text" name="post" value="${memberList.post }"></td></tr>
-													<tr><th>주소</th><td><input type="text" name="address" value="${memberList.address }"></td></tr>
-													<tr><th>이메일</th><td><input type="text" name="email" value="${memberList.email }"></td></tr>
-													<tr><th>병원소개</th><td><input type="text" name="info" value="${memberList.info }"></td></tr>
-													<tr><th>채택점수</th><td><input type="text" name="score" value="${memberList.score }"></td></tr>
-													<tr><th>탈퇴여부</th><td><input type="text" name="del" value="${memberList.del }"></td></tr>
-													<tr><th>가입날짜</th><td><input type="text" name="regdate" value="${memberList.regdate }"></td></tr>
-													<tr><th>회원구분</th><td><input type="text" name="auth" value="${memberList.auth }"></td></tr>
-												</table>
-											</form>
-											<button id="updateBtn" onclick="updateBtn(${memberList.seq });">수정</button>
-										</div>
-										
-<!-- Link to open the modal -->
-										<p><a href="#updateModal${memberList.seq }" rel="modal:open">수정</a></p>
-									</td>
+									<td><button name="confirmBtn" id="confirmBtn${memberList.seq }" value="${memberList.seq }">승인</button></td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -164,28 +126,115 @@ function goPage(pageNumber) {
 	$("#searchForm").attr("target","_self").attr("action","adminHospitalList.do").submit();
 }
 
-// 회원 정보 수정
-function updateBtn(seq) {
-	var _updateForm = new FormData(document.getElementById("updateForm"+seq));
-	$.ajax({
-		url: 'updateHospitalByAdmin.do',
-		data: _updateForm,
-		processData: false,
-		contentType: false,
-		type: 'post',
-		success: function(result) {
-			$.modal.close();
-			$("span[id=name"+seq+"]").text(result.name);
-			$("span[id=tel"+seq+"]").text(result.tel);
-			$("span[id=post"+seq+"]").text(result.post);
-			$("span[id=address"+seq+"]").text(result.address);
-			$("span[id=email"+seq+"]").text(result.email);
-			$("span[id=info"+seq+"]").text(result.info);
-			$("span[id=score"+seq+"]").text(result.score);
-			$("span[id=del"+seq+"]").text(result.del);
-			$("span[id=regdate"+seq+"]").text(result.regdate);
-			$("span[id=auth"+seq+"]").text(result.auth);
-		}
+// 개별 회원 승인
+$("button[name = 'confirmBtn']").on('click', function(){
+	var seq = $(this).val();
+	var id = $(this).attr('id');
+	if(confirm('선택한 회원을 승인하시겠습니까?')) {
+ 		$.ajax({
+			url: 'updateHospitalAuth.do',
+			data: {seq: seq},
+			type: 'post',
+			success: function(result) {
+				$("#"+id).parent().parent().remove();
+			}
+		});
+	}
+});
+
+//일괄 회원 승인(Check Box)
+	$("#upAuth").click(function() {
+		var count = 0;
+		$("input[name=selectCheckBox]:checked").each(function() {
+			var checkedVal = {
+				seq: $(this).val(),
+			};
+			var _seq = parseInt(checkedVal.seq);
+			$.ajax({
+				url: 'updateHospitalAuth.do',
+				data: checkedVal,
+				type: 'post',
+				success: function(result) {
+					$("#confirmBtn"+_seq).parent().parent().remove();
+				}
+			});
+			count++;
+		});
+		alert(count+'명의 회원을 승인했습니다.');
 	});
+</script>
+
+<script>
+function resizeImg(osrc) {
+    var bdiv = document.createElement('DIV');
+
+    document.body.appendChild(bdiv);
+
+    bdiv.setAttribute("id", "bdiv");
+
+    bdiv.style.position = 'absolute';
+
+    bdiv.style.top = 0;
+
+    bdiv.style.left = 0;
+
+    bdiv.style.zIndex = 0;
+
+    bdiv.style.width = document.body.scrollWidth;
+
+    bdiv.style.height = document.body.scrollHeight;
+
+    bdiv.style.background = 'gray';
+
+    //bdiv.style.filter = "alpha(opacity=75)";
+
+    bdiv.style.opacity = '0.5';
+
+    //bdiv.style.mozOpacity = '0.5';
+
+    var odiv = document.createElement('DIV');
+
+    document.body.appendChild(odiv);
+
+    odiv.style.zIndex = 1;
+
+    odiv.setAttribute("id", "odiv");
+
+    odiv.innerHTML = "<a href='javascript:void(closeImg())'><img id='oimg' src='"+osrc+"' border='0' width='500' height='800'/></a>";
+
+    var img = document.all['oimg'];
+
+    var owidth = (document.body.clientWidth)/2 - (img.width)/2;
+
+    var oheight = (document.body.clientHeight)/2 - (img.height)/2;
+
+    odiv.style.position = 'absolute';
+
+    odiv.style.top = oheight + document.body.scrollTop;
+
+    odiv.style.left = owidth;
+
+    scrollImg();
+
+}
+
+function scrollImg() {
+    var odiv = document.all['odiv'];
+
+    var img = document.all['oimg'];
+
+    var oheight = (document.body.clientHeight)/2 - (img.height)/2 + document.body.scrollTop;
+
+    odiv.style.top = oheight;
+
+    settime = setTimeout(scrollImg, 100);
+}
+
+function closeImg(){
+    document.body.removeChild(odiv);
+
+    document.body.removeChild(bdiv);
+
+    clearTimeout(settime);
 }
 </script>

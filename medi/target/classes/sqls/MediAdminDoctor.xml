@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MediAdminDoctor">
+
+	<select id="getDoctorPagingListCount" parameterType="kh.com.medi.model.MediDoctorPagingDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `medi`.`medi_doctor`
+		WHERE 1=1
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'specialty'">
+				AND `specialty` LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+			<if test="s_category == 'name'">
+				AND `name` LIKE CONCAT('%',#{s_keyword},'%')
+			</if>
+		</if> 
+	</select>
+
+	<select id="getDoctorPagingList" parameterType="kh.com.medi.model.MediDoctorPagingDto" resultType="kh.com.medi.model.MediDoctorPagingDto">
+		SELECT `seq`, `hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`
+		FROM 
+			(SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+				`seq`, `hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`
+			 FROM `medi`.`medi_doctor`, (SELECT @ROWNUM := 0) R
+			 WHERE 1=1
+			 <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			 	<if test="s_category == 'specialty'">
+			 		AND specialty LIKE CONCAT('%',#{s_keyword},'%')
+			 	</if>
+			 	<if test="s_category == 'name'">
+			 		AND name LIKE CONCAT('%',#{s_keyword},'%')
+			 	</if>
+			 </if>) A
+		WHERE A.ROWNUM BETWEEN ${start} AND ${end}
+		ORDER BY SEQ ASC
+	</select>
+	
+	<update id="updateDoctorByAdmin" parameterType="kh.com.medi.model.MediDoctorPagingDto">
+		UPDATE `medi`.`medi_doctor`
+		SET `name`=#{name}, `specialty`=#{specialty}, `doc_content`=#{doc_content}, `day_tostring`=#{day_tostring}
+		WHERE `seq`=#{seq}
+	</update>
+	
+	<select id="getDoctorListatSeq" parameterType="kh.com.medi.model.MediDoctorPagingDto" resultType="kh.com.medi.model.MediDoctorPagingDto">
+		SELECT `seq`, `hos_seq`, `name`, `specialty`, `regdate`, `doc_profile`, `doc_content`, `day_tostring`
+		FROM `medi`.`medi_doctor`
+		WHERE `seq`=#{seq}
+	</select>
+
+</mapper>

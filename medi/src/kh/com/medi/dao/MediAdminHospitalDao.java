@@ -13,5 +13,9 @@ public interface MediAdminHospitalDao {
 	boolean updateMemberByAdmin(MediHospitalPagingDto dto_h);
 	MediHospitalPagingDto getHospitalListatSeq(MediHospitalPagingDto dto_h);
 	List<MediDoctorDto> getDoctorColumnsByAdmin(MediMember_hDto dto_h);
+	
+	int getHospitalConfirmImgListCount(MediHospitalPagingDto dto_h);
+	List<MediHospitalPagingDto> getHospitalConfirmImgList(MediHospitalPagingDto dto_h);
+	boolean updateHospitalAuth(MediHospitalPagingDto dto_h);
 
 }

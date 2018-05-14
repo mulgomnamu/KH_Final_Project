@@ -53,6 +53,12 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
+	<!-- 예약 목록(병원) -->
+	<definition name="HospitalReservationList.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/reservationList.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 	<!-- 다중이미지수정(병원) -->
 	<definition name="update_imgs_h.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member_h/update_imgs_h.jsp"/>
@@ -267,7 +273,13 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
-	
+	<!-- 관리자 메인 페이지 -->
+	<definition name="adminMain.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+		<put-attribute name="head" value="/WEB-INF/include/head.jsp"/>
+		<put-attribute name="header" value="/WEB-INF/include/header_admin.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/admin/adminMain.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
 	
 	<!-- 관리자 일반 회원 리스트-->
 	<definition name="adminMemberList.tiles" extends="main.tiles">
@@ -280,6 +292,25 @@
 		<put-attribute name="content" value="/WEB-INF/views/admin/adminHospitalList.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
+	
+	<!-- 관리자 의사 회원 리스트-->
+	<definition name="adminDoctorList.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/admin/adminDoctorList.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- 관리자 예약 현황 리스트-->
+	<definition name="adminReservationList.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/admin/adminReservationList.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!-- 관리자 예약 현황 리스트-->
+	<definition name="adminHospitalConfirm.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/admin/adminHospitalConfirm.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
 </tiles-definitions>
 
 

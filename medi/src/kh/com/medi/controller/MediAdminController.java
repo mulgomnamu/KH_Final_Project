@@ -23,6 +23,14 @@ public class MediAdminController {
 	@Autowired
 	private MediAdminService mediAdminService;
 	
+	@RequestMapping(value="adminMain.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String adminMain(Model model) {
+		logger.info("MediAdminController adminMain " + new Date());
+		
+		// paging처리		
+		return "adminMain.tiles";
+	}
+	
 	@RequestMapping(value="adminMemberList.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String adminMemberList(Model model, MediMyListPagingDto dto_m) {
 		logger.info("MediAdminController adminMemberList " + new Date());

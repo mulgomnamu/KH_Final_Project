@@ -91,7 +91,7 @@ public class MediMemberController {
 					System.out.println("3");
 					model.addAttribute("msg", "이메일 인증을 해주세요"); 
 					return "login.tiles";
-				}else if(b != null && !b.getId().equals("") && b.getDel() == 0){
+				}else if(b != null && !b.getId().equals("") && b.getDel() == 1){
 					if(b.getId().equals("admin")) {
 						req.getSession().setAttribute("login", b);
 						req.getSession().setAttribute("loginType", "2");

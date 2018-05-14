@@ -26,6 +26,14 @@ height: 60px;
 
 </style>
 
+<!-- 로그인 처리 -->
+<c:if test="${loginType ne 2 }">
+	<script type="text/javascript">
+	alert("관리자만 가능한 공간입니다");
+	location.href='main.do';
+	</script>
+</c:if>
+
 
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
@@ -160,6 +168,7 @@ height: 60px;
 <script>
 // 검색
 $("#searchBtn").click(function() {
+	$("#_pageNumber").val("0");
 	$("#searchForm").attr({ "target":"_self", "action":"adminMemberList.do" }).submit();
 });
 

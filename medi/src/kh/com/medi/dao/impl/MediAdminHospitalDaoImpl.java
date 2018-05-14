@@ -17,7 +17,7 @@ public class MediAdminHospitalDaoImpl implements MediAdminHospitalDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
-	private String ns = "MediAdmin.";
+	private String ns = "MediAdminHospital.";
 
 	@Override
 	public int getMemberPagingListCount(MediHospitalPagingDto dto_h) {
@@ -43,6 +43,22 @@ public class MediAdminHospitalDaoImpl implements MediAdminHospitalDao {
 	@Override
 	public List<MediDoctorDto> getDoctorColumnsByAdmin(MediMember_hDto dto_h) {
 		return sqlSession.selectList(ns+"getDoctorColumnsByAdmin", dto_h);
+	}
+
+	@Override
+	public int getHospitalConfirmImgListCount(MediHospitalPagingDto dto_h) {
+		return sqlSession.selectOne(ns+"getHospitalConfirmImgListCount", dto_h);
+	}
+
+	@Override
+	public List<MediHospitalPagingDto> getHospitalConfirmImgList(MediHospitalPagingDto dto_h) {
+		return sqlSession.selectList(ns+"getHospitalConfirmImgList", dto_h);
+	}
+
+	@Override
+	public boolean updateHospitalAuth(MediHospitalPagingDto dto_h) {
+		int n = sqlSession.update(ns+"updateHospitalAuth", dto_h);
+		return n > 0;
 	}
 
 }
