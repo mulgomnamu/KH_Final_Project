@@ -75,7 +75,7 @@ String s_keyword = (String)request.getAttribute("s_keyword");
 	<header id="header_wrap_sub" style="position:unset;">
 		<div class="inner">
 			<h1 class="logo">
-				<a href="main.do"><em class="blind">가톨릭대학교 서울성모병원</em></a>
+				<a href="main.do" style="color:#fff;">I Chee U</a>
 			</h1>
 			<div class="util_wrap">
 	            <div class="header_util_sub">

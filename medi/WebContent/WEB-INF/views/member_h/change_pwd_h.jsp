@@ -4,11 +4,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!-- 비로그인 처리 -->
-<c:if test="${sessionScope.login_h eq null }">
-	<script>
-		alert("로그인이 필요합니다.");
-		location.href = "login.do";
+<!-- 로그인 처리 -->
+<c:if test="${empty login_h }">
+	<script type="text/javascript">
+	alert("로그인후이용가능합니다");
+	location.href='main.do';
+	</script>
+</c:if>
+<c:if test="${loginType ne 4 }">
+	<script type="text/javascript">
+	alert("병원회원만 가능한 공간입니다");
+	location.href='main.do';
 	</script>
 </c:if>
 

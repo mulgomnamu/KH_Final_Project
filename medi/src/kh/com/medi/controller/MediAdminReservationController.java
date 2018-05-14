@@ -63,4 +63,46 @@ public class MediAdminReservationController {
 			return "false";
 		}
 	}
+	
+	
+	@RequestMapping(value="HospitalReservationList.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String HospitalReservationList(Model model, MediAdminReservationDto dto_r) {
+		logger.info("MediAdminReservationController HospitalReservationList " + new Date());
+
+		// paging처리
+		int sn = dto_r.getPageNumber();
+		int start = (sn) * dto_r.getRecordCountPerPage() + 1;
+		int end = (sn + 1) * dto_r.getRecordCountPerPage();
+		
+		dto_r.setStart(start);
+		dto_r.setEnd(end);
+		
+		int totalRecordCount = mediAdminReservationService.getHospitalReservationListCount(dto_r);
+		List<MediAdminReservationDto> loginList = mediAdminReservationService.getHospitalReservationList(dto_r);
+		
+		System.out.println(loginList);
+		
+		model.addAttribute("loginList", loginList);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", dto_r.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+
+		model.addAttribute("s_category", dto_r.getS_category());
+		model.addAttribute("s_keyword", dto_r.getS_keyword());
+		
+		return "HospitalReservationList.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteHospitalReservation.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String deleteHospitalReservation(MediAdminReservationDto dto_r) {
+		logger.info("MediAdminReservationController deleteHospitalReservation " + new Date());
+		
+		if(mediAdminReservationService.deleteHospitalReservation(dto_r)) {
+			return "true";
+		}else {
+			return "false";
+		}
+	}
 }

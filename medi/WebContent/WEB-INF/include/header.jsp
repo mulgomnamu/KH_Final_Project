@@ -16,28 +16,6 @@
    
 <div class="header_util">
    <div class="inner">
-      <ul class="util_left">
-         <li>
-            <a href="#;" target="_self">
-               <em>사랑의 실천</em>
-            </a>
-         </li>
-         <li>
-            <a href="#;" target="_self">
-               <em>병원소식</em>
-            </a>
-         </li>
-         <li>
-            <a href="#;" target="_self">
-               <em>고객사연</em>
-            </a>
-         </li>
-         <li>
-            <a href="#;" target="_self">
-               <em>병원소개</em>
-            </a>
-         </li>
-      </ul>
       <ul class="util_right">
 <!-- 비로그인 -->
          <c:if test="${loginType eq null }">
@@ -71,6 +49,14 @@
                </a>
             </li>
          </c:if>
+<!-- 관리자 -->
+         <c:if test="${loginType eq 2 }"> 
+            <li>
+               <a href="logout.do">
+                  <em>로그아웃</em>
+               </a>
+            </li>
+         </c:if>
 <!-- 병원회원 -->
          <c:if test="${loginType eq 4 }">
             <li>
@@ -98,7 +84,7 @@
    <div class="inner">
       <h1 class="logo">
          <a href="main.do">
-            <img src="images/common/top_logo.png" alt="가톨릭대학교 서울성모병원">
+            I Chee U
          </a>
       </h1>
    </div>

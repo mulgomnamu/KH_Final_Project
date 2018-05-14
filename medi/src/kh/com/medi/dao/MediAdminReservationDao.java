@@ -10,4 +10,9 @@ public interface MediAdminReservationDao {
 	List<MediAdminReservationDto> getAdminReservationList(MediAdminReservationDto dto_r);
 	boolean deleteAdminReservation(MediAdminReservationDto dto_r);
 
+	
+	int getHospitalReservationListCount(MediAdminReservationDto dto_r);
+	List<MediAdminReservationDto> getHospitalReservationList(MediAdminReservationDto dto_r);
+	boolean deleteHospitalReservation(MediAdminReservationDto dto_r);
+
 }

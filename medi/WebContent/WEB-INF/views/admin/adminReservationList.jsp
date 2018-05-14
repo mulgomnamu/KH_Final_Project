@@ -7,6 +7,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
+<!-- 로그인 처리 -->
+<c:if test="${loginType ne 2 }">
+	<script type="text/javascript">
+	alert("관리자만 가능한 공간입니다");
+	location.href='main.do';
+	</script>
+</c:if>
+
 
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->

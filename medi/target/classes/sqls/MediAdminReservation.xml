@@ -139,5 +139,80 @@
 		DELETE FROM `medi`.`medi_reservation`
 		WHERE `seq`=#{seq}
 	</delete>
+	
+	
+	
+
+	<select id="getHospitalReservationListCount" parameterType="kh.com.medi.model.MediAdminReservationDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+			FROM `medi`.`medi_reservation` r
+			INNER JOIN
+				`medi`.`medi_hospital` h
+			ON
+				r.hos_seq = h.seq
+			INNER JOIN
+				`medi`.`medi_member` m
+			ON
+				r.mem_seq = m.seq
+			INNER JOIN
+				`medi`.`medi_doctor` d
+			ON
+				r.doc_seq = d.seq
+			WHERE 1=1 AND r.hos_seq=#{hos_seq}
+			<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+				<if test="s_category == 'hos_name'">
+					AND h.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'mem_name'">
+					AND m.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'doc_name'">
+					AND d.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+			</if> 
+	</select>
+	
+	<select id="getHospitalReservationList" parameterType="kh.com.medi.model.MediAdminReservationDto" resultMap="adminReservation">
+		SELECT RESER_SEQ, RESER_MEM_SEQ, RESER_HOS_SEQ, RESER_DOC_SEQ, RESER_CONTENT, RESER_DAY, RESER_TIME, RESER_WDATE, RESER_TYPE, 
+			HOS_NAME, MEM_NAME, DOC_NAME
+		FROM 
+			(SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+				r.seq as RESER_SEQ, r.mem_seq as RESER_MEM_SEQ, r.hos_seq as RESER_HOS_SEQ, 
+				r.doc_seq as RESER_DOC_SEQ, r.content as RESER_CONTENT, r.day as RESER_DAY,
+				r.time as RESER_TIME, r.wdate as RESER_WDATE, r.type as RESER_TYPE,
+				h.name as HOS_NAME, m.name as MEM_NAME, d.name as DOC_NAME
+			FROM (SELECT @ROWNUM := 0) R, `medi`.`medi_reservation` r
+			INNER JOIN
+				`medi`.`medi_hospital` h
+			ON
+				r.hos_seq = h.seq
+			INNER JOIN
+				`medi`.`medi_member` m
+			ON
+				r.mem_seq = m.seq
+			INNER JOIN
+				`medi`.`medi_doctor` d
+			ON
+				r.doc_seq = d.seq
+			WHERE 1=1 AND r.hos_seq=#{hos_seq}
+			<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+				<if test="s_category == 'hos_name'">
+					AND h.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'mem_name'">
+					AND m.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+				<if test="s_category == 'doc_name'">
+					AND d.name LIKE CONCAT('%',#{s_keyword},'%')
+				</if>
+			</if>) A
+		WHERE A.ROWNUM BETWEEN ${start} AND ${end}
+		ORDER BY RESER_SEQ ASC
+	</select>
+	
+	<delete id="deleteHospitalReservation" parameterType="kh.com.medi.model.MediAdminReservationDto">
+		DELETE FROM `medi`.`medi_reservation`
+		WHERE `seq`=#{seq}
+	</delete>
 
 </mapper>

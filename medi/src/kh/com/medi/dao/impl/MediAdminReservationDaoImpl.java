@@ -33,4 +33,20 @@ public class MediAdminReservationDaoImpl implements MediAdminReservationDao {
 		return n > 0;
 	}
 
+	@Override
+	public int getHospitalReservationListCount(MediAdminReservationDto dto_r) {
+		return sqlSession.selectOne(ns+"getHospitalReservationListCount", dto_r);
+	}
+
+	@Override
+	public List<MediAdminReservationDto> getHospitalReservationList(MediAdminReservationDto dto_r) {
+		return sqlSession.selectList(ns+"getHospitalReservationList", dto_r);
+	}
+
+	@Override
+	public boolean deleteHospitalReservation(MediAdminReservationDto dto_r) {
+		int n = sqlSession.delete(ns+"deleteHospitalReservation", dto_r);
+		return n > 0;
+	}
+
 }
