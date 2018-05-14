@@ -30,4 +30,19 @@ public class MediAdminReservationServiceImpl implements MediAdminReservationServ
 		return mediAdminReservationDao.deleteAdminReservation(dto_r);
 	}
 
+	@Override
+	public int getHospitalReservationListCount(MediAdminReservationDto dto_r) {
+		return mediAdminReservationDao.getHospitalReservationListCount(dto_r);
+	}
+
+	@Override
+	public List<MediAdminReservationDto> getHospitalReservationList(MediAdminReservationDto dto_r) {
+		return mediAdminReservationDao.getHospitalReservationList(dto_r);
+	}
+
+	@Override
+	public boolean deleteHospitalReservation(MediAdminReservationDto dto_r) {
+		return mediAdminReservationDao.deleteHospitalReservation(dto_r);
+	}
+
 }
