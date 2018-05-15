@@ -78,7 +78,7 @@
    <div class="inner">
       <h1 class="logo">
          <a href="main.do">
-            I Chee U
+           <img src="./images/common/top_logo1.png" alt="아이치유">
          </a>
       </h1>
    </div>
