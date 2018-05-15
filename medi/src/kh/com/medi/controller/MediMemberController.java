@@ -272,10 +272,12 @@ public class MediMemberController {
 	
 	
 	@RequestMapping(value="logout.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String logout(Model model) throws Exception{
+	public String logout(HttpServletRequest req) throws Exception{
 		logger.info("MediMemberController logout " + new Date());
 		
-		return "logout.tiles";
+		req.getSession().invalidate();
+		
+		return "main.tiles";
 	}
 	
 	@RequestMapping(value="memberIdPwFind.do", method={RequestMethod.GET, RequestMethod.POST})
