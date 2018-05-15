@@ -29,7 +29,7 @@
 <header id="header_wrap_sub" style="position:unset;">
 	<div class="inner">
 		<h1 class="logo">
-			<a href="main.do" style="color:#fff;">I Chee U</a>
+			<a href="logout.do" style="color:#fff;">I Chee U</a>
 		</h1>
 		<div class="sub_admin_menu">
 			<ul>
