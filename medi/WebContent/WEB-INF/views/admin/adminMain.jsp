@@ -47,7 +47,7 @@
 					
 					
 					<!-- 기간별 예약 횟수 그래프 표시 -->
-					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">hi</div>
+					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 					
 					
 					
