@@ -2,7 +2,25 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<style>
+.joinChoiceWrap{width:700px; margin:0 auto 80px;}
+.joinChoice:first-child{margin-left:0;}
+.joinChoice{width:320px; display:inline-block; margin-left:30px; background-color:#f4f5f9; padding:30px 0;}
 
+.choiceTitle{width:100%; text-align:center; font-size:24px; color:#111; font-weight:800; margin-bottom:10px;}
+.choiceSubT{width:100%; text-align:center; font-size:16px; color:#777; display:block; margin-bottom:40px;}
+.choiceicon{width:110px; display:block; margin:0 auto 30px;}
+.choiceicon img{width:100%;}
+.choiceGoBtn{    
+	width: 120px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #757a85;
+    color: #fff;
+    padding: 8px 0;
+}
+</style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -17,22 +35,19 @@
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
-				<div>
-					<a href="joinMember.do">일반 회원가입</a>
-					<br>
-					<a href="join_h.do">병원 회원가입</a>
-					<br>
-					<a href="update_h.do">병원 회원수정</a>
-					<br>
-					<a href="delete_h.do">병원 회원탈퇴</a>
-					<br>
-					<a href="join_d.do">의사 회원가입</a>
-					<br>
-					<a href="update_d.do">의사 회원수정</a>
-					<br>
-					<a href="delete_d.do">의사 회원탈퇴</a>
-					<br>
-					<a href="login_h.do">로그인</a>
+				<div class="joinChoiceWrap">
+					<div class="joinChoice">
+						<p class="choiceTitle">일반 회원가입</p>
+						<span class="choiceSubT">일반인 분들은 여기로 오세요!</span>
+						<span class="choiceicon"><img src="images/sub/patient.png" alt=""></span>
+						<a href="joinMember.do" class="choiceGoBtn">회원가입</a>
+					</div>
+					<div class="joinChoice">
+						<p class="choiceTitle">병원 회원가입</p>
+						<span class="choiceSubT">병원 관계자분들은 여기로 오세요!</span>
+						<span class="choiceicon"><img src="images/sub/doctor.png" alt=""></span>
+						<a href="join_h.do" class="choiceGoBtn">회원가입</a>
+					</div>
 				</div>
 				<!-- 이부분에 컨텐츠 끝 -->
 				</div>

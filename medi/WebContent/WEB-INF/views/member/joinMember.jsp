@@ -5,7 +5,6 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <style>
 div {
-  margin-bottom: 10px;
   position: relative;
 }
 
@@ -29,6 +28,24 @@ input:valid+span:after {
   padding-left: 5px;
   color: #009000;
 }
+.tableWrap tr{
+	border-top:1px solid #d9d9d9;
+	border-bottom:1px solid #d9d9d9;
+}
+.tableWrap th{
+	text-align:left;
+	padding: 14px 38px;
+	background-color: rgb(244, 245, 248)
+}
+.tableWrap td{
+	border-left-width: 100px;
+	padding: 14px 14px 14px 20px;
+}
+input select{
+	border-width: 100px;
+	padding: 8px 20px;
+}
+.bg_blue{padding:0 !important; font-size:12px;}
 </style>
 
 
@@ -47,59 +64,115 @@ input:valid+span:after {
 		</div>
 		<!-- content 시작 -->
 		<form id="form-submit" name="wform" action="joinMemberAf.do" method="post" enctype="multipart/form-data">
-						
 		<div class="content">
 			<div class="inner_flogin">
-				<!-- 이부분에 컨텐츠 시작 -->
-				ID : <input name="id" type="text" class="form-control" id="id"
-					placeholder="id" required="" ><font id="result_id_msg" size="2"></font><br>
-				
-				PWD : <input name="password1" type="password" class="form-control"
-					id="password1" placeholder="password" required=""><font
-					name="check1" size="2"></font><br>
-			    PWD :<input name="password2" type="password" class="form-control"
-					id="password2" placeholder="password" required=""> <font
-					name="check" size="2"></font> <br>
-				NAME:<input name="name" type="name"
-					class="form-control" id="name" placeholder="name" required="">
-<br>
-				EMAIL:<input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="이메일을 입력하세요">
-				<!-- <input name="email" type="email" class="form-control" id="email"
-					placeholder="email" required=""> --><font id="result_email_msg" size="2"></font> <br>
-				PHONE:<input type="tel" name="phone" id="phone" title="phone number"
-					placeholder="000-0000-0000"
-					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
-					required><font id="result_phone_msg" size="2"></font><span class="validity"></span>
-					<!-- <input type="tel" name="phone" id="phone" title="phone number"
-					placeholder="000-0000-0000"
-					pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13"
-					required=""> --> <br>
-				
-				
-				POST:<input type="text" id="sample4_postcode" name="post" placeholder="우편번호" required="">
-				<input type="button"
-					onclick="sample4_execDaumPostcode()" value="주소검색" required=""><br>
-				<input type="text" id="sample4_roadAddress" name="addr1"
-					placeholder="도로명주소" size="40" required=""><br>
-			    <input type="text" id="addr" name="addr2" placeholder="추가주소" required=""><br>
-				<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"><br>
-				<span id="guide" style="color:#999"></span>
-				QUESTION:<select id="question" name="question" onchange="photoChange()">
-							<option>질문선택</option>
-							<option value="감명 깊게 읽은 책은?">감명 깊게 읽은 책은?</option>
-							<option value="가장 가고 싶은 여행지는?">가장 가고 싶은 여행지는?</option>
-							<option value="가장 기억나는 선생님은?">가장 기억나는 선생님은?</option>
-							<option value="내가 가장 아끼는 보물 한가지">내가 가장 아끼는 보물 한가지</option>	
-							<option value="제일 감명깊게 본 영화제목">제일 감명깊게 본 영화제목</option>		
-						 </select><br>
-				ANSWER:<input name="answer" type="text" class="form-control" id="answer" 
-					 placeholder="answer" required=""><br> 
-				IMG:<input type="file" name="fileload" value="파일첩부">
-				<fieldset>
-					<button id="form-submit" type="submit" 
-						class="btn">join us</button>
-				</fieldset>
-				<!-- 이부분에 컨텐츠 끝 -->
+				<table class="tableWrap">
+					<col width="200px"><col width="">
+					<tr>
+						<th>
+							아이디
+						</th>
+						<td>
+							<input name="id" type="text" class="form-control" id="id" placeholder="id" required="" >
+							<font id="result_id_msg" size="2"></font>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							비밀번호
+						</th>
+						<td>
+							 <input name="password1" type="password" class="form-control" id="password1" placeholder="password" required="">
+							 <font name="check1" size="2"></font>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							비밀번호 확인
+						</th>
+						<td>
+							<input name="password2" type="password" class="form-control" id="password2" placeholder="password" required="">
+							<font name="check" size="2"></font>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							이름
+						</th>
+						<td>
+							<input name="name" type="name" class="form-control" id="name" placeholder="name" required="">
+						</td>
+					</tr>
+					<tr>
+						<th>
+							이메일
+						</th>
+						<td>
+							<input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="이메일을 입력하세요">
+							<font id="result_email_msg" size="2"></font>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							전화번호
+						</th>
+						<td>
+							<input type="tel" name="phone" id="phone" title="phone number" placeholder="000-0000-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13" required>
+							<font id="result_phone_msg" size="2"></font>
+							<span class="validity"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							주소
+						</th>
+						<td>
+							<input type="text" id="sample4_postcode" name="post" placeholder="우편번호" required="">
+							<input type="button" onclick="sample4_execDaumPostcode()" value="주소검색" required=""><br>
+							<input type="text" id="addr" name="addr2" placeholder="추가주소" required="">
+							<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+							<span id="guide" style="color:#999"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							질문
+						</th>
+						<td>
+							<select id="question" name="question" onchange="photoChange()">
+								<option>질문선택</option>
+								<option value="감명 깊게 읽은 책은?">감명 깊게 읽은 책은?</option>
+								<option value="가장 가고 싶은 여행지는?">가장 가고 싶은 여행지는?</option>
+								<option value="가장 기억나는 선생님은?">가장 기억나는 선생님은?</option>
+								<option value="내가 가장 아끼는 보물 한가지">내가 가장 아끼는 보물 한가지</option>	
+								<option value="제일 감명깊게 본 영화제목">제일 감명깊게 본 영화제목</option>		
+							 </select>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							답변
+						</th>
+						<td>
+							<input name="answer" type="text" class="form-control" id="answer" placeholder="answer" required="">
+						</td>
+					</tr>
+					<tr>
+						<th>
+							프로필 사진
+						</th>
+						<td>
+							<input type="file" name="fileload" value="파일첩부">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<fieldset>
+								<button id="form-submit" type="submit" class="btn">join us</button>
+							</fieldset>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		</form>
