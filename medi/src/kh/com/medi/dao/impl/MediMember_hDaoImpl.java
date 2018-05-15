@@ -102,4 +102,9 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 	public List<MediHospital_imageDto> getImageList(MediMember_hDto dto_h) {
 		return sqlSession.selectList(ns+"getImageList", dto_h);
 	}
+
+	@Override
+	public List<MediMember_hDto> getScoreList() {
+		return sqlSession.selectList(ns+"getScoreList");
+	}
 }
