@@ -34,22 +34,22 @@
 		<div class="sub_admin_menu">
 			<ul>
 				<li>
-					<a href="">메인</a>
+					<a href="adminMain.do">메인</a>
 				</li>
 				<li>
-					<a href="">일반회원</a>
+					<a href="adminMemberList.do">일반회원</a>
 				</li>
 				<li>
-					<a href="">병원회원</a>
+					<a href="adminHospitalList.do">병원회원</a>
 				</li>
 				<li>
-					<a href="">의사 리스트</a>
+					<a href="adminDoctorList.do">의사 리스트</a>
 				</li>
 				<li>
-					<a href="">예약현황</a>
+					<a href="adminReservationList.do">예약현황</a>
 				</li>
 				<li>
-					<a href="">병원 회원승인</a>
+					<a href="adminHospitalConfirm.do">병원 회원승인</a>
 				</li>
 			</ul>
 		</div>

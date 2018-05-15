@@ -96,16 +96,16 @@ public class MediMemberController {
 						req.getSession().setAttribute("login", b);
 						req.getSession().setAttribute("loginType", "2");
 						System.out.println("2");
+						return "redirect:/adminMain.do";
 					}else {
 						req.getSession().setAttribute("login", b);
 						req.getSession().setAttribute("loginType", "1");
 						System.out.println("2");
+						return "redirect:/main.do";
 					}
-					return "redirect:/main.do";//그냥 몸만 감
-					//return "forward:/login.do";	//데이터도 가지고 감 
 				}else {
 					System.out.println("1");
-					model.addAttribute("msg", "id나 pwd를 확인해주세요"); 
+					model.addAttribute("msg", "탈퇴한 회원입니다."); 
 					return "login.tiles";
 				}
 			}else {
@@ -119,7 +119,10 @@ public class MediMemberController {
 			
 			if(dto_login_h == null) {
 				System.out.println("아이디 비밀번호 틀림");
-				model.addAttribute("msg", "아이디나 비밀번호를 확인하세요");
+				model.addAttribute("msg", "아이디나 비밀번호를 확인해주세요");
+				return "login.tiles";
+			}else if(dto_login_h.getDel() == 0) {
+				model.addAttribute("msg", "탈퇴한 회원입니다.");
 				return "login.tiles";
 			}else if(dto_login_h.getAuth() == 3) {
 				System.out.println("dto_login_h.getAuth() : " + dto_login_h.getAuth());
@@ -132,8 +135,6 @@ public class MediMemberController {
 			
 			return "redirect:/main.do";
 		}
-		
-		
 	}
 	
 	@ResponseBody

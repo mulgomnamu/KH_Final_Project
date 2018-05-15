@@ -3,6 +3,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style>
+.tableWrap tr{
+	border-bottom:1px solid #d9d9d9;
+}
+.tableWrap tr:first-child{
+	border-top:3px solid #d9d9d9;
+}
+.tableWrap th{
+	text-align:left;
+	padding: 14px 14px;
+	background-color: rgb(244, 245, 248)
+}
+.tableWrap td{
+	border-left-width: 100px;
+	padding: 14px 14px 14px 20px;
+	vertical-align: center;
+}
+
+.tableWrap tr{border-bottom:1px solid #d9d9d9;}
+.tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
+.tableWrap th{text-align:left;}
+
+.s_btn{width:100px; height:40px; display:block; line-height:40px; margin:20px auto 20px; text-align:center; background-color:#0b2d85; color:#fff; border-radius:5px;}
+</style>
+
 <!-- 로그인 처리 -->
 <c:if test="${loginType ne 2 }">
 	<script type="text/javascript">
@@ -94,7 +119,7 @@
 										<div id="updateModal${memberList.seq }" class="modal">
 											<span><h3>${memberList.name }님 회원 정보</h3></span>
 											<form action="#none" id="updateForm${memberList.seq }" method="post">
-												<table class="list_table1">
+												<table class="tableWrap">
 													<col width="100px"><col width="50px">
 													<tr><th>이름</th><td><input type="text" name="name" value="${memberList.name }"><input type="hidden" name="seq" value="${memberList.seq }"></td></tr>
 													<tr><th>전화번호</th><td><input type="text" name="tel" value="${memberList.tel }"></td></tr>
@@ -108,7 +133,7 @@
 													<tr><th>회원구분</th><td><input type="text" name="auth" value="${memberList.auth }"></td></tr>
 												</table>
 											</form>
-											<button id="updateBtn" onclick="updateBtn(${memberList.seq });">수정</button>
+											<button id="updateBtn" onclick="updateBtn(${memberList.seq });" class="s_btn">수정</button>
 										</div>
 										
 <!-- Link to open the modal -->

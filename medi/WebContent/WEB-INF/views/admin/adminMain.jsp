@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
+<!-- highchart -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -36,8 +36,8 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>Big hjh</h2>
-				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
+				<h2>안녕하세요 관리자님</h2>
+				<em>관리자 페이지입니다.</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -62,42 +62,50 @@
 
 <script>
 
-
-
-Highcharts.chart('container', {
-  chart: {
-    type: 'line'
-  },
-  title: {
-    text: 'Monthly Average Temperature'
-  },
-  subtitle: {
-    text: 'Source: WorldClimate.com'
-  },
-  xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  },
-  yAxis: {
-    title: {
-      text: 'Temperature (°C)'
-    }
-  },
-  plotOptions: {
-    line: {
-      dataLabels: {
-        enabled: true
-      },
-      enableMouseTracking: false
-    }
-  },
-  series: [{
-    name: 'Tokyo',
-    data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-  }, {
-    name: 'London',
-    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-  }]
+$.ajax({
+	url: 'getUserChartData.do',
+	type: 'post',
+	success: function(data) {
+		
+		Highcharts.chart('container', {
+			  chart: {
+			    type: 'line'
+			  },
+			  title: {
+			    text: '이번 주 회원 가입 현황'
+			  },
+			  subtitle: {
+			    text: '구분 : 일반, 병원 회원'
+			  },
+			  xAxis: {
+			    categories: ['D-6', 'D-5', 'D-4', 'D-3', 'D-2', 'D-1', 'D-0', 'This Week']
+			  },
+			  yAxis: {
+			    title: {
+			      text: '회원 수(명)'
+			    }
+			  },
+			  plotOptions: {
+			    line: {
+			      dataLabels: {
+			        enabled: true
+			      },
+			      enableMouseTracking: false
+			    }
+			  },
+			  series: [{
+			    name: '일반',
+			    data: [data.mem.d0, data.mem.d1, data.mem.d2, data.mem.d3, data.mem.d4, data.mem.d5, data.mem.d6, data.mem.total]
+			  }, {
+			    name: '병원',
+			    data: [data.hos.d0, data.hos.d1, data.hos.d2, data.hos.d3, data.hos.d4, data.hos.d5, data.hos.d6, data.hos.total]
+			  }]
+			});
+		
+	}
 });
+
+
 
 
 </script>

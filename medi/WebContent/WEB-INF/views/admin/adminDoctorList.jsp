@@ -3,6 +3,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style>
+.tableWrap tr{
+	border-bottom:1px solid #d9d9d9;
+}
+.tableWrap tr:first-child{
+	border-top:3px solid #d9d9d9;
+}
+.tableWrap th{
+	text-align:left;
+	padding: 14px 14px;
+	background-color: rgb(244, 245, 248)
+}
+.tableWrap td{
+	border-left-width: 100px;
+	padding: 14px 14px 14px 20px;
+	vertical-align: center;
+}
+
+.tableWrap tr{border-bottom:1px solid #d9d9d9;}
+.tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
+.tableWrap th{text-align:left;}
+
+.s_btn{width:100px; height:40px; display:block; line-height:40px; margin:20px auto 20px; text-align:center; background-color:#0b2d85; color:#fff; border-radius:5px;}
+</style>
+
 <!-- 로그인 처리 -->
 <c:if test="${loginType ne 2 }">
 	<script type="text/javascript">
@@ -59,7 +84,6 @@
 								<th>진료분야</th>
 								<th>진료요일</th>
 								<th>의사소개</th>
-								<th>시간 수정</th>
 								<th>수정</th>
 							</tr>
 							<c:forEach var="memberList" items="${loginList }">
@@ -72,396 +96,11 @@
 									<td><span id="day_tostring${memberList.seq }">${memberList.day_tostring }</span></td>
 									<td><span id="doc_content${memberList.seq }">${memberList.doc_content }</span></td>
 									<td>
-<!-- 의사 진료시간 수정 Modal -->
-										<div id="updateScheduleModal${memberList.seq }" class="modal">
-											<span><h3>${memberList.name }님 회원 정보</h3></span>
-											<form action="#none" id="updateForm${memberList.seq }" method="post">
-												<table>
-													<tr>
-														<td>
-															<input type="checkbox" id="allCheckBox2" checked>
-														</td>
-														<td>
-															진료 시작 시간
-														</td>
-														<td>
-															진료 마감 시간
-														</td>
-														<td>
-															식사 시간(1시간)
-														</td>
-													</tr>
-			<!-- 일요일 -->
-													<tr>
-														<td>
-															<input type="checkbox" id="sunCheckbox" name="list_day" value="일" <c:if test="${sun_sch.day eq '일' }">checked</c:if>>일요일
-															<input type="hidden" id="sun_s_time" name="">
-															<input type="hidden" id="sun_e_time" name="">
-															<input type="hidden" id="sun_l_time" name="">
-														</td>
-														<td>
-							 								<select id="sun_sh" name="sun_sh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${sun_sch.start_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="sun_sm" name="sun_sm">
-																<option value="00" <c:if test="${sun_sch.start_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${sun_sch.start_min eq '30' }">selected</c:if>>30</option>
-															</select> 
-														</td>
-														<td>
-							 								<select id="sun_eh" name="sun_eh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${sun_sch.end_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="sun_em" name="sun_em">
-																<option value="00" <c:if test="${sun_sch.end_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${sun_sch.end_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="sun_lh" name="sun_lh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${sun_sch.lunch_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="sun_lm" name="sun_lm">
-																<option value="00" <c:if test="${sun_sch.lunch_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${sun_sch.lunch_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-													</tr>
-			<!-- 월요일 -->
-													<tr>
-														<td>
-															<input type="checkbox" id="monCheckbox" name="list_day" value="월" <c:if test="${mon_sch.day eq '월' }">checked</c:if>>월요일
-															<input type="hidden" id="mon_s_time" name="">
-															<input type="hidden" id="mon_e_time" name="">
-															<input type="hidden" id="mon_l_time" name="">
-														</td>
-														<td>
-							 								<select id="mon_sh" name="mon_sh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${mon_sch.start_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="mon_sm" name="mon_sm">
-																<option value="00" <c:if test="${mon_sch.start_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${mon_sch.start_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="mon_eh" name="mon_eh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${mon_sch.end_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="mon_em" name="mon_em">
-																<option value="00" <c:if test="${mon_sch.end_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${mon_sch.end_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="mon_lh" name="mon_lh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${mon_sch.lunch_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="mon_lm" name="mon_lm">
-																<option value="00" <c:if test="${mon_sch.lunch_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${mon_sch.lunch_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-													</tr>
-			<!-- 화요일 -->
-													<tr>
-														<td>
-															<input type="checkbox" id="tueCheckbox" name="list_day" value="화" <c:if test="${tue_sch.day eq '화' }">checked</c:if>>화요일
-															<input type="hidden" id="tue_s_time" name="">
-															<input type="hidden" id="tue_e_time" name="">
-															<input type="hidden" id="tue_l_time" name="">
-														</td>
-														<td>
-							 								<select id="tue_sh" name="tue_sh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${tue_sch.start_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="tue_sm" name="tue_sm">
-																<option value="00" <c:if test="${tue_sch.start_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${tue_sch.start_min eq '00' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="tue_eh" name="tue_eh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${tue_sch.end_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="tue_em" name="tue_em">
-																<option value="00" <c:if test="${tue_sch.end_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${tue_sch.end_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="tue_lh" name="tue_lh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${tue_sch.lunch_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="tue_lm" name="tue_lm">
-																<option value="00" <c:if test="${tue_sch.lunch_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${tue_sch.lunch_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-													</tr>
-			<!-- 수요일 -->
-													<tr>
-														<td>
-															<input type="checkbox" id="wenCheckbox" name="list_day" value="수" <c:if test="${wen_sch.day eq '수' }">checked</c:if>>수요일
-															<input type="hidden" id="wen_s_time" name="">
-															<input type="hidden" id="wen_e_time" name="">
-															<input type="hidden" id="wen_l_time" name="">
-														</td>
-														<td>
-							 								<select id="wen_sh" name="wen_sh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${wen_sch.start_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="wen_sm" name="wen_sm">
-																<option value="00" <c:if test="${wen_sch.start_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${wen_sch.start_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="wen_eh" name="wen_eh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${sun_sch.end_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="wen_em" name="wen_em">
-																<option value="00" <c:if test="${wen_sch.end_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${wen_sch.end_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="wen_lh" name="wen_lh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${wen_sch.lunch_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="wen_lm" name="wen_lm">
-																<option value="00" <c:if test="${wen_sch.lunch_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${wen_sch.lunch_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-													</tr>
-			<!-- 목요일 -->
-													<tr>
-														<td>
-															<input type="checkbox" id="thurCheckbox" name="list_day" value="목" <c:if test="${thur_sch.day eq '목' }">checked</c:if>>목요일
-															<input type="hidden" id="thur_s_time" name="">
-															<input type="hidden" id="thur_e_time" name="">
-															<input type="hidden" id="thur_l_time" name="">
-														</td>
-														<td>
-							 								<select id="thur_sh" name="thur_sh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${thur_sch.start_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="thur_sm" name="thur_sm">
-																<option value="00" <c:if test="${thur_sch.start_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${thur_sch.start_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="thur_eh" name="thur_eh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${thur_sch.end_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="thur_em" name="thur_em">
-																<option value="00" <c:if test="${thur_sch.end_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${thur_sch.end_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="thur_lh" name="thur_lh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${thur_sch.lunch_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="thur_lm" name="thur_lm">
-																<option value="00" <c:if test="${thur_sch.lunch_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${thur_sch.lunch_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-													</tr>
-			<!-- 금요일 -->
-													<tr>
-														<td>
-															<input type="checkbox" id="friCheckbox" name="list_day" value="금" <c:if test="${fri_sch.day eq '금' }">checked</c:if>>금요일
-															<input type="hidden" id="fri_s_time" name="">
-															<input type="hidden" id="fri_e_time" name="">
-															<input type="hidden" id="fri_l_time" name="">
-														</td>
-														<td>
-							 								<select id="fri_sh" name="fri_sh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${fri_sch.start_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="fri_sm" name="fri_sm">
-																<option value="00" <c:if test="${fri_sch.start_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${fri_sch.start_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="fri_eh" name="fri_eh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${fri_sch.end_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="fri_em" name="fri_em">
-																<option value="00" <c:if test="${fri_sch.end_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${fri_sch.end_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="fri_lh" name="fri_lh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${fri_sch.lunch_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="fri_lm" name="fri_lm">
-																<option value="00" <c:if test="${fri_sch.lunch_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${fri_sch.lunch_min eq '00' }">selected</c:if>>30</option>
-															</select>
-														</td>
-													</tr>
-			<!-- 토요일 -->
-													<tr>
-														<td>
-															<input type="checkbox" id="satCheckbox" name="list_day" value="토" <c:if test="${sat_sch.day eq '토' }">checked</c:if>>토요일
-															<input type="hidden" id="sat_s_time" name="">
-															<input type="hidden" id="sat_e_time" name="">
-															<input type="hidden" id="sat_l_time" name="">
-														</td>
-														<td>
-							 								<select id="sat_sh" name="sat_sh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${sat_sch.start_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="sat_sm" name="sat_sm">
-																<option value="00" <c:if test="${sat_sch.start_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${sat_sch.start_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="sat_eh" name="sat_eh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${sat_sch.end_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="sat_em" name="sat_em">
-																<option value="00" <c:if test="${sat_sch.end_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${sat_sch.end_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-														<td>
-							 								<select id="sat_lh" name="sat_lh">
-																<c:forEach begin="0" end="23" var="item">
-																	<option value="${item}" <c:if test="${sun_sch.lunch_hour eq item }">selected</c:if>>
-																		<fmt:formatNumber value="${item}" type="number" minIntegerDigits="2"/>
-																	</option>
-																</c:forEach>
-															</select>
-															:
-															<select id="sat_lm" name="sat_lm">
-																<option value="00" <c:if test="${sat_sch.lunch_min eq '00' }">selected</c:if>>00</option>
-																<option value="30" <c:if test="${sat_sch.lunch_min eq '30' }">selected</c:if>>30</option>
-															</select>
-														</td>
-													</tr>
-												</table>
-											</form>
-											<button id="updateBtn" onclick="updateBtn(${memberList.seq });">수정</button>
-										</div>
-										
-<!-- Link to open the modal -->
-										<p><a href="#updateScheduleModal${memberList.seq }" rel="modal:open">수정</a></p>
-									</td>
-									<td>
 <!-- 의사 정보 수정 Modal -->
 										<div id="updateModal${memberList.seq }" class="modal">
 											<span><h3>${memberList.name }님 회원 정보</h3></span>
 											<form action="#none" id="updateForm${memberList.seq }" method="post">
-												<table class="list_table1">
+												<table class="tableWrap">
 													<col width="100px"><col width="50px">
 													<tr><th>이름</th><td><input type="text" name="name" value="${memberList.name }"><input type="hidden" name="seq" value="${memberList.seq }"></td></tr>
 													<tr><th>진료분야</th><td><input type="text" name="specialty" value="${memberList.specialty }"></td></tr>
@@ -469,7 +108,7 @@
 													<tr><th>의사소개</th><td><input type="text" name="doc_content" value="${memberList.doc_content }"></td></tr>
 												</table>
 											</form>
-											<button id="updateBtn" onclick="updateBtn(${memberList.seq });">수정</button>
+											<button id="updateBtn" onclick="updateBtn(${memberList.seq });" class="s_btn">수정</button>
 										</div>
 										
 <!-- Link to open the modal -->

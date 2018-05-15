@@ -1,7 +1,9 @@
 package kh.com.medi.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +92,20 @@ public class MediAdminController {
 		}else {
 			return null;
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getUserChartData.do", method={RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> getUserChartData(Model model) {
+		logger.info("MediAdminController getUserChartData " + new Date());
+
+		model.addAttribute("mem", mediAdminService.getMemChartData());
+		model.addAttribute("hos", mediAdminService.getHosChartData());
+		
+		Map<String, Object> chartData = new HashMap<String, Object>();
+		chartData.put("mem", mediAdminService.getMemChartData());
+		chartData.put("hos", mediAdminService.getHosChartData());
+		return chartData;
 	}
 	
 	

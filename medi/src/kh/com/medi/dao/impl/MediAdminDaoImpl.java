@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediAdminDao;
+import kh.com.medi.model.MediAdminHosChartDto;
+import kh.com.medi.model.MediAdminMemChartDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMyListPagingDto;
 
@@ -54,6 +56,16 @@ public class MediAdminDaoImpl implements MediAdminDao {
 	public boolean updateMemberByAdmin(MediMyListPagingDto dto_m) {
 		int n = sqlSession.update(ns+"updateMemberByAdmin", dto_m);
 		return n > 0;
+	}
+
+	@Override
+	public MediAdminMemChartDto getMemChartData() {
+		return sqlSession.selectOne(ns+"getMemChartData");
+	}
+
+	@Override
+	public MediAdminHosChartDto getHosChartData() {
+		return sqlSession.selectOne(ns+"getHosChartData");
 	}
 
 }

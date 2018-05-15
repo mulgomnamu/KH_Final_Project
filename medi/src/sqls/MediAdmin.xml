@@ -65,4 +65,47 @@
 		WHERE `seq`=#{seq}
 	</update>
 	
+	
+	<select id="getMemChartData" resultType="kh.com.medi.model.MediAdminMemChartDto">
+		select
+			count(*) total, 
+			(SELECT count(*) FROM medi_member
+				where substr(regdate, 1, 10) = curdate()) d0,
+			(SELECT count(*) FROM medi_member
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 1 day and substr(CURDATE(), 1, 10) - INTERVAL 0 day) d1,
+			(SELECT count(*) FROM medi_member
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 2 day and substr(CURDATE(), 1, 10) - INTERVAL 1 day) d2,
+			(SELECT count(*) FROM medi_member
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 3 day and substr(CURDATE(), 1, 10) - INTERVAL 2 day) d3,
+			(SELECT count(*) FROM medi_member
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 4 day and substr(CURDATE(), 1, 10) - INTERVAL 3 day) d4,
+			(SELECT count(*) FROM medi_member
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 5 day and substr(CURDATE(), 1, 10) - INTERVAL 4 day) d5,
+			(SELECT count(*) FROM medi_member
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 6 day and substr(CURDATE(), 1, 10) - INTERVAL 5 day) d6
+		from medi_member 
+		where regdate > date_add(now(),interval - 6 day); 
+	</select>
+	
+	<select id="getHosChartData" resultType="kh.com.medi.model.MediAdminHosChartDto">
+		select
+			count(*) total, 
+			(SELECT count(*) FROM medi_hospital
+				where substr(regdate, 1, 10) = curdate()) d0,
+			(SELECT count(*) FROM medi_hospital
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 1 day and substr(CURDATE(), 1, 10) - INTERVAL 0 day) d1,
+			(SELECT count(*) FROM medi_hospital
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 2 day and substr(CURDATE(), 1, 10) - INTERVAL 1 day) d2,
+			(SELECT count(*) FROM medi_hospital
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 3 day and substr(CURDATE(), 1, 10) - INTERVAL 2 day) d3,
+			(SELECT count(*) FROM medi_hospital
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 4 day and substr(CURDATE(), 1, 10) - INTERVAL 3 day) d4,
+			(SELECT count(*) FROM medi_hospital
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 5 day and substr(CURDATE(), 1, 10) - INTERVAL 4 day) d5,
+			(SELECT count(*) FROM medi_hospital
+				where regdate between substr(CURDATE(), 1, 10) - INTERVAL 6 day and substr(CURDATE(), 1, 10) - INTERVAL 5 day) d6
+		from medi_hospital 
+		where regdate > date_add(now(),interval - 6 day); 
+	</select>
+	
 </mapper>
