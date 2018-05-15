@@ -91,7 +91,7 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 	}
 
 	@Override
-	public int getBbsCount(MediConsultingAllDto alldto) throws Exception {
+	public int getBbsCount1(MediConsultingAllDto alldto) throws Exception {
 		int number = 0;
 		number = sqlSession.selectOne(ns + "getcomCount", alldto);
 		return number;
@@ -181,6 +181,21 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 	public MediConsultingAnswerDto answerdetail(MediConsultingAllDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(ns+"myanswerdetail", alldto);
+	}
+	@Override
+	public MediQnaBbsDto getQnADetail(MediQnaBbsDto dto) throws Exception {
+		MediQnaBbsDto detaildto = sqlSession.selectOne(ns + "getQnADetail", dto);
+		return detaildto;
+	}
+	@Override
+	public boolean QnAupdateBbs(MediQnaBbsDto dto) throws Exception {
+		int n = sqlSession.update(ns+"QnAUpdate", dto);
+		return n>0?true:false;
+	}
+	@Override
+	public boolean QnAdeleteBbs(MediQnaBbsDto dto) throws Exception {
+		int n = sqlSession.update(ns+"QnADelete", dto);
+		return n>0?true:false;
 	}
 	
 }

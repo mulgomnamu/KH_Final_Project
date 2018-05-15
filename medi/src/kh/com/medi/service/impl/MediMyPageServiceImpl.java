@@ -70,9 +70,9 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	}
 
 	@Override
-	public int getBbsCount(MediConsultingAllDto alldto) throws Exception {
+	public int getBbsCount1(MediConsultingAllDto alldto) throws Exception {
 		// TODO Auto-generated method stub
-		return mediMyPageDao.getBbsCount(alldto);
+		return mediMyPageDao.getBbsCount1(alldto);
 	}
 
 	@Override
@@ -167,6 +167,20 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 	public MediConsultingAnswerDto answerdetail(MediConsultingAllDto alldto) throws Exception {
 		// TODO Auto-generated method stub
 		return mediMyPageDao.answerdetail(alldto);
+	}
+	@Override
+	public MediQnaBbsDto getQnADetail(MediQnaBbsDto dto) throws Exception {
+		return mediMyPageDao.getQnADetail(dto);
+	}
+	@Override
+	public boolean QnAupdateBbs(MediQnaBbsDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.QnAupdateBbs(dto);
+	}
+	@Override
+	public boolean QnAdeleteBbs(MediQnaBbsDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.QnAdeleteBbs(dto);
 	}
 
 }

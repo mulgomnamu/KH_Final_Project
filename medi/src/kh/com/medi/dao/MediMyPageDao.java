@@ -30,7 +30,12 @@ public interface MediMyPageDao {
 	
 	/*QnA*/
 	int getBbsCount(MediQnaBbsParamDto mylist) throws Exception;
-	
+	//Qna detail
+	public MediQnaBbsDto getQnADetail(MediQnaBbsDto dto) throws Exception;
+	//Qna update
+	public boolean QnAupdateBbs(MediQnaBbsDto dto) throws Exception;
+	//Qna delete
+	public boolean QnAdeleteBbs(MediQnaBbsDto dto) throws Exception;
 
 	List<MediQnaBbsDto> getBbsPagingList(MediQnaBbsParamDto mylist) throws Exception;
 	
@@ -49,7 +54,7 @@ public interface MediMyPageDao {
 	//병원스코어올리기
 	public void plusscore(MediConsultingAllDto dto) throws Exception;
 	
-	int getBbsCount(MediConsultingAllDto alldto) throws Exception;
+	int getBbsCount1(MediConsultingAllDto alldto) throws Exception;
 	
 	//디테일
 	public MediConsultingQuestionDto getBbsDetail(MediConsultingAllDto dto) throws Exception;

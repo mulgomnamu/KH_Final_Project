@@ -55,14 +55,15 @@ public class MediConsultingController {
 		
 		model.addAttribute("s_category", alldto.getS_category());
 		model.addAttribute("s_keyword", alldto.getS_keyword());
+		
 		//답변처리안된글
 		int sn1 = alldto.getPageNumber1();
-		int start1 = (sn1) * alldto.getRecordCountPerPage1() + 1;
+		int start1 =(sn1) * alldto.getRecordCountPerPage1() + 1;
 		int end1 = (sn1 + 1) * alldto.getRecordCountPerPage1();
 		
 		alldto.setStart(start1);
 		alldto.setEnd(end1);
-		
+		//11
 		int totalRecordCount1 = mediConsultingService.getqueCount(alldto);
 		List<MediConsultingQuestionDto> onlyquestionlist = mediConsultingService.getquePagingList(alldto);
 		model.addAttribute("onlyquestionlist", onlyquestionlist);
@@ -80,7 +81,7 @@ public class MediConsultingController {
 		
 		alldto.setStart(start2);
 		alldto.setEnd(end2);
-		
+		//22
 		int totalRecordCount2 = mediConsultingService.getanswerCount(alldto);
 		List<MediConsultingQuestionDto> answeredlist = mediConsultingService.getansweredList(alldto);
 		model.addAttribute("answeredlist", answeredlist);
