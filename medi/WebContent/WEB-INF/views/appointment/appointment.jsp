@@ -42,12 +42,17 @@ color: #1f4bb4;
 font-weight: bolder;
 }
 .imgsize{
-width: 60px;
-height: 60px;
+width: 100%;
 }
-#d_img>img{
-width: 88px;
-height: 107px;
+.dd{
+width: 65px;
+display: block;
+}
+.d_img{
+width: 75px;
+}
+.d_img>img{
+width: 100%;
 }
 </style>
 <script type="text/javascript">
@@ -783,8 +788,8 @@ function getdoctor(hos_seq) {
 			var key = Object.keys(data["getdoclist"][0]); // seq,name,info,address,tel의 키값을 가져옴
 			$.each(data.getdoclist, function(index, getdoclist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 				var items = [];
-				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule("+getdoclist.seq+")'><img class='imgsize' src='upload/" 
-				+ getdoclist.doc_profile+"'></td>");	//img태그로 사진넣어야하고css해야한다
+				items.push("<td class='ser'><a href='javascript:void(0);' class='dd' onclick='getscadule("+getdoclist.seq+")'><span class='ddd'><img class='imgsize' src='upload/" 
+				+ getdoclist.doc_profile+"'></span></td>");	//img태그로 사진넣어야하고css해야한다
 				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule("+getdoclist.seq+")'>"
 				+ getdoclist.name + "선생님</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
 				items.push("<td class='ser'>" + getdoclist.specialty + "</td>");
@@ -814,7 +819,7 @@ $.ajax({
 		//css적용영역
 		}).appendTo("#cal_area"); // 테이블을 생성하고 그 테이블을 div에 추가함
 		$(".reserve3").html("");
-		$("<span id='d_img'><img src='upload/"+data.doc_profile+"'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"선생님</li>"
+		$("<span class='d_img'><img src='upload/"+data.doc_profile+"'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"선생님</li>"
 			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.specialty+"</li></ul>").appendTo(".reserve3");
 		//선생님추가하는곳
 		$("<p id='docinfo'><strong>"+data.name+"</strong>선생님의 진료일입니다</p><div id='caltitle'><a onclick='monprev("+doc_seq+","+data.month+","+data.year+")' id='monprev'>&lt;</a>"+data.year+"."+data.month
@@ -1629,8 +1634,8 @@ function getdoctor2(hos_seq) {
 			var key = Object.keys(data["getdoclist"][0]); // seq,name,info,address,tel의 키값을 가져옴
 			$.each(data.getdoclist, function(index, getdoclist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 				var items = [];
-				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule2("+getdoclist.seq+")'><img class='imgsize' src='upload/" 
-						+ getdoclist.doc_profile+"'></td>");
+				items.push("<td class='ser'><a href='javascript:void(0);' class='dd' onclick='getscadule2("+getdoclist.seq+")'><span class='ddd'><img class='imgsize' src='upload/" 
+						+ getdoclist.doc_profile+"'></span></td>");
 				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule2("+getdoclist.seq+")'>"
 				+ getdoclist.name + "선생님</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
 				items.push("<td class='ser'>" + getdoclist.specialty + "</td>");
@@ -1660,7 +1665,7 @@ $.ajax({
 		//css적용영역
 		}).appendTo("#cal_area2"); // 테이블을 생성하고 그 테이블을 div에 추가함
 		$(".reserve3").html("");
-		$("<span id='d_img'><img src='upload/"+data.doc_profile+"'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"선생님</li>"
+		$("<span class='d_img'><img src='upload/"+data.doc_profile+"'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"선생님</li>"
 			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.specialty+"</li></ul>").appendTo(".reserve3");
 		//선생님추가하는곳
 		$("<p id='docinfo2'><strong>"+data.name+"</strong>선생님의 진료일입니다</p><div id='caltitle2'><a id='monprev' onclick='monprev2("+doc_seq+","+data.month+","+data.year+")'>&lt;</a>"+data.year+"."+data.month
@@ -2469,8 +2474,8 @@ function doclist() {
 			var key = Object.keys(data["doclist"][0]); // seq,name,info,address,tel의 키값을 가져옴
 			$.each(data.doclist, function(index, doclist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 				var items = [];
-				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule3("+doclist.seq+","+doclist.hos_seq+")'><img class='imgsize' src='upload/" 
-						+ doclist.doc_profile+"'></td>");
+				items.push("<td class='ser'><a href='javascript:void(0);' class='dd' onclick='getscadule3("+doclist.seq+","+doclist.hos_seq+")'><span class='ddd'><img class='imgsize' src='upload/" 
+						+ doclist.doc_profile+"'></span></td>");
 				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule3("+doclist.seq+","+doclist.hos_seq+")'>"
 				+ doclist.name + "선생님</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
 				items.push("<td class='ser'>" + doclist.specialty + "</td>");
@@ -2512,7 +2517,7 @@ $.ajax({
 		//css적용영역
 		}).appendTo("#cal_area3"); // 테이블을 생성하고 그 테이블을 div에 추가함
 		$(".reserve3").html("");
-		$("<span id='d_img'><img src='upload/"+data.doc_profile+"'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"선생님</li>"
+		$("<span class='d_img'><img src='upload/"+data.doc_profile+"'></span><ul><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"선생님</li>"
 			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.specialty+"</li></ul>").appendTo(".reserve3");
 		
 		//선생님추가하는곳

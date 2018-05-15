@@ -33,6 +33,17 @@ input:valid+span:after {
   padding-left: 5px;
   color: #009000;
 }
+
+.btn-type02{
+	width: 180px;
+    height: 70px;
+    line-height: 70px;
+    color: #fff;
+    background-color: #1f4bb4;
+    border-radius: 5px;
+    margin: 40px auto 80px auto;
+    display: block;
+}
 </style>
 
 
@@ -51,7 +62,7 @@ input:valid+span:after {
 				<!-- 이부분에 컨텐츠 시작 -->
 <form action="mysupdateAf.do" method="post" name="frmForm" id="_frmForm">
 <input type="hidden" name="id" value="${my.id }"/>
-<table class="list_table" style="width:85%">
+<table class="list_table">
 			
 <tbody>
 <tr>
