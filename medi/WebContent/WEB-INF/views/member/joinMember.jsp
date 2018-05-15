@@ -46,6 +46,7 @@ input select{
 	padding: 8px 20px;
 }
 .bg_blue{padding:0 !important; font-size:12px;}
+.updateBtn{width:180px; height:70px; line-height:70px; color:#fff; background-color:#1f4bb4; border-radius:5px; margin:40px auto 80px auto; display:block;}
 </style>
 
 
@@ -168,7 +169,7 @@ input select{
 					<tr>
 						<td colspan="2">
 							<fieldset>
-								<button id="form-submit" type="submit" class="btn">join us</button>
+								<button id="form-submit" type="submit" class="updateBtn">회원가입</button>
 							</fieldset>
 						</td>
 					</tr>

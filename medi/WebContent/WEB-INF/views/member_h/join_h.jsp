@@ -51,7 +51,7 @@ input select{
 	padding: 8px 20px;
 }
 .bg_blue{padding:0 !important; font-size:12px;}
-
+.updateBtn{width:180px; height:70px; line-height:70px; color:#fff; background-color:#1f4bb4; border-radius:5px; margin:40px auto 80px auto; display:block;}
 </style>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -281,7 +281,7 @@ input select{
 							</tr>
 						</table>
 						</form>
-					<input type="button" id="join_hBtn" value="회원가입">
+					<input type="button" id="join_hBtn" value="회원가입" class="updateBtn">
 				</div>
 			</div>
 <!-- 이부분에 컨텐츠 끝 -->
