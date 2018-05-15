@@ -4,6 +4,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<!-- Additional files for the Highslide popup effect -->
+<script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
+<script src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
+
+
+
+
+
+
 <!-- 로그인 처리 -->
 <c:if test="${loginType ne 2 }">
 	<script type="text/javascript">
@@ -30,7 +47,7 @@
 					
 					
 					<!-- 기간별 예약 횟수 그래프 표시 -->
-					
+					<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 					
 					
 					
@@ -42,3 +59,45 @@
 			<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
 </div>
+
+<script>
+
+
+
+Highcharts.chart('container', {
+  chart: {
+    type: 'line'
+  },
+  title: {
+    text: 'Monthly Average Temperature'
+  },
+  subtitle: {
+    text: 'Source: WorldClimate.com'
+  },
+  xAxis: {
+    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  },
+  yAxis: {
+    title: {
+      text: 'Temperature (°C)'
+    }
+  },
+  plotOptions: {
+    line: {
+      dataLabels: {
+        enabled: true
+      },
+      enableMouseTracking: false
+    }
+  },
+  series: [{
+    name: 'Tokyo',
+    data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+  }, {
+    name: 'London',
+    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+  }]
+});
+
+
+</script>

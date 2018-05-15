@@ -73,7 +73,7 @@ input select{
 							<col width="200px"><col width="">
 							<tr>
 								<th>
-									<span></span>아이디
+									아이디
 								</th>
 								<td>
 									<input type="text" id="id" name="id" onkeyup="idCheckFunction()" placeholder="아이디를 입력하세요">

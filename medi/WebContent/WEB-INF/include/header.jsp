@@ -61,12 +61,6 @@
          <c:if test="${loginType eq 4 }">
             <li>
                <a href="myPage_h.do">
-   
-                  <em>정보수정</em>
-               </a>
-            </li>
-            <li>
-               <a href="myPage_h.do">
                   <em>마이페이지</em>
                </a>
             </li>   
@@ -211,13 +205,13 @@
                        <div class="p_t">
                            <div>
                                  <span  class="tit">
-                                     <a href="#;" target="_self">
+                                     <a href="hbbslist.do" target="_self">
                                          <strong>병원 찾기</strong>
                                      </a>
                                  </span>
                                  <ul>
                                       <li>
-                                           <a href="#;" target="_self">
+                                           <a href="hbbslist.do" target="_self">
                                                <em>병원 찾기</em>
                                            </a>
                                       </li>

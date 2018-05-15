@@ -25,6 +25,7 @@
 .tableWrap tr{border-bottom:1px solid #d9d9d9;}
 .tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
 .tableWrap th{text-align:left;}
+.updateBtn{width:180px; height:70px; line-height:70px; color:#fff; background-color:#1f4bb4; border-radius:5px; margin:40px auto 80px auto; display:block;}
 </style>
 
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
@@ -42,7 +43,7 @@
 				<div class="inner_flogin">
 					<form action="join_dAf" id="form_d" name="form_d" method="post" enctype="multipart/form-data">
 					
-						<input type="text" name="hos_seq" <c:if test="${login_h ne null }">value="${login_h.seq }"</c:if><c:if test="${login_h eq null }">value="${hos_seq }"</c:if>>
+						<input type="hidden" name="hos_seq" <c:if test="${login_h ne null }">value="${login_h.seq }"</c:if><c:if test="${login_h eq null }">value="${hos_seq }"</c:if>>
 						<table class="tableWrap">
 							<tr>
 								<th>
@@ -569,7 +570,7 @@
 							</tr>
 						</table>
 					</form>
-					<input type="button" id="join_dBtn" value="회원가입">
+					<input type="button" id="join_dBtn" value="회원가입" class="updateBtn">
 				</div>
 			</div>
 		</section>

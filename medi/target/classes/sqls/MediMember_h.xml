@@ -89,5 +89,22 @@
 		FROM `medi`.`medi_image`
 		WHERE `hos_seq`=#{seq}
 	</select>
-
+	<!-- 순위 -->
+	<select id="getScoreList" resultType="kh.com.medi.model.MediMember_hDto">
+		 SELECT SEQ, ID,NAME, TEL, ADDRESS, EMAIL,CONFIRM_IMG,INFO,SCORE,DEL
+         FROM
+		(
+		    SELECT
+		        @ROWNUM := @ROWNUM + 1 AS ROWNUM,
+		         SEQ, ID,NAME, TEL, ADDRESS, EMAIL,CONFIRM_IMG,INFO,SCORE,DEL
+		    FROM
+		        `MEDI`.`medi_hospital`,
+		       (SELECT @ROWNUM := 0) R
+			 WHERE 1=1 AND DEL=1
+			 
+			 ORDER BY SCORE DESC
+			 ) A
+		WHERE
+		    A.ROWNUM BETWEEN 1 AND 4;
+	</select>
 </mapper>

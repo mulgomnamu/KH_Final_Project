@@ -9,6 +9,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <fmt:requestEncoding value="utf-8"/>
 <html>
+<c:if test="${sessionScope.login ne null }">
+   <c:set var="login" value="${sessionScope.login }"/>
+   <c:set var="loginType" value="${sessionScope.loginType }"/>
+</c:if>
+<c:if test="${sessionScope.login_h ne null }">
+   <c:set var="login_h" value="${sessionScope.login_h }"/>
+   <c:set var="loginType" value="${sessionScope.loginType }"/>
+</c:if>
 <head>
 <link rel="stylesheet" type="text/css" href="css/reset.css"/>
 <link rel="stylesheet" type="text/css" href="css/ui_common.css"/>
@@ -81,16 +89,64 @@ String s_keyword = (String)request.getAttribute("s_keyword");
 	            <div class="header_util_sub">
 	                <div class="logout">
 	                    <ul>
-	                        <li>
-								<a href="javascript:cmc.util.loginPage();">
-								    <em>로그인</em>
-								</a>
-							</li>
-							<li>
-								<a href="/page/member/join/select">
-								    <em>회원가입</em>
-								</a>
-							</li>
+	                        <!-- 비로그인 -->
+					         <c:if test="${loginType eq null }">
+					            <li>
+					               <a href="login.do">
+					                  <em>로그인</em>
+					               </a>
+					            </li>
+					            <li>
+					               <a href="selectJoin.do">
+					                  <em>회원가입</em>
+					               </a>
+					            </li>
+					         </c:if>
+					<!-- 일반회원 -->
+					         <c:if test="${loginType eq 1 }">
+					            <li>
+					               <a href="MyPageLogin.do">
+					                  <em>정보수정</em>
+					               </a>
+					            </li>
+							    <li>
+					               <a href="MyPageList.do?id=${login.id }">
+					                  <em>마이페이지</em>
+					               </a>
+					            </li>   
+					            <li>
+					               <a href="logout.do">
+					                  <em>로그아웃</em>
+					               </a>
+					            </li>
+					         </c:if>
+					<!-- 관리자 -->
+					         <c:if test="${loginType eq 2 }"> 
+					            <li>
+					               <a href="logout.do">
+					                  <em>로그아웃</em>
+					               </a>
+					            </li>
+					         </c:if>
+					<!-- 병원회원 -->
+					         <c:if test="${loginType eq 4 }">
+					            <li>
+					               <a href="myPage_h.do">
+					   
+					                  <em>정보수정</em>
+					               </a>
+					            </li>
+					            <li>
+					               <a href="myPage_h.do">
+					                  <em>마이페이지</em>
+					               </a>
+					            </li>   
+					            <li>
+					               <a href="logout.do">
+					                  <em>로그아웃</em>
+					               </a>
+					            </li>
+					         </c:if>
 						</ul>
 					</div>
 				</div>

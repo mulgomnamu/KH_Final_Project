@@ -19,6 +19,11 @@
 	</script>
 </c:if>
 
+<style>
+.fourBox:first-child{margin-left:0;}
+.fourBox{margin-left:15px; width:220px; height:110px; line-height:110px; color:#fff; background-color:#1f4bb4; border-radius:5px; display:inline-block; text-align:center; }
+</style>
+
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -34,16 +39,11 @@
 				<div class="inner_flogin">
 					
 					<div>
-						<a href="change_pwd_h.do">비밀번호 변경</a>
-						<br>
-						<a href="update_h.do?seq=${login_h.seq }">병원 회원 정보 변경</a>
-						<br>
-						<a href="join_d.do">의사 회원 추가</a>
-						<br>
-						<a href="update_d.do?seq=${login_h.seq }&index=0">의사 회원 정보 변경</a>
-						<br>
-						<a href="HospitalReservationList.do?hos_seq=2">예약 목록</a>
-						<br>
+						<a href="change_pwd_h.do" class="fourBox">비밀번호 변경</a>
+						<a href="update_h.do?seq=${login_h.seq }" class="fourBox">병원 회원 정보 변경</a>
+						<a href="join_d.do" class="fourBox">의사 회원 추가</a>
+						<a href="update_d.do?seq=${login_h.seq }&index=0" class="fourBox">의사 회원 정보 변경</a>
+						<a href="HospitalReservationList.do?hos_seq=2" class="fourBox">예약 목록</a>
 					</div>
 					
 				</div>
@@ -53,3 +53,4 @@
 			<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
 </div>
+

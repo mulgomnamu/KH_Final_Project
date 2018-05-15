@@ -106,8 +106,8 @@ function getdoctor(hos_seq) {
 			var key = Object.keys(data["getdoclist"][0]); // seq,name,info,address,tel의 키값을 가져옴
 			$.each(data.getdoclist, function(index, getdoclist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 				var items = [];
-				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule("+getdoclist.seq+")'>" 
-				+ getdoclist.doc_profile + "</td>");	//img태그로 사진넣어야하고css해야한다
+				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule("+getdoclist.seq+")'><img src='upload/" 
+				+ getdoclist.doc_profile+"'></td>");	//img태그로 사진넣어야하고css해야한다
 				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule("+getdoclist.seq+")'>"
 				+ getdoclist.name + "</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
 				items.push("<td class='ser'>" + getdoclist.specialty + "</td>");
