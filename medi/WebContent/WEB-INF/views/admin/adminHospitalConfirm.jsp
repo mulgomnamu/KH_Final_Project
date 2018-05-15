@@ -11,6 +11,11 @@
 	</script>
 </c:if>
 
+<style>
+.alertImg img{width:100%; max-height:650px;}
+#odiv{left:50% !important; width:420px; margin-left:-210px; top: 130px !important; }
+</style>
+
 <!-- jQuery Modal -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
@@ -200,7 +205,7 @@ function resizeImg(osrc) {
 
     odiv.setAttribute("id", "odiv");
 
-    odiv.innerHTML = "<a href='javascript:void(closeImg())'><img id='oimg' src='"+osrc+"' border='0' width='500' height='800'/></a>";
+    odiv.innerHTML = "<a href='javascript:void(closeImg())' class='alertImg'><img id='oimg' src='"+osrc+"' border='0' width='100%'/></a>";
 
     var img = document.all['oimg'];
 

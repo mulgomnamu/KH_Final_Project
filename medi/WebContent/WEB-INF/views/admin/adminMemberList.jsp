@@ -22,6 +22,7 @@ border-bottom:1px solid #d9d9d9;
 height: 60px;
 }
 
+.s_btn{width:100px; height:40px; display:block; line-height:40px; margin:20px auto 20px; text-align:center; background-color:#0b2d85; color:#fff; border-radius:5px;}
 
 
 </style>
@@ -92,7 +93,6 @@ height: 60px;
 								<th>주소</th>
 								<th>회원구분</th>
 								<th>탈퇴여부</th>
-								<th>프로필 사진</th>
 								<th>Black List</th>
 								<th>가입 날짜</th>
 								<th>수정</th>
@@ -110,7 +110,6 @@ height: 60px;
 									<td><span id="address${memberList.seq }">${memberList.address }</span></td>
 									<td><span id="auth${memberList.seq }">${memberList.auth }</span></td>
 									<td><span id="del${memberList.seq }">${memberList.del }</span></td>
-									<td><span id="myimg${memberList.seq }">${memberList.myimg }</span></td>
 									<td><span id="blacklist${memberList.seq }">${memberList.blacklist }</span></td>
 									<td><span id="regdate${memberList.seq }">${memberList.regdate }</span></td>
 									<td>
@@ -127,11 +126,10 @@ height: 60px;
 													<tr><th>주소</th><td><input type="text" name="address" value="${memberList.address }"></td></tr>
 													<tr><th>회원구분</th><td><input type="text" name="auth" value="${memberList.auth }"></td></tr>
 													<tr><th>탈퇴여부</th><td><input type="text" name="del" value="${memberList.del }"></td></tr>
-													<tr><th>프로필 사진</th><td><input type="text" name="myimg" value="${memberList.myimg }"></td></tr>
 													<tr><th>Black List</th><td><input type="text" name="blacklist" value="${memberList.blacklist }"></td></tr>
 												</table>
 											</form>
-											<button id="updateBtn" onclick="updateBtn(${memberList.seq });">수정</button>
+											<button id="updateBtn" onclick="updateBtn(${memberList.seq });" class="s_btn">수정</button>
 										</div>
 										
 										<!-- Link to open the modal -->

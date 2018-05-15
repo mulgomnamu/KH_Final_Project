@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediAdminDao;
+import kh.com.medi.model.MediAdminHosChartDto;
+import kh.com.medi.model.MediAdminMemChartDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.service.MediAdminService;
@@ -49,6 +51,16 @@ public class MediAdminServiceImpl implements MediAdminService {
 	@Override
 	public boolean updateMemberByAdmin(MediMyListPagingDto dto_m) {
 		return mediAdminDao.updateMemberByAdmin(dto_m);
+	}
+
+	@Override
+	public MediAdminMemChartDto getMemChartData() {
+		return mediAdminDao.getMemChartData();
+	}
+
+	@Override
+	public MediAdminHosChartDto getHosChartData() {
+		return mediAdminDao.getHosChartData();
 	}
 
 }
