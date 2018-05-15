@@ -117,22 +117,14 @@ public class MediMyPageController {
 	}
 	
 	/*내정보 mydetail*/
-	@ResponseBody
 	@RequestMapping(value="Mydetail.do", method={RequestMethod.GET, RequestMethod.POST})
-	public Map<String, Object> mydetail(Model model, MediMemberDto my ) throws Exception{
+	public String mydetail(Model model, MediMemberDto my ) throws Exception{
 		logger.info("MediMyPageController Mydetail " + new Date());
 		MediMemberDto dto = medimyPageservice.Mydetail(my);
 		System.out.println(my.getId()+"1111111111111111111111111111111111111"+dto.getId());
-		Map<String, Object> map=new HashMap<String, Object>();
-		if(dto.getId().equals(my.getId())) {
-			map.put("yn", "AA");
-		}else {
-			map.put("yn", "CC");
-		}
+		model.addAttribute("my",dto);
 		
-		
-		
-		return map;
+		return "Mydetail.tiles";
 	}
 	/*내정보 수정*/ 
 	@RequestMapping(value="mysupdateAf.do", method={RequestMethod.GET, RequestMethod.POST})

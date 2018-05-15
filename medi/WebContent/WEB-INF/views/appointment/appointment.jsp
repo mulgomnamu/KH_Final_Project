@@ -72,7 +72,6 @@ function byspecialty(elem) {
 					var items = [];
 					items.push("<td class='ser'><a href='javascript:void(0);' onclick='getdoctor2("+hospitallist.medimember_hdto.seq+")'>" 
 					+ hospitallist.medimember_hdto.name + "</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
-					items.push("<td class='ser'>" + hospitallist.medimember_hdto.info + "</td>");
 					items.push("<td class='ser'>" + hospitallist.medimember_hdto.address + "</td>");
 					items.push("<td class='ser'>" + hospitallist.medimember_hdto.tel + "</td>");
 					$("<tr/>", {
@@ -162,7 +161,7 @@ function byspecialty(elem) {
 			            		</div>
 			            		<div class="list_wrap" style="width: 280px; height: 630px;float: right;margin-top: 50px;margin-bottom: 50px;">
 			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff; border-bottom: 2px solid #fff; ">
-			            				<strong class="f_eng" style="font-size: 2.3em;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
 			            				<br>
 			            				<ul style="padding-left: 40px;">
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.name }</li>
@@ -170,7 +169,7 @@ function byspecialty(elem) {
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.email }</li>
 			            				</ul>
 			            			</div>
-			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff; padding-left: 15px; padding-top: 5px;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">2</strong>&nbsp;&nbsp;&nbsp;병원정보
 			            				<br>
 			            				<div id="hospital_info" class="reserve2">
@@ -179,7 +178,7 @@ function byspecialty(elem) {
 			            					</p>
 			            				</div>
 			            			</div>
-			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff; padding-left: 15px; padding-top: 5px;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">3</strong>&nbsp;&nbsp;&nbsp;의료진
 			            				<br>
 			            				<div id="doctor_info" class="reserve3">
@@ -188,7 +187,7 @@ function byspecialty(elem) {
 			            					</p> 
 			            				</div>
 			            			</div>
-			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
+			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff; padding-left: 15px; padding-top: 5px;">
 			            				<strong class="f_eng" style="font-size: 2.3em;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
 			            				<br>
 			            				<div id="time_info" class="reserve4">
@@ -454,7 +453,7 @@ function byspecialty(elem) {
 					            </div>
 					            <div class="list_wrap" style="width: 280px; height: 630px;float: right; margin-top: 50px;margin-bottom: 50px;">
 			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;border-bottom: 2px solid #fff;">
-			            				<strong class="f_eng" style="font-size: 2.3em;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
 			            				<br>
 			            				<ul style="padding-left: 40px;">
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.name }</li>
@@ -463,7 +462,7 @@ function byspecialty(elem) {
 			            				</ul>
 			            			</div>
 			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
-			            				<strong class="f_eng" style="font-size: 2.3em;">2</strong>&nbsp;&nbsp;&nbsp;병원정보
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">2</strong>&nbsp;&nbsp;&nbsp;병원정보
 			            				<br>
 			            				<div id="hospital_info2" class="reserve2">
 			            					<p style="text-align: center; padding-top: 20px;">
@@ -472,7 +471,7 @@ function byspecialty(elem) {
 			            				</div>
 			            			</div>
 			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
-			            				<strong class="f_eng" style="font-size: 2.3em;">3</strong>&nbsp;&nbsp;&nbsp;의료진
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">3</strong>&nbsp;&nbsp;&nbsp;의료진
 			            				<br>
 			            				<div id="doctor_info2" class="reserve3">
 			            					<p style="text-align: center; padding-top: 20px;">
@@ -481,7 +480,7 @@ function byspecialty(elem) {
 			            				</div>
 			            			</div>
 			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
-			            				<strong class="f_eng" style="font-size: 2.3em;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
 			            				<br>
 			            				<div id="time_info2" class="reserve4">
 			            					<p style="text-align: center; padding-top: 20px;">
@@ -578,7 +577,7 @@ function byspecialty(elem) {
 						      </div>
 						      <div class="list_wrap" style="width: 280px; height: 630px;float: right; margin-top: 50px;margin-bottom: 50px;">
 			            			<div id="mem_info" style="height: 150px; background: #ff7e00; color: #fff;border-bottom: 2px solid #fff;">
-			            				<strong class="f_eng" style="font-size: 2.3em;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">1</strong>&nbsp;&nbsp;&nbsp;환자정보
 			            				<br>
 			            				<ul style="padding-left: 40px;">
 			            					<li><small style="font-size: 0.5em">●</small>&nbsp;&nbsp;${login.name }</li>
@@ -587,7 +586,7 @@ function byspecialty(elem) {
 			            				</ul>
 			            			</div>
 			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
-			            				<strong class="f_eng" style="font-size: 2.3em;">2</strong>&nbsp;&nbsp;&nbsp;의료진
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">2</strong>&nbsp;&nbsp;&nbsp;의료진
 			            				<br>
 			            				<div id="doctor_info3" class="reserve3">
 			            					<p style="text-align: center; padding-top: 20px;">
@@ -596,7 +595,7 @@ function byspecialty(elem) {
 			            				</div>
 			            			</div>
 			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
-			            				<strong class="f_eng" style="font-size: 2.3em;">3</strong>&nbsp;&nbsp;&nbsp;병원정보
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">3</strong>&nbsp;&nbsp;&nbsp;병원정보
 			            				<br>
 			            				<div id="hospital_info3" class="reserve2">
 			            					<p style="text-align: center; padding-top: 20px;">
@@ -605,7 +604,7 @@ function byspecialty(elem) {
 			            				</div>
 			            			</div>
 			            			<div style="height: 170px; background: #555;color: #fff;border-bottom: 2px solid #fff;">
-			            				<strong class="f_eng" style="font-size: 2.3em;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
+			            				<strong class="f_eng" style="font-size: 2.3em; padding-left: 15px; padding-top: 5px;">4</strong>&nbsp;&nbsp;&nbsp;진료일시
 			            				<br>
 			            				<div id="time_info3" class="reserve4">
 			            					<p style="text-align: center; padding-top: 20px;">
@@ -752,7 +751,6 @@ function hospitallist() {
 				var items = [];
 				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getdoctor("+hospitallist.seq+")'>" 
 				+ hospitallist.name + "</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
-				items.push("<td class='ser'>" + hospitallist.info + "</td>");
 				items.push("<td class='ser'>" + hospitallist.address + "</td>");
 				items.push("<td class='ser'>" + hospitallist.tel + "</td>");
 				$("<tr/>", {

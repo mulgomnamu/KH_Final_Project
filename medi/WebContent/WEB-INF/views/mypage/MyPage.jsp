@@ -7,6 +7,7 @@
 	text-align: center;
 	background: url(images/appointment/sub_bg.jpg) no-repeat 50% top;
 }
+.btn-type01{width:230px; height:100px; line-height:100px; border-radius:5px;}
 </style>
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
    <div class="login"><!-- 2뎁스명 클래스 -->
@@ -23,19 +24,19 @@
             <!-- 이부분에 컨텐츠 시작 -->
 <form name="frmForm" id="_frmForm" method="post" action="Mydetail.do">
 <input type="hidden" name="id"   value="${login.id }"/>
-<p style="text-align: center; margin: 30px 0;">
+<p style="text-align: center; margin: 100px 0;">
 <span class="btn_login">
-   <a href="#none" id="_btndetail" title="내정보보기" class="btn-type01" style="width: 130px;height: 107px;">
+   <a href="#none" id="_btndetail" title="내정보보기" class="btn-type01">
       <em style="margin-top: 20px;">내정보보기</em>
    </a>
 </span>
 <span class="btn_login">
-   <a href="#none" id="del" title="탈퇴하기" class="btn-type01" style="width: 130px;height: 107px; margin: 0 50px;">
+   <a href="#none" id="del" title="탈퇴하기" class="btn-type01" style=" margin: 0 50px;">
       <em style="margin-top: 20px;">탈퇴하기</em>
    </a>
 </span>
 <span class="btn_login">
-   <a href="#none" id="butpwdupdate" title="비밀번호 수정" class="btn-type01" style="width: 130px;height: 107px;">
+   <a href="#none" id="butpwdupdate" title="비밀번호 수정" class="btn-type01">
       <em style="margin-top: 20px;">비밀번호 수정</em>
    </a>
 </span>

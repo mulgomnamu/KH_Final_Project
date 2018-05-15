@@ -56,7 +56,7 @@ input:valid+span:after {
 <tbody>
 <tr>
 <th>회원사진</th>
-<td><img alt="없음" src="upload/${my.myimg }"width="150" height="190"></td>
+<td><span style="display: block; width: 180px;"><img alt="없음" style="width: 100%;" src="upload/${my.myimg }"></span></td>
 </tr>	
 <tr>
 	<th>아이디</th>

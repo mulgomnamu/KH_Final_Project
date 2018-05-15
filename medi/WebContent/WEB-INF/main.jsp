@@ -63,7 +63,7 @@
 								<font size="5"> ${login_h.name}님, 오늘도 건강한 하루되세요. </font>
 								<hr color="black" width="350">
 								<div class="btn_area">
-									<span class="login_btn"> <a href="MyPageList.do"
+									<span class="login_btn"> <a href="myPage_h.do"
 										class="btn-type02"> <em>마이페이지</em>
 									</a>
 									</span>
@@ -74,7 +74,7 @@
 						
 						<div class="quick_list_btn">
 							<ul>
-								<li class="appoint"><a href="/page/appointment">
+								<li class="appoint"><a href="appointment.do">
 										<p>
 											스마트한 <span class="text_color-main">진료예약</span>을 이용해보세요
 										</p>
@@ -84,9 +84,9 @@
 											스마트한 <span class="text_color-main">건강수첩</span>으로 건강을 관리하세요
 										</p>
 								</a></li>
-								<li class="health"><a href="/page/health/magazine">
+								<li class="health"><a href="consultinglist.do">
 										<p>
-											스마트한 <span class="text_color-main">건강정보</span>를 확인하세요
+											스마트한 <span class="text_color-main">건강상담</span>을 확인하세요
 										</p>
 								</a></li>
 							</ul>
@@ -248,7 +248,7 @@
 		<div class="cont_box-hos_story">
 			<div class="inner">
 				<h3>
-					<a href="/page/board/news" style="color: #111;">병원순위</a>
+					<a href="#;" style="color: #111;">병원순위</a>
 				</h3>
 				<div class="list-type03 middle">
 					<ul>
