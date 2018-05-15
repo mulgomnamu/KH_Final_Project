@@ -13,7 +13,7 @@
 
 <style>
 .alertImg img{width:100%; max-height:650px;}
-#odiv{left:50% !important; width:420px; margin-left:-210px; top: 130px !important; }
+#odiv{left:50% !important; width:420px; margin-left:-210px;  }
 </style>
 
 <!-- jQuery Modal -->
