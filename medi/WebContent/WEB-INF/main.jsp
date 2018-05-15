@@ -254,7 +254,7 @@
 					<ul>
 						<!--  작업시 이 밑부분 li를 for문 돌리면 됩니다 -->
 						 <c:forEach items="${scorelist}" var="sbbs">
-						 <li>
+						 <li style="height: 50%;">
 								<a href="hbbsdetail.do?seq=${sbbs.seq}">
 									<div class="hbbssum"><img src="upload/${sbbs.confirm_img }" alt=""></div>
 									<div class="hbbscontent">
@@ -264,10 +264,10 @@
 										<img src="images/sub/location.png" alt="location Icon">
 										<c:choose>
 											<c:when test="${fn:length(sbbs.address) > 28}">
-												<p>${fn:substring(sbbs.address, 0, 25) }...</p>
+												<p style="display: inline-block; font-weight: normal;font-size: 14px;margin-top: 9px;">${fn:substring(sbbs.address, 0, 13) }...</p>
 											</c:when>
 											<c:otherwise>
-												<p>${sbbs.address }</p>
+												<p style="display: inline-block; font-weight: normal;font-size: 14px;margin-top: 9px;">${sbbs.address }</p>
 											</c:otherwise>
 										</c:choose>
 									</div>
@@ -334,7 +334,7 @@
 	</section>
 </div>
 <!--// CONTAINER -->
-<div class="f_banner">
+<div class="f_banner" style="padding-bottom: 0px;">
 	<div class="inner">
 		<ul class="bannerBox">
 			<li><a href="#;" target="_blank"> <img
