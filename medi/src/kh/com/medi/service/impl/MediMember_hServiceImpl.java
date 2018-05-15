@@ -93,4 +93,10 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 		return mediMember_hDao.getImageList(dto_h);
 	}
 
+	@Override
+	public List<MediMember_hDto> getScoreList() {
+		// TODO Auto-generated method stub
+		return mediMember_hDao.getScoreList();
+	}
+
 }

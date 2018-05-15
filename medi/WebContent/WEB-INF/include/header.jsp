@@ -39,7 +39,7 @@
                </a>
             </li>
             <li>
-               <a href="MyPageList.do?id=${login.id }">
+               <a href="MyPageList1.do?id=${login.id }&seq=${login.seq}">
                   <em>마이페이지</em>
                </a>
             </li>   
@@ -59,12 +59,6 @@
          </c:if>
 <!-- 병원회원 -->
          <c:if test="${loginType eq 4 }">
-            <li>
-               <a href="myPage_h.do">
-   
-                  <em>정보수정</em>
-               </a>
-            </li>
             <li>
                <a href="myPage_h.do">
                   <em>마이페이지</em>

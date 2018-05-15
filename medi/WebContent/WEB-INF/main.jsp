@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <!-- CONTAINER -->
@@ -40,7 +41,7 @@
 								<font size="5"> ${login.name}님, 오늘도 건강한 하루되세요. </font>
 								<hr color="black" width="350">
 								<div class="btn_area">
-									<span class="login_btn"> <a href="MyPageList.do?id=${login.id }"
+									<span class="login_btn"> <a href="MyPageList1.do?id=${login.id }&seq=${login.seq}"
 										class="btn-type02"> <em>마이페이지</em>
 									</a>
 									</span>
@@ -62,7 +63,7 @@
 								<font size="5"> ${login_h.name}님, 오늘도 건강한 하루되세요. </font>
 								<hr color="black" width="350">
 								<div class="btn_area">
-									<span class="login_btn"> <a href="MyPageList.do"
+									<span class="login_btn"> <a href="myPage_h.do"
 										class="btn-type02"> <em>마이페이지</em>
 									</a>
 									</span>
@@ -73,7 +74,7 @@
 						
 						<div class="quick_list_btn">
 							<ul>
-								<li class="appoint"><a href="/page/appointment">
+								<li class="appoint"><a href="appointment.do">
 										<p>
 											스마트한 <span class="text_color-main">진료예약</span>을 이용해보세요
 										</p>
@@ -83,9 +84,9 @@
 											스마트한 <span class="text_color-main">건강수첩</span>으로 건강을 관리하세요
 										</p>
 								</a></li>
-								<li class="health"><a href="/page/health/magazine">
+								<li class="health"><a href="consultinglist.do">
 										<p>
-											스마트한 <span class="text_color-main">건강정보</span>를 확인하세요
+											스마트한 <span class="text_color-main">건강상담</span>을 확인하세요
 										</p>
 								</a></li>
 							</ul>
@@ -247,104 +248,35 @@
 		<div class="cont_box-hos_story">
 			<div class="inner">
 				<h3>
-					<a href="/page/board/news" style="color: #111;">병원순위</a>
+					<a href="#;" style="color: #111;">병원순위</a>
 				</h3>
 				<div class="list-type03 middle">
 					<ul>
 						<!--  작업시 이 밑부분 li를 for문 돌리면 됩니다 -->
-						<li><a href="/page/board/news/452824" target="_self">
-								<div class="btn_img img">
-									<span class="cont_img"> </span>
-									<div class="hos_cont">
-										<div class="reduce_multi title">
-											<strong class="txt">서울성모병원 연구팀, 대한갑상선학회 우수연제상 수상</strong>
-										</div>
-										<div class="reduce_multi cont">
-											<p class="txt">서울성모병원 연구팀, 대한갑상선학회 우수연제상 수상 - 갑상선 석회화 양상에
-												따른 심혈관질환 위험도 확인 - 서울성모병원 강무일•임동준•하정훈(내분비내</p>
-										</div>
-
-										<div class="data_con">
-											<em class="data">2018.04.06</em> <em class="tit">병원순위</em>
-										</div>
+						 <c:forEach items="${scorelist}" var="sbbs">
+						 <li style="height: 50%;">
+								<a href="hbbsdetail.do?seq=${sbbs.seq}">
+									<div class="hbbssum"><img src="upload/${sbbs.confirm_img }" alt=""></div>
+									<div class="hbbscontent">
+										<h4>${sbbs.name }</h4>
 									</div>
-									<div class="label_wrap">
-										<span class="label-new"> <!-- 화면상에는 N으로 표기 --> <em
-											class="blind">새로운글</em>
-										</span>
+									<div class="hbbsbottom">
+										<img src="images/sub/location.png" alt="location Icon">
+										<c:choose>
+											<c:when test="${fn:length(sbbs.address) > 28}">
+												<p style="display: inline-block; font-weight: normal;font-size: 14px;margin-top: 9px;">${fn:substring(sbbs.address, 0, 13) }...</p>
+											</c:when>
+											<c:otherwise>
+												<p style="display: inline-block; font-weight: normal;font-size: 14px;margin-top: 9px;">${sbbs.address }</p>
+											</c:otherwise>
+										</c:choose>
 									</div>
-								</div>
-						</a></li>
-						<!-- 여기 위에 까지 -->
-						<li><a href="/page/board/news/452806" target="_self">
-								<div class="btn_img img">
-									<span class="cont_img"> </span>
-									<div class="hos_cont">
-										<div class="reduce_multi title">
-											<strong class="txt">치과교정과 국윤아 교수, 대한치과교정학회･바른이봉사회 회장
-												취임</strong>
-										</div>
-										<div class="reduce_multi cont">
-											<p class="txt">치과교정과 국윤아 교수, 대한치과교정학회･바른이봉사회 회장 취임 서울성모병원
-												치과교정과 국윤아 교수가 4월 1일 30대 대한치과교정학회 회장과 사단법인 바</p>
-										</div>
-
-										<div class="data_con">
-											<em class="data">2018.04.05</em> <em class="tit">병원순위</em>
-										</div>
-									</div>
-									<div class="label_wrap">
-										<span class="label-new"> <em class="blind">새로운글</em>
-										</span>
-									</div>
-								</div>
-						</a></li>
-						<li><a
-							href="javascript:fnGoRecruitDetail('20180410', '/page/board/recruit/452782');">
-								<div class="btn_img img">
-									<span class="cont_img"> </span>
-									<div class="hos_cont">
-										<div class="reduce_multi title">
-											<strong class="txt">사무직(경영지원팀/계약직) 공개채용</strong>
-										</div>
-										<div class="reduce_multi cont">
-											<p class="txt">사무직(경영지원팀/계약직) 공개채용 1. 모집기관 : 서울성모병원 경영지원팀
-												2. 모집직종 : 사무직(계약직) 3. 모집인원 : O명 4. 응시자격</p>
-										</div>
-
-										<div class="data_con">
-											<em class="data">2018.04.04</em> <em class="tit">병원순위</em>
-										</div>
-									</div>
-									<div class="label_wrap">
-										<span class="label-new"> <em class="blind">새로운글</em>
-										</span>
-									</div>
-								</div>
-						</a></li>
-						<li><a
-							href="javascript:fnGoRecruitDetail('20180409', '/page/board/recruit/452773');">
-								<div class="btn_img img">
-									<span class="cont_img"> </span>
-									<div class="hos_cont">
-										<div class="reduce_multi title">
-											<strong class="txt">기관기사직(시설팀) 공개채용 모집</strong>
-										</div>
-										<div class="reduce_multi cont">
-											<p class="txt">기관기사직(시설팀) 공개채용 모집 1. 모집기관 : 서울성모병원 시설팀 2.
-												모집직종 : 기관기사직 / 일정기간 시용평가 후 정규직 전환 가능 3. 모집</p>
-										</div>
-
-										<div class="data_con">
-											<em class="data">2018.04.03</em> <em class="tit">병원순위</em>
-										</div>
-									</div>
-									<div class="label_wrap">
-										<span class="label-new"> <em class="blind">새로운글</em>
-										</span>
-									</div>
-								</div>
-						</a></li>
+								</a>
+						</li>
+						 
+						 </c:forEach>
+						
+						
 					</ul>
 				</div>
 			</div>
@@ -402,7 +334,7 @@
 	</section>
 </div>
 <!--// CONTAINER -->
-<div class="f_banner">
+<div class="f_banner" style="padding-bottom: 0px;">
 	<div class="inner">
 		<ul class="bannerBox">
 			<li><a href="#;" target="_blank"> <img

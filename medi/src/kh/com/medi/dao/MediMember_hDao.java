@@ -24,5 +24,5 @@ public interface MediMember_hDao {
 	boolean changePwd(MediMember_hDto dto_h);
 	List<MediSubjectDto> getHospitalSubjectColumns(MediMember_hDto dto_h);
 	List<MediHospital_imageDto> getImageList(MediMember_hDto dto_h);
-
+	List<MediMember_hDto> getScoreList();
 }

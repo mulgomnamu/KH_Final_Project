@@ -90,7 +90,7 @@ $(document).ready(function(){
                         <td>${vs.count}</td>
                         <td>${bbs.id }</td> 
                         <td>
-                           <a href='Qnabbsdetail.do?seq=${bbs.seq}&mypage=mypage'>
+                           <a href='MyPagedetail.do?seq=${bbs.seq}&mypage=mypage'>
                                ${bbs.title}</a></td>
                            <td>${bbs.content}</td>
                         </tr>

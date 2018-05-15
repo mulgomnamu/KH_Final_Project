@@ -76,6 +76,7 @@ public class MediAppointmentController {
 		map.put("getdoclist",getdoclist);
 		map.put("name",selecthos.getName());
 		map.put("tel",selecthos.getTel());	//메인사진은나중다른dto에서받아와야한다
+		map.put("address",selecthos.getAddress());
 		return map;
 	}
 	//의사seq로 그의사의 스케쥴가져오기

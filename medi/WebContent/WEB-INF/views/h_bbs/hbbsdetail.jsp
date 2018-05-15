@@ -52,8 +52,8 @@
 						</div>
 						
 						<div class="bookBtnWrap">
-							<a href="#;" data-hover="예약하러가기" class="bookBtn1">방문진료에약</a>
-							<a href="#;" data-hover="예약하러가기" class="bookBtn2">화상진료예약</a>
+							<a href="#;" onclick="appointro();" data-hover="예약하러가기" class="bookBtn1">방문진료예약</a>
+							<a href="#;" onclick="xxx();" data-hover="예약하러가기" class="bookBtn2">화상진료예약</a>
 						</div>
 						
 						<span class="middleline"></span>
@@ -242,6 +242,13 @@
 </div>
 
 <script type="text/javascript">
+function xxx() {
+	alert("준비중입니다");
+	return
+}
+function appointro() {
+	location.href="appointment.do";
+}
 	$( ".star_rating a" ).click(function() {
 	     $(this).parent().children("a").removeClass("onstars");
 	     $(this).addClass("onstars").prevAll("a").addClass("onstars");

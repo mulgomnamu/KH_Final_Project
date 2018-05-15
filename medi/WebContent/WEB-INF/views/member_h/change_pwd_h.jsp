@@ -18,6 +18,50 @@
 	</script>
 </c:if>
 
+<style>
+input[type="number"] {
+  width: 100px;
+}
+
+input + span {
+  padding-right: 30px;
+}
+
+input:invalid + span:after {
+  position: absolute;
+  content: "✖";
+  padding-left: 5px;
+  color: #8b0000;
+}
+
+input:valid + span:after {
+  position: absolute;
+  content: "✓";
+  padding-left: 5px;
+  color: #009000;
+}
+.tableWrap tr{
+	border-bottom:1px solid #d9d9d9;
+}
+.tableWrap tr:first-child{
+	border-top:3px solid #d9d9d9;
+}
+.tableWrap th{
+	text-align:left;
+	padding: 14px 38px;
+	background-color: rgb(244, 245, 248)
+}
+.tableWrap td{
+	border-left-width: 100px;
+	padding: 25px 14px 25px 20px;
+}
+
+.tableWrap tr{border-bottom:1px solid #d9d9d9;}
+.tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
+.tableWrap th{text-align:left; width:20%;}
+.updateBtn{width:180px; height:70px; line-height:70px; color:#fff; background-color:#1f4bb4; border-radius:5px; margin:40px auto 80px auto; display:block;}
+</style>
+
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 	<div class="login"><!-- 2뎁스명 클래스 -->
 		<!-- SUB SECTION -->
@@ -25,27 +69,27 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>Big hjh</h2>
-				<em>ex) ㅇㅇㅇ 에 등록된 모든 병원의 정보를<br/>한눈에 보여드립니다</em>
+				<h2>비밀번호 수정</h2>
+				<em>비밀번호 수정페이지 입니다.</em>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
 				
 					<form action="">
-						<table>
+						<table class="tableWrap">
 							<tr>
-								<td>
+								<th>
 									현재 비밀번호
-								</td>
+								</th>
 								<td>
 									<input type="password" id="pwdBf" placeholder="현재 비밀번호를 입력하세요">
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									수정 할 비밀번호
-								</td>
+								</th>
 								<td>
 									<input type="hidden" id="id" name="id" value="${login_h.id }">
 									<input type="password" id="pwdAf1" onkeyup="pwdCheckFunction();" placeholder="수정할 비밀번호를 입력하세요" >
@@ -53,9 +97,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<th>
 									수정 할 비밀번호 확인
-								</td>
+								</th>
 								<td>
 									<input type="password" id="pwdAf2" onkeyup="pwdCheckFunction2();" placeholder="수정할 비밀번호를 입력하세요">
 									<h5 style="color: red;" id="pwdCheckMessage2" align="left"></h5>
@@ -63,7 +107,7 @@
 							</tr>
 						</table>
 					</form>
-					<input type="button" id="btnChangePwd" value="수정하기">
+					<input type="button" id="btnChangePwd" value="수정하기" class="updateBtn">
 				</div>
 			</div>
 		</section>

@@ -22,7 +22,7 @@
 				<!-- 이부분에 컨텐츠 시작 -->
 					<div class="searchwrap">
 						<div class="searchbox" style="display: inline-block;position: relative;left: 300px;top: -1.8px;">
-							<form name="frmForm1" id="_frmFormSearch" method="post" action="">
+							<form name="frmForm1" id="_frmFormSearch" method="post">
 								<table>
 									<col width="15%"><col width="55%"><col width="15%">
 									<tr>

@@ -34,7 +34,13 @@ public MediMemberDto Mydetail(MediMemberDto my) throws Exception;
 	
 	public List<MediConsultingQuestionDto> getconPagingList(MediConsultingAllDto alldto) throws Exception;
 	
-	int getBbsCount(MediConsultingAllDto alldto) throws Exception;
+	int getBbsCount1(MediConsultingAllDto alldto) throws Exception;
+	//QnA detail
+	public MediQnaBbsDto getQnADetail(MediQnaBbsDto dto) throws Exception;
+	//QnA update
+	public boolean QnAupdateBbs(MediQnaBbsDto dto) throws Exception;
+	//QnA delete
+	public boolean QnAdeleteBbs(MediQnaBbsDto dto) throws Exception;
 	
 	public MediConsultingQuestionDto getBbsDetail(MediConsultingAllDto dto) throws Exception;
 	

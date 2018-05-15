@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,8 @@ public class MediMemberController {
 	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model) throws Exception{
 		logger.info("MediMemberController main " + new Date());
-		
+		List<MediMember_hDto> scorelist=mediMember_hService.getScoreList();
+		model.addAttribute("scorelist", scorelist);
 		return "main.tiles";
 	}
 	
