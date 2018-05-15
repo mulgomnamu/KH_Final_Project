@@ -24,7 +24,15 @@
 .tableWrap tr{border-bottom:1px solid #d9d9d9;}
 .tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
 .tableWrap th{text-align:left;}
-
+.list_table1 th {
+background-color:#f4f5f8;
+text-align: left;
+border-bottom:1px solid #d9d9d9;
+}
+.list_table1 td {
+border-bottom:1px solid #d9d9d9;
+height: 60px;
+}
 .s_btn{width:100px; height:40px; display:block; line-height:40px; margin:20px auto 20px; text-align:center; background-color:#0b2d85; color:#fff; border-radius:5px;}
 </style>
 
@@ -61,16 +69,18 @@
 							<form name="frmForm1" id="searchForm" method="post" action="">
 								<table border="1px">
 									<tr>
-										<td>검색 : </td>
-										<td>
+										<td align="center">
 											<select id="_s_category" name="s_category">
-												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택</option>
+												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택해주세요</option>
 												<option value="specialty" <c:if test="${s_keyword ne '' and s_category eq 'specialty'}">selected</c:if>>진료분야</option>
 												<option value="name" <c:if test="${s_keyword ne '' and s_category eq 'name'}">selected</c:if>>이름</option>			
 											</select>
 										</td>
-										<td><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
-										<td><span><button type="button" id="searchBtn"> 검색 </button></span></td>
+										<td>
+										<span class="form-text">
+										<label for="_s_keyword" class="placeholder">검색어</label>
+										<input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></span></td>
+										<td><span><button type="button" class="s_btn" id="searchBtn"> 검색 </button></span></td>
 									</tr>
 								</table>
 								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber}"/>						

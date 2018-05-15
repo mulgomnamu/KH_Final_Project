@@ -57,16 +57,20 @@ height: 60px;
 							<form name="frmForm1" id="searchForm" method="post" action="">
 								<table border="1px">
 									<tr>
-										<td>검색 : </td>
-										<td>
+										<td align="center">
 											<select id="_s_category" name="s_category">
-												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택</option>
+												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택해주세요</option>
 												<option value="id" <c:if test="${s_keyword ne '' and s_category eq 'id'}">selected</c:if>>아이디</option>
 												<option value="name" <c:if test="${s_keyword ne '' and s_category eq 'name'}">selected</c:if>>이름</option>			
 											</select>
 										</td>
-										<td><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
-										<td><span><button type="button" id="searchBtn"> 검색 </button></span></td>
+										<td>
+										<span class="form-text">
+										<label for="_s_keyword" class="placeholder">검색어</label>
+										<input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/>
+										</span>
+										</td>
+										<td><span><button type="button" class="s_btn" id="searchBtn"> 검색 </button></span></td>
 									</tr>
 								</table>
 								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber}"/>						
@@ -74,8 +78,8 @@ height: 60px;
 							</form>
 						</div>
 						<div>
-							<input type="button" id="addYellowCard" value="경고 먹이기">
-							<input type="button" id="delYellowCard" value="경고 줄이기">
+							<input type="button" class="s_btn" style="float: left;" id="addYellowCard" value="경고 먹이기">
+							<input type="button" class="s_btn" style="float: left; margin-left: 10px;" id="delYellowCard" value="경고 줄이기">
 						</div>
 						<table class="list_table1">
 							<col width="20px"><col width="100px"><col width="80px">
@@ -91,9 +95,9 @@ height: 60px;
 								<th>전화번호</th>
 								<th>우편번호</th>
 								<th>주소</th>
-								<th>회원구분</th>
-								<th>탈퇴여부</th>
-								<th>Black List</th>
+								<th style="text-align: center;">회원구분</th>
+								<th style="text-align: center;">탈퇴여부</th>
+								<th style="text-align: center;">Black List</th>
 								<th>가입 날짜</th>
 								<th>수정</th>
 							</tr>
@@ -108,9 +112,9 @@ height: 60px;
 									<td><span id="phone${memberList.seq }">${memberList.phone }</span></td>
 									<td><span id="post${memberList.seq }">${memberList.post }</span></td>
 									<td><span id="address${memberList.seq }">${memberList.address }</span></td>
-									<td><span id="auth${memberList.seq }">${memberList.auth }</span></td>
-									<td><span id="del${memberList.seq }">${memberList.del }</span></td>
-									<td><span id="blacklist${memberList.seq }">${memberList.blacklist }</span></td>
+									<td align="center"><span id="auth${memberList.seq }">${memberList.auth }</span></td>
+									<td align="center"><span id="del${memberList.seq }">${memberList.del }</span></td>
+									<td align="center"><span id="blacklist${memberList.seq }">${memberList.blacklist }</span></td>
 									<td><span id="regdate${memberList.seq }">${memberList.regdate }</span></td>
 									<td>
 										<!-- Modal HTML embedded directly into document -->
