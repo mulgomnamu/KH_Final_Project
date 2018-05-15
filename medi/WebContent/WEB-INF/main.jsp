@@ -108,7 +108,7 @@
 		</div>
 		<div class="cont_box-main_util">
 			<div class="call_info">
-				<span> <em>대표전화</em> <strong class="f_eng">1588-1511</strong>
+				<span> <em>대표전화</em> <strong class="f_eng">1234-5678</strong>
 				</span>
 			</div>
 			<div class="main_util_list">
@@ -176,16 +176,16 @@
 			</div>
 		</div>
 		<div class="cont_box-health">
-			<div class="inner">
+			<!-- <div class="inner">
 				<h3>
 					<a href="#;" style="color: #111;"> 병원매거진 </a>
 				</h3>
 				<div class="list-type03 small">
 					<ul>
-						<!-- 작업시 li한개를 for문 돌리면됩니다 -->
+						작업시 li한개를 for문 돌리면됩니다
 						<li><a href="#;">
 								<div class="btn_img clip">
-									<!-- 클래스 추가 : 영상 - clip / 이미지 - img  -->
+									클래스 추가 : 영상 - clip / 이미지 - img 
 									<span class="cont_img"> <img
 										src="https://img.youtube.com/vi/QL3CWmQr0-Q/0.jpg"
 										alt="유투브썸네일">
@@ -200,7 +200,7 @@
 							</div></li>
 						<li><a href="#;">
 								<div class="btn_img img">
-									<!-- 클래스 추가 : 영상 - clip / 이미지 - img  -->
+									클래스 추가 : 영상 - clip / 이미지 - img 
 									<span class="cont_img"> <img src="images/main/26773.jpg"
 										alt="">
 									</span>
@@ -214,7 +214,7 @@
 							</div></li>
 						<li><a href="#;">
 								<div class="btn_img img">
-									<!-- 클래스 추가 : 영상 - clip / 이미지 - img  -->
+									클래스 추가 : 영상 - clip / 이미지 - img 
 									<span class="cont_img"> <img src="images/main/26785.jpg"
 										alt="">
 									</span>
@@ -228,7 +228,7 @@
 							</div></li>
 						<li><a href="#;">
 								<div class="btn_img img">
-									<!-- 클래스 추가 : 영상 - clip / 이미지 - img  -->
+									클래스 추가 : 영상 - clip / 이미지 - img 
 									<span class="cont_img"> <img src="images/main/26774.jpg"
 										alt="">
 									</span>
@@ -242,7 +242,7 @@
 							</div></li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="cont_box-hos_story">
 			<div class="inner">
@@ -423,7 +423,7 @@
 		</ul>
 	</div>
 </div>
-<div class="main_quick">
+<!-- <div class="main_quick">
 	<ul>
 		<li class="load"><a href="#;"> <em>찾아오시는길</em>
 		</a></li>
@@ -438,7 +438,7 @@
 		<li class="funeral"><a href="#;" target="_blank"> <em>장례식장</em>
 		</a></li>
 	</ul>
-</div>
+</div> -->
 <!--20180110 내부시스템작업 팝업-->
 <!--
 	<div class="new_main_cover_popwrap off" style="position: absolute; left: 0px; top: 105px; z-index: 1000; padding: 8px; border: 1px solid rgb(211, 211, 211); background: rgb(238, 238, 238);">

@@ -1,7 +1,7 @@
 @charset "utf-8";
 body.main_layout  #container{padding-top:105px; padding-bottom:0;}
 body.main_layout #sub_section{padding-bottom:0;}
-body.main_layout .f_banner{padding-bottom:267px; border-top:1px solid #d9d9d9;}
+body.main_layout .f_banner{ border-top:1px solid #d9d9d9;}
 
 .f_banner .bannerBox{display:table;width:100%;padding:20px 0;text-align:center;}
 .f_banner .bannerBox li{display:table-cell;}
@@ -255,7 +255,7 @@ body.main_layout .f_banner{padding-bottom:267px; border-top:1px solid #d9d9d9;}
 
 .cont_box-main_util .main_util_list [class^='main_util-'] .util_wrap{}
 
-.main .cont_box-health{padding-top:289px; padding-bottom:62px; background-color:#f4f5f8;}
+.main .cont_box-health{padding-top:200px; padding-bottom:62px; background-color:#f4f5f8;}
 .main .cont_box-health .label_wrap{position:absolute; top:4px;}
 
 .main .cont_box-health li .reduce_multi{margin-top:17px; width:265px; max-height:47px;}

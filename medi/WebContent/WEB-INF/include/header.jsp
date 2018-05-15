@@ -211,13 +211,13 @@
                        <div class="p_t">
                            <div>
                                  <span  class="tit">
-                                     <a href="#;" target="_self">
+                                     <a href="hbbslist.do" target="_self">
                                          <strong>병원 찾기</strong>
                                      </a>
                                  </span>
                                  <ul>
                                       <li>
-                                           <a href="#;" target="_self">
+                                           <a href="hbbslist.do" target="_self">
                                                <em>병원 찾기</em>
                                            </a>
                                       </li>
