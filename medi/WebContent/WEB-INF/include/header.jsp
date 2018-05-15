@@ -60,7 +60,7 @@
 <!-- 병원회원 -->
          <c:if test="${loginType eq 4 }">
             <li>
-               <a href="myPage_h.do">
+               <a href="myPage_h.do?seq=${login_h.seq }">
                   <em>마이페이지</em>
                </a>
             </li>   

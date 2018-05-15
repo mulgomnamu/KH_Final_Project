@@ -99,4 +99,9 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 		return mediMember_hDao.getScoreList();
 	}
 
+	@Override
+	public int getDoctorCount(int seq) {
+		return mediMember_hDao.getDoctorCount(seq);
+	}
+	
 }

@@ -37,12 +37,16 @@
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
-					
 					<div>
 						<a href="change_pwd_h.do" class="fourBox">비밀번호 변경</a>
 						<a href="update_h.do?seq=${login_h.seq }" class="fourBox">병원 회원 정보 변경</a>
 						<a href="join_d.do" class="fourBox">의사 회원 추가</a>
-						<a href="update_d.do?seq=${login_h.seq }&index=0" class="fourBox">의사 회원 정보 변경</a>
+						<c:if test="${getDCount == 0 }">
+							<a href="#;" onClick="alert('의사정보가 없습니다.')" class="fourBox">의사 회원 정보 변경</a>
+						</c:if>
+						<c:if test="${getDCount != 0 }">
+							<a href="update_d.do?seq=${login_h.seq }&index=0" class="fourBox">의사 회원 정보 변경</a>
+						</c:if>
 						<a href="HospitalReservationList.do?hos_seq=2" class="fourBox">예약 목록</a>
 					</div>
 					

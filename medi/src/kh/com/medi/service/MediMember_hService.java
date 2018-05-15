@@ -25,4 +25,5 @@ public interface MediMember_hService {
 	public List<MediSubjectDto> getHospitalSubjectColumns(MediMember_hDto dto_h);
 	public List<MediHospital_imageDto> getImageList(MediMember_hDto dto_h);
 	List<MediMember_hDto> getScoreList();
+	public int getDoctorCount(int seq);
 }

@@ -103,8 +103,11 @@ public class MediMember_hController {
 	}
 	
 	@RequestMapping(value="myPage_h.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String myPage_h() {
+	public String myPage_h(int seq, Model model) {
 		logger.info("MediMember_hController myPage_h " + new Date());
+		
+		int getDCount = mediMember_hService.getDoctorCount(seq);
+		model.addAttribute("getDCount", getDCount);
 		
 		return "myPage_h.tiles";
 	}

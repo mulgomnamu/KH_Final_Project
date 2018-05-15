@@ -107,4 +107,9 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 	public List<MediMember_hDto> getScoreList() {
 		return sqlSession.selectList(ns+"getScoreList");
 	}
+
+	@Override
+	public int getDoctorCount(int seq) {
+		return sqlSession.selectOne(ns+"getDoctorCount", seq);
+	}
 }
