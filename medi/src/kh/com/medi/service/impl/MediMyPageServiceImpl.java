@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.com.medi.dao.MediMyPageDao;
+import kh.com.medi.model.MediAppointmentDto;
+import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediConsultingAllDto;
 import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
+import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.model.MediQnaBbsDto;
 import kh.com.medi.model.MediQnaBbsParamDto;
@@ -98,8 +102,71 @@ public class MediMyPageServiceImpl implements MediMyPageService {
 		return mediMyPageDao.checkEmail(my);
 	}
 
+	@Override
+	public List<MediAppointmentDto> relist(MediConsultingAllDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.relist(dto);
+	}
+
+	@Override
+	public int getanswerlistCount(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.getanswerlistCount(alldto);
+	}
+
+	@Override
+	public MediAppointmentDto myreservedetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.myreservedetail(alldto);
+	}
+
+	@Override
+	public MediDoctorDto mygetdocdetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.mygetdocdetail(alldto);
+	}
+
+	@Override
+	public MediMember_hDto mygethospitaldetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.mygethospitaldetail(alldto);
+	}
+
+	@Override
+	public boolean myresevecancel(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.myresevecancel(alldto);
+	}
+
+	@Override
+	public boolean mybbsDelete(MediConsultingAllDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.mybbsDelete(dto);
+	}
+	@Override
+	public boolean updateBbs(MediConsultingAllDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.updateBbs(dto);
+	}
+	@Override
+	public boolean selected(MediConsultingAnswerDto dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.selected(dto);
+	}
+
+	@Override
+	public boolean selectyn(MediConsultingAnswerDto dto) throws Exception {
+		return mediMyPageDao.selectyn(dto);
+	}
 	
-	
-	
+	@Override
+	public void plusscore(MediConsultingAllDto dto) throws Exception {
+		mediMyPageDao.plusscore(dto);
+	}
+	@Override
+	public MediConsultingAnswerDto answerdetail(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return mediMyPageDao.answerdetail(alldto);
+	}
 
 }

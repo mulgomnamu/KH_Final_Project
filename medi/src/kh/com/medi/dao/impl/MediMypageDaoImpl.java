@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kh.com.medi.dao.MediMyPageDao;
+import kh.com.medi.model.MediAppointmentDto;
+import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediConsultingAllDto;
 import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
+import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediMemberDto;
+import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediMyListPagingDto;
 import kh.com.medi.model.MediQnaBbsDto;
 import kh.com.medi.model.MediQnaBbsParamDto;
@@ -102,14 +106,81 @@ public class MediMypageDaoImpl implements MediMyPageDao {
 	@Override
 	public List<MediConsultingAnswerDto> answerlist(MediConsultingAllDto alldto) throws Exception {
 		
-		return sqlSession.selectList(ns+"answerlist", alldto);
+		return sqlSession.selectList(ns+"answerlist1", alldto);
 	}
 	
 	@Override
 	public void readcountBbs(MediConsultingAllDto dto) throws Exception {
 		sqlSession.update(ns+"plusreadcount", dto);
 	}
+	/*예약현황*/
+	@Override
+	public List<MediAppointmentDto> relist(MediConsultingAllDto dto) throws Exception{
+		
+		return sqlSession.selectList(ns+"answerlist", dto);
+		
+	}
 
+	@Override
+	public int getanswerlistCount(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"getanswerlistCount", alldto);
+	}
 	
-
+	@Override
+	public MediMember_hDto mygethospitaldetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"mygethospitaldetail", alldto);
+	}
+	
+	@Override
+	public MediDoctorDto mygetdocdetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"mygetdocdetail", alldto);
+	}
+	@Override
+	public MediAppointmentDto myreservedetail(MediAppointmentNeedDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"myreservedetail", alldto);
+	}
+	@Override
+	public boolean myresevecancel(MediAppointmentNeedDto alldto) throws Exception {
+		int count=sqlSession.delete(ns+"myresevecancel", alldto);
+		
+		return count>0?true:false;
+	}
+	@Override
+	public boolean mybbsDelete(MediConsultingAllDto dto) throws Exception{
+		int count=sqlSession.update(ns+"mybbsDelete",dto);
+		
+		return count>0?true:false;
+	}
+	
+	@Override
+	public boolean updateBbs(MediConsultingAllDto dto) throws Exception {
+		int count=sqlSession.update(ns+"bbsUpdate", dto);
+		return count>0?true:false;
+	}
+	
+	@Override
+	public boolean selected(MediConsultingAnswerDto dto) throws Exception {
+		int count=sqlSession.update(ns+"myselected", dto);
+		return count>0?true:false;
+	}
+	
+	@Override
+	public boolean selectyn(MediConsultingAnswerDto dto) throws Exception {
+		int count=sqlSession.update(ns+"myselectyn", dto);
+		return count>0?true:false;
+	}
+	@Override
+	public void plusscore(MediConsultingAllDto dto) throws Exception {
+		sqlSession.update(ns+"myplusscore", dto);
+	}
+	@Override
+	public MediConsultingAnswerDto answerdetail(MediConsultingAllDto alldto) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns+"myanswerdetail", alldto);
+	}
+	
 }

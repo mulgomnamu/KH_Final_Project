@@ -14,7 +14,7 @@
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="title-type01">
-				<h2>내 커뮤니티</h2>
+				<h2>내 건강상담</h2>
 			</div>
 			<!-- content 시작 -->
 			<div class="content"> 
@@ -34,7 +34,7 @@
 												<option value="content">내용</option>								
 											</select>
 										</td>
-										<td style="padding-left:5px;"><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
+										<td style="padding-left:5px;"><input type="text" id="_s_keyword" name="s_keyword" value=""/></td>
 										<td style="padding-left:5px;"><button type="button" id="_btnSearch"> 검색 </button></td>
 									</tr>
 								</table>
@@ -71,23 +71,6 @@
 								<input type="hidden" name="id" id="id" value="${login.id }">
 							</c:if>
 					   <c:forEach items="${questionlist}" var="bbs" varStatus="vs">
-					  <%--  <tr class="_hover_tr">
-						    <td style="text-align: center">
-						    	${vs.count}
-						    </td> 
-						    <td style="text-align: center">
-						     	${bbs.question}
-						    </td>
-						    <td style="text-align: center">
-						     	<a href='Qnabbsdetail.do?seq=${bbs.seq}'>
-								    	${bbs.title}
-								</a>
-						    </td>
-						    <td style="text-align: center">
-						    	${bbs.id}
-						    </td> 
-					   </tr> --%>
-					   
 					   <tr class="_hover_tr">
 							    <td style="text-align: center;">[${bbs.category}]</td>
 								<td style="text-align: left">

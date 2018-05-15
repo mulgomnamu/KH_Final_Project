@@ -3,6 +3,7 @@ package kh.com.medi.controller;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import kh.com.medi.model.MediAppointmentDto;
+import kh.com.medi.model.MediAppointmentNeedDto;
 import kh.com.medi.model.MediConsultingAllDto;
 import kh.com.medi.model.MediConsultingAnswerDto;
 import kh.com.medi.model.MediConsultingQuestionDto;
+import kh.com.medi.model.MediDoctorDto;
 import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediMyListPagingDto;
@@ -113,16 +116,23 @@ public class MediMyPageController {
 		
 	}
 	
-	
-	
 	/*내정보 mydetail*/
+	@ResponseBody
 	@RequestMapping(value="Mydetail.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String mydetail(Model model, MediMemberDto my ) throws Exception{
+	public Map<String, Object> mydetail(Model model, MediMemberDto my ) throws Exception{
 		logger.info("MediMyPageController Mydetail " + new Date());
 		MediMemberDto dto = medimyPageservice.Mydetail(my);
+		System.out.println(my.getId()+"1111111111111111111111111111111111111"+dto.getId());
+		Map<String, Object> map=new HashMap<String, Object>();
+		if(dto.getId().equals(my.getId())) {
+			map.put("yn", "AA");
+		}else {
+			map.put("yn", "CC");
+		}
 		
-		model.addAttribute("my",dto);
-		return"Mydetail.tiles";
+		
+		
+		return map;
 	}
 	/*내정보 수정*/ 
 	@RequestMapping(value="mysupdateAf.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -218,7 +228,7 @@ public class MediMyPageController {
 			return "Mypwdupdate.tiles";
 		
 		}
-		
+		/*비밀번호수정*/
 		@RequestMapping(value="MypwdupdateAf.do", method={RequestMethod.GET, RequestMethod.POST})
 		public String mypwdupdateAf(Model model, MediMemberDto my, HttpServletRequest req) throws Exception{
 			logger.info("MediMyPageController Mypwdupdate " + new Date());
@@ -242,7 +252,7 @@ public class MediMyPageController {
 			}
 				
 		}
-		/*내가 쓴 커뮤니티*/
+		/*내가 쓴 건강상담*/
 		@RequestMapping(value="Myconsulting.do", method={RequestMethod.GET, RequestMethod.POST})
 		public String Myconsulting(Model model, MediConsultingAllDto alldto) throws Exception{
 			logger.info("MediMyPageController Myconsulting " + new Date());
@@ -270,7 +280,7 @@ public class MediMyPageController {
 		
 		}
 		
-		
+		/*건상상담 detail*/
 		@RequestMapping(value="Myconsultingdetail.do", method={RequestMethod.GET, RequestMethod.POST})
 		public String Myconsultingdetail(Model model, MediConsultingAllDto alldto) throws Exception{
 			logger.info("MediConsultingController consultingdetail " + new Date());
@@ -281,6 +291,32 @@ public class MediMyPageController {
 			model.addAttribute("answerlist", answerlist);
 			model.addAttribute("bbs", dto);
 			return "Myconsultingdetail.tiles";
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="mysaveselected.do", method={RequestMethod.GET, RequestMethod.POST})
+		public Map<String, Object> mysaveselected(MediConsultingAllDto alldto,Model model) throws Exception{
+			logger.info("MediConsultingController mysaveselected " + new Date());
+			System.out.println("==================================]"+alldto.getAns_seq());
+			System.out.println("==================================]"+alldto.getHos_seq());
+			Map<String, Object> map=new HashMap<String, Object>();
+			MediConsultingAnswerDto ansdto=medimyPageservice.answerdetail(alldto);
+			boolean isS=medimyPageservice.selectyn(ansdto);
+			boolean isS1=medimyPageservice.selected(ansdto);
+			String yn="";
+			if (isS) {
+				yn="yes";
+			}else {
+				yn="no";
+			}
+			if (isS1) {
+				yn="yesyes";
+				medimyPageservice.plusscore(alldto);
+			}else {
+				yn="no";
+			}
+			map.put("yn",yn);
+			return map;
 		}
 		
 		
@@ -300,4 +336,111 @@ public class MediMyPageController {
 			return medimyPageservice.checkEmail(my) + "";
 		}
 		
+		/*예약현황*/
+		@RequestMapping(value="Myreserve.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String Myreserve(Model model,  MediConsultingAllDto dto) throws Exception{
+			logger.info("MediMyPageController Myreserve " + new Date());
+			// 모든글
+			System.out.println("======================================="+dto.getS_keyword()+dto.getS_keyword1());
+		
+			
+			int sn = dto.getPageNumber();
+			int start = (sn) * dto.getRecordCountPerPage() + 1;
+			int end = (sn + 1) * dto.getRecordCountPerPage();
+			
+			dto.setStart(start);
+			dto.setEnd(end);
+			
+			int totalRecordCount = medimyPageservice.getanswerlistCount(dto);
+			List<MediAppointmentDto> list = medimyPageservice.relist(dto);
+			model.addAttribute("pageNumber", sn);
+			model.addAttribute("pageCountPerScreen", 10);
+			model.addAttribute("recordCountPerPage", dto.getRecordCountPerPage());
+			model.addAttribute("totalRecordCount", totalRecordCount);
+			
+		
+			model.addAttribute("s_keyword", dto.getS_keyword());
+			model.addAttribute("s_keyword1", dto.getS_keyword1());
+			
+			
+			
+			model.addAttribute("list", list);
+		
+			
+			
+			return"Myreserve.tiles";
+		}
+		
+		@RequestMapping(value="myreservedetail.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String reservedetail(MediAppointmentNeedDto alldto,Model model) throws Exception{
+			logger.info("MediAppointmentController myreservedetail " + new Date());
+			MediMember_hDto hosdto=medimyPageservice.mygethospitaldetail(alldto);
+			MediDoctorDto docdto=medimyPageservice.mygetdocdetail(alldto);
+			MediAppointmentDto reservedto=medimyPageservice.myreservedetail(alldto);
+			
+			model.addAttribute("hosdto", hosdto);
+			model.addAttribute("docdto", docdto);
+			model.addAttribute("reservedto", reservedto);
+			return "myreservedetail.tiles";
+		}
+		
+		//예약취소
+		@ResponseBody
+		@RequestMapping(value="myresevecancel.do", method={RequestMethod.GET, RequestMethod.POST})
+		public Map<String, Object> myresevecancel(MediAppointmentNeedDto alldto,Model model) throws Exception{
+			logger.info("MediAppointmentController resevecancel " + new Date());
+			Map<String, Object> map=new HashMap<String, Object>();
+			MediAppointmentNeedDto yes=new MediAppointmentNeedDto();
+			
+			boolean isS=medimyPageservice.myresevecancel(alldto);
+			if (isS) {
+				yes.setMessage("yes");
+			}else {
+				yes.setMessage("no");
+			}
+			map.put("yes",yes.getMessage());
+			return map;
+		}
+		/*건강상담 삭제*/
+		@ResponseBody
+		@RequestMapping(value="myconsultingdelete.do", method={RequestMethod.GET, RequestMethod.POST})
+		public int myconsultingdelete(MediConsultingAllDto dto,Model model) throws Exception{
+			logger.info("MediAppointmentController myconsultingdelete " + new Date());
+			
+			System.out.println("=!!!!!!!!!!!!!======================================"+dto.getMem_seq());
+			System.out.println("=!!!!!!!!!!!!!======================================"+dto.getSeq());
+			
+			boolean iss = medimyPageservice.mybbsDelete(dto);
+			int isS=0;
+			if (iss) {
+				isS=1;
+			}else {
+				isS=2;
+			}
+			return isS;	
+		}
+		/*건강상담수정*/
+		@RequestMapping(value="Myconsultingupdate.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String myconsultingupdate(MediConsultingAllDto dto,Model model) throws Exception{
+			logger.info("MediAppointmentController myconsultingupdate " + new Date());
+		
+			model.addAttribute("bbs", dto);
+			return"Myconsultingupdate.tiles";
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="MyconsultingupdateAf.do", method={RequestMethod.GET, RequestMethod.POST})
+		public int MyconsultingupdateAf(MediConsultingAllDto dto,Model model) throws Exception{
+			logger.info("MediAppointmentController MyconsultingupdateAf " + new Date());
+			
+			boolean flag = medimyPageservice.updateBbs(dto);
+			int flag1=0;
+			if(flag) {
+				flag1=1;
+			}else {
+				flag1=2;
+			}
+			
+			return flag1;
+		}
 }

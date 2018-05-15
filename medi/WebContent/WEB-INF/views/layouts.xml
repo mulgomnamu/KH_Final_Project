@@ -152,14 +152,30 @@
 		<put-attribute name="content" value="/WEB-INF/views/mypage/MyPageList.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	<!--마이페이지커뮤니티리스트  -->
+	<!--마이페이지건강상담리스트  -->
 	<definition name="Myconsulting.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/mypage/Myconsulting.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
-	<!--커뮤니티 디테일  -->
+	<!--건강상담 디테일  -->
 	<definition name="Myconsultingdetail.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/mypage/Myconsultingdetail.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!--건강상담 수정  -->
+	<definition name="Myconsultingupdate.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/Myconsultingupdate.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	
+	<!--예약 현황  -->
+	<definition name="Myreserve.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/Myreserve.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
+	</definition>
+	<!--예약detail  -->
+	<definition name="myreservedetail.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/myreservedetail.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	

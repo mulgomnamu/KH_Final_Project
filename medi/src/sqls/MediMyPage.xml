@@ -19,6 +19,8 @@ EMAIL=#{email},POST=#{post},ADDRESS=#{address},PHONE=#{phone}
 WHERE ID=#{id}
 </update>
 
+
+
 	
 <select id="checkPhone" parameterType="kh.com.medi.model.MediMyPageDto" resultType="java.lang.Integer">
 	SELECT IFNULL(COUNT(*), 0)
@@ -140,9 +142,47 @@ WHERE PWD=#{pwd}
 			</if>
 		</if> 
 	</select>
+
 	
-	<!-- 병원디테일가져오기 -->
-	<resultMap type="kh.com.medi.model.MediMember_hDto" id="hDto">
+	<!-- 디테일가져오기 -->
+	<select resultType="kh.com.medi.model.MediConsultingQuestionDto" id="getBbsDetail" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+		SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
+		FROM `MEDI`.`medi_consulting_question` 
+		WHERE SEQ=#{seq} 
+	</select>
+	
+	<!--건강상담 삭제  -->
+	<update id="mybbsDelete" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_question` SET DEL = 1
+	WHERE SEQ=#{mem_seq} 
+	</update>
+	<!--건강상담 수정 -->
+	<update id="bbsUpdate" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_consulting_question` SET TITLE=#{title}, CONTENT =#{content}, WDATE=NOW()
+	WHERE SEQ =#{mem_seq}
+	</update>
+	<!-- 질문글채택완료 -->
+	<update id="myselectyn" parameterType="kh.com.medi.model.MediConsultingAnswerDto"> 
+	UPDATE `MEDI`.`medi_consulting_question` SET SELECTYN = 1
+		WHERE SEQ=#{parent} 
+	</update>
+	<!-- del=3으로해줌으로서 채택된걸표시 -->
+	<update id="myselected" parameterType="kh.com.medi.model.MediConsultingAnswerDto"> 
+	UPDATE `MEDI`.`medi_consulting_answer` SET ANS_DEL = 3
+		WHERE ANS_SEQ=#{ans_seq} 
+	</update>
+	<!-- 병원스코어상승 -->
+	<update id="myplusscore" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
+	UPDATE `MEDI`.`medi_hospital` SET SCORE=SCORE+1 WHERE SEQ=#{hos_seq} 
+	</update>
+	<!-- 답변가져오기 -->
+	<select id="myanswerdetail" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="kh.com.medi.model.MediConsultingAnswerDto">
+		SELECT ANS_SEQ,HOS_SEQ,WHOS_NAME, CONTENT, PARENT, ANS_DEL, ANS_WDATE
+		FROM medi_consulting_answer
+		WHERE ANS_SEQ=#{ans_seq} AND ANS_DEL!=1
+	</select>
+	
+	<resultMap type="kh.com.medi.model.MediMember_hDto" id="hDto1">
     <result column="SEQ" property="seq"/>
     <result column="ID" property="id"/>
     <result column="PWD" property="pwd"/>
@@ -160,9 +200,8 @@ WHERE PWD=#{pwd}
 	<result column="SCORE" property="score"/>
     <result column="DEL" property="del"/>
     <result column="REGDATE" property="regdate"/>
-	</resultMap>  
-	
-	 
+	</resultMap>
+ 
 	<resultMap type="kh.com.medi.model.MediConsultingAnswerDto" id="ConsultingAnswerDto">
 	   <result column="ANS_SEQ" property="ans_seq"/>
 	    <result column="HOS_SEQ" property="hos_seq"/>
@@ -171,19 +210,11 @@ WHERE PWD=#{pwd}
 	    <result column="PARENT" property="parent"/>
 	    <result column="ANS_DEL" property="ans_del"/>
 	    <result column="ANS_WDATE" property="ans_wdate"/>
-	    <collection property="medimember_hdto" resultMap="hDto"/>
+	    <collection property="medimember_hdto" resultMap="hDto1"/>
 	</resultMap>
-	
-	
-	<!-- 디테일가져오기 -->
-	<select resultType="kh.com.medi.model.MediConsultingQuestionDto" id="getBbsDetail" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
-		SELECT SEQ, MEM_SEQ,WID, TITLE, CONTENT, CATEGORY, READCOUNT, COMMENTCOUNT, SELECTYN,DEL, WDATE
-		FROM `MEDI`.`medi_consulting_question` 
-		WHERE SEQ=#{seq} 
-	</select>
-	
+	 
 	<!-- 답변리스트가져오기 -->
-	 <select id="answerlist" parameterType="kh.com.medi.model.MediConsultingAllDto" resultMap="ConsultingAnswerDto">
+	 <select id="answerlist1" parameterType="kh.com.medi.model.MediConsultingAllDto" resultMap="ConsultingAnswerDto">
 	    SELECT
 	        h.SEQ,h.ID,h.PWD,h.NAME,h.TEL,h.POST,h.ADDRESS,h.LATITUDE,h.LONGTITUDE,
 	        h.EMAIL,h.QUESTION,h.ANSWER,h.CONFIRM_IMG,h.INFO,h.SCORE,h.DEL,h.REGDATE,
@@ -204,6 +235,122 @@ WHERE PWD=#{pwd}
 	UPDATE medi_consulting_question SET
 	READCOUNT=READCOUNT+1 WHERE SEQ=#{seq} 
 	</update>
- 
-
+	
+	<!--병원detail  -->
+	<select id="mygethospitaldetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT SEQ,ID,PWD,NAME,TEL,POST,ADDRESS,LATITUDE,LONGTITUDE,EMAIL,QUESTION,ANSWER,CONFIRM_IMG,INFO,SCORE,DEL,REGDATE  
+		FROM medi_hospital
+		WHERE SEQ=#{hos_seq}
+	</select>
+	<!--의사detail  -->
+	<select id="mygetdocdetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediDoctorDto">
+		SELECT SEQ,HOS_SEQ,NAME,SPECIALTY,REGDATE,DOC_PROFILE,DOC_CONTENT  
+		FROM medi_doctor
+		WHERE SEQ=#{doc_seq}
+	</select>
+	<!--예약detail  -->
+	<select id="myreservedetail" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultType="kh.com.medi.model.MediAppointmentDto">
+		SELECT SEQ,MEM_SEQ,HOS_SEQ,DOC_SEQ,CONTENT,DAY,TIME,WDATE,TYPE
+		FROM medi_reservation
+		WHERE MEM_SEQ=#{mem_seq} AND HOS_SEQ=#{hos_seq} AND DOC_SEQ=#{doc_seq} AND DAY=#{day} AND TIME=#{time}
+	</select>
+ 	<!--예약취소  -->
+ 	<delete id="myresevecancel" parameterType="kh.com.medi.model.MediAppointmentNeedDto">
+		DELETE FROM medi_reservation
+		WHERE SEQ=${seq}
+	</delete>
+	
+	
+	<resultMap type="kh.com.medi.model.MediMember_hDto" id="hDto">
+    <result column="HMEM_SEQ" property="seq"/>
+    <result column="ID" property="id"/>
+    <result column="PWD" property="pwd"/>
+    <result column="HMEM_NAME" property="name"/>
+    <result column="TEL" property="tel"/>
+    <result column="POST" property="post"/>
+    <result column="ADDRESS" property="address"/>
+    <result column="LATITUDE" property="latitude"/>
+    <result column="LONGTITUDE" property="longtitude"/>
+    <result column="EMAIL" property="email"/>
+    <result column="QUESTION" property="question"/>
+    <result column="ANSWER" property="answer"/>
+    <result column="CONFIRM_IMG" property="confirm_img"/>
+   <result column="INFO" property="info"/>
+   <result column="SCORE" property="score"/>
+    <result column="HMEM_DEL" property="del"/>
+    <result column="HMEM_REGDATE" property="regdate"/>
+   </resultMap>
+   
+    <resultMap type="kh.com.medi.model.MediDoctorDto" id="docDto">
+    <result column="D_SEQ" property="seq"/>
+    <result column="D_HOS_SEQ" property="hos_seq"/>
+    <result column="D_NAME" property="name"/>
+    <result column="SPECIALTY" property="specialty"/>
+    <result column="D_REGDATE" property="regdate"/>
+    <result column="DOC_PROFILE" property="doc_profile"/>
+    <result column="DOC_CONTENT" property="doc_content"/>
+    <result column="DOC_TOSTRING" property="day_tostring"/>
+   </resultMap>
+   
+   <resultMap type="kh.com.medi.model.MediAppointmentDto" id="AppointmentDto">
+      <result column="APP_SEQ" property="seq"/>
+      <result column="MEM_SEQ" property="mem_seq"/>
+       <result column="APP_HOS_SEQ" property="hos_seq"/>
+       <result column="APP_DOC_SEQ" property="doc_seq"/>
+       <result column="APP_CONTENT" property="content"/>
+       <result column="DAY" property="day"/>
+       <result column="TIME" property="time"/>
+       <result column="WDATE" property="wdate"/>
+       <result column="TYPE" property="type"/>
+       <collection property="mediMember_hDto" resultMap="hDto"/>
+       <collection property="mediDoctorDto" resultMap="docDto"/>
+   </resultMap>
+	
+	
+	
+	
+	 <!--예약현황list  -->
+	<select id="answerlist" parameterType="kh.com.medi.model.MediAppointmentNeedDto" resultMap="AppointmentDto">
+       SELECT
+          h.SEQ as HMEM_SEQ,h.ID,h.PWD,h.NAME as HMEM_NAME,h.EMAIL,
+          d.seq as D_SEQ,d.hos_seq as D_HOS_SEQ,d.name as D_NAME,d.specialty,
+          r.seq as APP_SEQ,r.mem_seq,r.hos_seq as APP_HOS_SEQ,r.doc_seq as APP_DOC_SEQ,
+          r.content as APP_CONTENT,r.day,r.time,r.wdate
+       FROM
+         medi_reservation r
+       INNER JOIN
+           medi_hospital h
+       ON
+         r.HOS_SEQ=h.SEQ
+         INNER JOIN
+            medi_doctor d
+       ON
+           r.doc_SEQ=d.SEQ
+            where r.mem_seq=#{seq}
+            <if test="s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'day'">
+				AND r.day between #{s_keyword1} and #{s_keyword}
+			</if>
+		</if> 
+   </select> 
+<select id="getanswerlistCount" parameterType="kh.com.medi.model.MediConsultingAllDto" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		 FROM
+         medi_reservation r
+       INNER JOIN
+           medi_hospital h
+       ON
+         r.HOS_SEQ=h.SEQ
+         INNER JOIN
+            medi_doctor d
+       ON
+           r.doc_SEQ=d.SEQ
+            where r.mem_seq=#{seq}
+		<if test="s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'day'">
+				AND r.day between #{s_keyword1} and #{s_keyword}
+			</if>
+		</if> 
+	</select>
+	
 </mapper>
