@@ -45,8 +45,9 @@ public class MediMyPageController {
 
 	
 	/*Qna게시판*/
-	@RequestMapping(value="MyPageList.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String MyPageList(Model model, MediQnaBbsParamDto ddt) throws Exception{
+	
+	@RequestMapping(value="MyPageList1.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String MyPageList(Model model, MediQnaBbsParamDto ddt, MediConsultingAllDto alldto) throws Exception{
 		logger.info("MediMyPageController MyPageList " + new Date());
 		System.out.println("++++++++++++++++++++++++++++++++++++++"+ddt.toString());
 		// paging처리
@@ -72,10 +73,227 @@ public class MediMyPageController {
 				model.addAttribute("s_keyword", ddt.getS_keyword());
 				
 				
-				return "MyPageList.tiles";
+				//건강상담
+				// paging처리
+				int sn1 = alldto.getPageNumber1();
+				int start1 = (sn1) * alldto.getRecordCountPerPage1() + 1;
+				int end1 = (sn1 + 1) * alldto.getRecordCountPerPage1();
+				
+				alldto.setStart(start1);
+				alldto.setEnd(end1);
+				
+				int totalRecordCount1 = medimyPageservice.getBbsCount1(alldto);
+				List<MediConsultingQuestionDto> questionlist = medimyPageservice.getconPagingList(alldto);
+				for (int i = 0; i < questionlist.size(); i++) {
+					System.out.println(questionlist.get(i).toString());
+					System.out.println(i);
+				}
+				
+				model.addAttribute("questionlist", questionlist);
+				model.addAttribute("pageNumber1", sn1);
+				model.addAttribute("pageCountPerScreen1", 10);
+				model.addAttribute("recordCountPerPage1", alldto.getRecordCountPerPage1());
+				model.addAttribute("totalRecordCount1", totalRecordCount1);
+				
+				model.addAttribute("s_category1", alldto.getS_category1());
+				model.addAttribute("s_keyword1", alldto.getS_keyword1());
+				
+				//예약현황
+				int sn2 = alldto.getPageNumber2();
+				int start2 = (sn2) * alldto.getRecordCountPerPage2() + 1;
+				int end2 = (sn2 + 1) * alldto.getRecordCountPerPage2();
+				
+				alldto.setStart(start2);
+				alldto.setEnd(end2);
+				
+				int totalRecordCount2 = medimyPageservice.getanswerlistCount(alldto);
+				List<MediAppointmentDto> list = medimyPageservice.relist(alldto);
+				model.addAttribute("list", list);
+				model.addAttribute("pageNumber2", sn2);
+				model.addAttribute("pageCountPerScreen2", 10);
+				model.addAttribute("recordCountPerPage2", alldto.getRecordCountPerPage2());
+				model.addAttribute("totalRecordCount2", totalRecordCount2);
+				
+			
+				model.addAttribute("s_keyword2", alldto.getS_keyword2());
+				model.addAttribute("s_keyword2", alldto.getS_keyword2());
+				
+				
+				
+				model.addAttribute("list", list);
+					
+				
+				return "MyPageList1.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="myselectaf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> myselectaf(Model model,MediConsultingAllDto alldto ,MediQnaBbsParamDto dto) throws Exception{
+		logger.info("MediConsultingController selectaf " + new Date());
+		Map<String, Object> map=new HashMap<String, Object>();
+		//QnA게시판
+		int sn = dto.getPageNumber();
+		int start = (sn) * dto.getRecordCountPerPage() + 1;
+		int end = (sn + 1) * dto.getRecordCountPerPage();
+		
+		alldto.setStart(start);
+		alldto.setEnd(end);
+		int totalRecordCount = medimyPageservice.getBbsCount(dto);
+		List<MediQnaBbsDto> Mylisy = medimyPageservice.getBbsPagingList(dto);
+		int totalPageCount = totalRecordCount / dto.getRecordCountPerPage();	// 총페이지
+		
+		if ((totalRecordCount % alldto.getRecordCountPerPage()) != 0) {
+			//	12					10	
+			totalPageCount++;		// 1 -> 2
+		}
+		
+		
+		map.put("Mylisy", Mylisy);
+		map.put("pageNumber", sn);
+		map.put("pageCountPerScreen", 10);
+		map.put("recordCountPerPage", dto.getRecordCountPerPage());
+		map.put("totalRecordCount", totalRecordCount);
+		map.put("totalPageCount", totalPageCount);
+		map.put("s_category", dto.getS_category());
+		map.put("s_keyword", dto.getS_keyword());
+		String yn="";
+		if (Mylisy.size()==0||Mylisy==null) {
+			yn="no";
+		}else {
+			yn="yes";
+		}
+		map.put("yn", yn);
+		//건강상담
+		int sn1 = alldto.getPageNumber1();
+		int start1 = (sn1) * alldto.getRecordCountPerPage1() + 1;
+		int end1 = (sn1 + 1) * alldto.getRecordCountPerPage1();
+		
+		alldto.setStart(start1);
+		alldto.setEnd(end1);
+		int totalRecordCount1 = medimyPageservice.getBbsCount1(alldto);
+		List<MediConsultingQuestionDto> questionlist = medimyPageservice.getconPagingList(alldto);
+		int totalPageCount1 = totalRecordCount1 / alldto.getRecordCountPerPage1();	// 총페이지
+		//		1		=		12					10
+		
+		if ((totalRecordCount1 % alldto.getRecordCountPerPage1()) != 0) {
+			//	12					10	
+			totalPageCount1++;		// 1 -> 2
+		}
+		
+		map.put("questionlist", questionlist);
+		map.put("pageNumber1", sn1);
+		map.put("pageCountPerScreen1", 10);
+		map.put("recordCountPerPage1", alldto.getRecordCountPerPage1());
+		map.put("totalRecordCount1", totalRecordCount1);
+		map.put("totalPageCount1", totalPageCount1);
+		map.put("s_category1", alldto.getS_category1());
+		map.put("s_keyword1", alldto.getS_keyword1());
+		String yn1="";
+		if (questionlist.size()==0||questionlist==null) {
+			yn1="no";
+		}else {
+			yn1="yes";
+		}
+		map.put("yn1", yn1);
+		
+		//예약현황
+		int sn2 = alldto.getPageNumber2();
+		int start2 = (sn2) * alldto.getRecordCountPerPage2() + 1;
+		int end2 = (sn2 + 1) * alldto.getRecordCountPerPage2();
+		
+		alldto.setStart(start2);
+		alldto.setEnd(end2);
+		int totalRecordCount2 = medimyPageservice.getanswerlistCount(alldto);
+		List<MediAppointmentDto> list = medimyPageservice.relist(alldto);
+		int totalPageCount2 = totalRecordCount2 / alldto.getRecordCountPerPage2();	// 총페이지
+		//		1		=		12					10
+		
+		if ((totalRecordCount2 % alldto.getRecordCountPerPage2()) != 0) {
+			//	12					10	
+			totalPageCount2++;		// 1 -> 2
+		}
+		
+		map.put("list", list);
+		map.put("pageNumber2", sn2);
+		map.put("pageCountPerScreen2", 10);
+		map.put("recordCountPerPage2", alldto.getRecordCountPerPage2());
+		map.put("totalRecordCount2", totalRecordCount2);
+		map.put("totalPageCount2", totalPageCount2);
+		map.put("s_category2", alldto.getS_category2());
+		map.put("s_keyword2", alldto.getS_keyword2());
+		String yn2="";
+		if (list.size()==0||list==null) {
+			yn2="no";
+		}else {
+			yn2="yes";
+		}
+		map.put("yn2", yn2);
+		model.addAttribute("tab", alldto.getTab());
+		return map;
 	}
 	
 	
+	@RequestMapping(value="MyPagedetail.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String Qnabbsdetail(Model model, MediQnaBbsDto dto, @RequestParam String seq) throws Exception{
+		logger.info("MediQnaBbsController Qnabbsdetail " + new Date());
+		// paging처리
+	
+		
+		dto = medimyPageservice.getQnADetail(dto);		
+		model.addAttribute("bbs", dto);
+		
+		return "MyPagedetail.tiles";
+	}
+	@RequestMapping(value="MyPageUpdate.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String MyPageUpdate(Model model, MediQnaBbsDto dto) throws Exception{
+		logger.info("MediMyPageController MyPageUpdate " + new Date());
+		
+		model.addAttribute("bbs", dto);
+		return "MyPageUpdate.tiles";
+	}
+	@ResponseBody
+	@RequestMapping(value="QnADelete.do", method={RequestMethod.GET, RequestMethod.POST})
+	public int QnADelete(Model model, MediQnaBbsDto dto) throws Exception{
+		logger.info("MediMyPageController QnADelete " + new Date());
+		
+		
+		
+	boolean del =medimyPageservice.QnAdeleteBbs(dto);
+		int is = 0; 
+	if(del) {
+		String loginType = Integer.toString(dto.getMemchoice());
+		model.addAttribute("loginType", loginType);
+		is =1;
+		
+	}else {
+		is =2;
+		
+	}
+	return is;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="QnaUpdateAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public int QnaUpdateAf(Model model, MediQnaBbsDto dto) throws Exception{
+		logger.info("MediMyPageController QnaUpdateAf " + new Date());
+		
+		boolean flag = medimyPageservice.QnAupdateBbs(dto);
+		
+		int is=0;
+		
+		
+		if(flag) {
+			String loginType = Integer.toString(dto.getMemchoice());
+			model.addAttribute("loginType", loginType);
+			is = 1;
+		}else {
+			model.addAttribute("msg", "글수정 실패");
+			is = 2;
+		}
+		return is;
+		
+	}
 	
 	@RequestMapping(value="MyPage.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model, MediMemberDto dto, HttpServletRequest req) throws Exception{
@@ -253,7 +471,7 @@ public class MediMyPageController {
 				
 		}
 		/*내가 쓴 건강상담*/
-		@RequestMapping(value="Myconsulting.do", method={RequestMethod.GET, RequestMethod.POST})
+/*		@RequestMapping(value="Myconsulting.do", method={RequestMethod.GET, RequestMethod.POST})
 		public String Myconsulting(Model model, MediConsultingAllDto alldto) throws Exception{
 			logger.info("MediMyPageController Myconsulting " + new Date());
 			
@@ -265,7 +483,7 @@ public class MediMyPageController {
 			alldto.setStart(start);
 			alldto.setEnd(end);
 			
-			int totalRecordCount = medimyPageservice.getBbsCount(alldto);
+			int totalRecordCount = medimyPageservice.getBbsCount1(alldto);
 			List<MediConsultingQuestionDto> questionlist = medimyPageservice.getconPagingList(alldto);
 			model.addAttribute("questionlist", questionlist);
 			model.addAttribute("pageNumber", sn);
@@ -278,7 +496,7 @@ public class MediMyPageController {
 					
 			return "Myconsulting.tiles";
 		
-		}
+		}*/
 		
 		/*건상상담 detail*/
 		@RequestMapping(value="Myconsultingdetail.do", method={RequestMethod.GET, RequestMethod.POST})
@@ -383,6 +601,9 @@ public class MediMyPageController {
 			model.addAttribute("reservedto", reservedto);
 			return "myreservedetail.tiles";
 		}
+		
+		
+		
 		
 		//예약취소
 		@ResponseBody

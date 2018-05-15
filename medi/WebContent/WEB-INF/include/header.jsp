@@ -39,7 +39,7 @@
                </a>
             </li>
             <li>
-               <a href="MyPageList.do?id=${login.id }">
+               <a href="MyPageList1.do?id=${login.id }&seq=${login.seq}">
                   <em>마이페이지</em>
                </a>
             </li>   

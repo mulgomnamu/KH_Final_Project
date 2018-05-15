@@ -19,6 +19,12 @@ EMAIL=#{email},POST=#{post},ADDRESS=#{address},PHONE=#{phone}
 WHERE ID=#{id}
 </update>
 
+<!-- 디테일가져오기 -->
+	<select resultType="kh.com.medi.model.MediQnaBbsDto" id="getQnADetail" parameterType="java.lang.Integer"> 
+		SELECT SEQ, ID, REF, STEP, DEPTH, QUESTION, TITLE, CONTENT, WDATE, MEMCHOICE, PARENT, DEL, READCOUNT, ROCK
+		FROM `MEDI`.`medi_question_bbs` 
+		WHERE SEQ=#{seq} 
+	</select>
 
 
 	
@@ -37,7 +43,7 @@ WHERE ID=#{id}
 <!--회원탈퇴  -->
 <update id="Mydelete" parameterType="hashmap">
 	UPDATE medi_member
-	SET DEL=1
+	SET DEL=0
 	WHERE ID=#{id} AND PWD=#{pwd}
 </update>
 
@@ -150,6 +156,18 @@ WHERE PWD=#{pwd}
 		FROM `MEDI`.`medi_consulting_question` 
 		WHERE SEQ=#{seq} 
 	</select>
+	
+	<!-- 수정하기 -->
+	<update id="QnAUpdate" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
+	UPDATE `MEDI`.`medi_question_bbs` SET QUESTION=#{question}, TITLE=#{title}, CONTENT =#{content}, WDATE=NOW(), READCOUNT=0, ROCK=#{rock}
+	WHERE SEQ =#{seq}
+	</update>
+	<!-- 글 삭제 -->
+	<update id="QnADelete" parameterType="kh.com.medi.model.MediQnaBbsDto"> 
+	UPDATE `MEDI`.`medi_question_bbs` SET DEL = 1
+		WHERE SEQ=#{seq} 
+	</update>
+	
 	
 	<!--건강상담 삭제  -->
 	<update id="mybbsDelete" parameterType="kh.com.medi.model.MediConsultingAllDto"> 

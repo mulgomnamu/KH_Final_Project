@@ -16,7 +16,37 @@ if(category == null) category = "";
 %>
 
 <script type="text/javascript">
-
+//tab 초기화
+$(document).ready(function(){
+	$('#list>li:not(:eq(0))').hide();
+	$('#tab li a').click(function(){
+		$("#_s_category option:eq(0)").prop("selected", true);
+		$("#_s_category1 option:eq(0)").prop("selected", true);
+		$("#_s_category2 option:eq(0)").prop("selected", true);
+		
+		if ($(this).attr("href")=="#tab1") {
+			alllist("1","1","1","1");
+		}else if ($(this).attr("href")=="#tab2") {
+			queli("1","1","1","1");
+		}else if ($(this).attr("href")=="#tab3") {
+			ansli("1","1","1","1");
+		}
+		$("#pa a:not(:eq(0))").attr('class','pagingNum');
+		$("#pa a:eq(0)").addClass("pagingNumOn");
+		$("#pa1 a:not(:eq(0))").attr('class','pagingNum');
+		$("#pa1 a:eq(0)").addClass("pagingNumOn");
+		$("#pa2 a:not(:eq(0))").attr('class','pagingNum');
+		$("#pa2 a:eq(0)").addClass("pagingNumOn");
+		$("#_s_keyword").val("");
+		$("#_s_keyword1").val("");
+		$("#_s_keyword2").val("");
+	  $('#tab li a').removeClass('selected');
+	  $(this).addClass('selected')
+	  $('#list>li').hide();
+	  $($(this).attr('href')).show();
+	  return false
+	});
+	});
 var str='<%=category %>';
 $(document).ready(function(){	
 	document.frmForm1.s_category.value = str;
@@ -82,17 +112,17 @@ if(message != ""){
 	             <ul id="tab">
 	             	 <li>
 	                     <a href="#tab1" class="selected">
-	                         <em>모든 건강상담</em>		<!-- 1 메인페이지에서 또는 어느페이지서든 병원선택이안됐을때는 일로보내야된다 -->
+	                         <em>MyQnA</em>		<!-- 1 메인페이지에서 또는 어느페이지서든 병원선택이안됐을때는 일로보내야된다 -->
 	                     </a>
 	                 </li>
 	                 <li>
 	                     <a href="#tab2">
-	                         <em>답변을 기다리는 질문</em>		<!-- 2 병원을선택한곳에서 페이지오거나  -->
+	                         <em>My건강상담</em>		<!-- 2 병원을선택한곳에서 페이지오거나  -->
 	                     </a>
 	                 </li>
 	                 <li>
 	                     <a href="#tab3">
-	                         <em>채택완료한 질문</em>	<!-- 의료진검색페이지주고 그사람클릭하면 모든정보 기본셋팅 -->
+	                         <em>My예약현황</em>	<!-- 의료진검색페이지주고 그사람클릭하면 모든정보 기본셋팅 -->
 	                     </a>
 	                 </li>
 	             </ul>
@@ -106,6 +136,7 @@ if(message != ""){
 			<div class="content"> 
 				<div class="inner_flogin">
 				<!-- 이부분에 컨텐츠 시작 -->
+				<!--Qna 게시판  -->
 				<div class="sub_wrap">
 	        	 <div class="sub_content">
 			   		<ol id="list">
@@ -113,108 +144,85 @@ if(message != ""){
 			    	<div id="alllist">
 					<div class="searchwrap">
 						<div class="searchbox" style="display: inline-block;position: relative;left: 300px;top: -1.8px;">
-							<form  name="frmForm1" id="_frmFormSearch" method="post">
-								<table>
-									<col width="15%"><col width="55%"><col width="15%">
-									<tr>
-										<td style="padding-left:5px;">
-											<select id="_s_category" name="s_category">
-												<option value="" selected="selected">선택</option>
-												<option value="category">진료분야</option>
-												<option value="title">제목</option>
-												<option value="content">내용</option>	
-												<option value="id">작성자</option>									
-											</select>
-										</td>
-										<td style="padding-left:5px;"><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
-										<td style="padding-left:5px;"><button type="button" onclick="alllist(2,3,4,1)"> 검색 </button></td>
-									</tr>
-								</table>
-								
-								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber}"/>						
-								<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>	
-								</form>
-						</div>
-						
-					</div>
-					<c:if test="${loginType eq 1 }">
-					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
-						<a href="#none" onclick="btnwrite()" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
-					</div>
-					</c:if>
-					<div id="alldiv">
-				 <table style="width:85%; align:center; margin-top: 100px;"  align="center">
-				  <colgroup>
-				      <col style="width:150px;" />
-				      <col style="width:auto;" />
-				      <col style="width:100px;" />
-				      <col style="width:100px;" />
-				      <col style="width:100px;" />
-				   </colgroup>
-				 <thead>
-					   <tr>
-					      <th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th> <th>작성자</th> 
-					   </tr>
-					</thead>
-		
-				  
-					<tbody >   
-					   <c:if test="${empty questionlist}">
-					   <tr>
-					      <td colspan="3">작성된 글이 없습니다.</td>
-					   </tr>   
-					   </c:if>
-						  <c:if test="${not empty login }">
-								<input type="hidden" name="id" id="id" value="${login.id }">
-							</c:if>
-					   <c:forEach items="${questionlist}" var="bbs" varStatus="vs">
-					   <tr class="_hover_tr">
-							    <td>[${bbs.category}]</td>
-							    <c:if test="${bbs.selectyn==0}">
-								<td>
-									<a href='consultingdetail.do?seq=${bbs.seq}'>
-								    	${bbs.title}
-								    </a>
-								</td>
-								</c:if>
-								
-								<c:if test="${bbs.selectyn==1}">
-								<td>
-									<a href='consultingdetail.do?seq=${bbs.seq}'>
-								     <span>채택완료</span>${bbs.title}
-								    </a>
-								</td>
-								</c:if>
-								<td>${bbs.commentcount}</td>
-								<td>${bbs.readcount}</td>
-							    <td>
-							    ${bbs.wid}
-							   <%--  <c:set var="wid" value="${bbs.wid}"/>
-								${fn:substring(wid,0,1) }***** --%>
-							    </td>
-					   </tr>
-					   
-					   </c:forEach>
-					</tbody>
-					</table> 
-					</div>
-					<br>
-					<div id="paging_wrap">
-						 <jsp:include page="/WEB-INF/views/consulting/paging.jsp" flush="false">
-							<jsp:param value="${pageNumber }" name="pageNumber"/>
-							<jsp:param value="${pageCountPerScreen }" name="pageCountPerScreen"/>
-							<jsp:param value="${recordCountPerPage }" name="recordCountPerPage"/>
-							<jsp:param value="${totalRecordCount }" name="totalRecordCount"/>
-						</jsp:include> 
-					</div>
-					</div>
+							 <form name="frmForm1" id="_frmFormSearch" method="post" action="">
+                        <table>
+                           <col width="15%"><col width="55%"><col width="15%">
+                           <tr>
+                              <td style="padding-left:5px;">
+                                 <select id="_s_category" name="s_category">
+                                    <option value="" selected="selected">선택</option>
+                                    <option value="title">제목</option>
+                                    <option value="id">아이디</option>                        
+                                 </select>
+                              </td>
+                              <td style="padding-left:5px;"><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
+                              <td style="padding-left:5px;"><button type="button" onclick="alllist(2,3,4,1)" > 검색 </button></td>
+                           </tr>
+                        </table>
+                        <input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber}"/>                  
+                        <input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>   
+                     </form>
+                  </div>
+                  
+               </div>
+               
+               <div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
+                  <a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
+               </div>
+               <div id="alldiv">
+             <table style="width:85%; align:center; margin-top: 100px;"  align="center">
+               <colgroup>
+                  <col style="width:150px;" />
+                  <col style="width:auto;" />
+                  <col style="width:100px;" />
+               </colgroup>
+      
+               <thead>
+                  <tr> 
+                     <th>순서</th><th>아이디</th><th>제목</th><th>말머리</th> 
+                  </tr>
+               </thead>
+      
+               <tbody  style="text-align: center;">   
+                  <c:if test="${empty Mylisy}">
+                  <tr>
+                     <td colspan="3">작성된 글이 없습니다.</td>
+                  </tr>   
+                  </c:if>
+                
+                  <c:forEach items="${Mylisy}" var="bbs" varStatus="vs">
+                  
+                    <tr class="_hover_tr">
+                        <td>${vs.count}</td>
+                        <td>${bbs.id }</td> 
+                        <td>
+                           <a href='MyPagedetail.do?seq=${bbs.seq}&mypage=mypage'>
+                               ${bbs.title}</a></td>
+                           <td>${bbs.content}</td>
+                        </tr>
+                        </c:forEach>
+               </tbody>
+               </table> 
+               </div>
+               <br>
+               <div id="paging_wrap">
+                  <jsp:include page="/WEB-INF/views/mypage/paging.jsp" flush="false">
+                     <jsp:param value="${pageNumber }" name="pageNumber"/>
+                     <jsp:param value="${pageCountPerScreen }" name="pageCountPerScreen"/>
+                     <jsp:param value="${recordCountPerPage }" name="recordCountPerPage"/>
+                     <jsp:param value="${totalRecordCount }" name="totalRecordCount"/>
+                  </jsp:include>
+                  </div>
+              	  </div>
 					</li>
+					
+					<!--건강상담  -->
 					
 					<li id="tab2">
 					<div id="question">
 					<div class="searchwrap">
 						<div class="searchbox" style="display: inline-block;position: relative;left: 300px;top: -1.8px;">
-							<form  name="frmForm2" id="_frmFormSearch2" method="post">
+									<form name="frmForm2" id="_frmFormSearch2" method="post">
 								<table>
 									<col width="15%"><col width="55%"><col width="15%">
 									<tr>
@@ -223,8 +231,7 @@ if(message != ""){
 												<option value="" selected="selected">선택</option>
 												<option value="category">진료분야</option>
 												<option value="title">제목</option>
-												<option value="content">내용</option>		
-												<option value="id">작성자</option>									
+												<option value="content">내용</option>								
 											</select>
 										</td>
 										<td style="padding-left:5px;"><input type="text" id="_s_keyword1" name="s_keyword1" value="${s_keyword1}"/></td>
@@ -237,15 +244,14 @@ if(message != ""){
 						</div>
 						
 					</div>
-					<c:if test="${loginType eq 1 }">
+					
 					<div style="float:right; margin-right:90px; margin-bottom:30px; background-color: #0b2d85;height: 35px; width: 79px; text-align: center;">
-						<a href="#none" onclick="btnwrite()" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
+						<a href="#none" id="_btnWrite" title="글쓰기"><em style="color: #fff;display: block;padding-top: 5px;">질문하기</em></a>
 					</div>
-					</c:if>
 					<div id="questiondiv">
 				 <table style="width:85%; align:center; margin-top: 100px;"  align="center">
 				   <colgroup>
-				      <col style="width:150px;" />
+				       <col style="width:150px;" />
 				      <col style="width:auto;" />
 				      <col style="width:100px;" />
 				      <col style="width:100px;" />
@@ -254,12 +260,12 @@ if(message != ""){
 		
 					<thead>
 					   <tr>
-					      <th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th> <th>작성자</th> 
+					      <th>진료분야</th> <th>제목</th><th>작성자</th><th>조회수</th> <th>작성자</th> 
 					   </tr>
 					</thead>
 		
 					<tbody >   
-					   <c:if test="${empty onlyquestionlist}">
+					   <c:if test="${empty questionlist}">
 					   <tr>
 					      <td colspan="3">작성된 글이 없습니다.</td>
 					   </tr>   
@@ -267,29 +273,20 @@ if(message != ""){
 						  <c:if test="${not empty login }">
 								<input type="hidden" name="id" id="id" value="${login.id }">
 							</c:if>
-					   <c:forEach items="${onlyquestionlist}" var="bbs1" varStatus="vs">
+					   <c:forEach items="${questionlist}" var="bbs1" varStatus="vs">
 					   <tr class="_hover_tr">
-							    <td>[${bbs1.category}]</td>
-							    <c:if test="${bbs1.selectyn==0}">
-								<td>
-									<a href='consultingdetail.do?seq=${bbs1.seq}'>
+							    <td style="text-align: center;">[${bbs1.category}]</td>
+								<td style="text-align: left">
+									<a href='Myconsultingdetail.do?seq=${bbs1.seq}'>
 								    	${bbs1.title}
 								    </a>
 								</td>
-								</c:if>
-								<c:if test="${bbs1.selectyn==1}">
-								<td>
-									<a href='consultingdetail.do?seq=${bbs.seq}'>
-								     <span>채택완료</span>${bbs.title}
-								    </a>
-								</td>
-								</c:if>
 								<td>${bbs1.commentcount}</td>
 								<td>${bbs1.readcount}</td>
 							    <td>
-							    ${bbs1.wid}
-							  <%--   <c:set var="wid1" value="${bbs1.wid}"/>
-								${fn:substring(wid1,0,1) }***** --%>
+							    ${bbs1.wid }
+							    <%-- <c:set var="wid" value="${bbs.wid}"/>
+								${fn:substring(wid,0,1) }***** --%>
 							    </td>
 					   </tr>
 					   
@@ -299,7 +296,7 @@ if(message != ""){
 					</div>
 					<br>
 					<div id="paging_wrap1">
-						<jsp:include page="/WEB-INF/views/consulting/paging1.jsp" flush="false">
+						<jsp:include page="/WEB-INF/views/mypage/paging1.jsp" flush="false">
 							<jsp:param value="${pageNumber1 }" name="pageNumber1"/>
 							<jsp:param value="${pageCountPerScreen1 }" name="pageCountPerScreen1"/>
 							<jsp:param value="${recordCountPerPage1 }" name="recordCountPerPage1"/>
@@ -375,8 +372,8 @@ if(message != ""){
 								</td>
 							    <td>
 							    ${bbs2.wid}
-							<%--     <c:set var="wid2" value="${bbs2.wid}"/>
-								${fn:substring(wid2,0,1) }***** --%>
+							    <c:set var="wid2" value="${bbs2.wid}"/>
+								${fn:substring(wid2,0,1) }*****
 							    </td>
 					   </tr>
 					   
@@ -394,7 +391,7 @@ if(message != ""){
 						</jsp:include>
 						
 						
-					</div>
+					</div> 
 					</div>
 					</li>
 					</ol>
@@ -408,37 +405,7 @@ if(message != ""){
 			<!-- // #LOCATION -->
 	<!-- phone_num 끝 -->
 <script type="text/javascript">
-//tab 초기화
-$(document).ready(function(){
-	$('#list>li:not(:eq(0))').hide();
-	$('#tab li a').click(function(){
-		$("#_s_category option:eq(0)").prop("selected", true);
-		$("#_s_category1 option:eq(0)").prop("selected", true);
-		$("#_s_category2 option:eq(0)").prop("selected", true);
-		
-		if ($(this).attr("href")=="#tab1") {
-			alllist("1","1","1","1");
-		}else if ($(this).attr("href")=="#tab2") {
-			queli("1","1","1","1");
-		}else if ($(this).attr("href")=="#tab3") {
-			ansli("1","1","1","1");
-		}
-		$("#pa a:not(:eq(0))").attr('class','pagingNum');
-		$("#pa a:eq(0)").addClass("pagingNumOn");
-		$("#pa1 a:not(:eq(0))").attr('class','pagingNum');
-		$("#pa1 a:eq(0)").addClass("pagingNumOn");
-		$("#pa2 a:not(:eq(0))").attr('class','pagingNum');
-		$("#pa2 a:eq(0)").addClass("pagingNumOn");
-		$("#_s_keyword").val("");
-		$("#_s_keyword1").val("");
-		$("#_s_keyword2").val("");
-	  $('#tab li a').removeClass('selected');
-	  $(this).addClass('selected')
-	  $('#list>li').hide();
-	  $($(this).attr('href')).show();
-	  return false
-	});
-	});
+
 
 
 //페이징처리
@@ -454,7 +421,7 @@ function goPage(pageNumber,elem) {
 			recordCountPerPage:$("#_recordCountPerPage").val()
 	};
 		$.ajax({
-			url : "selectaf.do",
+			url : "myselectaf.do",
 			data:data,
 			dataType : "json",
 			cache : false,
@@ -465,20 +432,14 @@ function goPage(pageNumber,elem) {
 					'width':'85%','align':'center','margin-top':'100px'
 				}).appendTo("#alldiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 				$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table1");
-				$("<tr><th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th><th>작성자</th></tr>").appendTo("#table1");
-				var key = Object.keys(data["questionlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
-				$.each(data.questionlist, function(index, questionlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+				$("<tr><th>순서</th><th>아이디</th><th>제목</th><th>말머리</th></tr>").appendTo("#table1");
+				var key = Object.keys(data["Mylisy"][0]); // seq,name,info,address,tel의 키값을 가져옴
+				$.each(data.Mylisy, function(index, Mylisy) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
-					items.push("<td>["+questionlist.category+"]</td>");
-					if (questionlist.selectyn==0) {
-						items.push("<td><a href='consultingdetail.do?seq="+questionlist.seq+"'>"+questionlist.title+"</a></td>");
-					}else if(questionlist.selectyn==1) {
-						items.push("<td><a href='consultingdetail.do?seq="+questionlist.seq+"'><span>채택완료</span>"
-								+questionlist.title+"</a></td>");
-					}
-					items.push("<td>" + questionlist.commentcount+"</td>");
-					items.push("<td>" + questionlist.readcount+"</td>");
-					items.push("<td>" + questionlist.wid+"</td>");
+					items.push("<td>["+Mylisy.count+"]</td>");
+					items.push("<td>" + Mylisy.id+"</td>");
+						items.push("<td><a href='MyPagedetail.do?seq="+Mylisy.seq+"'>"+Mylisy.title+"</a></td>");
+					items.push("<td>" + Mylisy.content+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table1"); // 그리고 그 tr을 테이블에 붙임
@@ -498,34 +459,26 @@ function goPage1(pageNumber1,elem) {
 			recordCountPerPage1:$("#_recordCountPerPage1").val()
 	};
 		$.ajax({
-			url : "selectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+			url : "myselectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
 			data:data,
 			dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
 			cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
 			success : function(data) {
-				if (data.yn1=="no") {
-					alert("찾으시는 질문이 없습니다.");
-					$("#_s_keyword1").val("");
-				}
+	
 				$("#questiondiv").html(""); // div를 일단 공백으로 초기화해줌 , 왜냐면 버튼 여러번 눌리면 중첩되니깐
 				$("<table id='table2' align='center'/>").css({
 					'width':'85%','align':'center','margin-top':'100px'
 				}).appendTo("#questiondiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 				$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table2");
 				$("<tr><th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th><th>작성자</th></tr>").appendTo("#table2");
-				var key = Object.keys(data["onlyquestionlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
-				$.each(data.onlyquestionlist, function(index, onlyquestionlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+				var key = Object.keys(data["questionlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
+				$.each(data.questionlist, function(index, questionlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
-					items.push("<td>["+onlyquestionlist.category+"]</td>");
-					if (onlyquestionlist.selectyn==0) {
-						items.push("<td><a href='consultingdetail.do?seq="+onlyquestionlist.seq+"'>"+onlyquestionlist.title+"</a></td>");
-					}else if(onlyquestionlist.selectyn==1) {
-						items.push("<td><a href='consultingdetail.do?seq="+onlyquestionlist.seq+"'><span>채택완료</span>"
-								+onlyquestionlist.title+"</a></td>");
-					}
-					items.push("<td>" + onlyquestionlist.commentcount+"</td>");
-					items.push("<td>" + onlyquestionlist.readcount+"</td>");
-					items.push("<td>" + onlyquestionlist.wid+"</td>");
+					items.push("<td>["+questionlist.category+"]</td>");
+						items.push("<td><a href='Myconsultingdetail.do?seq="+questionlist.seq+"'>"+questionlist.title+"</a></td>");
+					items.push("<td>" + questionlist.commentcount+"</td>");
+					items.push("<td>" + questionlist.readcount+"</td>");
+					items.push("<td>" + questionlist.wid+"</td>");
 				/* 	items.push("<td>" + (onlyquestionlist.wid).substring(0,1)+"******</td>"); */
 					$("<tr/>", {
 						html : items // 티알에 붙임,
@@ -545,7 +498,7 @@ function goPage2(pageNumber2,elem) {
 			recordCountPerPage2:$("#_recordCountPerPage2").val()
 	};
 		$.ajax({
-			url : "selectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+			url : "myselectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
 			data:data,
 			dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
 			cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
@@ -601,7 +554,7 @@ function alllist(ca,key,pa,re) {
 		};
 	}
 	$.ajax({
-		url : "selectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+		url : "myselectaf.do?id=${login.id}", // a.jsp 의 제이슨오브젝트값을 가져옴
 		data:data,
 		dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
 		cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
@@ -623,20 +576,14 @@ function alllist(ca,key,pa,re) {
 				'width':'85%','align':'center','margin-top':'100px'
 			}).appendTo("#alldiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 			$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table1");
-			$("<tr><th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th><th>작성자</th></tr>").appendTo("#table1");
-			var key = Object.keys(data["questionlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
-			$.each(data.questionlist, function(index, questionlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+			$("<tr><th>순서</th><th>아이디</th><th>제목</th><th>말머리</th></tr>").appendTo("#table1");
+			var key = Object.keys(data["Mylisy"][0]); // seq,name,info,address,tel의 키값을 가져옴
+			$.each(data.Mylisy, function(index, Mylisy) { // 이치를 써서 모든 데이터들을 배열에 넣음
 				var items = [];
-				items.push("<td>["+questionlist.category+"]</td>");
-				if (questionlist.selectyn==0) {
-					items.push("<td><a href='consultingdetail.do?seq="+questionlist.seq+"'>"+questionlist.title+"</a></td>");
-				}else if(questionlist.selectyn==1) {
-					items.push("<td><a href='consultingdetail.do?seq="+questionlist.seq+"'><span>채택완료</span>"
-							+questionlist.title+"</a></td>");
-				}
-				items.push("<td>" + questionlist.commentcount+"</td>");
-				items.push("<td>" + questionlist.readcount+"</td>");
-				items.push("<td>" + questionlist.wid+"</td>");
+				items.push("<td>["+Mylisy.count+"]</td>");
+				items.push("<td>" + Mylisy.id+"</td>");
+					items.push("<td><a href='MyPagedetail.do?seq="+Mylisy.seq+"'>"+Mylisy.title+"</a></td>");
+				items.push("<td>" + Mylisy.content+"</td>");
 				$("<tr/>", {
 					html : items // 티알에 붙임,
 				}).appendTo("#table1"); // 그리고 그 tr을 테이블에 붙임
@@ -644,6 +591,8 @@ function alllist(ca,key,pa,re) {
 		}
 	});
 }
+
+
 function queli(ca,key,pa,re) {
 	var data={
 			s_category1:$("#_s_category1").val(),
@@ -661,7 +610,7 @@ function queli(ca,key,pa,re) {
 		};
 	}
 		$.ajax({
-			url : "selectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+			url : "myselectaf.do?seq${login.seq}", // a.jsp 의 제이슨오브젝트값을 가져옴
 			data:data,
 			dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
 			cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
@@ -683,19 +632,14 @@ function queli(ca,key,pa,re) {
 				}).appendTo("#questiondiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 				$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table2");
 				$("<tr><th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th><th>작성자</th></tr>").appendTo("#table2");
-				var key = Object.keys(data["onlyquestionlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
-				$.each(data.onlyquestionlist, function(index, onlyquestionlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+				var key = Object.keys(data["questionlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
+				$.each(data.questionlist, function(index, questionlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
-					items.push("<td>["+onlyquestionlist.category+"]</td>");
-					if (onlyquestionlist.selectyn==0) {
-						items.push("<td><a href='consultingdetail.do?seq="+onlyquestionlist.seq+"'>"+onlyquestionlist.title+"</a></td>");
-					}else if(onlyquestionlist.selectyn==1) {
-						items.push("<td><a href='consultingdetail.do?seq="+onlyquestionlist.seq+"'><span>채택완료</span>"
-								+onlyquestionlist.title+"</a></td>");
-					}
-					items.push("<td>" + onlyquestionlist.commentcount+"</td>");
-					items.push("<td>" + onlyquestionlist.readcount+"</td>");
-					items.push("<td>" + onlyquestionlist.wid+"</td>");
+					items.push("<td>["+questionlist.category+"]</td>");
+						items.push("<td><a href='consultingdetail.do?seq="+questionlist.seq+"'>"+questionlist.title+"</a></td>");
+					items.push("<td>" + questionlist.commentcount+"</td>");
+					items.push("<td>" + questionlist.readcount+"</td>");
+					items.push("<td>" + questionlist.wid+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table2"); // 그리고 그 tr을 테이블에 붙임
@@ -719,7 +663,7 @@ function ansli(ca,key,pa,re) {
 		};
 	}
 		$.ajax({
-			url : "selectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
+			url : "myselectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
 			data:data,
 			dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
 			cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
