@@ -109,7 +109,7 @@ height: 60px;
 									</td>
 									<td><span id="id${memberList.seq }">${memberList.id }</span></td>
 									<td><span id="name${memberList.seq }">${memberList.name }</span></td>
-									<td><span id="confirm_img${memberList.confirm_img }" style="width: 300px;display: block;"><img src="upload/${memberList.confirm_img }" onclick="resizeImg(this.src)" style="width:100%;position:relative;padding:5px;"></span></td>
+									<td><span id="confirm_img${memberList.confirm_img }" style="width: 100px;display: block;"><img src="upload/${memberList.confirm_img }" onclick="resizeImg(this.src)" style="width:100%;position:relative;padding:5px;"></span></td>
 									<td><span id="regdate${memberList.seq }">${memberList.regdate }</span></td>
 									<td><span id="auth${memberList.seq }">${memberList.auth }</span></td>
 									<td><button name="confirmBtn" id="confirmBtn${memberList.seq }" value="${memberList.seq }">승인</button></td>

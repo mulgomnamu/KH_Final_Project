@@ -780,7 +780,7 @@ function getdoctor(hos_seq) {
 			$("<table class='ser' id='table2'/>").css({
 			}).appendTo("#getdoclistdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 			$(".reserve2").html("");
-			$("<ul style='padding-left: 40px;'><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
+			$("<ul style='padding-left: 40px;margin-top:0;'><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
 				+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.tel+"</li>"
 				+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.address+"</li>"
 				+"</ul>").appendTo(".reserve2");
@@ -792,8 +792,8 @@ function getdoctor(hos_seq) {
 				+ getdoclist.doc_profile+"'></span></td>");	//img태그로 사진넣어야하고css해야한다
 				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule("+getdoclist.seq+")'>"
 				+ getdoclist.name + "선생님</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
-				items.push("<td class='ser'>" + getdoclist.specialty + "</td>");
-				items.push("<td class='ser'>" + getdoclist.doc_content + "</td>");
+				items.push("<td class='ser' style='padding:0 15px;'>" + getdoclist.specialty + "</td>");
+				items.push("<td class='ser' style='padding:0 15px;'>" + getdoclist.doc_content + "</td>");
 				$("<tr/>", {
 					html : items // 티알에 붙임,
 				}).appendTo("#table2"); // 그리고 그 tr을 테이블에 붙임
@@ -1627,7 +1627,7 @@ function getdoctor2(hos_seq) {
 			$("<table class='ser' id='table2_2'/>").css({
 			}).appendTo("#getdoclistdiv2"); // 테이블을 생성하고 그 테이블을 div에 추가함
 			$(".reserve2").html("");
-			$("<ul style='padding-left: 40px;'><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
+			$("<ul style='padding-left: 40px;margin-top:0;'><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.name+"</li>"
 				+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.tel+"</li>"
 				+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.address+"</li></ul>").appendTo(".reserve2");
 			
@@ -1638,8 +1638,8 @@ function getdoctor2(hos_seq) {
 						+ getdoclist.doc_profile+"'></span></td>");
 				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule2("+getdoclist.seq+")'>"
 				+ getdoclist.name + "선생님</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
-				items.push("<td class='ser'>" + getdoclist.specialty + "</td>");
-				items.push("<td class='ser'>" + getdoclist.doc_content + "</td>");
+				items.push("<td class='ser' style='padding:0 15px;'>" + getdoclist.specialty + "</td>");
+				items.push("<td class='ser' style='padding:0 15px;'>" + getdoclist.doc_content + "</td>");
 				$("<tr/>", {
 					html : items // 티알에 붙임,
 				}).appendTo("#table2_2"); // 그리고 그 tr을 테이블에 붙임
@@ -2478,8 +2478,8 @@ function doclist() {
 						+ doclist.doc_profile+"'></span></td>");
 				items.push("<td class='ser'><a href='javascript:void(0);' onclick='getscadule3("+doclist.seq+","+doclist.hos_seq+")'>"
 				+ doclist.name + "선생님</a></td>"); // 여기에 id pw addr tel의 값을 배열에 넣은뒤
-				items.push("<td class='ser'>" + doclist.specialty + "</td>");
-				items.push("<td class='ser'>" + doclist.doc_content + "</td>");
+				items.push("<td class='ser' style='padding:0 15px;'>" + doclist.specialty + "</td>");
+				items.push("<td class='ser' style='padding:0 15px;'>" + doclist.doc_content + "</td>");
 				$("<tr/>", {
 					html : items // 티알에 붙임,
 				}).appendTo("#table3_1"); // 그리고 그 tr을 테이블에 붙임
@@ -2498,7 +2498,7 @@ function getscadule3(doc_seq,hos_seq) {
 		cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
 		success : function(data) {
 			$(".reserve2").html("");
-			$("<ul style='padding-left: 40px;'><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.hosdto.name+"</li>"
+			$("<ul style='padding-left: 40px;margin-top:0;'><li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.hosdto.name+"</li>"
 			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.hosdto.tel+"</li>"
 			+"<li><small style='font-size: 0.5em'>●</small>&nbsp;&nbsp;"+data.hosdto.address+"</li></ul>").appendTo(".reserve2");
 		
