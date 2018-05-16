@@ -520,7 +520,7 @@ function goPage2(pageNumber2,elem) {
 				var key = Object.keys(data["list"][0]); // seq,name,info,address,tel의 키값을 가져옴
 				$.each(data.list, function(index, list) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
-					items.push("<td><a href='myreservedetail.do?seq="+list.seq+"'>"+login.name+"</a></td>");
+					items.push("<td><a href='myreservedetail.do?mem_seq="+list.mem_seq+"&hos_seq="+list.hos_seq+"&doc_seq="+list.doc_seq+"&day="+list.day+"&time="+list.time+"'>"+list.name+"</a></td>");
 		            items.push("<td>" + list.mediMember_hDto.name+"</td>");
 		            items.push("<td>" + list.mediDoctorDto.name+"</td>");
 		            items.push("<td>" + list.day+"</td>");
@@ -692,7 +692,7 @@ function ansli(ca,key,pa,re) {
 /* 				var key = Object.keys(data["answeredlist"][0]); // seq,name,info,address,tel의 키값을 가져옴 */
 				$.each(data.list, function(index, list) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
-					items.push("<tr><td><a href='myreservedetail.do?seq="+list.seq+"'>"+list.name+"</a></td>");
+					items.push("<tr><td><a href='myreservedetail.do?mem_seq="+list.mem_seq+"&hos_seq="+list.hos_seq+"&doc_seq="+list.doc_seq+"&day="+list.day+"&time="+list.time+"'>"+list.name+"</a></td>");
 		            items.push("<td>" + list.mediMember_hDto.name+"</td>");
 		            items.push("<td>" + list.mediDoctorDto.name+"</td>");
 		            items.push("<td>" + list.day+"</td>");

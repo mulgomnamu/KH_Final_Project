@@ -18,7 +18,7 @@ function resevecancel(seq) {
 	      success:function(data){
 	    	  if(data.yes == 'yes'){
 	    		  alert("취소처리 됐습니다.");
-	    	     location.href="Myreserve.do?seq=${login.seq}";
+	    	     location.href="MyPageList1.do?seq=${login.seq}";
 	    	   } else{
 	    		   alert("취소처리 안됐습니다.");
 	    	   }
