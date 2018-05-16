@@ -119,7 +119,7 @@ $("#_btnLogin").click(function() {
 		          
 		       	if (response=1) {
 		       		alert("수정성공");
-		       	 location.href ="MyPageList.do?id=${login.id}";
+		       	 location.href ="MyPageList1.do?id=${login.id}&seq=${login.seq}";
 				}else {
 					alert("수정실패");
 					 location.href ="MyPageUpdate.do";

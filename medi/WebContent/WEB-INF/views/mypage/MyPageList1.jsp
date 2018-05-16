@@ -8,7 +8,7 @@
 
 <fmt:requestEncoding value="utf-8"/><%-- 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/consulting.js"></script> --%>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css?ver=1.02"/>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/consulting.css?ver=1.03"/>
 <!-- 검색 카테고리를 유지 start -->
 <%
 String category = (String)request.getAttribute("s_category");
@@ -105,22 +105,22 @@ if(message != ""){
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="subpagetitle" style="margin-bottom: 50px;">
-				  <h2>건강상담</h2>
-				<em>전문의에게 건강에 대한 질문이 있으면 문의를 해보세요.<br/>문제를 속시원히 해결해드립니다.</em>
+				  <h2 style="padding-top: 62px; font-size: 32px; color: #111; font-family: nanum">Mypage</h2>
+				  <em></em>
        			  <div class="sub_tap">
        			  <div class="inner_flogin" style="background: transparent">
 	             <ul id="tab">
-	             	 <li>
+	             	 <li style="margin-top: 116px;">
 	                     <a href="#tab1" class="selected">
 	                         <em>MyQnA</em>		<!-- 1 메인페이지에서 또는 어느페이지서든 병원선택이안됐을때는 일로보내야된다 -->
 	                     </a>
 	                 </li>
-	                 <li>
+	                 <li style="margin-top: 116px;"> 
 	                     <a href="#tab2">
 	                         <em>My건강상담</em>		<!-- 2 병원을선택한곳에서 페이지오거나  -->
 	                     </a>
 	                 </li>
-	                 <li>
+	                 <li style="margin-top: 116px;">
 	                     <a href="#tab3">
 	                         <em>My예약현황</em>	<!-- 의료진검색페이지주고 그사람클릭하면 모든정보 기본셋팅 -->
 	                     </a>

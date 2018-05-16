@@ -24,7 +24,7 @@
                 	 </span>
                 	 <span class="form-text"style="margin-bottom:20px;">
                      	<label class="placeholder" for="id">비밀번호</label>
-                        <input type="text" id="_pwd" name="pwd" value="" size="15" title="비밀번호" style="border:1px solid #dddddd;">
+                        <input type="password" id="_pwd" name="pwd" value="" size="15" title="비밀번호" style="border:1px solid #dddddd;">
                	 	</span>
                	 	</form>
 					<div class="btn_login">

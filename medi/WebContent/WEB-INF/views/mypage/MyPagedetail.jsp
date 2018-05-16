@@ -105,7 +105,7 @@ $("#_btnDelete").click(function() {
 	          
 	       	if (response=1) {
 	       		alert("삭제성공");
-	       	 location.href ="MyPageList.do?id=${login.id}";
+	       	 location.href ="MyPageList1.do?id=${login.id}&seq=${login.seq}";
 			}else {
 				alert("삭제실패");
 				 location.href ="MyPagedetail.do";

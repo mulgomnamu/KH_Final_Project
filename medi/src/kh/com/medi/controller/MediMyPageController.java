@@ -252,6 +252,8 @@ public class MediMyPageController {
 	public String MyPageUpdate(Model model, MediQnaBbsDto dto) throws Exception{
 		logger.info("MediMyPageController MyPageUpdate " + new Date());
 		
+		medimyPageservice.getQnADetail(dto);
+		
 		model.addAttribute("bbs", dto);
 		return "MyPageUpdate.tiles";
 	}

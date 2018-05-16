@@ -180,7 +180,7 @@ String s_keyword = (String)request.getAttribute("s_keyword");
 			<%
 				if(s_keyword == null){
 			%>
-				center: {lat: 37.498214, lng: 127.027589}
+				center : {lat: 37.498214, lng: 127.027589}
 			<%
 				} else{
 					Float[] coords = geoCoding.geoCoding(s_keyword);

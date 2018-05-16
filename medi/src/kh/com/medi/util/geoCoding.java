@@ -19,10 +19,11 @@ public class geoCoding {
 			Geocoder geocoder = new Geocoder();
 			// setAddress : 변환하려는 주소 (경기도 성남시 분당구 등)
 			// setLanguate : 인코딩 설정
-			GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(location).setLanguage("ko").getGeocoderRequest();
-			GeocodeResponse geocoderResponse;
 			
 		try {
+
+			GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(location).setLanguage("ko").getGeocoderRequest();
+			GeocodeResponse geocoderResponse;
 
 			geocoderResponse = geocoder.geocode(geocoderRequest);
 	
