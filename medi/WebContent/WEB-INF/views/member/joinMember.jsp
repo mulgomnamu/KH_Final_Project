@@ -50,7 +50,7 @@ input select{
 </style>
 
 
-<script type="text/javascript" src="<c:url value='/js/jquery.1.9.1.min.js'/>"></script>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <div id="container" class="hospitalguide">
@@ -130,6 +130,7 @@ input select{
 						<td>
 							<input type="text" id="sample4_postcode" name="post" placeholder="우편번호" required="">
 							<input type="button" onclick="sample4_execDaumPostcode()" value="주소검색" required=""><br>
+							<input type="text" id="sample4_roadAddress" name="addr1" placeholder="도로명주소" size="40" required=""><br>
 							<input type="text" id="addr" name="addr2" placeholder="추가주소" required="">
 							<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
 							<span id="guide" style="color:#999"></span>
@@ -169,7 +170,7 @@ input select{
 					<tr>
 						<td colspan="2">
 							<fieldset>
-								<button id="form-submit" type="submit" class="updateBtn">회원가입</button>
+								<button id="form-submit-btn" type="submit" class="updateBtn">회원가입</button>
 							</fieldset>
 						</td>
 					</tr>
@@ -382,18 +383,18 @@ $(function(){
 <script type="text/javascript">
 //동일 pwd 검사
 $(function(){
-	$('#form-submit').mouseenter(function(){ 
+	$('#form-submit-btn').mouseenter(function(){ 
 	   if($('#password1').val()!=$('#password2').val() || $("#result_id_msg").prop("disabled") 
 			   || $("#result_email_msg").prop("disabled")|| $("#result_phone_msg").prop("disabled")
 			   || $("font[name=check1]").prop("disabled")){
 		   console.log("button 비활성화2");
-		   $("#form-submit").attr("disabled", true);
+		   $("#form-submit-btn").attr("disabled", true);
 		   $('#password1').text('');
 		   $('#password2').text('');
 		   return false;
 	   }else{
 		   console.log(" button 보임");
-		   $("#form-submit").attr("disabled", false);
+		   $("#form-submit-btn").attr("disabled", false);
 		   return true;
 	   }
   	}); //#chpass.keyup
