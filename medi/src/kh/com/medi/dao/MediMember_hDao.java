@@ -26,4 +26,8 @@ public interface MediMember_hDao {
 	List<MediHospital_imageDto> getImageList(MediMember_hDto dto_h);
 	List<MediMember_hDto> getScoreList();
 	public int getDoctorCount(int seq);
+	
+	MediMember_hDto hosIdFind(MediMember_hDto dto);  
+	MediMember_hDto getHosQuesAns(MediMember_hDto dto);
+	boolean hosPwdReset(MediMember_hDto dto);
 }

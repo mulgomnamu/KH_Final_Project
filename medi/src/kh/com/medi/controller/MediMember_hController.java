@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kh.com.medi.model.MediHospital_imageDto;
 import kh.com.medi.model.MediHospital_subject;
+import kh.com.medi.model.MediMemberDto;
 import kh.com.medi.model.MediMember_hDto;
 import kh.com.medi.model.MediSubjectDto;
+import kh.com.medi.service.MailService;
 import kh.com.medi.service.MediMember_hService;
 import kh.com.medi.util.FUpUtil;
 import kh.com.medi.util.geoCoding;
@@ -31,6 +34,13 @@ import kh.com.medi.util.geoCoding;
 public class MediMember_hController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MediMember_hController.class);
+	
+	private MailService mailService;
+	
+	@Autowired
+	public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
 
     private static final long LIMIT_SIZE = 10 * 1024 * 1024;
     
@@ -282,6 +292,75 @@ public class MediMember_hController {
 		mediMember_hService.changePwd(dto_h);
 		
 		return 1;
+	}
+	
+
+	
+	@RequestMapping(value="hospitalIdPwFind.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String hospitalIdPwFind() throws Exception{
+		logger.info("MediMember_hController hospitalIdPwFind " + new Date());
+		
+		return "hospitalIdPwFind.tiles";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="hosIdFind.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String hosIdFind(Model model, MediMember_hDto dto) throws Exception{
+		boolean flag = true;
+		logger.info("MediMember_hController hosIdFind " + new Date());
+		dto = mediMember_hService.hosIdFind(dto);
+		
+		if(dto == null) {
+			flag = true;
+		}else {
+			flag = false;
+		}
+		
+		if(flag) {
+			String str = "no";
+			return str;
+		}else{
+			String str = dto.getId();
+			System.out.println(str);
+			return str;
+		}
+	}
+	
+	@RequestMapping(value="hosPwdReset.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String hosPwdReset(Model model, MediMember_hDto dto) throws Exception{
+		logger.info("MediMember_hController hosPwdReset " + new Date());
+		dto = mediMember_hService.getHosQuesAns(dto);
+		
+		if(dto == null) {
+			return "redirect:/hospitalIdPwFind.do";
+		}else{
+			model.addAttribute("dto", dto);
+			return "hosPwdReset.tiles";
+		}
+	}
+	
+	@RequestMapping(value="hosPwdResetAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String hosPwdResetAf(Model model, MediMember_hDto dto) throws Exception{
+		logger.info("MediMember_hController hosPwdResetAf " + new Date());
+		MediMember_hDto originAnswerDto = mediMember_hService.getHosQuesAns(dto);
+
+		if(dto.getAnswer().equals(originAnswerDto.getAnswer())) {
+			System.out.println("답변 일치");
+			int ran = new Random().nextInt(100000) + 10000; // 10000 ~ 99999
+            String password = String.valueOf(ran);
+            originAnswerDto.setPwd(password);
+            mediMember_hService.hosPwdReset(originAnswerDto); // 해당 유저의 DB정보 변경
+            System.out.println("비밀번호 변경완료");
+            String subject = "임시 비밀번호 발급 안내 입니다.";
+            
+            StringBuilder sb = new StringBuilder();
+            sb.append("귀하의 임시 비밀번호는 " + password + " 입니다.");
+            mailService.send(subject, sb.toString(), "asdqawsed92@gmail.com", originAnswerDto.getEmail());
+            
+            return "redirect:/login.do";
+		}else {
+			return "redirect:/main.do";
+		}
 	}
 	
 	private boolean isValidExtension(String originalName) {

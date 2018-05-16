@@ -115,4 +115,18 @@
 		WHERE SEQ=#{SEQ}
 	</select>
 	
+	
+	
+	<select id="hosIdFind" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT ID FROM medi_hospital WHERE NAME=#{name} and EMAIL=#{email}
+	</select>
+	
+	<select id="getHosQuesAns" parameterType="java.lang.String" resultType="kh.com.medi.model.MediMember_hDto">
+		SELECT ID, EMAIL, QUESTION, ANSWER FROM medi_hospital WHERE ID=#{id}
+	</select>
+	
+	<update id="HosPwdReset" parameterType="kh.com.medi.model.MediMember_hDto"> 
+		UPDATE medi_hospital SET PWD=#{pwd} WHERE email=#{email}
+	</update>
+	
 </mapper>

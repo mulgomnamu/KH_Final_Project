@@ -59,6 +59,16 @@
 		<put-attribute name="footer" value="/WEB-INF/include/subfooter.jsp"/>
 	</definition>
 	
+	<!-- iD/pw찾기 페이지(병원) -->
+	<definition name="hospitalIdPwFind.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/hosIdPwFind.jsp"/>
+	</definition>
+	
+	<!-- 패스워드 재설정 페이지 이동(병원) -->
+	<definition name="hosPwdReset.tiles" extends="main.tiles">
+		<put-attribute name="content" value="/WEB-INF/views/member_h/hosPwdReset.jsp"/>
+	</definition>
+	
 	<!-- 다중이미지수정(병원) -->
 	<definition name="update_imgs_h.tiles" extends="main.tiles">
 		<put-attribute name="content" value="/WEB-INF/views/member_h/update_imgs_h.jsp"/>
