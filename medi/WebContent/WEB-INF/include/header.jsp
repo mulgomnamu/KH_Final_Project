@@ -274,18 +274,43 @@
 
          <!-- 메뉴 안의 슬라이드 배너 -->
          <div class="gnb_banner slide_banner_ui">
-            <strong class="gnb_banner_tit">CMC홍보소식</strong>
+            <strong class="gnb_banner_tit">I Chee U TEAM</strong>
             <div class="banner_wrap">
                <div class="banner_inner_wrap">
                   <ul>
                      <li class="banner bnr01">
                         <a href="#;" target="_self" class="b_1">
-                           <img src='images/common/27461.jpg' alt="">
+                           <img src='images/common/banner_img.png' alt="">
                         </a>
                      </li>
                      <li class="banner bnr02">
                         <a href="#;" target="_blank" class="b_2">
-                           <img src='images/common/27469.jpg' alt="">
+                           <img src='images/common/kim.png' alt="">
+                        </a>
+                     </li>
+                     <li class="banner bnr03">
+                        <a href="#;" target="_blank" class="b_3">
+                           <img src='images/common/Hwang.png' alt="">
+                        </a>
+                     </li>
+                      <li class="banner bnr04">
+                        <a href="#;" target="_blank" class="b_4">
+                           <img src='images/common/Choi.png' alt="">
+                        </a>
+                     </li>
+                     <li class="banner bnr05">
+                        <a href="#;" target="_blank" class="b_5">
+                           <img src='images/common/Jung.png' alt="">
+                        </a>
+                     </li>
+                     <li class="banner bnr06">
+                        <a href="#;" target="_blank" class="b_6">
+                           <img src='images/common/Lee.png' alt="">
+                        </a>
+                     </li>
+                     <li class="banner bnr07">
+                        <a href="#;" target="_blank" class="b_7">
+                           <img src='images/common/Lee2.png' alt="">
                         </a>
                      </li>
                   </ul>
