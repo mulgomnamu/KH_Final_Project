@@ -177,7 +177,7 @@ WHERE PWD=#{pwd}
 	<!--건강상담 수정 -->
 	<update id="bbsUpdate" parameterType="kh.com.medi.model.MediConsultingAllDto"> 
 	UPDATE `MEDI`.`medi_consulting_question` SET TITLE=#{title}, CONTENT =#{content}, WDATE=NOW()
-	WHERE SEQ =#{mem_seq}
+	WHERE SEQ =#{seq}
 	</update>
 	<!-- 질문글채택완료 -->
 	<update id="myselectyn" parameterType="kh.com.medi.model.MediConsultingAnswerDto"> 
