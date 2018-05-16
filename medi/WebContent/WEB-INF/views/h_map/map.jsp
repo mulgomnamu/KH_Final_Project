@@ -84,7 +84,7 @@ String s_keyword = (String)request.getAttribute("s_keyword");
 		<div class="inner">
 			<h1 class="logo">
 				<a href="main.do" style="color:#fff;">
-				 <img src="./images/common/map_logo.png" alt="아이치유맵로고">
+				 <img src="./images/common/map_logo.png" style=" height:40px; " alt="아이치유맵로고">
 				</a>
 			</h1>
 			<div class="util_wrap">
