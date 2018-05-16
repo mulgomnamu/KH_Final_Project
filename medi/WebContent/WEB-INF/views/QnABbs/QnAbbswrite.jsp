@@ -34,13 +34,13 @@
 							<th>아이디</th>
 							<td style="text-align: left">
 								<c:if test="${login.auth eq 1}">
-									<input type="text" name="id" id="id" value="${login.id}">
+									<input type="text" readonly="readonly" name="id" id="id" value="${login.id}">
 							 	</c:if>
 							 	<c:if test="${login.auth eq 2}">
-									<input type="text" name="id" id="id" value="${login.id}">
+									<input type="text" readonly="readonly" name="id" id="id" value="${login.id}">
 							 	</c:if>
 							 	<c:if test="${login_h.auth eq 4}">
-								  	<input type="text" name="id"  value='${login_h.id}' size="60"/>
+								  	<input type="text" readonly="readonly" name="id"  value='${login_h.id}' size="60"/>
 							  	</c:if>
 								
 							</td>

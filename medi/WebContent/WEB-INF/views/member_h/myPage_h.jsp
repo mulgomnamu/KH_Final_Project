@@ -47,7 +47,7 @@
 						<c:if test="${getDCount != 0 }">
 							<a href="update_d.do?seq=${login_h.seq }&index=0" class="fourBox">의사 회원 정보 변경</a>
 						</c:if>
-						<a href="HospitalReservationList.do?hos_seq=2" class="fourBox">예약 목록</a>
+						<a href="HospitalReservationList.do?hos_seq=${login_h.seq }" class="fourBox">예약 목록</a>
 					</div>
 					
 				</div>

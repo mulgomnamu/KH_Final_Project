@@ -428,7 +428,7 @@ $("#update_hBtn").click(function() {
 			type: 'post',
 			success: function(response) {
 				alert('회원수정 성공');
-				location.href ="myPage_h.do";
+				location.href ="myPage_h.do?seq=${login_h.seq}";
 			},
 			error: function() {
 				alert('error');

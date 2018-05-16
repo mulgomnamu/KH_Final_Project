@@ -241,7 +241,7 @@ public class MediMemberController {
             String subject = "[아이치유] 이메일 인증";
             
             StringBuilder sb = new StringBuilder();
-            sb.append("<b>안녕하세요 당신의 건강을 관리하는 아이치유 입니다^^<br><br></b>아래 링크를 눌러서 인증해주세요" + "<br><br><a href='http://localhost:8090/medi/emailAuthenticationAf.do?id=" + IDandEmailDto.getId() + "&email=" + IDandEmailDto.getEmail())
+            sb.append("<b>안녕하세요 당신의 건강을 관리하는 아이치유 입니다^^<br><br></b>아래 링크를 눌러서 인증해주세요" + "<br><br><a href='http://192.168.10.55:8090/medi/emailAuthenticationAf.do?id=" + IDandEmailDto.getId() + "&email=" + IDandEmailDto.getEmail())
             .append("' target='_blenk'>이메일 인증 확인");
             mailService.send(subject, sb.toString(), "asdqawsed92@gmail.com", IDandEmailDto.getEmail());
 			return "emailAuthentication.tiles";

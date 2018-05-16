@@ -6,7 +6,7 @@
 	<!-- 데이터 전체갯수 취득 -->
 	<select id="getBbsCount" parameterType="kh.com.medi.model.MediHbbsParamDto" resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)
-		FROM `MEDI`.`MEDI_HOSPITAL` WHERE 1=1 AND DEL=1
+		FROM `MEDI`.`MEDI_HOSPITAL` WHERE 1=1 AND DEL=1 AND AUTH=4
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
 			<if test="s_category == 'name'">
 				AND NAME LIKE CONCAT('%',#{s_keyword},'%')
@@ -29,7 +29,7 @@
 		    FROM
 		        `MEDI`.`MEDI_HOSPITAL`,
 		       (SELECT @ROWNUM := 0) R
-			 WHERE 1=1 AND DEL=1
+			 WHERE 1=1 AND DEL=1 AND AUTH=4
 			 <if test="s_category != '' and s_category != null 
 			 	and s_keyword != '' and s_keyword != null">		 	
 			 	<if test="s_category == 'name'"> 
