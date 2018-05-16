@@ -107,4 +107,12 @@
 		WHERE
 		    A.ROWNUM BETWEEN 1 AND 4;
 	</select>
+	
+	<!-- 의사 갯수 -->
+	<select id="getDoctorCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT IFNULL(COUNT(*), 0)
+		FROM `MEDI`.`MEDI_DOCTOR`
+		WHERE SEQ=#{SEQ}
+	</select>
+	
 </mapper>

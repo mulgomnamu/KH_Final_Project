@@ -13,7 +13,37 @@
 
 <style>
 .alertImg img{width:100%; max-height:650px;}
-#odiv{left:50% !important; width:420px; margin-left:-210px;  }
+#odiv{left:50% !important; width:420px; margin-left:-210px; top: 130px !important; }
+.tableWrap tr{
+	border-bottom:1px solid #d9d9d9;
+}
+.tableWrap tr:first-child{
+	border-top:3px solid #d9d9d9;
+}
+.tableWrap th{
+	text-align:left;
+	padding: 14px 14px;
+	background-color: rgb(244, 245, 248)
+}
+.tableWrap td{
+	border-left-width: 100px;
+	padding: 14px 14px 14px 20px;
+	vertical-align: center;
+}
+
+.tableWrap tr{border-bottom:1px solid #d9d9d9;}
+.tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
+.tableWrap th{text-align:left; }
+.list_table1 th {
+background-color:#f4f5f8;
+text-align: left;
+border-bottom:1px solid #d9d9d9;
+}
+.list_table1 td {
+border-bottom:1px solid #d9d9d9;
+height: 60px;
+}
+.s_btn{width:100px; height:40px; display:block; line-height:40px; margin:20px auto 20px; text-align:center; background-color:#0b2d85; color:#fff; border-radius:5px;}
 </style>
 
 <!-- jQuery Modal -->
@@ -41,16 +71,18 @@
 							<form name="frmForm1" id="searchForm" method="post" action="">
 								<table border="1px">
 									<tr>
-										<td>검색 : </td>
-										<td>
+										<td align="center">
 											<select id="_s_category" name="s_category">
-												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택</option>
+												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택해주세요</option>
 												<option value="id" <c:if test="${s_keyword ne '' and s_category eq 'id'}">selected</c:if>>아이디</option>
 												<option value="name" <c:if test="${s_keyword ne '' and s_category eq 'name'}">selected</c:if>>이름</option>			
 											</select>
 										</td>
-										<td><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
-										<td><span><button type="button" id="searchBtn"> 검색 </button></span></td>
+										<td>
+										<span class="form-text">
+										<label for="_s_keyword" class="placeholder">검색어</label>
+										<input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></span></td>
+										<td><span><button type="button" class="s_btn" id="searchBtn"> 검색 </button></span></td>
 									</tr>
 								</table>
 								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber}"/>						
@@ -58,7 +90,7 @@
 							</form>
 						</div>
 						<div>
-							<input type="button" id="upAuth" value="일괄 회원승인">
+							<input type="button" class="s_btn" style="float: left;" id="upAuth" value="일괄 회원승인">
 						</div>
 						<table class="list_table1">
 							<tr>
@@ -77,7 +109,7 @@
 									</td>
 									<td><span id="id${memberList.seq }">${memberList.id }</span></td>
 									<td><span id="name${memberList.seq }">${memberList.name }</span></td>
-									<td><span id="confirm_img${memberList.confirm_img }"><img src="upload/${memberList.confirm_img }" onclick="resizeImg(this.src)" style="width:100px;position:relative;padding:5px;"></span></td>
+									<td><span id="confirm_img${memberList.confirm_img }" style="width: 300px;display: block;"><img src="upload/${memberList.confirm_img }" onclick="resizeImg(this.src)" style="width:100%;position:relative;padding:5px;"></span></td>
 									<td><span id="regdate${memberList.seq }">${memberList.regdate }</span></td>
 									<td><span id="auth${memberList.seq }">${memberList.auth }</span></td>
 									<td><button name="confirmBtn" id="confirmBtn${memberList.seq }" value="${memberList.seq }">승인</button></td>

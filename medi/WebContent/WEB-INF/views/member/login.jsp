@@ -41,7 +41,8 @@
 				<div class="accountro">
 				<strong>아직 회원이 아니신가요?</strong><br><br>
 				회원이 되시면 홈페이지에서 제공하는 <br>온라인 서비스를 이용하실 수 있습니다.<br><br>
-				<a href="#none" id="_btnRegi1" title="회원가입">>>회원가입</a>
+				<a href="#none" id="_btnRegi1" title="회원가입" style="margin-right:20px;">>>일반 회원가입</a>
+				<a href="#none" id="_btnRegi2" title="회원가입">>>병원 회원가입</a>
 				</div>
 				</div>
 				
@@ -113,6 +114,10 @@ $("#_btnRegi").click(function() {
 
 $("#_btnRegi1").click(function() {
 	location.href = "joinMember.do";
+});
+
+$("#_btnRegi2").click(function() {
+	location.href = "join_h.do";
 });
 
 $("#_userid").keypress(function(event) {

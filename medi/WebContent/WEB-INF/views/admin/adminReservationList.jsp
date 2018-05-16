@@ -3,10 +3,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- jQuery Modal -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<style>
+.tableWrap tr{
+	border-bottom:1px solid #d9d9d9;
+}
+.tableWrap tr:first-child{
+	border-top:3px solid #d9d9d9;
+}
+.tableWrap th{
+	text-align:left;
+	padding: 14px 14px;
+	background-color: rgb(244, 245, 248)
+}
+.tableWrap td{
+	border-left-width: 100px;
+	padding: 14px 14px 14px 20px;
+	vertical-align: center;
+}
 
+.tableWrap tr{border-bottom:1px solid #d9d9d9;}
+.tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
+.tableWrap th{text-align:left; }
+.list_table1 th {
+background-color:#f4f5f8;
+text-align: left;
+border-bottom:1px solid #d9d9d9;
+}
+.list_table1 td {
+border-bottom:1px solid #d9d9d9;
+height: 60px;
+}
+.s_btn{width:100px; height:40px; display:block; line-height:40px; margin:20px auto 20px; text-align:center; background-color:#0b2d85; color:#fff; border-radius:5px;}
+</style>
 <!-- 로그인 처리 -->
 <c:if test="${loginType ne 2 }">
 	<script type="text/javascript">
@@ -36,17 +68,19 @@
 							<form name="frmForm1" id="searchForm" method="post" action="">
 								<table border="1px">
 									<tr>
-										<td>검색 : </td>
-										<td>
+										<td align="center">
 											<select id="_s_category" name="s_category">
-												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택</option>
+												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택해주세요</option>
 												<option value="hos_name" <c:if test="${s_keyword ne '' and s_category eq 'hos_name'}">selected</c:if>>병원 이름</option>
 												<option value="mem_name" <c:if test="${s_keyword ne '' and s_category eq 'mem_name'}">selected</c:if>>회원 이름</option>
 												<option value="doc_name" <c:if test="${s_keyword ne '' and s_category eq 'doc_name'}">selected</c:if>>의사 이름</option>
 											</select>
 										</td>
-										<td><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
-										<td><span><button type="button" id="searchBtn"> 검색 </button></span></td>
+										<td>
+										<span class="form-text">
+										<label for="_s_keyword" class="placeholder">검색어</label>
+										<input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></span></td>
+										<td><span><button type="button" class="s_btn" id="searchBtn"> 검색 </button></span></td>
 									</tr>
 								</table>
 								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber}"/>						
@@ -64,6 +98,7 @@
 								<th>예약 시간</th>
 								<th>예약 구분</th>
 								<th>삭제</th>
+								<th></th>
 							</tr>
 							<c:forEach var="memberList" items="${loginList }">
 								<tr>
@@ -73,7 +108,14 @@
 									<td><span id="mem_name${memberList.adminMember.name }">${memberList.adminMember.name }</span></td>
 									<td><span id="hos_name${memberList.adminHospital.name }">${memberList.adminHospital.name }</span></td>
 									<td><span id="doc_name${memberList.adminDoctor.name }">${memberList.adminDoctor.name }</span></td>
-									<td><span id="content${memberList.content }">${memberList.content }</span></td>
+									<c:choose>
+										<c:when test="${fn:length(memberList.content) > 16}">
+											<td><span id="content${memberList.content }" title="${memberList.content }">${fn:substring(memberList.content, 0, 16) }...</span></td>
+										</c:when>
+										<c:otherwise>
+											<td><span id="content${memberList.content }" title="${memberList.content }">${memberList.content }</span></td>
+										</c:otherwise>
+									</c:choose>
 									<td><span id="day${memberList.day }">${memberList.day }</span></td>
 									<td><span id="time${memberList.time }">${memberList.time }</span></td>
 									<td><span id="wdate${memberList.wdate }">${memberList.wdate }</span></td>

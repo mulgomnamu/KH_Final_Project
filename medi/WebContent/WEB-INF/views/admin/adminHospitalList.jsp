@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
 .tableWrap tr{
 	border-bottom:1px solid #d9d9d9;
@@ -23,8 +23,16 @@
 
 .tableWrap tr{border-bottom:1px solid #d9d9d9;}
 .tableWrap tr:first-child{border-top:3px solid #d9d9d9;}
-.tableWrap th{text-align:left;}
-
+.tableWrap th{text-align:left; }
+.list_table1 th {
+background-color:#f4f5f8;
+text-align: left;
+border-bottom:1px solid #d9d9d9;
+}
+.list_table1 td {
+border-bottom:1px solid #d9d9d9;
+height: 60px;
+}
 .s_btn{width:100px; height:40px; display:block; line-height:40px; margin:20px auto 20px; text-align:center; background-color:#0b2d85; color:#fff; border-radius:5px;}
 </style>
 
@@ -61,16 +69,19 @@
 							<form name="frmForm1" id="searchForm" method="post" action="">
 								<table border="1px">
 									<tr>
-										<td>검색 : </td>
-										<td>
+										<td align="center">
 											<select id="_s_category" name="s_category">
-												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택</option>
+												<option value="" <c:if test="${s_keyword eq '' }">selected</c:if>>선택해주세요</option>
 												<option value="id" <c:if test="${s_keyword ne '' and s_category eq 'id'}">selected</c:if>>아이디</option>
 												<option value="name" <c:if test="${s_keyword ne '' and s_category eq 'name'}">selected</c:if>>이름</option>			
 											</select>
 										</td>
-										<td><input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/></td>
-										<td><span><button type="button" id="searchBtn"> 검색 </button></span></td>
+										<td>
+										<span class="form-text">
+										<label for="_s_keyword" class="placeholder">검색어</label>
+										<input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword}"/>
+										</span></td>
+										<td><span><button type="button" class="s_btn" id="searchBtn"> 검색 </button></span></td>
 									</tr>
 								</table>
 								<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber}"/>						
@@ -79,9 +90,9 @@
 						</div>
 						<table class="list_table1">
 							<col width="20px"><col width="100px"><col width="80px">
-							<col width="180px"><col width="140px"><col width="70px">
-							<col width="350px"><col width="100px"><col width="100px">
-							<col width="150px"><col width="100px"><col width="100px">
+							<col width="180px"><col width="140px"><col width="350px">
+							<col width="70px"><col width="140px"><col width="90px">
+							<col width="140px"><col width="90px"><col width="90px">
 							<col width="50px">
 							<tr>
 								<th><input type="checkbox" id="allCheckBox"></th>
@@ -92,10 +103,10 @@
 								<th>주소</th>
 								<th>이메일</th>
 								<th>병원소개</th>
-								<th>채택점수</th>
-								<th>탈퇴여부</th>
+								<th style="text-align: center;">채택점수</th>
+								<th style="text-align: center;">탈퇴여부</th>
 								<th>가입날짜</th>
-								<th>회원구분</th>
+								<th style="text-align: center;">회원구분</th>
 								<th>수정</th>
 							</tr>
 							<c:forEach var="memberList" items="${loginList }">
@@ -107,13 +118,34 @@
 									<td><span id="name${memberList.seq }">${memberList.name }</span></td>
 									<td><span id="tel${memberList.seq }">${memberList.tel }</span></td>
 									<td><span id="post${memberList.seq }">${memberList.post }</span></td>
-									<td><span id="address${memberList.seq }">${memberList.address }</span></td>
-									<td><span id="email${memberList.seq }">${memberList.email }</span></td>
-									<td><span id="info${memberList.seq }">${memberList.info }</span></td>
-									<td><span id="score${memberList.seq }">${memberList.score }</span></td>
-									<td><span id="del${memberList.seq }">${memberList.del }</span></td>
+									<c:choose>
+										<c:when test="${fn:length(memberList.address) > 16}">
+											<td><span id="address${memberList.seq }" title="${memberList.address }">${fn:substring(memberList.address, 0, 16) }...</span></td>
+										</c:when>
+										<c:otherwise>
+											<td><span id="address${memberList.seq }" title="${memberList.address }">${memberList.address }</span></td>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${fn:length(memberList.email) > 16}">
+											<td><span id="email${memberList.seq }" title="${memberList.email }">${fn:substring(memberList.email, 0, 16) }...</span></td>
+										</c:when>
+										<c:otherwise>
+											<td><span id="email${memberList.seq }" title="${memberList.email }">${memberList.email }</span></td>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${fn:length(memberList.email) > 5}">
+											<td><span id="info${memberList.seq }" title="${memberList.info }">${fn:substring(memberList.info, 0, 5) }...</span></td>
+										</c:when>
+										<c:otherwise>
+											<td><span id="info${memberList.seq }" title="${memberList.info }">${memberList.info }</span></td>
+										</c:otherwise>
+									</c:choose>
+									<td align="center"><span id="score${memberList.seq }">${memberList.score }</span></td>
+									<td align="center"><span id="del${memberList.seq }">${memberList.del }</span></td>
 									<td><span id="regdate${memberList.seq }">${memberList.regdate }</span></td>
-									<td><span id="auth${memberList.seq }">${memberList.auth }</span></td>
+									<td align="center"><span id="auth${memberList.seq }">${memberList.auth }</span></td>
 									<td>
 <!-- 병원 정보 수정 Modal -->
 										<div id="updateModal${memberList.seq }" class="modal">
