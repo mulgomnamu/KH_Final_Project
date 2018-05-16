@@ -75,7 +75,7 @@
 	
 	<update id="updateHospitalAuth" parameterType="kh.com.medi.model.MediHospitalPagingDto">
 		UPDATE `medi`.`medi_hospital`
-		SET `auth`=#{auth}
+		SET `auth`=4
 		WHERE `seq`=#{seq}
 	</update>
 

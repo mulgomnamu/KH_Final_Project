@@ -61,7 +61,7 @@ public String dot3(String msg){
 							<div class="hbbsbox">
 								<a href="hbbsdetail.do?seq=${hbbs.seq}">
 									<div class="hbbssum"><img src="upload/${hbbs.confirm_img }" alt=""></div>
-									<div class="hbbscontent">
+									<div class="hbbscontent" style="height: 129px;">
 										<h4>${hbbs.name }</h4>
 										<p class="subinfo">${hbbs.info }</p>
 									</div>
