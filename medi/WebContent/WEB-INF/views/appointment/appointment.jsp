@@ -99,6 +99,7 @@ function byspecialty(elem) {
 	location.href='main.do';
 	</script>
 </c:if>
+
 <div id="container" class="hospitalguide"><!-- 1뎁스명 클래스 -->
 
 	<div class="login"><!-- 2뎁스명 클래스 -->
@@ -158,6 +159,11 @@ function byspecialty(elem) {
 				            			</label>
 				            			<input type="text" id="hosserch" name="name">
 				            		</span>
+				            		<c:if test="${not empty todetail }">
+										<script type="text/javascript">
+										$("#hosserch").val('${todetail }');
+										</script>
+									</c:if>
 				            		<a onclick="hospitallist()" style="cursor: pointer;" class="btn-type02 btn-search"><em>검색</em></a>
 				            		<a onclick="cleann()" class="btn-type02 btn-search refresh_btn" style="cursor: pointer; width: 140px;"><em>검색초기화</em></a>
 				            		<div id="hospitallistdiv" style="overflow:auto; width: 820px; height: 500px;" class="tableclass">
@@ -1549,7 +1555,7 @@ function settime(elem,_doc_seq,year,month,dayoftheweek) {
 	    		 $("<div style='padding-top:50px;'>진료가능한 시간이 없습니다</div>").appendTo('#time_area');
 	    	 } 
     	  for (var i = 0; i < times.length-1; i++) {
-    			$("<a class='times' onclick='appointment("+(data.day+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area');
+    			$("<a class='times' onclick='appointment("+(data.day+times[i])+","+doc_seq+")'><div>"+times[i].substring(0,2)+":"+times[i].substring(2,4)+"</div></a>").appendTo('#time_area');
     		}
 	      }
 	   });
@@ -2395,7 +2401,7 @@ function settime2(elem,_doc_seq,year,month,dayoftheweek) {
 	    		 $("<div style='padding-top:50px;'>진료가능한 시간이 없습니다</div>").appendTo('#time_area2');
 	    	 } 
     	  for (var i = 0; i < times.length-1; i++) {
-    			$("<a class='times' onclick='appointment2("+(data.day+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area2');
+    			$("<a class='times' onclick='appointment2("+(data.day+times[i])+","+doc_seq+")'><div>"+times[i].substring(0,2)+":"+times[i].substring(2,4)+"</div></a>").appendTo('#time_area2');
     		}
 	      }
 	   });
@@ -3242,7 +3248,7 @@ function settime3(elem,_doc_seq,year,month,dayoftheweek) {
 	    		 $("<div style='padding-top:50px;'>진료가능한 시간이 없습니다</div>").appendTo('#time_area3');
 	    	 } 
     	  for (var i = 0; i < times.length-1; i++) {
-    			$("<a class='times' onclick='appointment3("+(data.day+times[i])+","+doc_seq+")'><div>"+times[i]+"</div></a>").appendTo('#time_area3');
+    			$("<a class='times' onclick='appointment3("+(data.day+times[i])+","+doc_seq+")'><div>"+times[i].substring(0,2)+":"+times[i].substring(2,4)+"</div></a>").appendTo('#time_area3');
     		}
 	      }
 	   });

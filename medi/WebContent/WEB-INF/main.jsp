@@ -146,7 +146,7 @@
 						</p>
 					</div>
 					<div class="util_wrap">
-						<span class="member_btn"> <a href="http://localhost:3000" class="btn-type02">
+						<span class="member_btn"> <a href="#;" onclick="xxx();" class="btn-type02">
 								<em>화상진료예약</em>
 						</a>
 						</span> <span class="nomember_btn"> <a href="appointment.do"
@@ -389,6 +389,10 @@
 <!--end-->
 
 <script type="text/javascript">
+function xxx() {
+	alert("준비중입니다");
+	return
+}
 	// 채용정보 상세 이동
 	function fnGoRecruitDetail(endDate, detailUrl) {
 		if (endDate && endDate.length > 0) {
