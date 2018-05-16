@@ -40,9 +40,10 @@ public class MediAppointmentController {
 	
 	
 	@RequestMapping(value="appointment.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String changeplz(myCal jcal,Model model) throws Exception{
+	public String changeplz(myCal jcal,Model model,MediAppointmentNeedDto alldto) throws Exception{
 		logger.info("MediAppointmentController appointment " + new Date());
 		jcal.calculate();
+		model.addAttribute("todetail", alldto.getName());
 		model.addAttribute("jcal", jcal);
 		return "appointment.tiles";
 	}

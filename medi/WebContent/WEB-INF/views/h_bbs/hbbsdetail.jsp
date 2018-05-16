@@ -222,7 +222,7 @@
 									
 									 
 									<input type="hidden" name="stars" id="stars">
-									<input type="hidden" name="hos_seq" value="${hbbs.seq }">
+									<input type="hidden" id="hos_seq" name="hos_seq" value="${hbbs.seq }">
 									
 									<div>
 										<a href="#;" class="reviewsDoneBtn" id="_btnLogin">작성완료</a>
@@ -247,7 +247,7 @@ function xxx() {
 	return
 }
 function appointro() {
-	location.href="appointment.do";
+	location.href="appointment.do?name=${hbbs.name}";
 }
 	$( ".star_rating a" ).click(function() {
 	     $(this).parent().children("a").removeClass("onstars");
