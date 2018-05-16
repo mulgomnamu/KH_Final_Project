@@ -227,7 +227,7 @@ $("#_btnDelete").click(function() {
           
        	if (response=1) {
        		alert("삭제 성공");
-       	 location.href ="Myconsulting.do?seq=${login.seq}";
+       	 location.href ="MyPageList1.do?seq=${login.seq}&id=${login.id}";
 		}else {
 			alert("삭제 실패");
 			 location.href ="Myconsultingdetail.do";

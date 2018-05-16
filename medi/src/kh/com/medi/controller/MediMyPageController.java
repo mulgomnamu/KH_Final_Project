@@ -128,8 +128,8 @@ public class MediMyPageController {
 	
 	@ResponseBody
 	@RequestMapping(value="myselectaf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public Map<String, Object> myselectaf(Model model,MediConsultingAllDto alldto ,MediQnaBbsParamDto dto) throws Exception{
-		logger.info("MediConsultingController selectaf " + new Date());
+	public Map<String, Object> myselectaf(Model model,MediConsultingAllDto alldto ,MediQnaBbsParamDto dto, MediMemberDto dto_m) throws Exception{
+		logger.info("MediConsultingController myselectaf " + new Date());
 		Map<String, Object> map=new HashMap<String, Object>();
 		//QnA게시판
 		int sn = dto.getPageNumber();
@@ -211,6 +211,10 @@ public class MediMyPageController {
 		if ((totalRecordCount2 % alldto.getRecordCountPerPage2()) != 0) {
 			//	12					10	
 			totalPageCount2++;		// 1 -> 2
+		}
+		
+		for (MediAppointmentDto dto_app : list) {
+			dto_app.setName(dto_m.getName());
 		}
 		
 		map.put("list", list);

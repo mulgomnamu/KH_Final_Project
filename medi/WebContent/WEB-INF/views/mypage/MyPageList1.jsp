@@ -129,9 +129,6 @@ if(message != ""){
 	             </div>
          		</div>
    			</div>
-			 <c:if test="${not empty login }">
-				<input type="hidden" name="id" id="id" value="${login.id }">
-			</c:if>
 			<!-- content 시작 -->
 			<div class="content"> 
 				<div class="inner_flogin">
@@ -143,6 +140,13 @@ if(message != ""){
 			    	<li id="tab1">
 			    	<div id="alllist">
 					<div class="searchwrap">
+						<div>
+						  <c:if test="${not empty login }">
+								<input type="hidden" name="id" id="id" value="${login.id }">
+								<input type="hidden" name="seq" id="seq" value="${login.seq }">
+								<input type="hidden" name="name" id="name" value="${login.name }">
+							</c:if>
+						</div>
 						<div class="searchbox" style="display: inline-block;position: relative;left: 300px;top: -1.8px;">
 							 <form name="frmForm1" id="_frmFormSearch" method="post" action="">
                         <table>
@@ -172,6 +176,7 @@ if(message != ""){
                <div id="alldiv">
              <table style="width:85%; align:center; margin-top: 100px;"  align="center">
                <colgroup>
+                  <col style="width:80px;" />
                   <col style="width:150px;" />
                   <col style="width:auto;" />
                   <col style="width:100px;" />
@@ -179,7 +184,7 @@ if(message != ""){
       
                <thead>
                   <tr> 
-                     <th>순서</th><th>아이디</th><th>제목</th><th>말머리</th> 
+                     <th>순서</th><th>말머리</th><th>제목</th><th>아이디</th>
                   </tr>
                </thead>
       
@@ -194,11 +199,11 @@ if(message != ""){
                   
                     <tr class="_hover_tr">
                         <td>${vs.count}</td>
-                        <td>${bbs.id }</td> 
+                        <td>${bbs.question}</td>
                         <td>
-                           <a href='MyPagedetail.do?seq=${bbs.seq}&mypage=mypage'>
-                               ${bbs.title}</a></td>
-                           <td>${bbs.content}</td>
+                           <a href='MyPagedetail.do?seq=${bbs.seq}&mypage=mypage'>${bbs.title}</a>
+                        </td>
+                        <td>${bbs.id }</td> 
                         </tr>
                         </c:forEach>
                </tbody>
@@ -270,9 +275,6 @@ if(message != ""){
 					      <td colspan="3">작성된 글이 없습니다.</td>
 					   </tr>   
 					   </c:if>
-						  <c:if test="${not empty login }">
-								<input type="hidden" name="id" id="id" value="${login.id }">
-							</c:if>
 					   <c:forEach items="${questionlist}" var="bbs1" varStatus="vs">
 					   <tr class="_hover_tr">
 							    <td style="text-align: center;">[${bbs1.category}]</td>
@@ -359,9 +361,6 @@ if(message != ""){
 					      <td colspan="3">작성된 글이 없습니다.</td>
 					   </tr>   
 					   </c:if>
-						  <c:if test="${not empty login }">
-								<input type="hidden" name="id" id="id" value="${login.id }">
-							</c:if>
 					   <c:forEach items="${answeredlist}" var="bbs2" varStatus="vs">
 					   <tr class="_hover_tr">
 							    <td style="text-align: center;">[${bbs2.category}]</td>
@@ -418,7 +417,8 @@ function goPage(pageNumber,elem) {
 			s_category:$("#_s_category").val(),
 			s_keyword:$("#_s_keyword").val(),
 			pageNumber:$("#_pageNumber").val(),
-			recordCountPerPage:$("#_recordCountPerPage").val()
+			recordCountPerPage:$("#_recordCountPerPage").val(),
+			id:$("#id").val()
 	};
 		$.ajax({
 			url : "myselectaf.do",
@@ -431,18 +431,20 @@ function goPage(pageNumber,elem) {
 				$("<table id='table1' align='center'/>").css({
 					'width':'85%','align':'center','margin-top':'100px'
 				}).appendTo("#alldiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
-				$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table1");
-				$("<tr><th>순서</th><th>아이디</th><th>제목</th><th>말머리</th></tr>").appendTo("#table1");
-				var key = Object.keys(data["Mylisy"][0]); // seq,name,info,address,tel의 키값을 가져옴
+				$("<colgroup><col style='width:80px;'' /><col style='width:150px;'' /><col style='width:auto;'' /><col style='width:100px;' /></colgroup>").appendTo("#table1");
+				$("<tr><th>순서</th><th>말머리</th><th>제목</th><th>아이디</th></tr>").appendTo("#table1");
+/* 				var key = Object.keys(data["Mylisy"][0]); // seq,name,info,address,tel의 키값을 가져옴 */
 				$.each(data.Mylisy, function(index, Mylisy) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
-					items.push("<td>["+Mylisy.count+"]</td>");
+					var i = 1;
+					items.push("<td>["+i+"]</td>");
+					items.push("<td>" + Mylisy.question+"</td>");
+					items.push("<td><a href='MyPagedetail.do?seq="+Mylisy.seq+"'>"+Mylisy.title+"</a></td>");
 					items.push("<td>" + Mylisy.id+"</td>");
-						items.push("<td><a href='MyPagedetail.do?seq="+Mylisy.seq+"'>"+Mylisy.title+"</a></td>");
-					items.push("<td>" + Mylisy.content+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table1"); // 그리고 그 tr을 테이블에 붙임
+					i++;
 				});//each끝
 			}
 		});
@@ -456,7 +458,8 @@ function goPage1(pageNumber1,elem) {
 			s_category1:$("#_s_category1").val(),
 			s_keyword1:$("#_s_keyword1").val(),
 			pageNumber1:$("#_pageNumber1").val(),
-			recordCountPerPage1:$("#_recordCountPerPage1").val()
+			recordCountPerPage1:$("#_recordCountPerPage1").val(),
+			seq:$("#seq").val()
 	};
 		$.ajax({
 			url : "myselectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
@@ -475,7 +478,7 @@ function goPage1(pageNumber1,elem) {
 				$.each(data.questionlist, function(index, questionlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
 					items.push("<td>["+questionlist.category+"]</td>");
-						items.push("<td><a href='Myconsultingdetail.do?seq="+questionlist.seq+"'>"+questionlist.title+"</a></td>");
+						items.push("<td><a href='Myconsultingdetail.do?seq="+questionlist.mem_seq+"'>"+questionlist.title+"</a></td>");
 					items.push("<td>" + questionlist.commentcount+"</td>");
 					items.push("<td>" + questionlist.readcount+"</td>");
 					items.push("<td>" + questionlist.wid+"</td>");
@@ -495,7 +498,8 @@ function goPage2(pageNumber2,elem) {
 			s_category2:$("#_s_category2").val(),
 			s_keyword2:$("#_s_keyword2").val(),
 			pageNumber2:$("#_pageNumber2").val(),
-			recordCountPerPage2:$("#_recordCountPerPage2").val()
+			recordCountPerPage2:$("#_recordCountPerPage2").val(),
+			seq:$("#seq").val()
 	};
 		$.ajax({
 			url : "myselectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
@@ -513,19 +517,13 @@ function goPage2(pageNumber2,elem) {
 				}).appendTo("#answerdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 				$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table3");
 				$("<tr><th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th><th>작성자</th></tr>").appendTo("#table3");
-				var key = Object.keys(data["answeredlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
-				$.each(data.answeredlist, function(index, answeredlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+				var key = Object.keys(data["list"][0]); // seq,name,info,address,tel의 키값을 가져옴
+				$.each(data.list, function(index, list) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
-					items.push("<td>["+answeredlist.category+"]</td>");
-					if (answeredlist.selectyn==0) {
-						items.push("<td><a href='consultingdetail.do?seq="+answeredlist.seq+"'>"+answeredlist.title+"</a></td>");
-					}else if(answeredlist.selectyn==1) {
-						items.push("<td><a href='consultingdetail.do?seq="+answeredlist.seq+"'><span>채택완료</span>"
-								+answeredlist.title+"</a></td>");
-					}
-					items.push("<td>" + answeredlist.commentcount+"</td>");
-					items.push("<td>" + answeredlist.readcount+"</td>");
-					items.push("<td>" + answeredlist.wid+"</td>");
+					items.push("<td><a href='myreservedetail.do?seq="+list.seq+"'>"+login.name+"</a></td>");
+		            items.push("<td>" + list.mediMember_hDto.name+"</td>");
+		            items.push("<td>" + list.mediDoctorDto.name+"</td>");
+		            items.push("<td>" + list.day+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table3"); // 그리고 그 tr을 테이블에 붙임
@@ -575,18 +573,20 @@ function alllist(ca,key,pa,re) {
 			$("<table id='table1' align='center'/>").css({
 				'width':'85%','align':'center','margin-top':'100px'
 			}).appendTo("#alldiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
-			$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table1");
-			$("<tr><th>순서</th><th>아이디</th><th>제목</th><th>말머리</th></tr>").appendTo("#table1");
-			var key = Object.keys(data["Mylisy"][0]); // seq,name,info,address,tel의 키값을 가져옴
+			$("<colgroup><col style='width:80px;'' /><col style='width:150px;'' /><col style='width:auto;'' /><col style='width:100px;' /></colgroup>").appendTo("#table1");
+			$("<tr><th>순서</th><th>말머리</th><th>제목</th><th>아이디</th></tr>").appendTo("#table1");
+/* 			var key = Object.keys(data["Mylisy"][0]); // seq,name,info,address,tel의 키값을 가져옴 */
 			$.each(data.Mylisy, function(index, Mylisy) { // 이치를 써서 모든 데이터들을 배열에 넣음
 				var items = [];
-				items.push("<td>["+Mylisy.count+"]</td>");
+				var i = 1;
+				items.push("<tr><td>"+i+"</td>");
+				items.push("<td>" + Mylisy.question+"</td>");
+				items.push("<td><a href='MyPagedetail.do?seq="+Mylisy.seq+"'>"+Mylisy.title+"</a></td>");
 				items.push("<td>" + Mylisy.id+"</td>");
-					items.push("<td><a href='MyPagedetail.do?seq="+Mylisy.seq+"'>"+Mylisy.title+"</a></td>");
-				items.push("<td>" + Mylisy.content+"</td>");
 				$("<tr/>", {
 					html : items // 티알에 붙임,
 				}).appendTo("#table1"); // 그리고 그 tr을 테이블에 붙임
+				i++;
 			});//each끝
 		}
 	});
@@ -598,27 +598,28 @@ function queli(ca,key,pa,re) {
 			s_category1:$("#_s_category1").val(),
 			s_keyword1:$("#_s_keyword1").val(),
 			pageNumber1:0,
-			recordCountPerPage1:$("#_recordCountPerPage1").val()
-			
+			recordCountPerPage1:$("#_recordCountPerPage1").val(),
+			seq:$("#seq").val()
 	};
 	if (pa=="1") {
 		data={
 				s_category1:"",
 				s_keyword1:"",
 				pageNumber1:0,
-				recordCountPerPage1:10
+				recordCountPerPage1:10,
+				seq:$("#seq").val()
 		};
 	}
 		$.ajax({
-			url : "myselectaf.do?seq${login.seq}", // a.jsp 의 제이슨오브젝트값을 가져옴
+			url : "myselectaf.do", // a.jsp 의 제이슨오브젝트값을 가져옴
 			data:data,
 			dataType : "json", // 데이터 타입을 제이슨 꼭해야함, 다른방법도 2가지있음
 			cache : false, // 이걸 안쓰거나 true하면 수정해도 값반영이 잘안댐
 			success : function(data) {
-				if (data.yn1=="no") {
-					alert("찾으시는 질문이 없습니다.");
+ 				if (data.yn1=="no") {
+					alert("찾으시는 질문이 없습니다.1");
 					$("#_s_keyword1").val("");
-				}
+				} 
 				$("#pa1 a").hide();
 				for (var i = 11; i <= data.totalPageCount1+10; i++) {
 					$("#"+i).show();
@@ -632,11 +633,11 @@ function queli(ca,key,pa,re) {
 				}).appendTo("#questiondiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 				$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table2");
 				$("<tr><th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th><th>작성자</th></tr>").appendTo("#table2");
-				var key = Object.keys(data["questionlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
+/* 				var key = Object.keys(data["questionlist"][0]); // seq,name,info,address,tel의 키값을 가져옴 */
 				$.each(data.questionlist, function(index, questionlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
 					items.push("<td>["+questionlist.category+"]</td>");
-						items.push("<td><a href='consultingdetail.do?seq="+questionlist.seq+"'>"+questionlist.title+"</a></td>");
+						items.push("<td><a href='Myconsultingdetail.do?seq="+questionlist.seq+"'>"+questionlist.title+"</a></td>");
 					items.push("<td>" + questionlist.commentcount+"</td>");
 					items.push("<td>" + questionlist.readcount+"</td>");
 					items.push("<td>" + questionlist.wid+"</td>");
@@ -652,14 +653,18 @@ function ansli(ca,key,pa,re) {
 			s_category2:$("#_s_category2").val(),
 			s_keyword2:$("#_s_keyword2").val(),
 			pageNumber2:0,
-			recordCountPerPage2:$("#_recordCountPerPage2").val()
+			recordCountPerPage2:$("#_recordCountPerPage2").val(),
+			seq:$("#seq").val(),
+			name:$("#name").val()
 	};
 	if (pa=="1") {
 		data={
 				s_category1:"",
 				s_keyword1:"",
 				pageNumber1:0,
-				recordCountPerPage1:10
+				recordCountPerPage1:10,
+				seq:$("#seq").val(),
+				name:$("#name").val()
 		};
 	}
 		$.ajax({
@@ -683,20 +688,14 @@ function ansli(ca,key,pa,re) {
 					'width':'85%','align':'center','margin-top':'100px'
 				}).appendTo("#answerdiv"); // 테이블을 생성하고 그 테이블을 div에 추가함
 				$("<colgroup><col style='width:150px;'/><col style='width:auto;'/><col style='width:100px;'/><col style='width:100px;'/><col style='width:100px;'/></colgroup>").appendTo("#table3");
-				$("<tr><th>진료분야</th><th>제목</th><th>답변</th><th>조회수</th><th>작성자</th></tr>").appendTo("#table3");
-				var key = Object.keys(data["answeredlist"][0]); // seq,name,info,address,tel의 키값을 가져옴
-				$.each(data.answeredlist, function(index, answeredlist) { // 이치를 써서 모든 데이터들을 배열에 넣음
+				$("<tr><th>환자이름</th><th>병원</th><th>의사</th><th>예약시간</th></tr>").appendTo("#table3");
+/* 				var key = Object.keys(data["answeredlist"][0]); // seq,name,info,address,tel의 키값을 가져옴 */
+				$.each(data.list, function(index, list) { // 이치를 써서 모든 데이터들을 배열에 넣음
 					var items = [];
-					items.push("<td>["+answeredlist.category+"]</td>");
-					if (answeredlist.selectyn==0) {
-						items.push("<td><a href='consultingdetail.do?seq="+answeredlist.seq+"'>"+answeredlist.title+"</a></td>");
-					}else if(answeredlist.selectyn==1) {
-						items.push("<td><a href='consultingdetail.do?seq="+answeredlist.seq+"'><span>채택완료</span>"
-								+answeredlist.title+"</a></td>");
-					}
-					items.push("<td>" + answeredlist.commentcount+"</td>");
-					items.push("<td>" + answeredlist.readcount+"</td>");
-					items.push("<td>" + answeredlist.wid+"</td>");
+					items.push("<tr><td><a href='myreservedetail.do?seq="+list.seq+"'>"+list.name+"</a></td>");
+		            items.push("<td>" + list.mediMember_hDto.name+"</td>");
+		            items.push("<td>" + list.mediDoctorDto.name+"</td>");
+		            items.push("<td>" + list.day+"</td>");
 					$("<tr/>", {
 						html : items // 티알에 붙임,
 					}).appendTo("#table3"); // 그리고 그 tr을 테이블에 붙임

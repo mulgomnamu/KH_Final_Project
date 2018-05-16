@@ -150,7 +150,7 @@ $("#_btnLogin").click(function() {
           
        	if (response=1) {
        		alert("수정 성공");
-       	 location.href ="Myconsulting.do?seq=${login.seq}";
+       	 location.href ="MyPageList1.do?seq=${login.seq}&id=${login.id}";
 		}else {
 			alert("수정 실패");
 			 location.href ="Myconsultingupdate.do";
