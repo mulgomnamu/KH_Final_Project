@@ -112,4 +112,20 @@ public class MediMember_hDaoImpl implements MediMember_hDao {
 	public int getDoctorCount(int seq) {
 		return sqlSession.selectOne(ns+"getDoctorCount", seq);
 	}
+
+	@Override
+	public MediMember_hDto hosIdFind(MediMember_hDto dto) {
+		return sqlSession.selectOne(ns+"hosIdFind", dto);
+	}
+
+	@Override
+	public MediMember_hDto getHosQuesAns(MediMember_hDto dto) {
+		return sqlSession.selectOne(ns+"getHosQuesAns", dto);
+	}
+
+	@Override
+	public boolean hosPwdReset(MediMember_hDto dto) {
+		int n = sqlSession.update(ns+"HosPwdReset", dto);
+		return n > 0;
+	}
 }

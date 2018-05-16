@@ -77,14 +77,14 @@
 }
 
 .wegiht_slider{
-background:url(./images/healthbook/ico_treat_body_off.png) center center no-repeat;	
+background:url(./images/healthbook/ico_treat_info_off.png) center center no-repeat;	
 }
 
 .slick-current.wegiht_slider{
- background:url(./images/healthbook/ico_treat_body_on.png) center center no-repeat;
+ background:url(./images/healthbook/ico_treat_info_on.png) center center no-repeat;
 }
 .slick-current.wegiht_slider li {
-    color: #12bc8a !important;
+    color: #ce2c83 !important;
 }
 
 .check_slider{
@@ -242,7 +242,6 @@ text-align: left;
 
 
 <c:forEach items="${hlist}" var="health">
-
 <c:if test="${login.seq eq health.mem_seq}">
 
 	
@@ -1137,7 +1136,7 @@ kcal 입니다.</font></center>
             <h3 class="n_tit_h3_4">예방접종</h3>
             <ul class="bh_4u_depth_ul_n4 fix">
                 <li class="bh_4u_ico_child" onclick="change_tab('Y')"><a href="javascript:"><strong>소아</strong></a></li>
-                <li class="bh_4u_ico_adult" onclick="change_tab('N')"><a href="javascript:"><strong>성인</strong></a></li>
+               
             </ul>     
         </div>
         <!-- /상단 탭 -->
@@ -1438,6 +1437,15 @@ A형간염                                                    </div>
             </div>
             
             <!-- 성인 예방접종표 -->
+
+        <div class="bh_4u_depth fix" style="height: 76px ;">
+            <h3 class="n_tit_h3_4">예방접종</h3>
+            <ul class="bh_4u_depth_ul_n4 fix">
+                <li class="bh_4u_ico_adult" onclick="change_tab('N')"><a href="javascript:"><strong>성인</strong></a></li>
+            </ul>     
+        </div>
+    
+
              <div class="tableFixCnt adultFix">
                 <div class="tableOver">
                     <div>
@@ -1715,6 +1723,7 @@ A형간염                                                    </div>
                 </div>
                 <!-- 성인예방접종표 끝 -->
             </div>
+         
         </div>
     </div>
 </div>
@@ -1728,6 +1737,7 @@ A형간염                                                    </div>
 </c:forEach>
 
 </div>		
+<a href='healthbook.do'>건강수첩 입력하기</a>
 </div>
 
   
@@ -1787,54 +1797,7 @@ A형간염                                                    </div>
     </ul>     
 </div>  	 */
 
-var pt_no = "";
-var child_yn = "N";
 
-var resultJSON = null; // ajax 통신을 통해 리턴받은 JSON 데이터를 담아둘 변수 입니다.
-
-$(document).ready(function () {
-    change_tab(child_yn);
-});
-
-function change_tab(childYN) {
-    if (childYN == "N") {
-        $(".bh_4u_depth_ul_n4 li:eq(1)").addClass("on");
-    }
-    else if (childYN == "Y") {
-        $(".bh_4u_depth_ul_n4 li:eq(0)").addClass("on");
-    }
-    loadVaccinationView(childYN);
-}
-
-/* function loadVaccinationView(childYN) {
-    $.ajax({
-        type: 'post',
-        url: './health_book/healthbook.do',
-        data: { "mrn": pt_no, "child_yn": childYN },
-        success: function (result) {
-            $("[name='detail_view']").html(result);
-            columnBinding();
-            eventBinding();
-        },
-        beforeSend: function () {
-            $('.spinner').show();
-        },
-        complete: function () {
-            $('.spinner').hide();
-        },
-        error: function (ex) {
-            if (ex.statusText == "timeout") {
-                alertPop("Alert", "데이터 조회 시간이 초과되었습니다.");
-            }
-            else {
-               
-            }
-            $('.spinner').hide();
-        },
-        timeout: 30000
-    });
-}
-  */
   
 function columnBinding() {
     var _top = $('.tableFixWrap .tableFixCnt table thead th:first-child').position().top;

@@ -25,7 +25,7 @@
                 	 </span>
 					<span class="form-text"style="margin-bottom:20px;">
                      	<label class="placeholder" for="id">비밀번호</label>
-                        <input type="text" id="_pwd" name="pwd" value="" size="15" title="비밀번호" style="border:1px solid #dddddd;">
+                        <input type="password" id="_pwd" name="pwd" value="" size="15" title="비밀번호" style="border:1px solid #dddddd;">
                	 	</span>
                	 	<span>
 						<input type="radio" name="rBtnLoginType" checked="checked" value="2">
@@ -41,8 +41,7 @@
 				<div class="accountro">
 				<strong>아직 회원이 아니신가요?</strong><br><br>
 				회원이 되시면 홈페이지에서 제공하는 <br>온라인 서비스를 이용하실 수 있습니다.<br><br>
-				<a href="#none" id="_btnRegi1" title="회원가입" style="margin-right:20px;">>>일반 회원가입</a>
-				<a href="#none" id="_btnRegi2" title="회원가입">>>병원 회원가입</a>
+				<a href="#none" id="_btnRegi1" title="회원가입" style="margin-right:20px;">>>회원가입</a>
 				</div>
 				</div>
 				
@@ -55,23 +54,23 @@
 			<table class="findselect">	
 			<tbody>
 				<tr>
-					<th><strong>사용자의 아이디와 비밀번호가 기억나지 않으세요?</strong></th>
-					<th><strong>관계자의 아이디와 비밀번호가 기억나지 않으세요?</strong></th>
+					<th><strong>일반 회원의 아이디와 비밀번호가 기억나지 않으세요?</strong></th>
+					<th><strong>병원 회원의 아이디와 비밀번호가 기억나지 않으세요?</strong></th>
 				</tr>
 				<tr>
 					<td>간단한 인증 및 질문답변으로<br>아이디를 확인하실 수 있습니다.
 					</td>
-					<td>휴대폰, 아이핀, 이메일 인증을 통해<br>신규비밀번호로 사이트를 이용하실 수 있습니다.
+					<td>간단한 인증 및 질문답변으로<br>아이디를 확인하실 수 있습니다.
 					</td>
 				</tr>
 				<tr>
 					<td>
-					<a href="memberIdPwFind.do" id="_btnRegi1" title="ID찾기">
+					<a href="memberIdPwFind.do" title="ID찾기">
 								>>ID/PW찾기
 					</a>
 					</td>
 					<td>
-					<a href="#" id="_btnRegi1" title="ID찾기">
+					<a href="hospitalIdPwFind.do" title="ID찾기">
 								>>ID/PW찾기
 					</a>
 					</td>
@@ -113,11 +112,7 @@ $("#_btnRegi").click(function() {
 });
 
 $("#_btnRegi1").click(function() {
-	location.href = "joinMember.do";
-});
-
-$("#_btnRegi2").click(function() {
-	location.href = "join_h.do";
+	location.href = "selectJoin.do";
 });
 
 $("#_userid").keypress(function(event) {

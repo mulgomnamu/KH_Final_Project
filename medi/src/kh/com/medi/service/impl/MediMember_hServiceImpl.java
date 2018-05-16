@@ -95,13 +95,27 @@ public class MediMember_hServiceImpl implements MediMember_hService {
 
 	@Override
 	public List<MediMember_hDto> getScoreList() {
-		// TODO Auto-generated method stub
 		return mediMember_hDao.getScoreList();
 	}
 
 	@Override
 	public int getDoctorCount(int seq) {
 		return mediMember_hDao.getDoctorCount(seq);
+	}
+
+	@Override
+	public MediMember_hDto hosIdFind(MediMember_hDto dto) {
+		return mediMember_hDao.hosIdFind(dto);
+	}
+
+	@Override
+	public MediMember_hDto getHosQuesAns(MediMember_hDto dto) {
+		return mediMember_hDao.getHosQuesAns(dto);
+	}
+
+	@Override
+	public boolean hosPwdReset(MediMember_hDto dto) {
+		return mediMember_hDao.hosPwdReset(dto);
 	}
 	
 }
