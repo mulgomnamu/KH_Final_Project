@@ -22,7 +22,7 @@
 	
 	<insert id="insertMember" parameterType="kh.com.medi.model.MediMemberDto">
 		INSERT INTO medi_member(ID, PWD, NAME, EMAIL, PHONE, POST, ADDRESS, QUESTION, ANSWER, AUTH, DEL, MYIMG, BLACKLIST, REGDATE) 
-		VALUES(#{id}, #{pwd}, #{name}, #{email}, #{phone}, #{post}, #{address}, #{question}, #{answer}, 0, 0, #{myimg}, 0, NOW())
+		VALUES(#{id}, #{pwd}, #{name}, #{email}, #{phone}, #{post}, #{address}, #{question}, #{answer}, 0, 1, #{myimg}, 0, NOW())
 	</insert>
 	
 	<select parameterType="java.lang.String" id="loginAfMember" resultType="kh.com.medi.model.MediMemberDto">
