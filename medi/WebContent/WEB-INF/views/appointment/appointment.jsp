@@ -107,7 +107,7 @@ function byspecialty(elem) {
 			<!-- #LOCATION -->
 			<!-- sub타이틀 시작 -->
 			<div class="subpagetitle"">
-				  <h2 style="padding-top: 62px; font-size: 32px; color: #111; font-family: nanum">${login.id }님, 오늘도 건강한 하루 되세요</h2>
+				  <h2 style="padding-top: 62px; font-size: 32px; color: #111; font-family: nanum">${login.name }님, 오늘도 건강한 하루 되세요</h2>
        			  <em>온라인 예약으로 빠르고 편리하게 진료받으실 수 있습니다</em>
        			  <div class="sub_tap">
        			  <div class="inner_flogin" style="background: transparent">

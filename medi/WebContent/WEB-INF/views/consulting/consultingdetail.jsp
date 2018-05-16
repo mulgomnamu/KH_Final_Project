@@ -49,7 +49,7 @@
 				    	<a id="_btnDelete" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px; margin-right: 50px;"><em style="padding:0px;">삭제하기</em></a>     		
 						</c:if>
 						<!-- auth 4로바꿔야함 -->
-						<c:if test="${login_h.auth eq 4}">
+						<c:if test="${login_h.auth eq 0}">
 						<a id="_btnReply" class="btn-type02 btn-search refresh_btn1" style="cursor: pointer; width: 140px;"><em style="padding:0px;">답글달기</em></a>
 						</c:if>
 						</div>
@@ -146,7 +146,6 @@
    				ans_seq:$("#ans_seqid").val(),
    				hos_seq:$("#hos_seqid").val()
    			};
-   			alert($("#hos_seqid").val());
     	$.ajax({
     		url : "saveselected.do",
     		data:data,

@@ -263,7 +263,7 @@
 									<div class="hbbsbottom">
 										<img src="images/sub/location.png" alt="location Icon">
 										<c:choose>
-											<c:when test="${fn:length(sbbs.address) > 28}">
+											<c:when test="${fn:length(sbbs.address) > 13}">
 												<p style="display: inline-block; font-weight: normal;font-size: 14px;margin-top: 9px;">${fn:substring(sbbs.address, 0, 13) }...</p>
 											</c:when>
 											<c:otherwise>
